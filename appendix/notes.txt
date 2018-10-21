@@ -1,0 +1,49 @@
+typedef struct	s_op
+{
+	char			*name;
+	int				param_nb;
+	struct param	p[MAX_ARG_NUMBER];
+	int				op_code;
+	int				cycle_nb;
+	char			*description;
+	bool			type_param_description; //0 = non = alive, zjmp, fork, lfork
+	bool			idontknow; //label size???? 1 = zjmp, ldi, sti, fork, lldi, lfork
+}		t_op
+
+################################################################################
+
+Langage assembleur :
+(label) instruction parametres
+
+3 types de parametres :
+- registre (r)
+- valeur directe (%) : valeur ou label
+- valeur indirecte = valeur qui se trouve à l'adresse (PC + valeur indirect). Valeur ou label.
+
+################################################################################
+
+Encodage :
+1) Byte du type d'instruction
+2) Byte du type de parametres (pas pour alive, zjmp, fork et lfork)
+# define REG_CODE	1
+# define DIR_CODE	2
+# define IND_CODE	3
+ex : r2,23,%34 -> 01 11 10 00 = 0x78
+3) Byte des parametres
+#define REG_SIZE	4
+#define DIR_SIZE	REG_SIZE
+#define IND_SIZE	2
+/!\ on met le NUMERO du registre donc sur un octet seulement, et non pas sur REG_SIZE octets.
+ex : r2,23,%34 -> 0x02 | 0x00 0x17 | 0x00 0x00 0x00 0x22
+
+################################################################################
+
+exemple complet :
+
+l2:
+sti r1,%:live,%1
+and r1,%0,r1
+live: live %1
+zjmp %:live
+
+0x0b | 01 10 10 00 -> 0x68 | 0x01 0x?? 0x?? 0x?? 0x?? 0x00 0x00 0x00 0x01
