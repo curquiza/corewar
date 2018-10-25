@@ -1,0 +1,6 @@
+**/a.out
+**/*.swp
+**/libft.a
+**/*.o
+vm/corewar
+asm/asm
