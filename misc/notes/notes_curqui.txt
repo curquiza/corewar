@@ -1,3 +1,6 @@
+op.h
+====
+
 typedef struct	s_op
 {
 	char			*name;
@@ -12,7 +15,9 @@ typedef struct	s_op
 
 ################################################################################
 
-Langage assembleur :
+Langage assembleur
+==================
+
 (label) instruction parametres
 
 3 types de parametres :
@@ -20,7 +25,7 @@ Langage assembleur :
 - valeur directe (%) : valeur ou label
 - valeur indirecte = valeur qui se trouve à l'adresse (PC + valeur indirect). Valeur ou label.
 
-################################################################################
+###
 
 Encodage :
 1) Byte du type d'instruction
@@ -36,7 +41,7 @@ ex : r2,23,%34 -> 01 11 10 00 = 0x78
 /!\ on met le NUMERO du registre donc sur un octet seulement, et non pas sur REG_SIZE octets.
 ex : r2,23,%34 -> 0x02 | 0x00 0x17 | 0x00 0x00 0x00 0x22
 
-################################################################################
+###
 
 exemple complet :
 
@@ -47,3 +52,95 @@ live: live %1
 zjmp %:live
 
 0x0b | 01 10 10 00 -> 0x68 | 0x01 0x?? 0x?? 0x?? 0x?? 0x00 0x00 0x00 0x01
+
+################################################################################
+
+Les instructions
+================
+
+0x01 - live p
+p = num du joueur, 4 octets
+Permet de signaler le joueur comme "en vie"
+Pas de OCP
+/!\ choisir un comportement si le num du joueur n'existe pas
+
+0x02 - ld p r
+p = registre/direct/indirect
+r = registre (sauf PC)
+Charge le 1er parma dans le registre r
+Carry à 1 si le 1er param = 0, sinon 0.
+
+0x03 - st r p
+r = registre
+p = registe/indirect
+Affecte la valeur du registre r à l'adresse de p -> PC + (p % IDX_MOD)
+Carry à 1 si la valeur dans le registre r = 0, sinon 0.
+
+0x04 - add r1 r2 r3
+rx = registre
+Additionne le contenu de de r1 et r2 pour le mettre dans r3
+Carry à 1 si r1 + r2 = 0, sinon 0.
+
+0x05 - sub r1 r2 r3
+Comme add mais pour la soustraction
+Carry idem que add.
+
+0x06 - and p1 p2 r
+r = registre
+px = registre/direct/indirect
+Effectue un p1 & p2 et stocke le résultat dans r.
+Carry à 1 si p1 & p2 = 0, sinon 0.
+
+0x07 - or p1 p2 r
+Comme and mais pour le |.
+Carry idem que and.
+
+0x08 - xor p1 p2 r
+Comme and mais pour le ^.
+Carry idem que and.
+
+0x09 - zjump ind
+ind = index (= direct 2 octets ou indirect ou valeur de registre ??)
+Si carry est à 1, va à l'adresse ind (PC + (ind % IDX_MOD)).
+Sinon, ne fait rien.
+Pas de OCP.
+/!\ Choisir si consommation du même nombre de cycle si carry = 0.
+
+0x0a - ldi ind1 ind2 r
+indx = index (= direct 2 octets ou indirect ou valeur de registre ??)
+r = registre
+Additionne ind1 et ind2, qui donne une adresse. La valeur à cette adresse (4
+octets) est stockée dans r.
+Carry à 1 si la valeur passée = 0, sinon 0.
+
+0x0b - sti r ind1 ind2
+r = registre
+indx = index (= direct 2 octets ou indirect ou valeur de registre ??)
+Additionne ind1 et ind2, qui donne une adresse. Stocke le contenu de r à cette
+adresse.
+Carry à 1 si la valeur passée (dans le registre) = 0, sinon 0.
+
+0x0c - fork ind
+ind = index (= direct 2 octets ou indirect ou valeur de registre ??)
+Créée un nouveau processus qui s'exécute à l'adresse (PC + (ind % IDX_MOD)).
+Le nouveau processus hérite de l'état du père sauf le PC, qui devient
+(old_PC + (ind % IDX_MOD)).
+Pas de OCP.
+
+0x0d - lld p r
+Comme ld mais pas de restriction à l'adressage = pas de % IDX_MOD.
+Pareil pour le carry.
+
+0x0e - lldi ind1 ind2 r
+Comme ldi mais sans restriction d'adressage = pas de % IDX_MOD.
+Pareil pour le carry.
+
+0x0f - lfork ind
+Comme fork mais sans restriction à l'adressage = pas de % IDX_MOD.
+
+0x10 - aff r
+r = registre
+Affiche le contenu du registre (module 256 car on veut le char).
+Carry à 1 si le char est nul, sinon 0.
+/!\ Pour le carry on regarde le char et non pas le contenu du registre. Un
+registre qui contient 256 est un char nul !
