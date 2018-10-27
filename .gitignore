@@ -2,6 +2,8 @@
 **/*.swp
 **/libft.a
 **/*.o
-vm/corewar
-asm/asm
+**/corewar
+**/asm
 **/*.cor
+test_xxd
+zork_xxd

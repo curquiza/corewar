@@ -32,10 +32,13 @@ int main (void)
 	ft_putchar_fd(0x6f, fd);
 	ft_putchar_fd(0x72, fd);
 	ft_putchar_fd(0x6b, fd);
-	write_n_zero_bytes(fd, 128 - 4 + 6); /* + 6 ??? */
-	/* comment */
+	write_n_zero_bytes(fd, 128 - 4 + 4); /* + 4 ??? */
+	/* size */
+	ft_putchar_fd(0x00, fd);
+	ft_putchar_fd(0x00, fd);
 	ft_putchar_fd(0x00, fd);
 	ft_putchar_fd(0x17, fd);
+	/* comment */
 	ft_putchar_fd(0x49, fd);
 	ft_putchar_fd(0x27, fd);
 	ft_putchar_fd(0x4d, fd);
