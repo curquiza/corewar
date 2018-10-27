@@ -1,11 +1,11 @@
 # Corewar
 
 ## ASM
-_how use it, all error types..._
+_usage, all error types..._
 ## VM
-_how use it, how it works .._
+_usage, how it works .._
 ## Visu
-_how use it ..._
+_usage ..._
 ## Work process
 
 ### Want to take some notes ?
