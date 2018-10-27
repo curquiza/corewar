@@ -1,0 +1,20 @@
+ASM
+===
+
+1. A quoi sert le magic dans le binaire ? J'ai compris qu'il fallait le mettre au
+debut du binaire. Sert - il à identifier qu'on est dans un binaire corewar ?
+
+2. Pourquoi précisent -  ils dans le sujet que la machine est big endian ? Quand
+cela sert - il ?
+
+3. Comment voir le contenu d'un binaire ?
+-> xxd [-b] file
+
+4. Comment créer un fichier binaire ?
+
+--------------------------------------------------------------------------------
+
+VM
+==
+
+1. Comment charger le binaire dans la VM ?
