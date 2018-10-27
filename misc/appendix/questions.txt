@@ -11,6 +11,7 @@ cela sert - il ?
 -> xxd [-b] file
 
 4. Comment créer un fichier binaire ?
+-> easy, avec un ft_putchar :) (cf 'dumb_tests' folder)
 
 --------------------------------------------------------------------------------
 
