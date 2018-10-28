@@ -18,10 +18,12 @@ Le name est de 4 octets -> on doit compléter avec 128 (taille d'un name) - 4 = 
 Pourtant, le zork.cor de zaz au une partie name de 132 octets, et non 128. Why ?
 -> hypothèse : dans op.h, on voit que la taille d'un name est PROG_NAME_LENGTH + 1, donc 129.
 On peut supposer qu'un padding est fait pour avoir un multiple de 4... ?
+-> confirmation sur d'autres fichiers .s (ex : toto.s). L'espace commentaire et name
+est aligné au multiple de 4 octets supérieur.
+128 + 1 -> 132 pour le name
+2048 + 1 -> 2052 pour le comment
 
 --------------------------------------------------------------------------------
 
 VM
 ==
-
-1. Comment charger le binaire dans la VM ?
