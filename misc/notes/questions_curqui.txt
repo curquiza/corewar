@@ -13,6 +13,12 @@ cela sert - il ?
 4. Comment créer un fichier binaire ?
 -> easy, avec un ft_putchar :) (cf 'misc/dumb_tests/00_asm_zork' folder)
 
+5. Pourquoi le zork.cor de zaz a 4 octets en plus ? (cf misc/dumb_tests/00_asm_zork)
+Le name est de 4 octets -> on doit compléter avec 128 (taille d'un name) - 4 = 124
+Pourtant, le zork.cor de zaz au une partie name de 132 octets, et non 128. Why ?
+-> hypothèse : dans op.h, on voit que la taille d'un name est PROG_NAME_LENGTH + 1, donc 129.
+On peut supposer qu'un padding est fait pour avoir un multiple de 4... ?
+
 --------------------------------------------------------------------------------
 
 VM
