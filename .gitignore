@@ -4,3 +4,8 @@
 **/*.o
 vm/corewar
 asm/asm
+misc/dumb_tests/**/asm
+misc/dumb_tests/**/corewar
+**/*.cor
+test_xxd
+zork_xxd
