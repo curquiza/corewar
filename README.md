@@ -1,9 +1,12 @@
 # Corewar
 
 ## ASM
-_usage, all error types..._
+```bash
+./asm [file_name].s
+```
+_to complete : how it works, all error types..._
 ## VM
-_usage, how it works .._
+_usage, how it works ..._
 ## Visu
 _usage ..._
 ## Work process
