@@ -25,16 +25,24 @@ def test_processing(file):
 
 def tests_loop():
     # For each file in 'input' folder
-    input_files = sorted(os.listdir(input_path))
+    all_files = sorted(os.listdir(input_path))
+    input_files = [f for f in all_files if f.endswith('.s')]
     for file in input_files:
         d.print_filename(file)
-        # If file does not exist in INPUT table.
+        # If file does not exist in INPUT table
         if file not in it.INPUT:
-            d.print_warning('Data not found for this file')
+            d.print_warning('Data not found in input table')
         else:
             test_processing(file)
 
+def clean_input_folder():
+    for file in os.listdir(input_path):
+        if file.endswith(".cor"):
+            os.remove(os.path.join(input_path, file))
+
 def main():
+    # Remove all .cor in input/
+    clean_input_folder()
     # Check if file 'asm' exists
     asm_file = Path(asm_bin)
     if asm_file.is_file():

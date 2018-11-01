@@ -1,15 +1,20 @@
+import os
 import re
 import signal
+from pathlib import Path
 from display import Display as d
 from input_tab import INPUT as it
 from input_tab import ERROR_TYPE as err_t
 
 class SubprocessManager:
 
-    def __init__(self, filename, code, output):
-        self.filename = filename
-        self.code     = code
-        self.output   = output
+    def __init__(self, file, code, output):
+        self.file          = file
+        self.file_basename = os.path.splitext(file)[0]   # without extension
+        self.code          = code
+        self.output        = output
+        self.input_folder  = os.path.dirname(os.path.abspath(__file__)) + '/input/'
+        self.output_folder = os.path.dirname(os.path.abspath(__file__)) + '/output/'
 
     # == IF EXCEPTION RAISED ===================================================
 
@@ -27,26 +32,44 @@ class SubprocessManager:
     # ==========================================================================
 
     def is_parsing_test(self):
-        return it[self.filename]['error']
+        return it[self.file]['error']
 
-    def error_msg_expected(self):
-        err_type = it[self.filename]['error_type']
+    def err_type_expected(self):
+        err_type = it[self.file]['error_type']
         return err_t[err_type]
 
-    def error_line_expected(self):
-        return it[self.filename]['error_line']
+    def err_nbline_expected(self):
+        return it[self.file]['error_line']
 
-    def get_output_err_line(self):
-        # m = re.search('*Error*\n', self.output)
-        print("titi")
-        # print(m.group(0))
-        return ""
+    def err_output_expected(self):
+        return "Error line " + str(self.err_nbline_expected()) + ": " + self.err_type_expected()
+
+    def err_output_printed(self):
+        lines = self.output.decode('ascii').split('\n')
+        for line in lines:
+            if re.search("^Error line (\d)+:\s", line) != None:
+                return line
+        return None
+
+    def is_correct_err_output(self):
+        return self.err_output_printed() == self.err_output_expected()
+
+    def file_created(self):
+        file = Path(self.input_folder + self.file_basename + '.cor')
+        return file.is_file()
 
     def print_parsing_test_rslt(self):
-        print("PARSING TEST")
-        print("msg expected:" + self.error_msg_expected())
-        print("line expected:" + str(self.error_line_expected()))
-        self.get_output_err_line()
+        # if correct output printed and no file was created : OK
+        if self.is_correct_err_output() and self.file_created() == False:
+            d.print_ok()
+        else:
+            d.print_failure("KO")
+            if self.is_correct_err_output() == False:
+                print("-> Should return an error")
+                print("   your output:    ", self.err_output_printed())
+                print("   expected output:", self.err_output_expected())
+            if self.file_created() == True:
+                print("-> Should not create a file", self.file_basename + ".cor")
 
 
     def print_result(self):
@@ -54,7 +77,7 @@ class SubprocessManager:
         if self.is_parsing_test():
             self.print_parsing_test_rslt()
         else:
-            d.print_ok()
+            print("FILE TEST")
             # print_file_test_rslt(self.output)
 
 
