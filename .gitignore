@@ -9,3 +9,5 @@ misc/dumb_tests/**/corewar
 **/*.cor
 test_xxd
 zork_xxd
+**/__pycache__
+**/*.pyc

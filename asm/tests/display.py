@@ -12,7 +12,8 @@ class Display:
     UNDERLINE = '\033[4m'
 
     def print_noendl(str):
-        sys.stdout.write(str)
+        print(str, end='', flush=True)
+        # sys.stdout.write(str) # -> troubles with binary string
 
     def stderr_print(str):
         sys.stderr.write(str + '\n')

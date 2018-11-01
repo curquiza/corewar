@@ -11,20 +11,29 @@ input_path = dirpath + '/input/'
 asm_bin = dirpath + '/../asm'
 
 def test_processing(file):
+    # try:
+        # output = subprocess.check_output([asm_bin + ' ' + input_path + file], shell=True, stderr=subprocess.STDOUT)
+        # # output = subprocess.check_output(['./lem-in < parsing_wrong_tube_1.txt'], shell=True, stderr=subprocess.STDOUT)
+    # except subprocess.CalledProcessError as exc:
+        # print("OUTPUT")
+        # print(exc.output)
+        # print("CODE")
+        # print(exc.returncode)
+    # else:
+        # print("Tout roule")
+        # print(output)
+    # shell=True : interpret command in shell
+    # stderr=subprocess.STDOUT : stderr in stdout
     try:
+        # output = subprocess.run(['./asm'], stderr=subprocess.STDOUT, check=True).stdout
         output = subprocess.check_output([asm_bin + ' ' + input_path + file], shell=True, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as exc:
-        # print("Y'a un beans")
-        # print ("OUTPUT")
-        # d.print_noendl(exc.output)
+        print("OUTPUT")
         print(exc.output)
-        # print ("CODE")
-        # d.print_noendl(exc.returncode)
+        print("CODE")
+        print(exc.returncode)
     else:
-        print("toto")
-        print(output)
-        # ft.manage_error_returns(file, exc.output, exc.returncode)
-    # ft.print_rslt(filename, output)
+        print("Tout roule")
 
 def tests_loop():
     # For each file in 'input' folder
