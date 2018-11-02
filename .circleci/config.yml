@@ -10,8 +10,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
+          name: Current Time
           command: date
+      - run:
+          name: ASM Compilation
+          command: make
+  test:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run: python3 asm/tests/main.py
+
