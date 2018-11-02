@@ -12,6 +12,6 @@ ERROR_TYPE = {
 }
 
 INPUT = {
-    'zork.s':       {'error': False, 'error_type': '',        'error_line': -1},
+    'zork.s':       {'error': False, 'error_type': None,        'error_line': -1},
     'no_name.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 0},
 }

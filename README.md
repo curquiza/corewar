@@ -28,7 +28,7 @@ _to complete : how it works, all error types..._
 
 #### Run the tests
 ``` bash
-python3 /asm/tests/main.py
+python3 asm/tests/main.py
 ```
 ## VM
 _usage, how it works ..._
