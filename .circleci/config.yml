@@ -21,8 +21,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: ls
-        command: ls -la asm
+          name: ls
+          command: ls -la asm
       - run:
           name: Run tests
           command: python3 asm/tests/main.py
