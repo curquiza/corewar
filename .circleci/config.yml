@@ -22,3 +22,11 @@ jobs:
       - checkout
       - run: python3 asm/tests/main.py
 
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
