@@ -30,4 +30,4 @@ Don't forget to complete your documentation part when working ;)
 - Don't forget that 42 headers (for the norm) are git cancer. Add them only on your last commit, just before the final merge :)
 
 ### Break process
-It's scientifically proven that playing Clash Royal once an hour will help to manage Corewar.
+It's scientifically proven that playing Clash Royal once an hour will help to manage Corewar 😎
