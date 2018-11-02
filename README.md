@@ -28,6 +28,7 @@ _to complete : how it works, all error types..._
 
 #### Run the tests
 ``` bash
+make -C asm
 python3 asm/tests/main.py
 ```
 ## VM
