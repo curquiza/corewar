@@ -17,10 +17,12 @@ jobs:
           command: make
   test:
     docker:
-      - image: debian:stretch
+      - image: python:3.7
     steps:
       - checkout
-      - run: python3 asm/tests/main.py
+      - run:
+          name: Run tests
+          command: python3 asm/tests/main.py
 
 workflows:
   version: 2
