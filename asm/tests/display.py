@@ -18,8 +18,8 @@ class Display:
     def print_warning(str):
         print(Display.WARNING + str + Display.END)
 
-    def print_ok():
-        print(Display.OK + 'OK' + Display.END)
+    def print_success(str):
+        print(Display.OK + str + Display.END)
 
     def print_filename(filename):
         print('{:<25}'.format(filename), end='', flush=True)
