@@ -21,17 +21,21 @@ class SubprocessManager:
 
     # If code < 0 -> signal (python convention)
     # If code = 1 or 255, it means the program returned 1 or -1 (typically when there is an error)
-    def print_exit_code_error(self):
+    def get_rslt_when_exception(self):
         if self.code == -signal.SIGSEGV:
             d.print_failure('SEGFAULT')
+            return 1
         elif self.code == -signal.SIGABRT:
             d.print_failure('SIGABORT')
+            return 1
         elif self.code < 0 :
             d.print_failure('Signal caught (' + str(self.code) + ')')
+            return 1
         elif self.code == 1 or self.code == 255:
-            self.print_result()
+            return self.get_result()
         else:
             d.print_failure('Returned a wrong exit code (' + str(self.code) + ')')
+            return 1
 
     # ==========================================================================
 
@@ -62,27 +66,30 @@ class SubprocessManager:
         file = Path(self.input_folder + self.file_basename + '.cor')
         return file.is_file()
 
-    def print_parsing_test_rslt(self):
+    def get_parsing_test_rslt(self):
         # if correct output printed and no file was created : OK
         if self.is_correct_err_output() and self.file_created() == False:
             d.print_success("OK")
+            return 0
         else:
             d.print_failure("KO")
             if self.is_correct_err_output() == False:
-                print("-> Should return this error")
+                print("-> Should return an error")
                 print("   your output:    ", self.err_output_printed())
                 print("   expected output:", self.err_output_expected())
             if self.file_created() == True:
                 print("-> Should not create a file", self.file_basename + ".cor")
+            return 1
 
     def is_correct_file_output(self):
         file = self.file_basename + ".cor"
         return filecmp.cmp(self.output_folder + file, self.input_folder + file)
 
-    def print_file_test_rslt(self):
+    def get_file_test_rslt(self):
         # if no error returned + file created + file ok : OK
         if self.err_output_printed() == None and self.file_created() and self.is_correct_file_output():
             d.print_success("OK")
+            return 0
         else:
             d.print_failure("KO")
             if self.err_output_printed() != None:
@@ -91,22 +98,24 @@ class SubprocessManager:
                 print("-> Should create a file", self.file_basename + ".cor")
             elif self.is_correct_file_output() == False:
                 print("-> Your output file (input/" + self.file_basename + ".cor) is different from the expected output (output/" + self.file_basename + ".cor)")
+            return 1
 
     def output_file_exists(self):
         file = Path(self.output_folder + self.file_basename + '.cor')
         return file.is_file()
 
-    def print_result(self):
+    def get_result(self):
         # If this test should return an error = it's a parsing test
         if self.is_parsing_test():
-            self.print_parsing_test_rslt()
+            return self.get_parsing_test_rslt()
         # If this test should created a .cor file
         else:
             # Check if there is an expected output in 'output/' folder
             if self.output_file_exists():
-                self.print_file_test_rslt()
+                return self.get_file_test_rslt()
             else:
                 d.print_warning("File " + self.file_basename + ".cor not found in output folder")
+                return 1
 
 
 
