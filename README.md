@@ -1,10 +1,36 @@
 # Corewar
 
 ## ASM
+### Usage
 ```bash
 ./asm [file_name].s
 ```
 _to complete : how it works, all error types..._
+### Tests part
+#### Add a test
+1) Add your input file (`.s`) in `asm/tests/input/` folder.
+2) Complete `asm/tests/input_tab.py` file.
+   * If needed, add an error type in `ERROR_TYPE` table, e.g. :
+     ```bash
+     'COMMENT_TOO_LARGE': 'Comment too large.'
+     ```
+   * In `INPUT` table, add the corresponding line to your test.  
+     If no error is expected, e.g. :
+     ```bash
+     'zork.s': {'error': False, 'error_type': None, 'error_line': -1}
+     ```  
+     If an error is expected, specify the type (from `ERROR_TYPE` table) and the line number, e.g. :
+     ```bash
+     'zork.s': {'error': True, 'error_type': 'COMMENT_TOO_LARGE', 'error_line': 2}
+     ```
+
+3) If your test will create a `.cor` file, add the expected output file (`.cor`) in `asm/tests/output`, so that the script will compare with it.
+
+#### Run the tests
+``` bash
+make -C asm
+python3 asm/tests/main.py
+```
 ## VM
 _usage, how it works ..._
 ## Visu
