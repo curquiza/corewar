@@ -6,6 +6,7 @@ jobs:
     branches:
       only:
         - master
+        - asm
     steps:
       - checkout
       - run:
