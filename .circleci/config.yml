@@ -17,7 +17,8 @@ jobs:
           command: make
   test:
     docker:
-      - image: python:3.7
+      #- image: python:3.7
+      - image: gcc:8
     steps:
       - checkout
       - run:
