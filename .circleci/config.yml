@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: gcc:8
-      - image: circleci/python:3.7.1-stretch
+    working_directory: ~/corewar
     steps:
       - checkout
       - run:
@@ -14,8 +14,8 @@ jobs:
           command: make
   test:
     docker:
-      - image: gcc:8
       - image: circleci/python:3.7.1-stretch
+    working_directory: ~/corewar
     steps:
       - checkout
       - run:
