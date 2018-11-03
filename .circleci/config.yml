@@ -2,11 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gcc:8
-    #branches:
-      #only:
-        #- master
-        #- asm
+      #- image: gcc:8
+      - image: circleci/gcc
     steps:
       - checkout
       - run:
@@ -18,7 +15,7 @@ jobs:
   test:
     docker:
       #- image: python:3.7
-      - image: gcc:8
+      - image: circleci/python3
     steps:
       - checkout
       - run:
