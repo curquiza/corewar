@@ -13,7 +13,7 @@ jobs:
           name: ASM Compilation
           command: make
       - persist_to_workspace:
-          root: corewar
+          root: .
           paths:
             - asm/asm
   test:
