@@ -6,6 +6,10 @@ vm/corewar
 asm/asm
 misc/dumb_tests/**/asm
 misc/dumb_tests/**/corewar
-**/*.cor
-test_xxd
-zork_xxd
+misc/dumb_tests/**/test_xxd
+misc/dumb_tests/**/zork_xxd
+misc/dumb_tests/**/*.cor
+**/__pycache__
+**/*.pyc
+resources/**/*.cor
+asm/tests/input/*.cor
