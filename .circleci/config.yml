@@ -12,12 +12,18 @@ jobs:
       - run:
           name: ASM Compilation
           command: make
+      - persist_to_workspace:
+          root: corewar
+          paths:
+            - asm/asm
   test:
     docker:
       - image: circleci/python:3.7.1-stretch
     working_directory: ~/corewar
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/corewar
       - run:
           name: ls
           command: ls -la asm
