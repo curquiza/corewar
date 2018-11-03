@@ -34,13 +34,18 @@ jobs:
 workflows:
   version: 2
   build_and_test:
-    filters:
-      branches:
-        only:
-          - master
-          - asm
     jobs:
       - build
+          filters:
+            branches:
+              only:
+                - master
+                - asm
       - test:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+                - asm
