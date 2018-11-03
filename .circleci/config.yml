@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      #- image: gcc:8
-      - image: circleci/gcc
+      - image: gcc:8
+      - image: circleci/python:3.7.1-stretch
     steps:
       - checkout
       - run:
@@ -14,8 +14,8 @@ jobs:
           command: make
   test:
     docker:
-      #- image: python:3.7
-      - image: circleci/python3
+      - image: gcc:8
+      - image: circleci/python:3.7.1-stretch
     steps:
       - checkout
       - run:
