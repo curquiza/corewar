@@ -75,6 +75,7 @@ p = registre/direct/indirect
 r = registre (sauf PC)
 Charge le 1er parma dans le registre r
 Carry à 1 si le 1er param = 0, sinon 0.
+ex : ld 4,r5 : load les 4 octets (car la taille d'un registre est de 4 octets) se trouvants à l’adresse (4+PC) dans r5
 
 0x03 - st r p
 r = registre
@@ -157,3 +158,8 @@ Check à faire :
 - taille de la mémoire inf ou égale à 0xffff (car pc > 0) : asm et vm
 - nombre max de champions
 - s'adapter si le nombre max de param augmente, ou check si nombre <= 4
+
+
+Erreur ASM :
+- pas de ligne d'instruction
+- le label n'existe pas
