@@ -27,3 +27,11 @@ est aligné au multiple de 4 octets supérieur.
 
 VM
 ==
+
+1. À quoi sert le binary mode de la VM de zaz ?
+
+2. Si je lance le même match (= même vm, même players) j'aurais forcément exactement
+le même résultat ?
+-> je dirais que oui.
+
+
