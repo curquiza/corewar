@@ -23,6 +23,10 @@ est aligné au multiple de 4 octets supérieur.
 128 + 1 -> 132 pour le name
 2048 + 1 -> 2052 pour le comment
 
+6. Pourquoi pour sti (et d'autres fonctions du genre) le 2nd paramètre peut etre
+un direct, indirect ou registre mais le 3eme seulement un direct ou registre alors
+que la consigne précise que ce sont tous les deux des index. Qu'est ce qui les différencie ?
+
 --------------------------------------------------------------------------------
 
 VM
