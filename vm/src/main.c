@@ -32,12 +32,22 @@ t_exit open_file(char *filename)
 	return (fd);
 }
 
+t_exit read_error(char *filename)
+{
+	char	*err_str;
+
+	err_str = ft_strjoin("Read error: ", filename);
+	perror(err_str);
+	ft_strdel(&err_str);
+	return (EXIT_FAILURE);
+}
+
 void	fill_memory(char value)
 {
 	(void)value;
 }
 
-t_exit read_and_fill(char fd, int mem_offset)
+t_exit read_and_fill(char *filename, char fd, int mem_offset)
 {
 	int		i;
 	char	buff[1];
@@ -48,10 +58,7 @@ t_exit read_and_fill(char fd, int mem_offset)
 	{
 		read_ret = read(fd, buff, 1);
 		if (read_ret == -1)
-		{
-			perror("Read error");
-			return (EXIT_FAILURE);
-		}
+			return (read_error(filename));
 		if (read_ret == 0)
 			break;
 		else
@@ -67,7 +74,7 @@ t_exit process_file(char *filename)
 	if ((fd = open_file(filename)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	ft_printf("ouvert :)\n"); // DEBUG
-	read_and_fill(fd, 0);
+	read_and_fill(filename, fd, 0);
 	return (close_fd(fd));
 }
 
