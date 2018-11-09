@@ -8,6 +8,7 @@
 # include <stdio.h>
 
 typedef		uint32_t t_exit;
+typedef		unsigned char byte_t;
 
 typedef struct	s_memcase
 {
