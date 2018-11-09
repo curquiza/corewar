@@ -9,4 +9,15 @@
 
 typedef		uint32_t t_exit;
 
+typedef struct	s_memcase
+{
+	char	value;
+	char	*color;
+}				t_memcase;
+
+typedef struct 	s_vm
+{
+	t_memcase	memory[MEM_SIZE];
+}				t_vm;
+
 #endif
