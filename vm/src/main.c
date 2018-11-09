@@ -1,6 +1,6 @@
 #include "vm.h"
 
-exit_t	close_fd(int fd)
+t_exit	close_fd(int fd)
 {
 	char	*fd_str;
 	char	*err_str;
@@ -17,7 +17,7 @@ exit_t	close_fd(int fd)
 	return (EXIT_SUCCESS);
 }
 
-exit_t open_file(char *filename)
+t_exit open_file(char *filename)
 {
 	int		fd;
 	char	*err_str;
@@ -37,7 +37,7 @@ void	fill_memory(char value)
 	(void)value;
 }
 
-exit_t read_and_fill(char fd, int mem_offset)
+t_exit read_and_fill(char fd, int mem_offset)
 {
 	int		i;
 	char	buff[1];
@@ -60,7 +60,7 @@ exit_t read_and_fill(char fd, int mem_offset)
 	return (EXIT_SUCCESS);
 }
 
-exit_t process_file(char *filename)
+t_exit process_file(char *filename)
 {
 	int		fd;
 
@@ -71,7 +71,7 @@ exit_t process_file(char *filename)
 	return (close_fd(fd));
 }
 
-exit_t parsing(int argc, char **argv)
+t_exit parsing(int argc, char **argv)
 {
 	int		i;
 

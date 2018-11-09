@@ -7,6 +7,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef		uint32_t exit_t;
+typedef		uint32_t t_exit;
 
 #endif
