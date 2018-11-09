@@ -15,7 +15,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_H = $(LIBFT_DIR)/include
 
 H_DIR = include
-INCL = -I$(H_DIR) -I$(LIBFT_H)
+H_DIR_VM = ../vm/include
+INCL = -I$(H_DIR) -I$(LIBFT_H) -I$(H_DIR_VM)
 
 
 ################################################################################
