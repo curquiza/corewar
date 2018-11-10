@@ -38,3 +38,5 @@ fclean_lib :
 fclean_all : fclean_lib fclean
 
 re : fclean all
+
+re_with_lib : fclean_lib all
