@@ -25,9 +25,9 @@ t_exit	read_and_fill(char *filename, char fd, int mem_offset)
 	return (EXIT_SUCCESS);
 }
 
-int32_t str_to_int32(char *str)
+uint32_t str_to_uint32(char *str)
 {
-	int32_t		rslt;
+	uint32_t		rslt;
 
 	rslt = 0;
 	rslt = (rslt | (t_byte)str[0]) << 8;
@@ -45,13 +45,13 @@ t_exit	read_magic(char *filename, int fd)
 	read_ret = read(fd, buff, 4);
 	if (read_ret == -1)
 		return (read_error(filename));
-	if (read_ret != 4 || COREWAR_EXEC_MAGIC != str_to_int32(buff))
+	if (read_ret != 4 || COREWAR_EXEC_MAGIC != str_to_uint32(buff))
 	{
 		ft_dprintf(2, HEADER_ERR);
 		return (EXIT_FAILURE);
 	}
 	printf("real magic = %0x\n", COREWAR_EXEC_MAGIC); //DEBUG
-	printf("my magic = %0x\n", str_to_int32(buff));   //DEBUG
+	printf("my magic = %0x\n", str_to_uint32(buff));   //DEBUG
 	return (EXIT_SUCCESS);
 }
 
