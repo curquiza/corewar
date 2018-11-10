@@ -22,6 +22,9 @@ On peut supposer qu'un padding est fait pour avoir un multiple de 4... ?
 est aligné au multiple de 4 octets supérieur.
 128 + 1 -> 132 pour le name
 2048 + 1 -> 2052 pour le comment
+-> on ne peut pas verifier mon hytpothèse car pas possible de modifier le define
+dans la VM de zaz, mais l'idée est qu'il y a un bloc de 4 octets à zéro après le
+name et le commentaire
 
 6. Pourquoi pour sti (et d'autres fonctions du genre) le 2nd paramètre peut etre
 un direct, indirect ou registre mais le 3eme seulement un direct ou registre alors
