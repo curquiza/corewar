@@ -11,6 +11,7 @@ typedef		uint32_t t_exit;
 typedef		unsigned char t_byte;
 
 # define HEADER_ERR "Error: wrong header format\n"
+# define DEFINE_ERR "Error: value not conformed in op.h file\n"
 
 typedef struct	s_memcase
 {

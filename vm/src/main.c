@@ -80,8 +80,21 @@ t_exit	parsing(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+t_exit	init_check(void)
+{
+	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
+		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)
+	{
+		ft_dprintf(2, DEFINE_ERR);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	main (int argc, char **argv)
 {
+	if (init_check() == EXIT_FAILURE)
+		exit(EXIT_FAILURE);
 	if (argc <= 1)
 	{
 		print_usage();
