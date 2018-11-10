@@ -72,24 +72,28 @@ int32_t str_to_int32(char *str)
 	int32_t		rslt;
 
 	rslt = 0;
-	rslt = (rslt | (byte_t)str[0]) << 8;
-	rslt = (rslt | (byte_t)str[1]) << 8;
-	rslt = (rslt | (byte_t)str[2]) << 8;
-	rslt |= (byte_t)str[3];
+	rslt = (rslt | (t_byte)str[0]) << 8;
+	rslt = (rslt | (t_byte)str[1]) << 8;
+	rslt = (rslt | (t_byte)str[2]) << 8;
+	rslt |= (t_byte)str[3];
 	return (rslt);
 }
 
 t_exit	read_magic(char *filename, int fd)
 {
-	char	buff[5];
+	char	buff[4];
 	int		read_ret;
 
 	read_ret = read(fd, buff, 4);
 	if (read_ret == -1)
 		return (read_error(filename));
-	buff[read_ret] = '\0';
-	printf("real magic = %0x\n", COREWAR_EXEC_MAGIC);
-	printf("my magic = %0x\n", str_to_int32(buff));
+	if (read_ret != 4 || COREWAR_EXEC_MAGIC != str_to_int32(buff))
+	{
+		ft_dprintf(2, HEADER_ERR);
+		return (EXIT_FAILURE);
+	}
+	printf("real magic = %0x\n", COREWAR_EXEC_MAGIC); //DEBUG
+	printf("my magic = %0x\n", str_to_int32(buff));   //DEBUG
 	return (EXIT_SUCCESS);
 }
 
