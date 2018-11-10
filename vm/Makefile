@@ -50,4 +50,7 @@ fclean_lib :
 
 fclean_all : fclean_lib fclean
 
+run_tests :
+	tests/parsing.sh
+
 re : fclean all

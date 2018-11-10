@@ -5,9 +5,9 @@ RED="\033[1;31m"
 YELLOW="\x1b[33m"
 DEF="\033[0m"
 
-corewar_bin="../corewar"
-input_path="input_parsing"
-trace="parsing_trace.txt"
+corewar_bin="./corewar"
+input_path="./tests/input_parsing"
+trace="./tests/parsing_trace.txt"
 
 # Usage: run_test "file" "output_expected"
 function run_test() {
