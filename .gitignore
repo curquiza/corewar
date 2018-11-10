@@ -13,3 +13,4 @@ misc/dumb_tests/**/*.cor
 **/*.pyc
 resources/**/*.cor
 asm/tests/input/*.cor
+vm/tests/parsing_trace.txt
