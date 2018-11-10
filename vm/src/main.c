@@ -1,47 +1,5 @@
 #include "vm.h"
 
-t_exit	close_fd(int fd)
-{
-	char	*fd_str;
-	char	*err_str;
-
-	if (close(fd) == -1)
-	{
-		fd_str = ft_itoa(fd);
-		err_str = ft_strjoin("Close error: ", fd_str);
-		perror(err_str);
-		ft_strdel(&fd_str);
-		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
-t_exit	open_file(char *filename)
-{
-	int		fd;
-	char	*err_str;
-
-	if ((fd = open(filename, O_RDONLY)) <= 0)
-	{
-		err_str = ft_strjoin("Open error: ", filename);
-		perror(err_str);
-		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
-	}
-	return (fd);
-}
-
-t_exit	read_error(char *filename)
-{
-	char	*err_str;
-
-	err_str = ft_strjoin("Read error: ", filename);
-	perror(err_str);
-	ft_strdel(&err_str);
-	return (EXIT_FAILURE);
-}
-
 void	fill_memory(char value)
 {
 	(void)value;
@@ -103,7 +61,6 @@ t_exit	process_file(char *filename)
 
 	if ((fd = open_file(filename)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	ft_printf("ouvert :)\n"); // DEBUG
 	read_magic(filename, fd);
 	/*read_and_fill(filename, fd, 0);*/
 	return (close_fd(fd));
@@ -127,7 +84,7 @@ int	main (int argc, char **argv)
 {
 	if (argc <= 1)
 	{
-		ft_printf("Usage : ./corewar <champion>\n");
+		print_usage();
 		exit(EXIT_FAILURE);
 	}
 	if (parsing(argc, argv) == EXIT_FAILURE)

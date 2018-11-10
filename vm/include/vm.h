@@ -30,4 +30,18 @@ typedef struct 	s_vm
 	t_player	players[MAX_PLAYERS];
 }				t_vm;
 
+/*
+** === FUNCTIONS ===============================================================
+*/
+
+void			print_usage(void);
+
+/*
+** files manager
+*/
+t_exit			open_file(char *filename);
+t_exit			close_fd(int fd);
+t_exit			read_error(char *filename);
+
+
 #endif
