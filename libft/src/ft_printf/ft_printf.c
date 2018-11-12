@@ -90,5 +90,4 @@ int				ft_dprintf(int fd, char *s, ...)
 	ft_printf_loop(s, arg, &data, f);
 	va_end(arg);
 	return (ft_display_and_exit(fd, s, data));
-
 }
