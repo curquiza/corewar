@@ -72,7 +72,7 @@ static void	ft_del_all(t_data *data, char **s)
 	ft_bzero(data, sizeof(*data));
 }
 
-int			ft_display_and_exit(char *s, t_data data)
+int			ft_display_and_exit(int fd, char *s, t_data data)
 {
 	char	*final;
 	int		final_len;
@@ -84,7 +84,7 @@ int			ft_display_and_exit(char *s, t_data data)
 		ft_del_all(&data, &final);
 		return (-1);
 	}
-	write(1, final, final_len);
+	write(fd, final, final_len);
 	ft_del_all(&data, &final);
 	return (final_len);
 }

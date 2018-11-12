@@ -47,14 +47,14 @@ int		ft_wchar_in_str(wint_t c, unsigned char *s)
 {
 	if (MB_CUR_MAX == 1)
 	{
-		if (c <= 0xFF)
+		if (c >= 0 && c <= 0xFF)
 		{
 			s[0] = (unsigned char)c;
 			return (1);
 		}
 		return (-1);
 	}
-	if (c <= 0x7F)
+	if (c >= 0 && c <= 0x7F)
 	{
 		s[0] = (unsigned char)c;
 		return (1);
