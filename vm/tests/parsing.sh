@@ -34,5 +34,8 @@ fi
 run_test "." "Read error: .: Is a directory\n"
 run_test "coco" "Open error: coco: No such file or directory\n"
 run_test "$input_path/zork_wrong_magic.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_name_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_name_cut2.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_wrong_nameend.cor" "Error: wrong header format\n"
 
 rm -f output1 output2

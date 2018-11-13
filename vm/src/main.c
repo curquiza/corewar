@@ -50,8 +50,41 @@ t_exit	read_magic(char *filename, int fd)
 		ft_dprintf(2, HEADER_ERR);
 		return (EXIT_FAILURE);
 	}
-	printf("real magic = %0x\n", COREWAR_EXEC_MAGIC); //DEBUG
-	printf("my magic = %0x\n", str_to_uint32(buff));   //DEBUG
+	/*printf("real magic = %0x\n", COREWAR_EXEC_MAGIC); //DEBUG*/
+	/*printf("my magic = %0x\n", str_to_uint32(buff));   //DEBUG*/
+	return (EXIT_SUCCESS);
+}
+
+t_exit	read_name(char *filename, int fd)
+{
+	char	buff[PROG_NAME_LENGTH];
+	int		read_ret;
+
+	read_ret = read(fd, buff, PROG_NAME_LENGTH);
+	if (read_ret == -1)
+		return (read_error(filename));
+	if (read_ret != PROG_NAME_LENGTH)
+	{
+		ft_dprintf(2, HEADER_ERR);
+		return (EXIT_FAILURE);
+	}
+	/* stocker value */
+	return (EXIT_SUCCESS);
+}
+
+t_exit read_end_of_name(char *filename, int fd)
+{
+	char	buff[4];
+	int		read_ret;
+
+	read_ret = read(fd, buff, 4);
+	if (read_ret == -1)
+		return (read_error(filename));
+	if (read_ret != 4 || str_to_uint32(buff) != 0)
+	{
+		ft_dprintf(2, HEADER_ERR);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -61,7 +94,13 @@ t_exit	process_file(char *filename)
 
 	if ((fd = open_file(filename)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	read_magic(filename, fd);
+	if (read_magic(filename, fd) == EXIT_FAILURE
+			|| read_name(filename, fd) == EXIT_FAILURE
+			|| read_end_of_name(filename, fd) == EXIT_FAILURE)
+	{
+		close_fd(fd);
+		return (EXIT_FAILURE);
+	}
 	/*read_and_fill(filename, fd, 0);*/
 	return (close_fd(fd));
 }
