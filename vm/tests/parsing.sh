@@ -37,5 +37,8 @@ run_test "$input_path/zork_wrong_magic.cor" "Error: wrong header format\n"
 run_test "$input_path/zork_name_cut.cor" "Error: wrong header format\n"
 run_test "$input_path/zork_name_cut2.cor" "Error: wrong header format\n"
 run_test "$input_path/zork_wrong_nameend.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_size_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_comment_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/zork_comment_cut2.cor" "Error: wrong header format\n"
 
 rm -f output1 output2

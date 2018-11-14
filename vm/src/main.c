@@ -114,7 +114,7 @@ t_exit	read_comment(char *filename, int fd)
 	read_ret = read(fd, buff, COMMENT_LENGTH);
 	if (read_ret == -1)
 		return (read_error(filename));
-	if (read_ret != COMMENT_LENGTH || str_to_uint32(buff) != 0)
+	if (read_ret != COMMENT_LENGTH)
 	{
 		ft_dprintf(2, HEADER_ERR);
 		return (EXIT_FAILURE);
