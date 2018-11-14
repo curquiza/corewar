@@ -105,7 +105,6 @@ t_exit	read_prog_size(char *filename, int fd, t_header *header)
 	}
 	header->prog_size = str_to_uint32(buff);
 	return (EXIT_SUCCESS);
-
 }
 
 t_exit	read_comment(char *filename, int fd, t_header *header)
@@ -126,12 +125,13 @@ t_exit	read_comment(char *filename, int fd, t_header *header)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	parse_player(char *filename, t_player *player)
+t_exit	parse_player(char *filename, t_player *player, int num)
 {
 	int		fd;
 	t_header	*player_header;
 
 	player_header = &player->header;
+	player->num = num;
 	if ((fd = open_file(filename)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (read_magic(filename, fd, player_header) == EXIT_FAILURE
@@ -150,7 +150,7 @@ t_exit	parse_player(char *filename, t_player *player)
 
 void	print_player(t_player *p)
 {
-	ft_printf("Player num %d\n", p->num);
+	ft_printf("Player num %d (%#0x)\n", p->num, ~p->num);
 	ft_printf("header :\n");
 	ft_printf("-> magic = %#0x\n", p->header.magic);
 	ft_printf("-> name = %s\n", p->header.prog_name);
@@ -165,7 +165,7 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	i = 1;
 	while (i < argc)
 	{
-		if (parse_player(argv[i], &vm->player[i - 1]) == EXIT_FAILURE)
+		if (parse_player(argv[i], &vm->player[i - 1], i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		print_player(&vm->player[i - 1]);
 		i++;
