@@ -172,6 +172,7 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	i = 1;
 	while (i < argc)
 	{
+		vm->players_number += 1;
 		if (parse_player(argv[i], &vm->player[i - 1], i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		print_player(&vm->player[i - 1]); //DEBUG
@@ -191,6 +192,18 @@ t_exit	init_check(void)
 	return (EXIT_SUCCESS);
 }
 
+void	clean_all(t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->players_number)
+	{
+		ft_strdel(&vm->player[i].prog);
+		i++;
+	}
+}
+
 int	main (int argc, char **argv)
 {
 	t_vm	vm;
@@ -204,6 +217,10 @@ int	main (int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	if (parsing(argc, argv, &vm) == EXIT_FAILURE)
+	{
+		clean_all(&vm);
 		exit(EXIT_FAILURE);
+	}
+	clean_all(&vm);
 	return (EXIT_SUCCESS);
 }

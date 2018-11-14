@@ -31,6 +31,7 @@ typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
 	t_player	player[MAX_PLAYERS];
+	int			players_number;
 }				t_vm;
 
 /*
