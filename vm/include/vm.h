@@ -28,7 +28,7 @@ typedef struct	s_player
 typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
-	t_player	players[MAX_PLAYERS];
+	t_player	player[MAX_PLAYERS];
 }				t_vm;
 
 /*
