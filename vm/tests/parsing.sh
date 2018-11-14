@@ -15,9 +15,9 @@ function run_test() {
 	printf "$2" > output2
 	local rslt="$(diff output1 output2)"
 	if [[ "$rslt" == "" ]]; then
-		printf "%-50s$GREEN%s$DEF\n" "$1" "OK"
+		printf "%-50s$GREEN%s$DEF\n" "$1" "✓"
 	else
-		printf "%-50s$RED%s$DEF\n" "$1" "KO"
+		printf "%-50s$RED%s$DEF\n" "$1" "✕"
 		echo $1 ":" >> $trace
 		echo $rslt >> $trace
 		echo "---------------------------" >> $trace
