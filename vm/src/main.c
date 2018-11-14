@@ -25,7 +25,7 @@ t_exit	read_and_fill(char *filename, char fd, int mem_offset)
 	return (EXIT_SUCCESS);
 }
 
-uint32_t str_to_uint32(char *str)
+uint32_t	str_to_uint32(char *str)
 {
 	uint32_t		rslt;
 
@@ -72,7 +72,7 @@ t_exit	read_name(char *filename, int fd)
 	return (EXIT_SUCCESS);
 }
 
-t_exit read_end_of_name(char *filename, int fd)
+t_exit	read_zero_block(char *filename, int fd)
 {
 	char	buff[4];
 	int		read_ret;
@@ -88,6 +88,41 @@ t_exit read_end_of_name(char *filename, int fd)
 	return (EXIT_SUCCESS);
 }
 
+t_exit	read_prog_size(char *filename, int fd)
+{
+	char	buff[4];
+	int		read_ret;
+
+	read_ret = read(fd, buff, 4);
+	if (read_ret == -1)
+		return (read_error(filename));
+	if (read_ret != 4)
+	{
+		ft_dprintf(2, HEADER_ERR);
+		return (EXIT_FAILURE);
+	}
+	// stock value -> str_to_uint32(buff)
+	return (EXIT_SUCCESS);
+
+}
+
+t_exit	read_comment(char *filename, int fd)
+{
+	char	buff[COMMENT_LENGTH];
+	int		read_ret;
+
+	read_ret = read(fd, buff, COMMENT_LENGTH);
+	if (read_ret == -1)
+		return (read_error(filename));
+	if (read_ret != COMMENT_LENGTH || str_to_uint32(buff) != 0)
+	{
+		ft_dprintf(2, HEADER_ERR);
+		return (EXIT_FAILURE);
+	}
+	/* stocker value */
+	return (EXIT_SUCCESS);
+}
+
 t_exit	process_file(char *filename)
 {
 	int		fd;
@@ -96,7 +131,10 @@ t_exit	process_file(char *filename)
 		return (EXIT_FAILURE);
 	if (read_magic(filename, fd) == EXIT_FAILURE
 			|| read_name(filename, fd) == EXIT_FAILURE
-			|| read_end_of_name(filename, fd) == EXIT_FAILURE)
+			|| read_zero_block(filename, fd) == EXIT_FAILURE
+			|| read_prog_size(filename, fd) == EXIT_FAILURE
+			|| read_comment(filename, fd) == EXIT_FAILURE
+			|| read_zero_block(filename, fd) == EXIT_FAILURE)
 	{
 		close_fd(fd);
 		return (EXIT_FAILURE);
