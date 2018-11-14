@@ -10,8 +10,9 @@
 typedef		uint32_t t_exit;
 typedef		unsigned char t_byte;
 
-# define HEADER_ERR "Error: wrong header format\n"
 # define DEFINE_ERR "Error: value not conformed in op.h file\n"
+# define HEADER_ERR "Error: wrong header format\n"
+# define PROG_SIZE_ERR "Error: prog size in header differs from the real prog size\n"
 
 typedef struct	s_memcase
 {
@@ -23,6 +24,7 @@ typedef struct	s_player
 {
 	t_header	header;
 	int			num;
+	char		*prog;
 }				t_player;
 
 typedef struct 	s_vm

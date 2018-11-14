@@ -1,30 +1,5 @@
 #include "vm.h"
 
-void	fill_memory(char value)
-{
-	(void)value;
-}
-
-t_exit	read_and_fill(char *filename, char fd, int mem_offset)
-{
-	int		i;
-	char	buff[1];
-	int		read_ret;
-
-	i = mem_offset;
-	while (i < MEM_SIZE)
-	{
-		read_ret = read(fd, buff, 1);
-		if (read_ret == -1)
-			return (read_error(filename));
-		if (read_ret == 0)
-			break;
-		else
-			fill_memory(buff[0]);
-	}
-	return (EXIT_SUCCESS);
-}
-
 uint32_t	str_to_uint32(char *str)
 {
 	uint32_t		rslt;
@@ -69,7 +44,7 @@ t_exit	read_name(char *filename, int fd, t_header *header)
 		ft_dprintf(2, HEADER_ERR);
 		return (EXIT_FAILURE);
 	}
-	ft_bzero(header->prog_name, PROG_NAME_LENGTH + 1);
+	/*ft_bzero(header->prog_name, PROG_NAME_LENGTH + 1);*/
 	ft_memcpy(header->prog_name, buff, PROG_NAME_LENGTH);
 	return (EXIT_SUCCESS);
 }
@@ -125,6 +100,38 @@ t_exit	read_comment(char *filename, int fd, t_header *header)
 	return (EXIT_SUCCESS);
 }
 
+
+/*
+** Read of prog_size +1 -> to check if the prog is not too big.
+*/
+t_exit	read_prog(char *filename, int fd, t_player *player)
+{
+	char	*buff;
+	int		read_ret;
+
+	if (!(buff = ft_memalloc(sizeof(char) * (player->header.prog_size + 1))))
+		return (EXIT_FAILURE);
+	read_ret = read(fd, buff, player->header.prog_size + 1);
+	if (read_ret == -1)
+	{
+		ft_strdel(&buff);
+		return (read_error(filename));
+	}
+	if ((unsigned int)read_ret != player->header.prog_size)
+	{
+		ft_strdel(&buff);
+		ft_dprintf(2, PROG_SIZE_ERR);
+		return (EXIT_FAILURE);
+	}
+	if (!(player->prog = ft_strdup(buff)))
+	{
+		ft_strdel(&buff);
+		return (EXIT_FAILURE);
+	}
+	ft_strdel(&buff);
+	return (EXIT_SUCCESS);
+}
+
 t_exit	parse_player(char *filename, t_player *player, int num)
 {
 	int		fd;
@@ -139,12 +146,12 @@ t_exit	parse_player(char *filename, t_player *player, int num)
 			|| read_zero_block(filename, fd) == EXIT_FAILURE
 			|| read_prog_size(filename, fd, player_header) == EXIT_FAILURE
 			|| read_comment(filename, fd, player_header) == EXIT_FAILURE
-			|| read_zero_block(filename, fd) == EXIT_FAILURE)
+			|| read_zero_block(filename, fd) == EXIT_FAILURE
+			|| read_prog(filename, fd, player) == EXIT_FAILURE)
 	{
 		close_fd(fd);
 		return (EXIT_FAILURE);
 	}
-	/*read_and_fill(filename, fd, 0);*/
 	return (close_fd(fd));
 }
 
@@ -167,7 +174,7 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	{
 		if (parse_player(argv[i], &vm->player[i - 1], i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		print_player(&vm->player[i - 1]);
+		print_player(&vm->player[i - 1]); //DEBUG
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -188,6 +195,7 @@ int	main (int argc, char **argv)
 {
 	t_vm	vm;
 
+	ft_bzero(&vm, sizeof(vm));
 	if (init_check() == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (argc <= 1)

@@ -33,12 +33,15 @@ fi
 
 run_test "." "Read error: .: Is a directory\n"
 run_test "coco" "Open error: coco: No such file or directory\n"
-run_test "$input_path/zork_wrong_magic.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_name_cut.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_name_cut2.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_wrong_nameend.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_size_cut.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_comment_cut.cor" "Error: wrong header format\n"
-run_test "$input_path/zork_comment_cut2.cor" "Error: wrong header format\n"
+run_test "$input_path/wrong_magic.cor" "Error: wrong header format\n"
+run_test "$input_path/name_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/name_cut2.cor" "Error: wrong header format\n"
+run_test "$input_path/wrong_name_end.cor" "Error: wrong header format\n"
+run_test "$input_path/size_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/comment_cut.cor" "Error: wrong header format\n"
+run_test "$input_path/comment_cut2.cor" "Error: wrong header format\n"
+run_test "$input_path/wrong_comment_end.cor" "Error: wrong header format\n"
+run_test "$input_path/wrong_progsize.cor" "Error: prog size in header differs from the real prog size\n"
+run_test "$input_path/wrong_progsize2.cor" "Error: prog size in header differs from the real prog size\n"
 
 rm -f output1 output2

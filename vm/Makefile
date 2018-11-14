@@ -51,7 +51,7 @@ fclean_lib :
 fclean_all : fclean_lib fclean
 
 run_tests :
-	@printf "\033[1;33m=== %s =======================================\033[0m\n" "PARSING"
+	@printf "\033[1;33m%s\n-------\033[0m\n" "PARSING"
 	@tests/parsing.sh
 
 re : fclean all
