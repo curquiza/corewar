@@ -21,14 +21,16 @@ t_arg	*ft_new_arglst(t_arg **alst)
 	tmp = *alst;
 	if (*alst == NULL)
 	{
-		*alst = ft_memalloc(sizeof(t_arg));
+		if (!(*alst = ft_memalloc(sizeof(t_arg))))
+			ft_exit("Malloc error", 1);
 		return (*alst);
 	}
 	else
 	{
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = ft_memalloc(sizeof(t_arg));
+		if (!(tmp->next = ft_memalloc(sizeof(t_arg))))
+			ft_exit("Malloc error", 1);
 		return (tmp->next);
 	}
 }

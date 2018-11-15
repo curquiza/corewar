@@ -22,7 +22,10 @@ char	**ft_tabdup(char **tab)
 		return (NULL);
 	len = ft_tablen(tab);
 	if (!(rslt = (char **)malloc(sizeof(*rslt) * (len + 1))))
-		ft_exit("malloc error", 1);
+	{
+		ft_putendl_fd("Malloc error", 2);
+		return (NULL);
+	}
 	i = 0;
 	while (tab[i])
 	{

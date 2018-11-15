@@ -45,7 +45,8 @@ char			*ft_itoa_base(int value, int base)
 		return (NULL);
 	i = ft_intlen_base(value, base);
 	ft_fill_tabbase(tab_base);
-	tab = ft_strnew(i);
+	if (!(tab = ft_strnew(i)))
+		return (NULL);
 	i--;
 	tab[0] = '0';
 	if (base == 10 && value < 0)

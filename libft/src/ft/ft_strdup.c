@@ -20,7 +20,8 @@ char	*ft_strdup(const char *src)
 	int		len;
 
 	len = ft_strlen(src);
-	str = ft_strnew(len);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
