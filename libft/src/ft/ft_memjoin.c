@@ -20,17 +20,20 @@ void	*ft_memjoin(void *s1, void *s2, size_t size1, size_t size2)
 		return (NULL);
 	if (!s1)
 	{
-		rslt = ft_memalloc(size2);
+		if (!(rslt = ft_memalloc(size2)))
+			return (NULL);
 		ft_memmove(rslt, s2, size2);
 		return ((void *)rslt);
 	}
 	if (!s2)
 	{
-		rslt = ft_memalloc(size1);
+		if (!(rslt = ft_memalloc(size1)))
+			return (NULL);
 		ft_memmove(rslt, s1, size1);
 		return ((void *)rslt);
 	}
-	rslt = ft_memalloc(size1 + size2);
+	if (!(rslt = ft_memalloc(size1 + size2)))
+		return (NULL);
 	ft_memmove(rslt, s1, size1);
 	ft_memmove(rslt + size1, s2, size2);
 	return ((void *)rslt);
