@@ -29,7 +29,8 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 		return (ft_strjoin(s1, s3));
 	if (!s3)
 		return (ft_strjoin(s1, s2));
-	tmp = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3));
+	if (!(tmp = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3))))
+		return (NULL);
 	ft_strcat(ft_strcat(ft_strcpy(tmp, s1), s2), s3);
 	return (tmp);
 }

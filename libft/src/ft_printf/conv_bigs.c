@@ -41,7 +41,8 @@ static int	ft_apply_conv(wchar_t *wchar_str, t_arg *current)
 	int		ret;
 
 	i = ft_wchar_len(wchar_str);
-	current->rslt = ft_memalloc(sizeof(wchar_t) * i + 1);
+	if (!(current->rslt = ft_memalloc(sizeof(wchar_t) * i + 1)))
+		ft_exit("Malloc error", 1);
 	i = 0;
 	while (*wchar_str)
 	{

@@ -23,7 +23,8 @@ char			*ft_itoa(int n)
 	int		size;
 
 	size = ft_intlen(n);
-	str = ft_strnew(size);
+	if (!(str = ft_strnew(size)))
+		return (NULL);
 	size--;
 	str[0] = '0';
 	if (n < 0)

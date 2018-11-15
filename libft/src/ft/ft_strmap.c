@@ -21,7 +21,10 @@ char	*ft_strmap(char const *s, char (*f)(char))
 	if (!s || !f)
 		return (NULL);
 	if (!(tmp = (char *)malloc(sizeof(*tmp) * (ft_strlen(s) + 1))))
-		ft_exit("malloc error", 1);
+	{
+		ft_putendl_fd("Malloc error", 2);
+		return (NULL);
+	}
 	while (s[i])
 	{
 		tmp[i] = (*f)(s[i]);
