@@ -43,8 +43,8 @@ int	main (int argc, char **argv)
 {
 	t_vm	vm;
 
-	ft_bzero(&vm, sizeof(vm));
 	g_vm = &vm;
+	ft_bzero(&vm, sizeof(vm));
 	if (init_check() == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (argc <= 1)
