@@ -6,7 +6,10 @@ CC = gcc $(FLAG)
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
 	  usage.c \
+	  conversion.c \
 	  file_syscall.c \
+	  clean.c \
+	  parsing_player_binary.c \
 	  main.c)
 
 OBJ_DIR = objs

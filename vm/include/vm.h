@@ -43,11 +43,25 @@ t_vm	*g_vm;
 void			print_usage(void);
 
 /*
-** files manager
+** Files manager
 */
 t_exit			open_file(char *filename);
 t_exit			close_fd(int fd);
 t_exit			read_error(char *filename);
 
+/*
+** Conversions
+*/
+uint32_t		str_to_uint32(char *str);
+
+/*
+** Parsing
+*/
+t_exit			parse_player(char *filename, t_player *player, int num);
+
+/*
+** Clean
+*/
+void			clean_all(void);
 
 #endif
