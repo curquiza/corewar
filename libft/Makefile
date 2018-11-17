@@ -1,9 +1,18 @@
 NAME = libft.a
 
-FLAG = -Wall -Wextra -Werror
+OS = $(shell uname)
+
+ifeq ($(OS), Darwin)
+	# MacOs
+	FLAG = -Wall -Wextra -Werror
+else
+	# Linux
+	FLAG = -Wall -Wextra
+endif
+
 CC = gcc $(FLAG)
 
-SRC = src
+SRC = src/
 C_DIR = $(addprefix $(SRC)/, \
 		ft \
 		gnl \

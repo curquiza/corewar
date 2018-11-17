@@ -5,7 +5,12 @@ CC = gcc $(FLAG)
 
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
-		main.c)
+	  usage.c \
+	  conversion.c \
+	  file_syscall.c \
+	  clean.c \
+	  parsing_player_binary.c \
+	  main.c)
 
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -48,4 +53,10 @@ fclean_lib :
 
 fclean_all : fclean_lib fclean
 
+run_tests :
+	@printf "\033[1;33m----------\n%s\n----------\033[0m\n" "VM PARSING"
+	@tests/parsing.sh
+
 re : fclean all
+
+re_with_lib: fclean_all all

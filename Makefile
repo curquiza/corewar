@@ -37,4 +37,10 @@ fclean_lib :
 
 fclean_all : fclean_lib fclean
 
+run_tests:
+	@make run_tests -C $(COREWAR_DIR)
+	@make run_tests -C $(ASM_DIR)
+
 re : fclean all
+
+re_with_lib : fclean_all all
