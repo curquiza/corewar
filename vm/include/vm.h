@@ -34,6 +34,8 @@ typedef struct 	s_vm
 	int			players_number;
 }				t_vm;
 
+t_vm	*g_vm;
+
 /*
 ** === FUNCTIONS ===============================================================
 */

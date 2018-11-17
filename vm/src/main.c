@@ -1,5 +1,7 @@
 #include "vm.h"
 
+t_vm *g_vm = NULL;
+
 uint32_t	str_to_uint32(char *str)
 {
 	uint32_t		rslt;
@@ -192,14 +194,14 @@ t_exit	init_check(void)
 	return (EXIT_SUCCESS);
 }
 
-void	clean_all(t_vm *vm)
+void	clean_all(void)
 {
 	int		i;
 
 	i = 0;
-	while (i < vm->players_number)
+	while (i < g_vm->players_number)
 	{
-		ft_strdel(&vm->player[i].prog);
+		ft_strdel(&g_vm->player[i].prog);
 		i++;
 	}
 }
@@ -209,6 +211,7 @@ int	main (int argc, char **argv)
 	t_vm	vm;
 
 	ft_bzero(&vm, sizeof(vm));
+	g_vm = &vm;
 	if (init_check() == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (argc <= 1)
@@ -218,9 +221,9 @@ int	main (int argc, char **argv)
 	}
 	if (parsing(argc, argv, &vm) == EXIT_FAILURE)
 	{
-		clean_all(&vm);
+		clean_all();
 		exit(EXIT_FAILURE);
 	}
-	clean_all(&vm);
+	clean_all();
 	return (EXIT_SUCCESS);
 }
