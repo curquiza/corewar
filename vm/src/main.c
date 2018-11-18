@@ -12,12 +12,42 @@ void	print_player(t_player *p)
 	ft_printf("-> comment = %s\n", p->header.comment);
 }
 
-t_exit	manage_player(char *filename, t_vm *vm)
+bool	num_available(int num, t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_PLAYERS)
+	{
+		if (vm->player[i].num == num)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int		generate_player_num(t_vm *vm)
+{
+	int		num;
+
+	num = 1;
+	while (num_available(num, vm) == false)
+		num++;
+	return (num);
+}
+
+t_exit	manage_player(char *filename, t_vm *vm, int num)
 {
 	t_player	*player;
 
+	if (vm->players_number + 1 > MAX_PLAYERS)
+	{
+		ft_dprintf(2, MAX_PLAYER_ERR);
+		return (EXIT_FAILURE);
+	}
+	vm->players_number += 1;
 	player = &vm->player[vm->players_number - 1];
-	player->num = vm->players_number;
+	player->num = num;
 	if (parse_player(filename, player) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -36,13 +66,8 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 		else if (argv[i])
 		{
 			ft_printf("PLAYER\n"); //DEBUG
-			vm->players_number += 1;
-			if (vm->players_number > MAX_PLAYERS)
-			{
-				ft_dprintf(2, MAX_PLAYER_ERR);
-				return (EXIT_FAILURE);
-			}
-			if (manage_player(argv[i], vm) == EXIT_FAILURE)
+			if (manage_player(argv[i], vm, generate_player_num(vm))
+				== EXIT_FAILURE)
 				return (EXIT_FAILURE);
 			print_player(&vm->player[vm->players_number - 1]); //DEBUG
 		}

@@ -6,6 +6,7 @@
 
 # include <fcntl.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 typedef		uint32_t t_exit;
 typedef		unsigned char t_byte;
