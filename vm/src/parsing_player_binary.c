@@ -119,13 +119,12 @@ t_exit	read_prog(char *filename, int fd, t_player *player)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	parse_player(char *filename, t_player *player, int num)
+t_exit	parse_player(char *filename, t_player *player)
 {
 	int		fd;
 	t_header	*player_header;
 
 	player_header = &player->header;
-	player->num = num;
 	if ((fd = open_file(filename)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (read_magic(filename, fd, player_header) == EXIT_FAILURE

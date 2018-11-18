@@ -13,6 +13,7 @@ typedef		unsigned char t_byte;
 # define DEFINE_ERR "Error: value not conformed in op.h file\n"
 # define HEADER_ERR "Error: wrong header format\n"
 # define PROG_SIZE_ERR "Error: prog size in header differs from the real prog size\n"
+# define MAX_PLAYER_ERR "Error: too many champions\n"
 
 typedef struct	s_memcase
 {
@@ -57,7 +58,7 @@ uint32_t		str_to_uint32(char *str);
 /*
 ** Parsing
 */
-t_exit			parse_player(char *filename, t_player *player, int num);
+t_exit			parse_player(char *filename, t_player *player);
 
 /*
 ** Clean
