@@ -53,6 +53,35 @@ t_exit	manage_player(char *filename, t_vm *vm, int num)
 	return (EXIT_SUCCESS);
 }
 
+bool	is_int(char *s)
+{
+	(void)s;
+	return (true);
+}
+
+t_exit	manage_flags(char **argv, int *i, t_vm *vm)
+{
+	int		num;
+
+	if (ft_strequ(argv[*i], NUM_FLAG))
+	{
+		num = 0;
+		if (!argv[*i + 1] || is_int(argv[*i + 1]) == false)
+		{
+			ft_dprintf(2, PLAYER_NUM_ERR);
+			return (EXIT_FAILURE);
+		}
+		num = ft_atoi(argv[*i + 1]);
+		if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		print_player(&vm->player[vm->players_number - 1]); //DEBUG
+		*i += 2;
+	}
+	// zaz flag
+	// dump flag
+	return (EXIT_SUCCESS);
+}
+
 t_exit	parsing(int argc, char **argv, t_vm *vm)
 {
 	int		i;
@@ -61,8 +90,11 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	while (i < argc)
 	{
 		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
-			/*manage_option(argv[i], vm);*/
-			ft_printf("OPTION\n"); //DEBUG
+		{
+			ft_printf("FLAG\n"); //DEBUG
+			if (manage_flags(argv, &i, vm) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
 		else if (argv[i])
 		{
 			ft_printf("PLAYER\n"); //DEBUG

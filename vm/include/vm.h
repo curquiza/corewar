@@ -11,10 +11,15 @@
 typedef		uint32_t t_exit;
 typedef		unsigned char t_byte;
 
-# define DEFINE_ERR "Error: value not conformed in op.h file\n"
-# define HEADER_ERR "Error: wrong header format\n"
-# define PROG_SIZE_ERR "Error: prog size in header differs from the real prog size\n"
-# define MAX_PLAYER_ERR "Error: too many champions\n"
+# define DEFINE_ERR		"Error: value not conformed in op.h file\n"
+# define HEADER_ERR		"Error: wrong header format\n"
+# define PROG_SIZE_ERR	"Error: prog size in header differs from the real prog size\n"
+# define MAX_PLAYER_ERR	"Error: too many champions\n"
+# define PLAYER_NUM_ERR	"Error: player number must be an integer value\n"
+
+# define NUM_FLAG	"-n"
+# define ZAZ_FLAG	"-zaz"
+# define DUMP_FLAG	"-dump"
 
 typedef struct	s_memcase
 {
@@ -34,6 +39,7 @@ typedef struct 	s_vm
 	t_memcase	memory[MEM_SIZE];
 	t_player	player[MAX_PLAYERS];
 	int			players_number;
+	int			flag;
 }				t_vm;
 
 t_vm	*g_vm;
