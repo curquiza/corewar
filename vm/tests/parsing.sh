@@ -14,6 +14,9 @@ prog_size_err="Error: prog size in header differs from the real prog size\n"
 player_num_err="Error: player number must be an integer value\n"
 too_many_champ_err="Error: too many champions\n"
 
+no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
+wrong_flag_err() { echo "Error: $1: Not an available flag\n"; }
+
 # Usage: print_rslt "subtitle" "result"
 function print_rslt(){
 	if [[ "$2" == "" ]]; then
@@ -46,7 +49,8 @@ if [[ ! -f $corewar_bin ]]; then
 fi
 
 run_test "." "Read error: .: Is a directory\n"
-run_test "coco" "Open error: coco: No such file or directory\n"
+run_test "coco" "$(no_such_file_err "coco")"
+run_test "-" "$(no_such_file_err "-")"
 run_test "$input_path/wrong_magic.cor" "$header_err"
 run_test "$input_path/name_cut.cor" "$header_err"
 run_test "$input_path/name_cut2.cor" "$header_err"
@@ -72,5 +76,8 @@ run_test "tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_
 run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor -n -1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
 			"$too_many_champ_err" \
 			"< 5 champions with -n flags >"
+run_test "-titi" "$(wrong_flag_err "-titi")"
+run_test "-n 1 -titi" "$(no_such_file_err "-titi")"
+run_test "-n 1 $input_path/zork.cor -t" "$(wrong_flag_err "-t")"
 
 rm -f output1 output2
