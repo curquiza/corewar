@@ -16,11 +16,15 @@ typedef		unsigned char t_byte;
 # define PROG_SIZE_ERR	"Error: prog size in header differs from the real prog size\n"
 # define MAX_PLAYER_ERR	"Error: too many champions\n"
 # define PLAYER_NUM_ERR	"Error: player number must be an integer value\n"
+# define DUMP_CYCLE_ERR	"Error: dump cycle must be an integer value\n"
 # define WRONG_FLAG_ERR	"Not an available flag\n"
 
-# define NUM_FLAG	"-n"
-# define ZAZ_FLAG	"-zaz"
-# define DUMP_FLAG	"-dump"
+# define NUM_FLAG_STR	"-n"
+# define ZAZ_FLAG_STR	"-zaz"
+# define DUMP_FLAG_STR	"-dump"
+
+# define DUMP_FLAG	(1 << 0) // 1
+# define ZAZ_FLAG	(1 << 1) // 2
 
 typedef struct	s_memcase
 {
@@ -41,6 +45,7 @@ typedef struct 	s_vm
 	t_player	player[MAX_PLAYERS];
 	int			players_number;
 	int			flag;
+	int			dump_cycle;
 }				t_vm;
 
 t_vm	*g_vm;

@@ -53,6 +53,7 @@ t_exit	manage_player(char *filename, t_vm *vm, int num)
 	player->num = num;
 	if (parse_player(filename, player) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	print_player(player);
 	return (EXIT_SUCCESS);
 }
 
@@ -68,11 +69,17 @@ t_exit	player_num_err(void)
 	return (EXIT_FAILURE);
 }
 
+t_exit	dump_cycle_err(void)
+{
+	ft_dprintf(2, DUMP_CYCLE_ERR);
+	return (EXIT_FAILURE);
+}
+
 t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 {
 	int		num;
 
-	if (ft_strequ(argv[*i], NUM_FLAG))
+	if (ft_strequ(argv[*i], NUM_FLAG_STR))
 	{
 		num = 0;
 		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
@@ -83,10 +90,18 @@ t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 		/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		*i += 2;
 	}
+	else if (ft_strequ(argv[*i], DUMP_FLAG_STR))
+	{
+		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
+			return (dump_cycle_err());
+		vm->flag |= DUMP_FLAG;
+		vm->dump_cycle = ft_atoi(argv[*i + 1]);
+		*i += 1;
+	}
+	else if (ft_strequ(argv[*i], ZAZ_FLAG_STR))
+		vm->flag |= ZAZ_FLAG;
 	else
 		return (wrong_flag_err(argv[*i]));
-	// zaz flag
-	// dump flag
 	return (EXIT_SUCCESS);
 }
 
