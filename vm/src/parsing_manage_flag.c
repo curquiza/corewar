@@ -5,7 +5,8 @@ static t_exit	parse_num_flag(char **argv, int *i, t_vm *vm)
 	int		num;
 
 	num = 0;
-	if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
+	if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0
+		|| ft_atoi(argv[*i + 1]) < 0)
 		return (player_num_err());
 	num = ft_atoi(argv[*i + 1]);
 	if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)

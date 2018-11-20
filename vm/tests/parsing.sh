@@ -11,7 +11,7 @@ trace="./tests/parsing_trace.txt"
 
 header_err="Error: wrong header format\n"
 prog_size_err="Error: prog size in header differs from the real prog size\n"
-player_num_err="Error: player number must be an integer value\n"
+player_num_err="Error: player number must be a positive integer value\n"
 dump_cycle_err="Error: dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: too many champions\n"
 
@@ -67,14 +67,14 @@ run_test "-n" "$player_num_err"
 run_test "-n 1111111111111111111111" "$player_num_err"
 run_test "-n 2147483648" "$player_num_err"
 run_test "-n 2247483647" "$player_num_err"
-run_test "-n -2147483649" "$player_num_err"
-run_test "-n -2157483648" "$player_num_err"
+run_test "-n -21" "$player_num_err"
 run_test "-n 1a" "$player_num_err"
+run_test "-n ++01" "$player_num_err"
 run_test "-n --01" "$player_num_err"
 run_test "tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
 			"$too_many_champ_err" \
 			"< 5 champions >"
-run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor -n -1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
+run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor -n 0 tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
 			"$too_many_champ_err" \
 			"< 5 champions with -n flags >"
 run_test "-titi" "$(wrong_flag_err "-titi")"
