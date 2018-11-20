@@ -75,27 +75,41 @@ t_exit	dump_cycle_err(void)
 	return (EXIT_FAILURE);
 }
 
-t_exit	manage_flags(char **argv, int *i, t_vm *vm)
+t_exit	parse_num_flag(char **argv, int i, t_vm *vm)
 {
 	int		num;
 
+	num = 0;
+	if (!argv[i + 1] || ft_is_int(argv[i + 1]) == 0)
+		return (player_num_err());
+	num = ft_atoi(argv[i + 1]);
+	if (manage_player(argv[i + 2], vm, num) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+t_exit	parse_dump_flag(char **argv, int i, t_vm *vm)
+{
+	if (!argv[i + 1] || ft_is_int(argv[i + 1]) == 0
+		|| ft_atoi(argv[i + 1]) < 0)
+		return (dump_cycle_err());
+	vm->flag |= DUMP_FLAG;
+	vm->dump_cycle = ft_atoi(argv[i + 1]);
+	return (EXIT_SUCCESS);
+}
+
+t_exit	manage_flags(char **argv, int *i, t_vm *vm)
+{
 	if (ft_strequ(argv[*i], NUM_FLAG_STR))
 	{
-		num = 0;
-		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
-			return (player_num_err());
-		num = ft_atoi(argv[*i + 1]);
-		if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
+		if (parse_num_flag(argv, *i, vm) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		*i += 2;
 	}
 	else if (ft_strequ(argv[*i], DUMP_FLAG_STR))
 	{
-		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0
-			|| ft_atoi(argv[*i + 1]) < 0)
-			return (dump_cycle_err());
-		vm->flag |= DUMP_FLAG;
-		vm->dump_cycle = ft_atoi(argv[*i + 1]);
+		if (parse_dump_flag(argv, *i, vm) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		*i += 1;
 	}
 	else if (ft_strequ(argv[*i], ZAZ_FLAG_STR))
@@ -112,19 +126,13 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	i = 1;
 	while (i < argc)
 	{
-		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
-		{
-			/*ft_printf("FLAG\n"); //DEBUG*/
-			if (manage_flags(argv, &i, vm) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
-		else if (argv[i])
-		{
-			/*ft_printf("PLAYER\n"); //DEBUG*/
-			if (manage_player(argv[i], vm, generate_player_num(vm))
+		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-'
+				&& manage_flags(argv, &i, vm) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		else if (argv[i]
+				&& manage_player(argv[i], vm, generate_player_num(vm))
 				== EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
+			return (EXIT_FAILURE);
 		i++;
 	}
 	return (EXIT_SUCCESS);
