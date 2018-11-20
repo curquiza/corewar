@@ -71,7 +71,23 @@ uint32_t		str_to_uint32(char *str);
 /*
 ** Parsing
 */
-t_exit			parse_player(char *filename, t_player *player);
+t_exit			wrong_flag_err(char *s);
+t_exit			player_num_err(void);
+t_exit			dump_cycle_err(void);
+t_exit			max_player_err(void);
+
+t_exit			read_magic(char *filename, int fd, t_header *header);
+t_exit			read_name(char *filename, int fd, t_header *header);
+t_exit			read_zero_block(char *filename, int fd);
+t_exit			read_prog_size(char *filename, int fd, t_header *header);
+t_exit			read_comment(char *filename, int fd, t_header *header);
+t_exit			read_prog(char *filename, int fd, t_player *player);
+
+t_exit			manage_player(char *filename, t_vm *vm, int num);
+
+t_exit			manage_flag(char **argv, int *i, t_vm *vm);
+
+t_exit			parsing(int argc, char **argv, t_vm *vm);
 
 /*
 ** Clean
