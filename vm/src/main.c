@@ -53,12 +53,6 @@ t_exit	manage_player(char *filename, t_vm *vm, int num)
 	return (EXIT_SUCCESS);
 }
 
-bool	is_int(char *s)
-{
-	(void)s;
-	return (true);
-}
-
 t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 {
 	int		num;
@@ -66,7 +60,7 @@ t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 	if (ft_strequ(argv[*i], NUM_FLAG))
 	{
 		num = 0;
-		if (!argv[*i + 1] || is_int(argv[*i + 1]) == false)
+		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
 		{
 			ft_dprintf(2, PLAYER_NUM_ERR);
 			return (EXIT_FAILURE);
