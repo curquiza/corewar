@@ -153,6 +153,26 @@ t_exit	init_check(void)
 	return (EXIT_SUCCESS);
 }
 
+void	print_vm(t_vm *vm)
+{
+	int		i;
+
+	ft_printf("VM :\n");
+	ft_printf("Player number = %d\n", vm->players_number);
+	ft_printf("flag = %b\n", vm->flag);
+	ft_printf("Dump cycles = %d\n", vm->dump_cycle);
+	ft_printf("----------------------\n");
+	ft_printf("PLAYERS :\n");
+	i = 0;
+	while (i < vm->players_number)
+	{
+		print_player(&vm->player[i]);
+		i++;
+		ft_printf("---\n");
+	}
+	ft_printf("----------------------\n");
+}
+
 int	main (int argc, char **argv)
 {
 	t_vm	vm;
@@ -171,6 +191,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(EXIT_FAILURE);
 	}
+	print_vm(&vm);
 	clean_all();
 	return (EXIT_SUCCESS);
 }
