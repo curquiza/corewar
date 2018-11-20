@@ -68,7 +68,7 @@ t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 		num = ft_atoi(argv[*i + 1]);
 		if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		print_player(&vm->player[vm->players_number - 1]); //DEBUG
+		/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		*i += 2;
 	}
 	// zaz flag
@@ -85,17 +85,17 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	{
 		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
 		{
-			ft_printf("FLAG\n"); //DEBUG
+			/*ft_printf("FLAG\n"); //DEBUG*/
 			if (manage_flags(argv, &i, vm) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		else if (argv[i])
 		{
-			ft_printf("PLAYER\n"); //DEBUG
+			/*ft_printf("PLAYER\n"); //DEBUG*/
 			if (manage_player(argv[i], vm, generate_player_num(vm))
 				== EXIT_FAILURE)
 				return (EXIT_FAILURE);
-			print_player(&vm->player[vm->players_number - 1]); //DEBUG
+			/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		}
 		i++;
 	}
