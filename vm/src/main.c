@@ -12,20 +12,24 @@ void	print_player(t_player *p)
 	ft_printf("-> comment = %s\n", p->header.comment);
 }
 
-t_exit	parsing(int argc, char **argv, t_vm *vm)
+void	print_vm(t_vm *vm)
 {
 	int		i;
 
-	i = 1;
-	while (i < argc)
+	ft_printf("VM :\n");
+	ft_printf("Player number = %d\n", vm->players_number);
+	ft_printf("flag = %b\n", vm->flag);
+	ft_printf("Dump cycles = %d\n", vm->dump_cycle);
+	ft_printf("----------------------\n");
+	ft_printf("PLAYERS :\n");
+	i = 0;
+	while (i < vm->players_number)
 	{
-		vm->players_number += 1;
-		if (parse_player(argv[i], &vm->player[i - 1], i) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		print_player(&vm->player[i - 1]); //DEBUG
+		print_player(&vm->player[i]);
 		i++;
+		ft_printf("---\n");
 	}
-	return (EXIT_SUCCESS);
+	ft_printf("----------------------\n");
 }
 
 t_exit	init_check(void)
@@ -57,6 +61,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(EXIT_FAILURE);
 	}
+	/*print_vm(&vm);*/
 	clean_all();
 	return (EXIT_SUCCESS);
 }

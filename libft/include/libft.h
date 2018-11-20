@@ -16,6 +16,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 /*
 ** Colors
@@ -158,5 +159,7 @@ void				ft_putnbr2(char *s, int nbr);
 void				ft_strupper(char *s);
 void				ft_strlower(char *s);
 void				*ft_memjoin(void *s1, void *s2, size_t size1, size_t size2);
+long int			ft_atoli(char *str);
+int					ft_is_int(char *s);
 
 #endif

@@ -9,7 +9,12 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  conversion.c \
 	  file_syscall.c \
 	  clean.c \
-	  parsing_player_binary.c \
+	  error.c \
+	  parsing_manage_flag.c \
+	  parsing_manage_player.c \
+	  parsing_read_bin1.c \
+	  parsing_read_bin2.c \
+	  parsing_base.c \
 	  main.c)
 
 OBJ_DIR = objs
