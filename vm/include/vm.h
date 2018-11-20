@@ -16,6 +16,7 @@ typedef		unsigned char t_byte;
 # define PROG_SIZE_ERR	"Error: prog size in header differs from the real prog size\n"
 # define MAX_PLAYER_ERR	"Error: too many champions\n"
 # define PLAYER_NUM_ERR	"Error: player number must be an integer value\n"
+# define WRONG_FLAG_ERR	"Not an available flag\n"
 
 # define NUM_FLAG	"-n"
 # define ZAZ_FLAG	"-zaz"

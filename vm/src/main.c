@@ -36,21 +36,36 @@ int		generate_player_num(t_vm *vm)
 	return (num);
 }
 
+t_exit	max_player_err(void)
+{
+	ft_dprintf(2, MAX_PLAYER_ERR);
+	return (EXIT_FAILURE);
+}
+
 t_exit	manage_player(char *filename, t_vm *vm, int num)
 {
 	t_player	*player;
 
 	if (vm->players_number + 1 > MAX_PLAYERS)
-	{
-		ft_dprintf(2, MAX_PLAYER_ERR);
-		return (EXIT_FAILURE);
-	}
+		return (max_player_err());
 	vm->players_number += 1;
 	player = &vm->player[vm->players_number - 1];
 	player->num = num;
 	if (parse_player(filename, player) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+t_exit	wrong_flag_err(char *s)
+{
+	ft_dprintf(2, "Error: %s: %s", s, WRONG_FLAG_ERR);
+	return (EXIT_FAILURE);
+}
+
+t_exit	player_num_err(void)
+{
+	ft_dprintf(2, PLAYER_NUM_ERR);
+	return (EXIT_FAILURE);
 }
 
 t_exit	manage_flags(char **argv, int *i, t_vm *vm)
@@ -61,16 +76,15 @@ t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 	{
 		num = 0;
 		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
-		{
-			ft_dprintf(2, PLAYER_NUM_ERR);
-			return (EXIT_FAILURE);
-		}
+			return (player_num_err());
 		num = ft_atoi(argv[*i + 1]);
 		if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		*i += 2;
 	}
+	else
+		return (wrong_flag_err(argv[*i]));
 	// zaz flag
 	// dump flag
 	return (EXIT_SUCCESS);
