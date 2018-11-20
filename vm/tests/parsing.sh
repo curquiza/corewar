@@ -80,9 +80,11 @@ run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/i
 run_test "-titi" "$(wrong_flag_err "-titi")"
 run_test "-n 1 -titi" "$(no_such_file_err "-titi")"
 run_test "-n 1 $input_path/zork.cor -t" "$(wrong_flag_err "-t")"
+run_test "--zaz" "$(wrong_flag_err "--zaz")"
 run_test "-dump" "$dump_cycle_err"
 run_test "-dumpp " "$(wrong_flag_err "-dumpp")"
 run_test "-dump x21" "$dump_cycle_err"
 run_test "-dump -21" "$dump_cycle_err"
+run_test "-dump 21 titi" "$(no_such_file_err "titi")"
 
 rm -f output1 output2

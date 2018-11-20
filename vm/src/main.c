@@ -126,13 +126,17 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	i = 1;
 	while (i < argc)
 	{
-		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-'
-				&& manage_flags(argv, &i, vm) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		else if (argv[i]
-				&& manage_player(argv[i], vm, generate_player_num(vm))
+		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
+		{
+			if (manage_flags(argv, &i, vm) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
+		else if (argv[i])
+		{
+			if (manage_player(argv[i], vm, generate_player_num(vm))
 				== EXIT_FAILURE)
-			return (EXIT_FAILURE);
+				return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
