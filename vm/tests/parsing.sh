@@ -12,6 +12,7 @@ trace="./tests/parsing_trace.txt"
 header_err="Error: wrong header format\n"
 prog_size_err="Error: prog size in header differs from the real prog size\n"
 player_num_err="Error: player number must be an integer value\n"
+dump_cycle_err="Error: dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: too many champions\n"
 
 no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
@@ -79,5 +80,9 @@ run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/i
 run_test "-titi" "$(wrong_flag_err "-titi")"
 run_test "-n 1 -titi" "$(no_such_file_err "-titi")"
 run_test "-n 1 $input_path/zork.cor -t" "$(wrong_flag_err "-t")"
+run_test "-dump" "$dump_cycle_err"
+run_test "-dumpp " "$(wrong_flag_err "-dumpp")"
+run_test "-dump x21" "$dump_cycle_err"
+run_test "-dump -21" "$dump_cycle_err"
 
 rm -f output1 output2

@@ -53,7 +53,7 @@ t_exit	manage_player(char *filename, t_vm *vm, int num)
 	player->num = num;
 	if (parse_player(filename, player) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	print_player(player);
+	/*print_player(player); //DEBUG*/
 	return (EXIT_SUCCESS);
 }
 
@@ -87,12 +87,12 @@ t_exit	manage_flags(char **argv, int *i, t_vm *vm)
 		num = ft_atoi(argv[*i + 1]);
 		if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		*i += 2;
 	}
 	else if (ft_strequ(argv[*i], DUMP_FLAG_STR))
 	{
-		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0)
+		if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0
+			|| ft_atoi(argv[*i + 1]) < 0)
 			return (dump_cycle_err());
 		vm->flag |= DUMP_FLAG;
 		vm->dump_cycle = ft_atoi(argv[*i + 1]);
@@ -124,7 +124,6 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 			if (manage_player(argv[i], vm, generate_player_num(vm))
 				== EXIT_FAILURE)
 				return (EXIT_FAILURE);
-			/*print_player(&vm->player[vm->players_number - 1]); //DEBUG*/
 		}
 		i++;
 	}
