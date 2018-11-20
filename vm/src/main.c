@@ -61,7 +61,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(EXIT_FAILURE);
 	}
-	print_vm(&vm);
+	/*print_vm(&vm);*/
 	clean_all();
 	return (EXIT_SUCCESS);
 }
