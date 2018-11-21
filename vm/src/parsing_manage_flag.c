@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static t_exit	parse_num_flag(char **argv, int *i, t_vm *vm)
+static t_ex_ret	parse_num_flag(char **argv, int *i, t_vm *vm)
 {
 	int		num;
 
@@ -15,7 +15,7 @@ static t_exit	parse_num_flag(char **argv, int *i, t_vm *vm)
 	return (EXIT_SUCCESS);
 }
 
-static t_exit	parse_dump_flag(char **argv, int *i, t_vm *vm)
+static t_ex_ret	parse_dump_flag(char **argv, int *i, t_vm *vm)
 {
 	if (!argv[*i + 1] || ft_is_int(argv[*i + 1]) == 0
 		|| ft_atoi(argv[*i + 1]) < 0)
@@ -26,7 +26,7 @@ static t_exit	parse_dump_flag(char **argv, int *i, t_vm *vm)
 	return (EXIT_SUCCESS);
 }
 
-t_exit			manage_flag(char **argv, int *i, t_vm *vm)
+t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 {
 	if (ft_strequ(argv[*i], NUM_FLAG_STR))
 		return (parse_num_flag(argv, i, vm));

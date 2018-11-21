@@ -8,9 +8,6 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-typedef		uint32_t t_exit;
-typedef		unsigned char t_byte;
-
 # define DEFINE_ERR		"Error: value not conformed in op.h file\n"
 # define HEADER_ERR		"Error: wrong header format\n"
 # define PROG_SIZE_ERR	"Error: prog size in header differs from the real prog size\n"
@@ -59,9 +56,9 @@ void			print_usage(void);
 /*
 ** Files manager
 */
-t_exit			open_file(char *filename);
-t_exit			close_fd(int fd);
-t_exit			read_error(char *filename);
+t_ex_ret			open_file(char *filename);
+t_ex_ret			close_fd(int fd);
+t_ex_ret			read_error(char *filename);
 
 /*
 ** Conversions
@@ -72,23 +69,23 @@ uint32_t		str_to_uint32(char *str);
 ** Parsing
 */
 void			exit_malloc_err(void);
-t_exit			wrong_flag_err(char *s);
-t_exit			player_num_err(void);
-t_exit			dump_cycle_err(void);
-t_exit			max_player_err(void);
+t_ex_ret			wrong_flag_err(char *s);
+t_ex_ret			player_num_err(void);
+t_ex_ret			dump_cycle_err(void);
+t_ex_ret			max_player_err(void);
 
-t_exit			read_magic(char *filename, int fd, t_header *header);
-t_exit			read_name(char *filename, int fd, t_header *header);
-t_exit			read_zero_block(char *filename, int fd);
-t_exit			read_prog_size(char *filename, int fd, t_header *header);
-t_exit			read_comment(char *filename, int fd, t_header *header);
-t_exit			read_prog(char *filename, int fd, t_player *player);
+t_ex_ret			read_magic(char *filename, int fd, t_header *header);
+t_ex_ret			read_name(char *filename, int fd, t_header *header);
+t_ex_ret			read_zero_block(char *filename, int fd);
+t_ex_ret			read_prog_size(char *filename, int fd, t_header *header);
+t_ex_ret			read_comment(char *filename, int fd, t_header *header);
+t_ex_ret			read_prog(char *filename, int fd, t_player *player);
 
-t_exit			manage_player(char *filename, t_vm *vm, int num);
+t_ex_ret			manage_player(char *filename, t_vm *vm, int num);
 
-t_exit			manage_flag(char **argv, int *i, t_vm *vm);
+t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm);
 
-t_exit			parsing(int argc, char **argv, t_vm *vm);
+t_ex_ret			parsing(int argc, char **argv, t_vm *vm);
 
 /*
 ** Clean

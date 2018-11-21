@@ -1,6 +1,6 @@
 #include "vm.h"
 
-t_exit	read_magic(char *filename, int fd, t_header *header)
+t_ex_ret	read_magic(char *filename, int fd, t_header *header)
 {
 	char	buff[4];
 	int		read_ret;
@@ -19,7 +19,7 @@ t_exit	read_magic(char *filename, int fd, t_header *header)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	read_name(char *filename, int fd, t_header *header)
+t_ex_ret	read_name(char *filename, int fd, t_header *header)
 {
 	char	buff[PROG_NAME_LENGTH];
 	int		read_ret;
@@ -37,7 +37,7 @@ t_exit	read_name(char *filename, int fd, t_header *header)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	read_zero_block(char *filename, int fd)
+t_ex_ret	read_zero_block(char *filename, int fd)
 {
 	char	buff[4];
 	int		read_ret;
@@ -53,7 +53,7 @@ t_exit	read_zero_block(char *filename, int fd)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	read_prog_size(char *filename, int fd, t_header *header)
+t_ex_ret	read_prog_size(char *filename, int fd, t_header *header)
 {
 	char	buff[4];
 	int		read_ret;
@@ -70,7 +70,7 @@ t_exit	read_prog_size(char *filename, int fd, t_header *header)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	read_comment(char *filename, int fd, t_header *header)
+t_ex_ret	read_comment(char *filename, int fd, t_header *header)
 {
 	char	buff[COMMENT_LENGTH];
 	int		read_ret;

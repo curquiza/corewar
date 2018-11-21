@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static t_exit	parse_player(char *filename, t_player *player)
+static t_ex_ret	parse_player(char *filename, t_player *player)
 {
 	int		fd;
 	t_header	*player_header;
@@ -22,7 +22,7 @@ static t_exit	parse_player(char *filename, t_player *player)
 	return (close_fd(fd));
 }
 
-t_exit	manage_player(char *filename, t_vm *vm, int num)
+t_ex_ret	manage_player(char *filename, t_vm *vm, int num)
 {
 	t_player	*player;
 

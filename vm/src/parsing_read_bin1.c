@@ -3,7 +3,7 @@
 /*
 ** Read of prog_size +1 -> to check if the prog is not too big.
 */
-t_exit	read_prog(char *filename, int fd, t_player *player)
+t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 {
 	char	*buff;
 	int		read_ret;

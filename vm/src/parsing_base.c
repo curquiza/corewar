@@ -24,7 +24,7 @@ static int		generate_player_num(t_vm *vm)
 	return (num);
 }
 
-t_exit	parsing(int argc, char **argv, t_vm *vm)
+t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 {
 	int		i;
 

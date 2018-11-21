@@ -32,7 +32,7 @@ void	print_vm(t_vm *vm)
 	ft_printf("----------------------\n");
 }
 
-t_exit	init_check(void)
+t_ex_ret	init_check(void)
 {
 	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
 		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)

@@ -1,6 +1,6 @@
 #include "vm.h"
 
-t_exit	open_file(char *filename)
+t_ex_ret	open_file(char *filename)
 {
 	int		fd;
 	char	*err_str;
@@ -15,7 +15,7 @@ t_exit	open_file(char *filename)
 	return (fd);
 }
 
-t_exit	close_fd(int fd)
+t_ex_ret	close_fd(int fd)
 {
 	char	*fd_str;
 	char	*err_str;
@@ -32,7 +32,7 @@ t_exit	close_fd(int fd)
 	return (EXIT_SUCCESS);
 }
 
-t_exit	read_error(char *filename)
+t_ex_ret	read_error(char *filename)
 {
 	char	*err_str;
 
