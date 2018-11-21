@@ -112,7 +112,9 @@ FT = $(addprefix ft/, \
 	  ft_putnbr2.c \
 	  ft_memjoin.c \
 	  ft_atoli.c \
-	  ft_is_int.c)
+	  ft_is_int.c \
+	  ft_ret_err.c \
+	  ft_ret_err2.c)
 
 GNL = $(addprefix gnl/, \
 	  get_next_line.c)
