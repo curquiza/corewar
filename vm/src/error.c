@@ -1,5 +1,11 @@
 #include "vm.h"
 
+void	exit_malloc_err(void)
+{
+	clean_all();
+	exit(EXIT_FAILURE);
+}
+
 t_exit	wrong_flag_err(char *s)
 {
 	ft_dprintf(2, "Error: %s: %s", s, WRONG_FLAG_ERR);

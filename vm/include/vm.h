@@ -71,6 +71,7 @@ uint32_t		str_to_uint32(char *str);
 /*
 ** Parsing
 */
+void			exit_malloc_err(void);
 t_exit			wrong_flag_err(char *s);
 t_exit			player_num_err(void);
 t_exit			dump_cycle_err(void);

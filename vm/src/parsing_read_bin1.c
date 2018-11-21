@@ -9,7 +9,7 @@ t_exit	read_prog(char *filename, int fd, t_player *player)
 	int		read_ret;
 
 	if (!(buff = ft_memalloc(sizeof(char) * (player->header.prog_size + 1))))
-		return (EXIT_FAILURE);
+		exit_malloc_err();
 	read_ret = read(fd, buff, player->header.prog_size + 1);
 	if (read_ret == -1)
 	{
