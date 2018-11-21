@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 12:15:31 by curquiza          #+#    #+#             */
-/*   Updated: 2018/11/21 13:56:08 by curquiza         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:33:16 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ enum	e_bool
 
 typedef enum e_ex_ret	t_ex_ret;
 typedef enum e_bool		t_bool;
+typedef unsigned char	t_byte;
 
 /*
 ** Libft project - Bases
