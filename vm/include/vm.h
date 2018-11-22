@@ -81,6 +81,12 @@ t_ex_ret		manage_flag(char **argv, int *i, t_vm *vm);
 t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 
 /*
+** Setup : before starting
+*/
+void			vm_setup(t_vm *vm);
+
+
+/*
 ** Clean
 */
 void			clean_all(void);
