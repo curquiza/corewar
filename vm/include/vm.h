@@ -8,13 +8,13 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-# define DEFINE_ERR		"Error: value not conformed in op.h file\n"
-# define HEADER_ERR		"Error: wrong header format\n"
-# define PROG_SIZE_ERR	"Error: prog size in header differs from the real prog size\n"
-# define MAX_PLAYER_ERR	"Error: too many champions\n"
-# define PLAYER_NUM_ERR	"Error: player number must be a positive integer value\n"
-# define DUMP_CYCLE_ERR	"Error: dump cycle must be a positive integer value\n"
-# define WRONG_FLAG_ERR	"Not an available flag\n"
+# define DEFINE_ERR		"Value not conformed in op.h file"
+# define HEADER_ERR		"Wrong header format"
+# define PROG_SIZE_ERR	"Prog size in header differs from the real prog size"
+# define MAX_PLAYER_ERR	"Too many champions"
+# define PLAYER_NUM_ERR	"Player number must be a positive integer value"
+# define DUMP_CYCLE_ERR	"Dump cycle must be a positive integer value"
+# define WRONG_FLAG_ERR	"Not an available flag"
 
 # define NUM_FLAG_STR	"-n"
 # define ZAZ_FLAG_STR	"-zaz"
@@ -52,6 +52,7 @@ t_vm	*g_vm;
 */
 
 void			print_usage(void);
+void			exit_malloc_err(void);
 
 /*
 ** Files manager
@@ -68,23 +69,14 @@ uint32_t		str_to_uint32(char *str);
 /*
 ** Parsing
 */
-void			exit_malloc_err(void);
-t_ex_ret			wrong_flag_err(char *s);
-t_ex_ret			player_num_err(void);
-t_ex_ret			dump_cycle_err(void);
-t_ex_ret			max_player_err(void);
-
 t_ex_ret			read_magic(char *filename, int fd, t_header *header);
 t_ex_ret			read_name(char *filename, int fd, t_header *header);
 t_ex_ret			read_zero_block(char *filename, int fd);
 t_ex_ret			read_prog_size(char *filename, int fd, t_header *header);
 t_ex_ret			read_comment(char *filename, int fd, t_header *header);
 t_ex_ret			read_prog(char *filename, int fd, t_player *player);
-
 t_ex_ret			manage_player(char *filename, t_vm *vm, int num);
-
 t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm);
-
 t_ex_ret			parsing(int argc, char **argv, t_vm *vm);
 
 /*

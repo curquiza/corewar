@@ -9,7 +9,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  conversion.c \
 	  file_syscall.c \
 	  clean.c \
-	  error.c \
+	  utils.c \
 	  parsing_manage_flag.c \
 	  parsing_manage_player.c \
 	  parsing_read_bin1.c \

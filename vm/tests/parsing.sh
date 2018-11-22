@@ -9,11 +9,11 @@ corewar_bin="./corewar"
 input_path="./tests/input_parsing"
 trace="./tests/parsing_trace.txt"
 
-header_err="Error: wrong header format\n"
-prog_size_err="Error: prog size in header differs from the real prog size\n"
-player_num_err="Error: player number must be a positive integer value\n"
-dump_cycle_err="Error: dump cycle must be a positive integer value\n"
-too_many_champ_err="Error: too many champions\n"
+header_err="Error: Wrong header format\n"
+prog_size_err="Error: Prog size in header differs from the real prog size\n"
+player_num_err="Error: Player number must be a positive integer value\n"
+dump_cycle_err="Error: Dump cycle must be a positive integer value\n"
+too_many_champ_err="Error: Too many champions\n"
 
 no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
 wrong_flag_err() { echo "Error: $1: Not an available flag\n"; }

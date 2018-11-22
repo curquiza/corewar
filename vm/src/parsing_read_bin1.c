@@ -19,13 +19,12 @@ t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 	if ((unsigned int)read_ret != player->header.prog_size)
 	{
 		ft_strdel(&buff);
-		ft_dprintf(2, PROG_SIZE_ERR);
-		return (FAILURE);
+		return (ft_ret_err(PROG_SIZE_ERR));
 	}
 	if (!(player->prog = ft_strdup(buff)))
 	{
 		ft_strdel(&buff);
-		return (FAILURE);
+		exit_malloc_err();
 	}
 	ft_strdel(&buff);
 	return (SUCCESS);
