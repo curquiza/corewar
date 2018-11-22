@@ -35,11 +35,12 @@ void	print_vm(t_vm *vm)
 t_ex_ret	init_check(void)
 {
 	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
-		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)
-	{
-		ft_dprintf(2, DEFINE_ERR);
-		return (FAILURE);
-	}
+		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0
+		|| MAX_PLAYERS > 4 || MAX_PLAYERS < 1
+		|| MEM_SIZE < 1024 || MEM_SIZE >= 0xffff
+		|| IDX_MOD != MEM_SIZE / 8
+		|| CHAMP_MAX_SIZE != MEM_SIZE / 6)
+		return (ft_ret_err(DEFINE_ERR));
 	return (SUCCESS);
 }
 
