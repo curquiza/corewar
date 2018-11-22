@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static bool	num_available(int num, t_vm *vm)
+static t_bool	num_available(int num, t_vm *vm)
 {
 	int		i;
 
@@ -8,10 +8,10 @@ static bool	num_available(int num, t_vm *vm)
 	while (i < MAX_PLAYERS)
 	{
 		if (vm->player[i].num == num)
-			return (false);
+			return (FALSE);
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }
 
 static int		generate_player_num(t_vm *vm)
@@ -19,7 +19,7 @@ static int		generate_player_num(t_vm *vm)
 	int		num;
 
 	num = 1;
-	while (num_available(num, vm) == false)
+	while (num_available(num, vm) == FALSE)
 		num++;
 	return (num);
 }

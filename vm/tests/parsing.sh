@@ -14,6 +14,7 @@ prog_size_err="Error: Prog size in header differs from the real prog size\n"
 player_num_err="Error: Player number must be a positive integer value\n"
 dump_cycle_err="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
+prog_size_too_large_err="Error: Prog size is too large\n"
 
 no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
 wrong_flag_err() { echo "Error: $1: Not an available flag\n"; }
@@ -62,6 +63,7 @@ run_test "$input_path/comment_cut2.cor" "$header_err"
 run_test "$input_path/wrong_comment_end.cor" "$header_err"
 run_test "$input_path/wrong_progsize.cor" "$prog_size_err"
 run_test "$input_path/wrong_progsize2.cor" "$prog_size_err"
+run_test "$input_path/prog_too_large.cor" "$prog_size_too_large_err"
 run_test "-n 12" "Open error: : Bad address\n"
 run_test "-n" "$player_num_err"
 run_test "-n 1111111111111111111111" "$player_num_err"
