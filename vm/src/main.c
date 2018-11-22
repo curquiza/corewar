@@ -53,17 +53,14 @@ int	main (int argc, char **argv)
 	if (init_check() == FAILURE)
 		exit(FAILURE);
 	if (argc <= 1)
-	{
-		print_usage();
-		exit(FAILURE);
-	}
+		return (usage_ret_err());
 	if (parsing(argc, argv, &vm) == FAILURE)
 	{
 		clean_all();
 		exit(FAILURE);
 	}
 	vm_setup(&vm);
-	print_vm(&vm);
+	/*print_vm(&vm);*/
 	clean_all();
 	return (SUCCESS);
 }

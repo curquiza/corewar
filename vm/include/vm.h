@@ -13,8 +13,10 @@
 # define PROG_SIZE_ERR		"Prog size in header differs from the real prog size"
 # define MAX_PROG_SIZE_ERR	"Prog size is too large"
 # define MAX_PLAYER_ERR		"Too many champions"
-# define PLAYER_NUM_ERR		"Player number must be a positive integer value"
-# define DUMP_CYCLE_ERR		"Dump cycle must be a positive integer value"
+# define PLAYER_NUM_ERR1	"2 arguments are needed for -n flag"
+# define PLAYER_NUM_ERR2	"Player number must be a positive integer value"
+# define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
+# define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
 # define WRONG_FLAG_ERR		"Not an available flag"
 
 # define NUM_FLAG_STR	"-n"
@@ -52,9 +54,6 @@ t_vm	*g_vm;
 ** === FUNCTIONS ===============================================================
 */
 
-void			print_usage(void);
-void			exit_malloc_err(void);
-
 /*
 ** Files manager
 */
@@ -85,10 +84,15 @@ t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 */
 void			vm_setup(t_vm *vm);
 
-
 /*
 ** Clean
 */
 void			clean_all(void);
+
+/*
+** Misc
+*/
+t_ex_ret		usage_ret_err(void);
+void			exit_malloc_err(void);
 
 #endif
