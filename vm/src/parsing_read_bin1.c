@@ -29,11 +29,7 @@ t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 		ft_strdel(&buff);
 		return (FAILURE);
 	}
-	if (!(player->prog = ft_strdup(buff)))
-	{
-		ft_strdel(&buff);
-		exit_malloc_err();
-	}
+	ft_memcpy(player->prog, buff, read_ret);
 	ft_strdel(&buff);
 	return (SUCCESS);
 }

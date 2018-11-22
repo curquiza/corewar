@@ -28,15 +28,15 @@
 
 typedef struct	s_memcase
 {
-	char		value;
-	char		*color;
+	t_byte		value;
+	char		color[20];
 }				t_memcase;
 
 typedef struct	s_player
 {
 	t_header	header;
 	int			num;
-	char		*prog;
+	t_byte		prog[CHAMP_MAX_SIZE];
 }				t_player;
 
 typedef struct 	s_vm

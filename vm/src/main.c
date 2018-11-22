@@ -32,6 +32,28 @@ void	print_vm(t_vm *vm)
 	ft_printf("----------------------\n");
 }
 
+void	print_memory(t_memcase *memory)
+{
+	int		i;
+	int		line;
+
+	i = 0;
+	line = 1;
+	while (i < MEM_SIZE)
+	{
+		ft_printf("%s%0.2x%s", memory[i].color, (t_byte) memory[i].value, DEF);
+		if (line == 32)
+		{
+			ft_putchar('\n');
+			line = 1;
+		}
+		else
+			ft_putchar(' ');
+		line++;
+		i++;
+	}
+}
+
 t_ex_ret	init_check(void)
 {
 	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
@@ -60,6 +82,7 @@ int	main (int argc, char **argv)
 		exit(FAILURE);
 	}
 	vm_setup(&vm);
+	print_memory(vm.memory);
 	/*print_vm(&vm);*/
 	clean_all();
 	return (SUCCESS);
