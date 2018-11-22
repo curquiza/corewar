@@ -10,8 +10,8 @@ static int		exit_error(char *e)
 
 static void		put_error(enum e_error error, char *filename)
 {
-	ft_putstr(PROG_NAME);
-	ft_putstr(filename);
+	ft_putstr_fd(PROG_NAME, STDERR_FILENO);
+	ft_putstr_fd(filename, STDERR_FILENO);
 	if (error == NO_EXIST)
 		ft_putendl_fd(ERR_OPEN, STDERR_FILENO);
 	if (error == PERM_DENIED)

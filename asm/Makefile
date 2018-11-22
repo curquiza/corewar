@@ -50,6 +50,8 @@ fclean_lib :
 fclean_all : fclean_lib fclean
 
 run_tests :
+	@printf "\033[1;33m---------\n%s\n---------\033[0m\n" "ARGUMENTS"
+	@./tests/run_tests.sh
 	@printf "\033[1;33m--------------------\n%s\n--------------------\033[0m\n" "ASM PARSING + OUTPUT"
 	@python3 tests/main.py
 
