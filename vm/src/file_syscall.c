@@ -7,7 +7,8 @@ t_ex_ret	open_file(char *filename)
 
 	if ((fd = open(filename, O_RDONLY)) <= 0)
 	{
-		err_str = ft_strjoin("Open error: ", filename);
+		if (!(err_str = ft_strjoin("Open error: ", filename)))
+			exit_malloc_err();
 		perror(err_str);
 		ft_strdel(&err_str);
 		return (FAILURE);
@@ -22,8 +23,13 @@ t_ex_ret	close_fd(int fd)
 
 	if (close(fd) == -1)
 	{
-		fd_str = ft_itoa(fd);
-		err_str = ft_strjoin("Close error: ", fd_str);
+		if (!(fd_str = ft_itoa(fd)))
+			exit_malloc_err();
+		if (!(err_str = ft_strjoin("Close error: ", fd_str)))
+		{
+			ft_strdel(&fd_str);
+			exit_malloc_err();
+		}
 		perror(err_str);
 		ft_strdel(&fd_str);
 		ft_strdel(&err_str);
@@ -36,7 +42,8 @@ t_ex_ret	read_error(char *filename)
 {
 	char	*err_str;
 
-	err_str = ft_strjoin("Read error: ", filename);
+	if (!(err_str = ft_strjoin("Read error: ", filename)))
+		exit_malloc_err();
 	perror(err_str);
 	ft_strdel(&err_str);
 	return (FAILURE);
