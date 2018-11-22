@@ -23,6 +23,10 @@
 # define ZAZ_FLAG_STR	"-zaz"
 # define DUMP_FLAG_STR	"-dump"
 
+# define BYTES_PER_LINE		32
+# define BYTES_PER_LINE_ZAZ	64
+
+
 # define DUMP_FLAG	(1 << 0) // 1
 # define ZAZ_FLAG	(1 << 1) // 2
 
@@ -94,5 +98,6 @@ void			clean_all(void);
 */
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
+t_bool			flag_is_applied(int flag, t_vm *vm);
 
 #endif

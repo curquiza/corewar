@@ -6,3 +6,8 @@ void	exit_malloc_err(void)
 	ft_dprintf(2, "Malloc error\n");
 	exit(FAILURE);
 }
+
+t_bool	flag_is_applied(int flag, t_vm *vm)
+{
+	return ((flag & vm->flag) == flag);
+}

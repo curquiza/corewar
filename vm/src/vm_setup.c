@@ -11,13 +11,13 @@ void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
 			break;
 		vm->memory[index + i].value = player->prog[i];
 		if (player_num == 0)
-			 ft_strcpy(vm->memory[index + i].color, CYAN);
+			ft_strcpy(vm->memory[index + i].color, CYAN);
 		else if (player_num == 1)
-			 ft_strcpy(vm->memory[index + i].color, PINK);
+			ft_strcpy(vm->memory[index + i].color, PINK);
 		else if (player_num == 2)
-			 ft_strcpy(vm->memory[index + i].color, GREEN);
-		 else
-			 ft_strcpy(vm->memory[index + i].color, YELLOW);
+			ft_strcpy(vm->memory[index + i].color, GREEN);
+		else
+			ft_strcpy(vm->memory[index + i].color, YELLOW);
 		i++;
 	}
 }
