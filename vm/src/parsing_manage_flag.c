@@ -9,10 +9,10 @@ static t_ex_ret	parse_num_flag(char **argv, int *i, t_vm *vm)
 		|| ft_atoi(argv[*i + 1]) < 0)
 		return (player_num_err());
 	num = ft_atoi(argv[*i + 1]);
-	if (manage_player(argv[*i + 2], vm, num) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	if (manage_player(argv[*i + 2], vm, num) == FAILURE)
+		return (FAILURE);
 	*i += 2;
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 static t_ex_ret	parse_dump_flag(char **argv, int *i, t_vm *vm)
@@ -23,7 +23,7 @@ static t_ex_ret	parse_dump_flag(char **argv, int *i, t_vm *vm)
 	vm->flag |= DUMP_FLAG;
 	vm->dump_cycle = ft_atoi(argv[*i + 1]);
 	*i += 1;
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
@@ -36,5 +36,5 @@ t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 		vm->flag |= ZAZ_FLAG;
 	else
 		return (wrong_flag_err(argv[*i]));
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

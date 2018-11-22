@@ -38,9 +38,9 @@ t_ex_ret	init_check(void)
 		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)
 	{
 		ft_dprintf(2, DEFINE_ERR);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 int	main (int argc, char **argv)
@@ -49,19 +49,19 @@ int	main (int argc, char **argv)
 
 	g_vm = &vm;
 	ft_bzero(&vm, sizeof(vm));
-	if (init_check() == EXIT_FAILURE)
-		exit(EXIT_FAILURE);
+	if (init_check() == FAILURE)
+		exit(FAILURE);
 	if (argc <= 1)
 	{
 		print_usage();
-		exit(EXIT_FAILURE);
+		exit(FAILURE);
 	}
-	if (parsing(argc, argv, &vm) == EXIT_FAILURE)
+	if (parsing(argc, argv, &vm) == FAILURE)
 	{
 		clean_all();
-		exit(EXIT_FAILURE);
+		exit(FAILURE);
 	}
 	/*print_vm(&vm);*/
 	clean_all();
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

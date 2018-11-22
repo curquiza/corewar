@@ -10,7 +10,7 @@ t_ex_ret	open_file(char *filename)
 		err_str = ft_strjoin("Open error: ", filename);
 		perror(err_str);
 		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	return (fd);
 }
@@ -27,9 +27,9 @@ t_ex_ret	close_fd(int fd)
 		perror(err_str);
 		ft_strdel(&fd_str);
 		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 t_ex_ret	read_error(char *filename)
@@ -39,5 +39,5 @@ t_ex_ret	read_error(char *filename)
 	err_str = ft_strjoin("Read error: ", filename);
 	perror(err_str);
 	ft_strdel(&err_str);
-	return (EXIT_FAILURE);
+	return (FAILURE);
 }

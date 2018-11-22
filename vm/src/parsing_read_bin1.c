@@ -20,15 +20,15 @@ t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 	{
 		ft_strdel(&buff);
 		ft_dprintf(2, PROG_SIZE_ERR);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	if (!(player->prog = ft_strdup(buff)))
 	{
 		ft_strdel(&buff);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	ft_strdel(&buff);
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 

@@ -33,16 +33,16 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 	{
 		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
 		{
-			if (manage_flag(argv, &i, vm) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (manage_flag(argv, &i, vm) == FAILURE)
+				return (FAILURE);
 		}
 		else if (argv[i])
 		{
 			if (manage_player(argv[i], vm, generate_player_num(vm))
-				== EXIT_FAILURE)
-				return (EXIT_FAILURE);
+				== FAILURE)
+				return (FAILURE);
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
