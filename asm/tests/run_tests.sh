@@ -26,7 +26,8 @@ run_test "No such file or directory: " "$($FILE toto 2>&1)" "asm: toto: No such 
 
 chmod 000 $DIR_TEST/perm_denied
 run_test "Permission denied: " "$($FILE $DIR_TEST/perm_denied 2>&1)" "asm: tests/input/perm_denied: Permission denied."
+chmod 755 $DIR_TEST/perm_denied
 
-run_test "Illegal option: " "$($FILE -z toto 2>&1)" "ft_nm: illegal option
+run_test "Illegal option: " "$($FILE -z toto 2>&1)" "asm: illegal option
 usage: ./asm [-a] <sourcefile.s>
 	-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
