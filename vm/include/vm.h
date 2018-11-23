@@ -48,6 +48,8 @@ typedef struct	s_processus
 	int					cycles;
 	t_byte				opcode;
 	t_bool				live;
+	int					reg[REG_NUMBER];
+	unsigned short		pc;
 	struct s_processus	*next;
 }				t_processus;
 
