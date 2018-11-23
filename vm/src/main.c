@@ -76,6 +76,21 @@ void	print_memory(t_vm *vm)
 	}
 }
 
+void	print_processus(t_vm *vm)
+{
+	t_processus	*proc;
+
+	proc = vm->proc;
+	while (proc)
+	{
+		ft_printf("index = %d\n", proc->index);
+		ft_printf("cycles = %d\n", proc->cycles);
+		ft_printf("opcode = 0x%0.2x\n", proc->opcode);
+		ft_printf("---\n");
+		proc = proc->next;
+	}
+}
+
 t_ex_ret	init_check(void)
 {
 	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
@@ -104,8 +119,9 @@ int	main (int argc, char **argv)
 		exit(FAILURE);
 	}
 	vm_setup(&vm);
-	print_memory(&vm);
 	/*print_vm(&vm);*/
+	/*print_memory(&vm);*/
+	/*print_processus(&vm);*/
 	clean_all();
 	return (SUCCESS);
 }

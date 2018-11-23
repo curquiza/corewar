@@ -26,7 +26,6 @@
 # define BYTES_PER_LINE		32
 # define BYTES_PER_LINE_ZAZ	64
 
-
 # define DUMP_FLAG	(1 << 0) // 1
 # define ZAZ_FLAG	(1 << 1) // 2
 
@@ -43,6 +42,14 @@ typedef struct	s_player
 	t_byte		prog[CHAMP_MAX_SIZE];
 }				t_player;
 
+typedef struct	s_processus
+{
+	int					index;
+	int					cycles;
+	t_byte				opcode;
+	struct s_processus	*next;
+}				t_processus;
+
 typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
@@ -50,6 +57,8 @@ typedef struct 	s_vm
 	int			players_number;
 	int			flag;
 	int			dump_cycle;
+	t_processus	*proc;
+	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
 
 t_vm	*g_vm;
