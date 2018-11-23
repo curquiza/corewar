@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_ret_err2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 11:27:23 by curquiza          #+#    #+#             */
-/*   Updated: 2017/04/27 14:50:52 by curquiza         ###   ########.fr       */
+/*   Created: 2018/11/21 12:44:22 by curquiza          #+#    #+#             */
+/*   Updated: 2018/11/21 13:07:48 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+t_ex_ret	ft_ret_err2(char *s1, char *s2)
 {
-	int		i;
-	char	*str;
-	int		len;
-
-	len = ft_strlen(src);
-	if (!(str = ft_strnew(len)))
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = src[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	ft_dprintf(2, "Error: %s: %s\n", s1, s2);
+	return (FAILURE);
 }

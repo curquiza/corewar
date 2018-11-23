@@ -32,15 +32,82 @@ void	print_vm(t_vm *vm)
 	ft_printf("----------------------\n");
 }
 
-t_exit	init_check(void)
+int		bytes_per_line(t_vm *vm)
 {
-	if (PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
-		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)
+	if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
+		return (BYTES_PER_LINE_ZAZ);
+	return (BYTES_PER_LINE);
+}
+
+void	handle_newline(int i, t_vm *vm)
+{
+	int		b_per_line;
+
+	b_per_line = i % bytes_per_line(vm);
+	if (b_per_line == bytes_per_line(vm) - 1)
+		ft_putchar('\n');
+	else
+		ft_putchar(' ');
+}
+
+void	print_mem_addr(int i, t_vm *vm)
+{
+	if (i % bytes_per_line(vm) == 0)
+		ft_printf("0x%0.4x : ", i);
+}
+
+void	print_memory(t_vm *vm)
+{
+	int			i;
+	t_memcase	*memory;
+
+	memory = vm->memory;
+	i = 0;
+	while (i < MEM_SIZE)
 	{
-		ft_dprintf(2, DEFINE_ERR);
-		return (EXIT_FAILURE);
+		print_mem_addr(i, vm);
+		if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
+			ft_printf("%0.2x", (t_byte) memory[i].value);
+		else
+			ft_printf("%s%0.2x%s", memory[i].color, (t_byte) memory[i].value,
+						DEF);
+		handle_newline(i, vm);
+		i++;
 	}
-	return (EXIT_SUCCESS);
+}
+
+void	print_processus(t_vm *vm)
+{
+	t_processus	*proc;
+
+	proc = vm->proc;
+	while (proc)
+	{
+		ft_printf("index = %d\n", proc->index);
+		ft_printf("cycles = %d\n", proc->cycles);
+		ft_printf("opcode = 0x%0.2x\n", proc->opcode);
+		ft_printf("live = %d\n", proc->live);
+		ft_printf("---\n");
+		proc = proc->next;
+	}
+}
+
+t_ex_ret	init_check(void)
+{
+	if (IND_SIZE != 2 || REG_SIZE != 4 || DIR_SIZE != REG_SIZE
+		|| REG_CODE != 1 || DIR_CODE != 2 || IND_CODE != 3
+		|| MAX_ARGS_NUMBER != 4
+		|| MAX_PLAYERS > 4 || MAX_PLAYERS < 1
+		|| MEM_SIZE < 1024 || MEM_SIZE >= 0xffff
+		|| IDX_MOD != MEM_SIZE / 8
+		|| CHAMP_MAX_SIZE != MEM_SIZE / 6
+		|| REG_NUMBER != 16
+		|| CYCLE_TO_DIE != 1536 || CYCLE_DELTA != 50
+		|| NBR_LIVE != 21 || MAX_CHECKS != 10
+		|| PROG_NAME_LENGTH % 4 != 0 || PROG_NAME_LENGTH <= 0
+		|| COMMENT_LENGTH % 4 != 0 || COMMENT_LENGTH <= 0)
+		return (ft_ret_err(DEFINE_ERR));
+	return (SUCCESS);
 }
 
 int	main (int argc, char **argv)
@@ -49,19 +116,19 @@ int	main (int argc, char **argv)
 
 	g_vm = &vm;
 	ft_bzero(&vm, sizeof(vm));
-	if (init_check() == EXIT_FAILURE)
-		exit(EXIT_FAILURE);
+	if (init_check() == FAILURE)
+		exit(FAILURE);
 	if (argc <= 1)
-	{
-		print_usage();
-		exit(EXIT_FAILURE);
-	}
-	if (parsing(argc, argv, &vm) == EXIT_FAILURE)
+		return (usage_ret_err());
+	if (parsing(argc, argv, &vm) == FAILURE)
 	{
 		clean_all();
-		exit(EXIT_FAILURE);
+		exit(FAILURE);
 	}
+	vm_setup(&vm);
 	/*print_vm(&vm);*/
+	/*print_memory(&vm);*/
+	/*print_processus(&vm);*/
 	clean_all();
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

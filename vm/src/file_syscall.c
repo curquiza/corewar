@@ -1,43 +1,50 @@
 #include "vm.h"
 
-t_exit	open_file(char *filename)
+t_ex_ret	open_file(char *filename)
 {
 	int		fd;
 	char	*err_str;
 
 	if ((fd = open(filename, O_RDONLY)) <= 0)
 	{
-		err_str = ft_strjoin("Open error: ", filename);
+		if (!(err_str = ft_strjoin("Open error: ", filename)))
+			exit_malloc_err();
 		perror(err_str);
 		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	return (fd);
 }
 
-t_exit	close_fd(int fd)
+t_ex_ret	close_fd(int fd)
 {
 	char	*fd_str;
 	char	*err_str;
 
 	if (close(fd) == -1)
 	{
-		fd_str = ft_itoa(fd);
-		err_str = ft_strjoin("Close error: ", fd_str);
+		if (!(fd_str = ft_itoa(fd)))
+			exit_malloc_err();
+		if (!(err_str = ft_strjoin("Close error: ", fd_str)))
+		{
+			ft_strdel(&fd_str);
+			exit_malloc_err();
+		}
 		perror(err_str);
 		ft_strdel(&fd_str);
 		ft_strdel(&err_str);
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
-t_exit	read_error(char *filename)
+t_ex_ret	read_error(char *filename)
 {
 	char	*err_str;
 
-	err_str = ft_strjoin("Read error: ", filename);
+	if (!(err_str = ft_strjoin("Read error: ", filename)))
+		exit_malloc_err();
 	perror(err_str);
 	ft_strdel(&err_str);
-	return (EXIT_FAILURE);
+	return (FAILURE);
 }

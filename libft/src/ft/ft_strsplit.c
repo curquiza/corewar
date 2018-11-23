@@ -33,7 +33,10 @@ char		**ft_strsplit(char const *s, char c)
 		return (NULL);
 	nb_words = ft_countwords(s, c);
 	if (!(tmp = (char **)malloc(sizeof(*tmp) * (nb_words + 1))))
-		ft_exit("malloc error", 1);
+	{
+		ft_putendl_fd("Malloc error", 2);
+		return (NULL);
+	}
 	tmp[nb_words] = 0;
 	while (i < nb_words)
 	{

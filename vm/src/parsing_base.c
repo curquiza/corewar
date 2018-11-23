@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static bool	num_available(int num, t_vm *vm)
+static t_bool	num_available(int num, t_vm *vm)
 {
 	int		i;
 
@@ -8,10 +8,10 @@ static bool	num_available(int num, t_vm *vm)
 	while (i < MAX_PLAYERS)
 	{
 		if (vm->player[i].num == num)
-			return (false);
+			return (FALSE);
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }
 
 static int		generate_player_num(t_vm *vm)
@@ -19,12 +19,12 @@ static int		generate_player_num(t_vm *vm)
 	int		num;
 
 	num = 1;
-	while (num_available(num, vm) == false)
+	while (num_available(num, vm) == FALSE)
 		num++;
 	return (num);
 }
 
-t_exit	parsing(int argc, char **argv, t_vm *vm)
+t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 {
 	int		i;
 
@@ -33,16 +33,18 @@ t_exit	parsing(int argc, char **argv, t_vm *vm)
 	{
 		if (argv[i] && ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
 		{
-			if (manage_flag(argv, &i, vm) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (manage_flag(argv, &i, vm) == FAILURE)
+				return (FAILURE);
 		}
 		else if (argv[i])
 		{
 			if (manage_player(argv[i], vm, generate_player_num(vm))
-				== EXIT_FAILURE)
-				return (EXIT_FAILURE);
+				== FAILURE)
+				return (FAILURE);
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	if (vm->players_number == 0)
+		return (usage_ret_err());
+	return (SUCCESS);
 }

@@ -2,12 +2,14 @@
 
 void	clean_all(void)
 {
-	int		i;
+	t_processus	*tmp;
+	t_processus	*proc;
 
-	i = 0;
-	while (i < g_vm->players_number)
+	proc = g_vm->proc;
+	while (proc)
 	{
-		ft_strdel(&g_vm->player[i].prog);
-		i++;
+		tmp = proc;
+		proc = proc->next;
+		free(tmp);
 	}
 }

@@ -25,15 +25,15 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 
 	if (!f || !lst)
 		return (NULL);
-	if (!(tmp = (t_list *)malloc(sizeof(*tmp))))
-		ft_exit("malloc error", 1);
+	if (!(tmp = ft_memalloc(sizeof(*tmp))))
+		return (NULL);
 	tmp = (*f)(lst);
 	start = tmp;
 	lst = lst->next;
 	while (lst)
 	{
-		if (!(tmp->next = (t_list *)malloc(sizeof(*tmp))))
-			ft_exit("malloc error", 1);
+		if (!(tmp->next = ft_memalloc(sizeof(*tmp))))
+			return (NULL);
 		tmp->next = (*f)(lst);
 		tmp = tmp->next;
 		lst = lst->next;

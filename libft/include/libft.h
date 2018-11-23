@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 12:15:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/09/26 15:24:47 by curquiza         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:33:16 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+
+# include "get_next_line.h"
+# include "ft_printf.h"
 
 /*
 ** Colors
@@ -39,11 +42,24 @@
 # define WHITE "\x1b[37m"
 
 /*
-** GNL project
+** Typedef
 */
 
-# include "get_next_line.h"
-# include "ft_printf.h"
+enum	e_ex_ret
+{
+	SUCCESS = EXIT_SUCCESS,
+	FAILURE = EXIT_FAILURE
+};
+
+enum	e_bool
+{
+	FALSE = 0,
+	TRUE = 1
+};
+
+typedef enum e_ex_ret	t_ex_ret;
+typedef enum e_bool		t_bool;
+typedef unsigned char	t_byte;
 
 /*
 ** Libft project - Bases
@@ -104,7 +120,7 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 
 /*
-** Libft project - Lists
+** Lists
 */
 
 typedef struct		s_list
@@ -120,22 +136,17 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list*lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
-/*
-** Libft projetc - Bonus
-*/
-
-int					ft_countwords(char const *s, char c);
-int					ft_intlen(int n);
 int					ft_lstlen(t_list *lst);
 void				ft_lstadd_back(t_list **alst, t_list *new);
-t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstat(t_list *lst, size_t n);
+t_list				*ft_lstlast(t_list *lst);
 
 /*
 ** My additionnal functions
 */
 
+int					ft_countwords(char const *s, char c);
+int					ft_intlen(int n);
 int					ft_intlen_base(int n, int base);
 char				*ft_itoa_base(int value, int base);
 void				ft_putnbr_endl(int n);
@@ -160,6 +171,8 @@ void				ft_strupper(char *s);
 void				ft_strlower(char *s);
 void				*ft_memjoin(void *s1, void *s2, size_t size1, size_t size2);
 long int			ft_atoli(char *str);
-int					ft_is_int(char *s);
+t_bool				ft_is_int(char *s);
+t_ex_ret			ft_ret_err(char *s);
+t_ex_ret			ft_ret_err2(char *s1, char *s2);
 
 #endif
