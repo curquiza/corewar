@@ -1,6 +1,18 @@
 #include "vm.h"
 
-void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
+static char	*get_player_color(int player_num)
+{
+	if (player_num == 0)
+		return (CYAN);
+	else if (player_num == 1)
+		return (PINK);
+	else if (player_num == 2)
+		return (GREEN);
+	else
+		return (YELLOW);
+}
+
+static void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
 {
 	unsigned int	i;
 
@@ -10,19 +22,12 @@ void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
 		if (i + index >= MEM_SIZE)
 			break;
 		vm->memory[index + i].value = player->prog[i];
-		if (player_num == 0)
-			ft_strcpy(vm->memory[index + i].color, CYAN);
-		else if (player_num == 1)
-			ft_strcpy(vm->memory[index + i].color, PINK);
-		else if (player_num == 2)
-			ft_strcpy(vm->memory[index + i].color, GREEN);
-		else
-			ft_strcpy(vm->memory[index + i].color, YELLOW);
+		ft_strcpy(vm->memory[index + i].color, get_player_color(player_num));
 		i++;
 	}
 }
 
-void	fill_all_prog_in_memory(t_vm *vm)
+static void	fill_all_prog_in_memory(t_vm *vm)
 {
 	int		i;
 	int		index;
