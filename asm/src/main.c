@@ -16,6 +16,8 @@ static void		put_error(enum e_error error, char *filename)
 		ft_putendl_fd(ERR_OPEN, STDERR_FILENO);
 	if (error == PERM_DENIED)
 		ft_putendl_fd(ERR_PERM, STDERR_FILENO);
+	if (error == READ_ERROR)
+		ft_putendl_fd(ERR_READ, STDERR_FILENO);		
 }
 
 static int		open_file(char *filename)
@@ -31,10 +33,23 @@ static int		open_file(char *filename)
 	return (fd);
 }
 
+static void		init_src_file(t_src_file *file)
+{
+	g_file = file;
+    ft_bzero(file, sizeof(t_src_file));
+	file->header.magic = COREWAR_EXEC_MAGIC;
+}
+
+static void		print_header(t_header *header)
+{
+	ft_printf("magic: %x\nprog name: %s\nprog size: %d\nprog desc: %s\n", header->magic, header->prog_name, header->prog_size, header->comment);
+}
+
 int				main (int argc, char **argv)
 {
-	int		ret;
-	char	*file;
+	int			ret;
+	char		*filename;
+	t_src_file	file;
 
 	if (argc == 1)
 		return (exit_error(USAGE));
@@ -42,11 +57,17 @@ int				main (int argc, char **argv)
 		return (exit_error(ILLEGAL_OPTION));
 	while (argc--)
 	{
-		file = *argv++;
-		if ((ret = open_file(file)) < 0)
-			put_error(ret, file);
+		init_src_file(&file);
+		filename = *argv++;
+		if ((ret = open_file(filename)) < 0)
+			put_error(ret, filename);
 		else
-			ft_printf("parsing file: %s\n", file);
+		{
+			ft_printf("parsing file: %s\n", filename);
+			if ((ret = parse(&file, ret)) != SUCCESS)
+				put_error(ret, filename);
+			print_header(&file.header);
+		}
 	}
 	return (SUCCESS);
 }

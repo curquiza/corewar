@@ -13,17 +13,27 @@
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
 # define ERR_OPEN		": No such file or directory."
 # define ERR_PERM	    ": Permission denied."
+# define ERR_READ	    ": read error."
 
-enum 		e_error {
+enum 		e_error
+{
 	NO_EXIST = -10,
 	PERM_DENIED,
+	READ_ERROR
 };
 
-extern int	g_flags;
+typedef struct	s_src_file
+{
+	t_header	header;
+}				t_src_file;
+
+extern int		g_flags;
+t_src_file		*g_file;
 
 /*
-** INIT
+** INIT & PARSING
 */
 int				get_options(int *argc, char ***argv);
+int				parse(t_src_file *file, int fd);
 
 #endif
