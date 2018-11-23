@@ -15,5 +15,4 @@ ERROR_TYPE = {
 INPUT = {
     'zork.s':       {'error': False, 'error_type': None, 'error_line': -1},
     'no_name.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 0},
-    'quote.1.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 0},
 }

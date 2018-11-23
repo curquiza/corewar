@@ -26,7 +26,6 @@ t_ex_ret        parse_name(t_src_file *file, int fd)
     while ((ret = get_trim_line(fd, &line)) == 1)
 	{
         file->nb_line++;
-        ft_printf("line: %s\n", line);
         if (*line == '#' || *line == '\0')
         {
 	        ft_strdel(&line);

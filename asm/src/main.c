@@ -8,10 +8,9 @@ static int		open_file(char *filename)
 	int 			fd;
 	
 	if ((stat(filename, &s)) < 0)
-		return (ft_ret_err(NO_EXIST));
+		return (ft_ret_err2(filename, NO_EXIST));
 	if ((fd = open(filename, O_RDONLY)) < 0)
-		return (ft_ret_err(PERM_DENIED));
-	
+		return (ft_ret_err2(filename, PERM_DENIED));
 	return (fd);
 }
 
@@ -48,12 +47,15 @@ int				main (int argc, char **argv)
 	{
 		init_src_file(&file);
 		filename = *argv++;
-		if ((ret = open_file(filename)) < 0)
+		// ft_printf("file: %s", filename);
+		if ((ret = open_file(filename)) == FAILURE)
+		{
 			status = FAILURE;
-		else if ((ret = parse(&file, ret)) != SUCCESS)
+			continue ;
+		}
+		if ((ret = parse(&file, ret)) != SUCCESS)
 			status = FAILURE ;
-		print_header(&file.header);
+		// print_header(&file.header);
 	}
-	while (1);
 	return (status);
 }

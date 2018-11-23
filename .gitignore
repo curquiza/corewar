@@ -13,3 +13,5 @@ misc/dumb_tests/**/*.cor
 **/*.pyc
 resources/**/*.cor
 asm/tests/input/*.cor
+.vscode
+trace.txt
