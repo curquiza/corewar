@@ -86,6 +86,7 @@ void	print_processus(t_vm *vm)
 		ft_printf("index = %d\n", proc->index);
 		ft_printf("cycles = %d\n", proc->cycles);
 		ft_printf("opcode = 0x%0.2x\n", proc->opcode);
+		ft_printf("live = %d\n", proc->live);
 		ft_printf("---\n");
 		proc = proc->next;
 	}

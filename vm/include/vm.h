@@ -47,6 +47,7 @@ typedef struct	s_processus
 	int					index;
 	int					cycles;
 	t_byte				opcode;
+	t_bool				live;
 	struct s_processus	*next;
 }				t_processus;
 
@@ -58,6 +59,12 @@ typedef struct 	s_vm
 	int			flag;
 	int			dump_cycle;
 	t_processus	*proc;
+	int			total_cycles;
+	int			current_cycles;
+	int			cycles_to_die;
+	int			lives;
+	int			verif;
+	int			last_live_player_id;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
 
