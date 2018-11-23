@@ -11,7 +11,9 @@ static int     get_comment(t_src_file *file, char *line)
         return (parse_error(0, ERR_QUOTE));
 
     start = line + (ft_strchr(line, '"') - line) + 1;
-    size = ft_strlen(start) > COMMENT_LENGTH ? COMMENT_LENGTH : ft_strlen(start) - 1;
+    size = ft_strlen(start) > COMMENT_LENGTH + 1 ? -1 : ft_strlen(start) - 1;
+    if (size == -1)
+        return (parse_error(file->nb_line, BIG_COMMENT));
     ft_memcpy(file->header.comment, start, size);
 
     return (SUCCESS);
@@ -40,9 +42,10 @@ t_ex_ret        parse_comment(t_src_file *file, int fd)
             break ;
 	    ft_strdel(&line);
     }
+    ft_strdel(&line);
     if (ret == -1)
         return (ft_ret_err(ERR_READ));
     if (ret == 0 || *(file->header.comment) == '\0')
-        return (ft_ret_err(NO_COMMENT));
+        return (parse_error(file->nb_line, NO_COMMENT));
     return (SUCCESS);
 }

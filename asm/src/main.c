@@ -2,24 +2,6 @@
 
 int g_flags = 0;
 
-static int		exit_error(char *e)
-{
-	ft_putendl_fd(e, STDERR_FILENO);
-	return (FAILURE);
-}
-
-// static void		put_error(enum e_error error, char *filename)
-// {
-// 	ft_putstr_fd(PROG_NAME, STDERR_FILENO);
-// 	ft_putstr_fd(filename, STDERR_FILENO);
-// 	if (error == NO_EXIST)
-// 		ft_putendl_fd(ERR_OPEN, STDERR_FILENO);
-// 	if (error == PERM_DENIED)
-// 		ft_putendl_fd(ERR_PERM, STDERR_FILENO);
-// 	if (error == READ_ERROR)
-// 		ft_putendl_fd(ERR_READ, STDERR_FILENO);		
-// }
-
 static int		open_file(char *filename)
 {
 	struct stat		s;
@@ -59,9 +41,9 @@ int				main (int argc, char **argv)
 
 	status = SUCCESS;
 	if (argc == 1)
-		return (exit_error(USAGE));
+		return (put_error(USAGE));
 	if ((get_options(&argc, &argv)) < 0)
-		return (exit_error(ILLEGAL_OPTION));
+		return (put_error(ILLEGAL_OPTION));
 	while (argc--)
 	{
 		init_src_file(&file);

@@ -4,12 +4,12 @@
 # This line will be compared. Give the error type and the line of the error in INPUT.
 
 ERROR_TYPE = {
-    'NO_NAME':              'No name found in the source file.',
-    'NO_COMMENT':           'No comment found in the source file.',
-    'NAME_TOO_LARGE':       'Name too large.',
-    'COMMENT_TOO_LARGE':    'Comment too large.',
-    'PARAM_NB':             'Wrong number of parameters for this intruction.'
-    'BAD_QUOTES' :               'Bad quoting.'
+    'NO_NAME':              'Name was expected in the source file.',
+    'NO_COMMENT':           'Comment was expected in the source file.',
+    'NAME_TOO_LARGE':       'Name is too long.',
+    'COMMENT_TOO_LARGE':    'Comment is too long.',
+    'BAD_QUOTES' :          'Bad quoting.'
+    # 'PARAM_NB':             'Wrong number of parameters for this intruction.'
 }
 
 INPUT = {
