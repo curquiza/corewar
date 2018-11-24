@@ -24,12 +24,10 @@ function run_test {
 }
 
 echo "No such file or directory: " >> $TRACE
-$FILE toto 2>&1
 run_test "No such file or directory: " "$($FILE toto 2>&1 | tee $TRACE)" "Error: toto: No such file or directory."
 
 echo "Permission denied: " >> $TRACE
 chmod 000 $DIR_TEST/perm_denied
-$FILE $DIR_TEST/perm_denied 2>&1 
 run_test "Permission denied: " "$($FILE $DIR_TEST/perm_denied 2>&1 | tee $TRACE)" "Error: tests/input/perm_denied: Permission denied."
 chmod 755 $DIR_TEST/perm_denied
 

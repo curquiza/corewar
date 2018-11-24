@@ -8,11 +8,15 @@ ERROR_TYPE = {
     'NO_COMMENT':           'Comment was expected in the source file.',
     'NAME_TOO_LARGE':       'Name is too long.',
     'COMMENT_TOO_LARGE':    'Comment is too long.',
-    'BAD_QUOTES' :          'Bad quoting.'
+    'BAD_QUOTES' :          'Bad quoting.',
+    'BIG_NAME' :		    'Name is too long.'
+
     # 'PARAM_NB':             'Wrong number of parameters for this intruction.'
 }
 
 INPUT = {
-    'zork.s':       {'error': False, 'error_type': None, 'error_line': -1},
+    # 'zork.s':       {'error': False, 'error_type': None, 'error_line': -1},
+    'name.too_long.s':    {'error': True,  'error_type': 'BIG_NAME', 'error_line': 1},
+    'name.bad_quoting.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 1},
     'no_name.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 1},
 }

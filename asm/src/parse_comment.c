@@ -8,7 +8,7 @@ static int     get_comment(t_src_file *file, char *line)
     if (ft_strchr(line, '"') == NULL\
         || ft_strrchr(line, '"') != (line + ft_strlen(line) - 1)
         || count_char(line, '"') > 2)
-        return (parse_error(0, ERR_QUOTE));
+        return (parse_error(file->nb_line, ERR_QUOTE));
 
     start = line + (ft_strchr(line, '"') - line) + 1;
     size = ft_strlen(start) > COMMENT_LENGTH + 1 ? -1 : ft_strlen(start) - 1;
