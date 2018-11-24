@@ -23,15 +23,17 @@ function run_test {
 	fi
 }
 
-echo "No such file or directory: " >> $TRACE
-run_test "No such file or directory: " "$($FILE toto 2>&1 | tee $TRACE)" "Error: toto: No such file or directory."
+echo "*** No such file or directory: " > $TRACE
+run_test "No such file or directory: " "$($FILE toto 2>&1 | tee -a $TRACE)" "Error: toto: No such file or directory."
 
-echo "Permission denied: " >> $TRACE
+echo "
+*** Permission denied: " >> $TRACE
 chmod 000 $DIR_TEST/perm_denied
-run_test "Permission denied: " "$($FILE $DIR_TEST/perm_denied 2>&1 | tee $TRACE)" "Error: tests/input/perm_denied: Permission denied."
+run_test "Permission denied: " "$($FILE $DIR_TEST/perm_denied 2>&1 | tee -a $TRACE)" "Error: tests/input/perm_denied: Permission denied."
 chmod 755 $DIR_TEST/perm_denied
 
-echo "Illegal option: " >> $TRACE
-run_test "Illegal option: " "$($FILE -z toto 2>&1 | tee $TRACE)" "asm: illegal option
+echo "
+*** Illegal option: " >> $TRACE
+run_test "Illegal option: " "$($FILE -z toto 2>&1 | tee -a $TRACE)" "asm: illegal option
 usage: ./asm [-a] <sourcefile.s>
 	-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
