@@ -1,0 +1,6 @@
+TO DO ASM
+=========
+- test write header to a file (it will be written at the end to include the
+  accurate size)
+- read the end of the file after the comment of the progran, and join into one big string, we
+  will need all label to parse and encode.
