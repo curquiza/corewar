@@ -25,6 +25,8 @@ LIBFT_DIR = ../libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_H = $(LIBFT_DIR)/include
 
+NCURSES = -lncurses
+
 H_DIR = include
 INCL = -I$(H_DIR) -I$(LIBFT_H)
 
@@ -40,7 +42,7 @@ $(LIBFT) :
 	@printf "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(OBJ) -o $@ $(LIBFT)
+	@$(CC) $(OBJ) -o $@ $(LIBFT) $(NCURSES)
 	@printf "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(H_DIR)
