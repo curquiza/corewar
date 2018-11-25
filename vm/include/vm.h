@@ -18,17 +18,22 @@
 # define PLAYER_NUM_ERR2	"Player number must be a positive integer value"
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
+# define VISU_ERR			"Impossible to select 2 different types of visual"
 # define WRONG_FLAG_ERR		"Not an available flag"
 
-# define NUM_FLAG_STR	"-n"
-# define ZAZ_FLAG_STR	"-zaz"
-# define DUMP_FLAG_STR	"-dump"
+# define NUM_FLAG_STR		"-n"
+# define ZAZ_FLAG_STR		"-zaz"
+# define DUMP_FLAG_STR		"-dump"
+# define VISU_FLAG_STR		"-visual"
+# define MINI_VISU_FLAG_STR	"-mini-visual"
 
 # define BYTES_PER_LINE		32
 # define BYTES_PER_LINE_ZAZ	64
 
-# define DUMP_FLAG	(1 << 0) // 1
-# define ZAZ_FLAG	(1 << 1) // 2
+# define DUMP_FLAG		1 // (1 << 0)
+# define VISU_FLAG		2 // (1 << 1)
+# define MINI_VISU_FLAG	4 // (1 << 2)
+# define ZAZ_FLAG		8 // (1 << 3)
 
 typedef struct	s_memcase
 {

@@ -122,6 +122,7 @@ int	main (int argc, char **argv)
 		return (usage_ret_err());
 	if (parsing(argc, argv, &vm) == FAILURE)
 	{
+		/*print_vm(&vm);*/
 		clean_all();
 		exit(FAILURE);
 	}
