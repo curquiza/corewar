@@ -16,6 +16,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
 	  vm_setup.c \
+	  dump_flag.c \
 	  main.c)
 
 OBJ_DIR = objs

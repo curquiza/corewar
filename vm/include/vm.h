@@ -113,6 +113,11 @@ t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 void			vm_setup(t_vm *vm);
 
 /*
+** Dump flag
+*/
+void			dump_memory(t_vm *vm);
+
+/*
 ** Clean
 */
 void			clean_all(void);
