@@ -35,7 +35,7 @@ void	print_vm(t_vm *vm)
 int		bytes_per_line(t_vm *vm)
 {
 	if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
-		return (BYTES_PER_LINE_ZAZ);
+		return (BYTES_PER_LINE_64);
 	return (BYTES_PER_LINE);
 }
 
