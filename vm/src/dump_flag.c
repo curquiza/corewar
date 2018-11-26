@@ -4,7 +4,7 @@ static int		bytes_per_line(t_vm *vm)
 {
 	if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
 		return (BYTES_PER_LINE_64);
-	return (BYTES_PER_LINE);
+	return (BYTES_PER_LINE_32);
 }
 
 static void	handle_newline(int i, t_vm *vm)

@@ -27,7 +27,7 @@
 # define VISU_FLAG_STR		"-visual"
 # define MINI_VISU_FLAG_STR	"-mini-visual"
 
-# define BYTES_PER_LINE		32
+# define BYTES_PER_LINE_32	32
 # define BYTES_PER_LINE_64	64
 
 # define DUMP_FLAG		1 // (1 << 0)
