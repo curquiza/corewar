@@ -71,7 +71,6 @@ void	start_visu(t_vm *vm)
 		print_visu_err(VISU_SIZE_ERR);
 	else
 	{
-		/*ft_printf("LINES = %d\nCOLS = %d\n", LINES, COLS);*/
 		start_color();
 		init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);

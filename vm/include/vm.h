@@ -34,6 +34,8 @@
 
 # define VISU_LINES			83
 # define VISU_COLS			364
+# define MINI_VISU_LINES	52
+# define MINI_VISU_COLS		204
 
 # define DUMP_FLAG			1 // (1 << 0)
 # define VISU_FLAG			2 // (1 << 1)
