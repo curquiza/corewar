@@ -25,7 +25,6 @@
 # define PLAYER_NUM_ERR2	"Player number must be a positive integer value"
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
-# define VISU_ERR			"Impossible to select 2 different types of visual"
 # define WRONG_FLAG_ERR		"Not an available flag"
 # define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
 # define VISU_SIZE_ERR		"Window too small to launch visual"
@@ -37,12 +36,10 @@
 # define ZAZ_FLAG_STR		"-zaz"
 # define DUMP_FLAG_STR		"-dump"
 # define VISU_FLAG_STR		"-visual"
-# define MINI_VISU_FLAG_STR	"-mini-visual"
 
 # define DUMP_FLAG			1 // (1 << 0)
 # define VISU_FLAG			2 // (1 << 1)
-# define MINI_VISU_FLAG		4 // (1 << 2)
-# define ZAZ_FLAG			8 // (1 << 3)
+# define ZAZ_FLAG			4 // (1 << 2)
 
 /*
 ** Visu

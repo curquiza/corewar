@@ -28,22 +28,6 @@ static t_ex_ret	parse_dump_flag(char **argv, int *i, t_vm *vm)
 	return (SUCCESS);
 }
 
-static t_ex_ret parse_visu_flag(t_vm *vm)
-{
-	if (flag_is_applied(MINI_VISU_FLAG, vm) == TRUE)
-		return (ft_ret_err(VISU_ERR));
-	vm->flag |= VISU_FLAG;
-	return (SUCCESS);
-}
-
-static t_ex_ret parse_mini_visu_flag(t_vm *vm)
-{
-	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
-		return (ft_ret_err(VISU_ERR));
-	vm->flag |= MINI_VISU_FLAG;
-	return (SUCCESS);
-}
-
 t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 {
 	if (ft_strequ(argv[*i], NUM_FLAG_STR))
@@ -53,9 +37,7 @@ t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 	else if (ft_strequ(argv[*i], ZAZ_FLAG_STR))
 		vm->flag |= ZAZ_FLAG;
 	else if (ft_strequ(argv[*i], VISU_FLAG_STR))
-		return (parse_visu_flag(vm));
-	else if (ft_strequ(argv[*i], MINI_VISU_FLAG_STR))
-		return (parse_mini_visu_flag(vm));
+		vm->flag |= VISU_FLAG;
 	else
 		return (ft_ret_err2(argv[*i], WRONG_FLAG_ERR));
 	return (SUCCESS);

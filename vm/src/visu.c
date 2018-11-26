@@ -1,15 +1,15 @@
 #include "vm.h"
 
-static t_visu_type		get_visu_type(t_vm *vm)
-{
-	if (flag_is_applied(MINI_VISU_FLAG, vm) == TRUE)
-		return (MINI_V);
-	return (DEF_V);
-}
-
 static t_bool	check_term_size(void)
 {
-	return (LINES >= VISU_LINES && COLS >= VISU_COLS);
+	return (LINES >= MINI_VISU_LINES && COLS >= MINI_VISU_COLS);
+}
+
+static t_visu_type		get_visu_type(void)
+{
+	if (LINES < VISU_LINES || COLS < VISU_COLS)
+		return (MINI_V);
+	return (DEF_V);
 }
 
 static void		print_visu_err(char *err)
@@ -20,8 +20,8 @@ static void		print_visu_err(char *err)
 
 static int		bytes_per_line(t_vm *vm)
 {
-	// if visu = mini return 32
-	(void)vm;
+	if (vm->visu.type == MINI_V)
+		return (BYTES_PER_LINE_32);
 	return (BYTES_PER_LINE_64);
 }
 
@@ -62,8 +62,6 @@ void	dump_memory_visu(t_vm *vm)
 
 void	start_visu(t_vm *vm)
 {
-	vm->visu.enabled = TRUE;
-	vm->visu.type = get_visu_type(vm);
 	initscr();
 	if (has_colors() == FALSE)
 		print_visu_err(VISU_COLOR_ERR);
@@ -71,6 +69,8 @@ void	start_visu(t_vm *vm)
 		print_visu_err(VISU_SIZE_ERR);
 	else
 	{
+		vm->visu.enabled = TRUE;
+		vm->visu.type = get_visu_type();
 		start_color();
 		init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);

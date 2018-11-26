@@ -17,7 +17,6 @@ dump_cycle_err1="Error: 1 argument is needed for -dump flag\n"
 dump_cycle_err2="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
 prog_size_too_large_err="Error: Prog size is too large\n"
-visu_err="Error: Impossible to select 2 different types of visual\n"
 
 no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
 wrong_flag_err() { echo "Error: $1: Not an available flag\n"; }
@@ -91,10 +90,7 @@ run_test "-dumpp " "$(wrong_flag_err "-dumpp")"
 run_test "-dump x21" "$dump_cycle_err2"
 run_test "-dump -21" "$dump_cycle_err2"
 run_test "-dump 21 titi" "$(no_such_file_err "titi")"
-run_test "-mini" "$(wrong_flag_err "-mini")"
 run_test "-visu" "$(wrong_flag_err "-visu")"
 run_test "-v" "$(wrong_flag_err "-v")"
-run_test "-visual -mini-visual" "$visu_err"
-run_test "-mini-visual -visual" "$visu_err"
 
 rm -f output1 output2
