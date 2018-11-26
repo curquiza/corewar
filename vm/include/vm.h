@@ -3,11 +3,11 @@
 
 # include "libft.h"
 # include "op.h"
-//# include "visu.h"
 
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <ncurses.h>
 
 # define DEFINE_ERR			"Value not conformed in op.h file"
 # define HEADER_ERR			"Wrong header format"
@@ -20,6 +20,8 @@
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
 # define VISU_ERR			"Impossible to select 2 different types of visual"
 # define WRONG_FLAG_ERR		"Not an available flag"
+# define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
+# define VISU_SIZE_ERR		"Window too small to launch visual"
 
 # define NUM_FLAG_STR		"-n"
 # define ZAZ_FLAG_STR		"-zaz"
@@ -30,15 +32,34 @@
 # define BYTES_PER_LINE_32	32
 # define BYTES_PER_LINE_64	64
 
-# define DUMP_FLAG		1 // (1 << 0)
-# define VISU_FLAG		2 // (1 << 1)
-# define MINI_VISU_FLAG	4 // (1 << 2)
-# define ZAZ_FLAG		8 // (1 << 3)
+# define VISU_LINES			83
+# define VISU_COLS			364
+
+# define DUMP_FLAG			1 // (1 << 0)
+# define VISU_FLAG			2 // (1 << 1)
+# define MINI_VISU_FLAG		4 // (1 << 2)
+# define ZAZ_FLAG			8 // (1 << 3)
+
+typedef enum	e_visu_type
+{
+	DEF_V,
+	MINI_V
+}				t_visu_type;
+
+typedef enum	e_color_pair
+{
+	DEF_PAIR,
+	CYAN_PAIR,
+	PINK_PAIR,
+	GREEN_PAIR,
+	YELLOW_PAIR
+}				t_color_pair;
 
 typedef struct	s_memcase
 {
-	t_byte		value;
-	char		color[20];
+	t_byte			value;
+	char			color[20];
+	t_color_pair	color_visu;
 }				t_memcase;
 
 typedef struct	s_player
@@ -59,6 +80,12 @@ typedef struct	s_processus
 	struct s_processus	*next;
 }				t_processus;
 
+typedef struct	s_visu
+{
+	t_bool	enabled;
+	int		type;
+}		t_visu;
+
 typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
@@ -73,6 +100,7 @@ typedef struct 	s_vm
 	int			lives;
 	int			verif;
 	int			last_live_player_id;
+	t_visu		visu;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
 
@@ -121,6 +149,11 @@ void			dump_memory(t_vm *vm);
 ** Clean
 */
 void			clean_all(void);
+
+/*
+** Visual
+*/
+void	start_visu(t_vm *vm);
 
 /*
 ** Misc

@@ -5,16 +5,29 @@ static int	get_beginning_index(int num, t_vm *vm)
 	return (MEM_SIZE * num / vm->players_number);
 }
 
-static char	*get_player_color(int player_num)
+static void	fill_player_color(int player_num, t_memcase *memcase)
 {
+
 	if (player_num == 0)
-		return (CYAN);
+	{
+		ft_strcpy(memcase->color, CYAN);
+		memcase->color_visu = CYAN_PAIR;
+	}
 	else if (player_num == 1)
-		return (PINK);
+	{
+		ft_strcpy(memcase->color, PINK);
+		memcase->color_visu = PINK_PAIR;
+	}
 	else if (player_num == 2)
-		return (GREEN);
+	{
+		ft_strcpy(memcase->color, GREEN);
+		memcase->color_visu = GREEN_PAIR;
+	}
 	else
-		return (YELLOW);
+	{
+		ft_strcpy(memcase->color, YELLOW);
+		memcase->color_visu = YELLOW_PAIR;
+	}
 }
 
 static void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
@@ -27,7 +40,7 @@ static void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
 		if (i + index >= MEM_SIZE)
 			break;
 		vm->memory[index + i].value = player->prog[i];
-		ft_strcpy(vm->memory[index + i].color, get_player_color(player_num));
+		fill_player_color(player_num, &vm->memory[index + i]);
 		i++;
 	}
 }
@@ -89,4 +102,7 @@ void	vm_setup(t_vm *vm)
 	create_all_first_processus(vm);
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->last_live_player_id = -1;
+	if (flag_is_applied(VISU_FLAG, vm) == TRUE
+		|| flag_is_applied(MINI_VISU_FLAG, vm) == TRUE)
+		start_visu(vm);
 }
