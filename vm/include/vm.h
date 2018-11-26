@@ -9,6 +9,13 @@
 # include <stdbool.h>
 # include <ncurses.h>
 
+/*
+** === DEFINE ==================================================================
+*/
+
+/*
+** Error messages
+*/
 # define DEFINE_ERR			"Value not conformed in op.h file"
 # define HEADER_ERR			"Wrong header format"
 # define PROG_SIZE_ERR		"Prog size in header differs from the real prog size"
@@ -23,25 +30,41 @@
 # define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
 # define VISU_SIZE_ERR		"Window too small to launch visual"
 
+/*
+** Flags
+*/
 # define NUM_FLAG_STR		"-n"
 # define ZAZ_FLAG_STR		"-zaz"
 # define DUMP_FLAG_STR		"-dump"
 # define VISU_FLAG_STR		"-visual"
 # define MINI_VISU_FLAG_STR	"-mini-visual"
 
-# define BYTES_PER_LINE_32	32
-# define BYTES_PER_LINE_64	64
-
-# define VISU_LINES			83
-# define VISU_COLS			364
-# define MINI_VISU_LINES	52
-# define MINI_VISU_COLS		204
-
 # define DUMP_FLAG			1 // (1 << 0)
 # define VISU_FLAG			2 // (1 << 1)
 # define MINI_VISU_FLAG		4 // (1 << 2)
 # define ZAZ_FLAG			8 // (1 << 3)
 
+/*
+** Visu
+*/
+# define VISU_LINES			83
+# define VISU_COLS			364
+# define MINI_VISU_LINES	52
+# define MINI_VISU_COLS		204
+
+/*
+** Misc
+*/
+# define BYTES_PER_LINE_32	32
+# define BYTES_PER_LINE_64	64
+
+/*
+** === STRUCT AND ENUM =========================================================
+*/
+
+/*
+** VISU ***
+*/
 typedef enum	e_visu_type
 {
 	DEF_V,
@@ -57,6 +80,15 @@ typedef enum	e_color_pair
 	YELLOW_PAIR
 }				t_color_pair;
 
+typedef struct	s_visu
+{
+	t_bool	enabled;
+	int		type;
+}		t_visu;
+
+/*
+** VM ***
+*/
 typedef struct	s_memcase
 {
 	t_byte			value;
@@ -82,12 +114,6 @@ typedef struct	s_processus
 	struct s_processus	*next;
 }				t_processus;
 
-typedef struct	s_visu
-{
-	t_bool	enabled;
-	int		type;
-}		t_visu;
-
 typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
@@ -105,6 +131,10 @@ typedef struct 	s_vm
 	t_visu		visu;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
+
+/*
+** === GLOABAL =================================================================
+*/
 
 t_vm	*g_vm;
 
