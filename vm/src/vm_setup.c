@@ -67,6 +67,8 @@ static t_processus	*new_processus(int index, t_vm *vm)
 		exit_malloc_err();
 	new->index = index;
 	vm->memory[index].proc = TRUE;
+	ft_printf("index = %d\n", index);
+	vm->total_proc += 1;
 	return (new);
 }
 
@@ -88,7 +90,7 @@ static void	create_all_first_processus(t_vm *vm)
 	int		i;
 	int		index;
 
-	i = vm->players_number;
+	i = vm->players_number - 1;
 	while (i >= 0)
 	{
 		index = get_beginning_index(i, vm);

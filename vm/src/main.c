@@ -86,6 +86,7 @@ int	main (int argc, char **argv)
 	/*print_vm(&vm);*/
 	/*dump_memory(&vm);*/
 	/*print_processus(&vm);*/
+	endwin();
 	clean_all();
 	return (SUCCESS);
 }

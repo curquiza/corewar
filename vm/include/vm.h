@@ -37,10 +37,6 @@
 # define DUMP_FLAG_STR		"-dump"
 # define VISU_FLAG_STR		"-visual"
 
-# define DUMP_FLAG			1 // (1 << 0)
-# define VISU_FLAG			2 // (1 << 1)
-# define ZAZ_FLAG			4 // (1 << 2)
-
 /*
 ** Visu
 */
@@ -58,6 +54,17 @@
 /*
 ** === STRUCT AND ENUM =========================================================
 */
+
+/*
+** FLAGS
+*/
+
+enum			s_enum
+{
+	DUMP_FLAG = 1,
+	VISU_FLAG = 2,
+	ZAZ_FLAG = 4
+};
 
 /*
 ** VISU ***
@@ -121,6 +128,7 @@ typedef struct 	s_vm
 	int			flag;
 	int			dump_cycle;
 	t_processus	*proc;
+	int			total_proc;
 	int			total_cycles;
 	int			current_cycles;
 	int			cycles_to_die;

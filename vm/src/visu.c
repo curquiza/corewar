@@ -39,7 +39,7 @@ static void	handle_newline(int i, t_vm *vm)
 static void	print_mem_addr_visu(int i, t_vm *vm)
 {
 	if (i % bytes_per_line(vm) == 0)
-		printw("0x%0.4x |\t", i);
+		printw("0x%0.4x |   ", i);
 }
 
 static void	init_visu(t_vm *vm)
@@ -77,6 +77,57 @@ void	dump_memory_visu(t_vm *vm)
 		handle_newline(i, vm);
 		i++;
 	}
+}
+
+void	display_cycles(t_vm *vm, int y_pos, int x_pos)
+{
+	mvprintw(y_pos, x_pos, "CYCLES");
+	mvprintw(y_pos + 2, x_pos, "%-15s%d", "Total", vm->total_cycles);
+	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Current", vm->current_cycles);
+	mvprintw(y_pos + 5, x_pos, "%-15s%d", "Cycle to die", vm->cycles_to_die);
+	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Cycle delta", CYCLE_DELTA);
+}
+
+void	display_lives(t_vm *vm, int y_pos, int x_pos)
+{
+	mvprintw(y_pos, x_pos, "LIVES");
+	mvprintw(y_pos + 2, x_pos, "%-15s%d", "Total", vm->lives);
+	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Last player", vm->last_live_player_id);
+	mvprintw(y_pos + 4, x_pos, "%-15s%d", "Verif", vm->verif);
+	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Min lives", NBR_LIVE);
+	mvprintw(y_pos + 7, x_pos, "%-15s%d", "Max checks", MAX_CHECKS);
+}
+
+void	display_proc(t_processus *proc, int y_pos, int x_pos, t_vm *vm, int proc_id)
+{
+	int		i;
+
+	i = 0;
+	mvprintw(y_pos, x_pos, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
+	mvprintw(y_pos + 2, x_pos, "%-15s%d", "PC", proc->pc);
+	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Index", proc->index);
+	mvprintw(y_pos + 4, x_pos, "%-15s%s", "Live", proc->live ? "Yes" : "No");
+	mvprintw(y_pos + 5, x_pos, "%-15s0x%0.2x", "Opcode", proc->opcode);
+	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Cycles", proc->cycles);
+	while (i < REG_NUMBER)
+	{
+		mvprintw(y_pos + i + 8, x_pos, "R%-13.2d %d", i + 1, proc->reg[i]);
+		i++;
+	}
+}
+
+void	display_visu(t_vm *vm)
+{
+	int		bpl;
+	int		x_pos;
+
+	move(1, 0);
+	dump_memory_visu(vm);
+	bpl = bytes_per_line(vm);
+	x_pos = 11 + bpl * 2 + bpl + 10;
+	display_cycles(vm, 1, x_pos);
+	display_lives(vm, 1, x_pos + 30);
+	display_proc(vm->proc, 1, x_pos + 60, vm, 1);
 	curs_set(0);
 }
 
@@ -90,8 +141,7 @@ void	start_visu(t_vm *vm)
 	else
 	{
 		init_visu(vm);
-		dump_memory_visu(vm);
+		display_visu(vm);
 		getch();
-		endwin();
 	}
 }
