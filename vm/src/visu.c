@@ -25,21 +25,26 @@ static int		bytes_per_line(t_vm *vm)
 	return (BYTES_PER_LINE_64);
 }
 
-static void	handle_newline(int i, t_vm *vm)
+static void	handle_newline(int i, t_vm *vm, WINDOW *win)
 {
 	int		b_per_line;
+	int		x;
+	int		y;
 
 	b_per_line = i % bytes_per_line(vm);
 	if (b_per_line == bytes_per_line(vm) - 1)
-		addch('\n');
+	{
+		getyx(win, y, x);
+		wmove(win, y + 1, 2);
+	}
 	else
-		addch(' ');
+		waddch(win, ' ');
 }
 
-static void	print_mem_addr_visu(int i, t_vm *vm)
+static void	print_mem_addr_visu(int i, t_vm *vm, WINDOW *win)
 {
 	if (i % bytes_per_line(vm) == 0)
-		printw("0x%0.4x |   ", i);
+		wprintw(win, "0x%0.4x |   ", i);
 }
 
 static void	init_visu(t_vm *vm)
@@ -52,6 +57,14 @@ static void	init_visu(t_vm *vm)
 	init_pair(PINK_PAIR, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(GREEN_PAIR, COLOR_GREEN, COLOR_BLACK);
 	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
+	vm->visu.mem_win = subwin(stdscr, MEM_WIN_Y, MEM_WIN_X, 1, 1);
+	box(vm->visu.mem_win, ACS_VLINE, ACS_HLINE);
+	vm->visu.cycles_win = subwin(stdscr, CYCLES_WIN_Y, CYCLES_WIN_X, 1, MEM_WIN_X + 20);
+	box(vm->visu.cycles_win, ACS_VLINE, ACS_HLINE);
+	vm->visu.lives_win = subwin(stdscr, LIVES_WIN_Y, LIVES_WIN_X, 1, MEM_WIN_X + 50);
+	box(vm->visu.lives_win, ACS_VLINE, ACS_HLINE);
+	vm->visu.proc_win = subwin(stdscr, PROC_WIN_Y, PROC_WIN_X, 1, MEM_WIN_X + 80);
+	box(vm->visu.proc_win, ACS_VLINE, ACS_HLINE);
 }
 
 static int	get_attr(t_memcase *memory)
@@ -61,75 +74,73 @@ static int	get_attr(t_memcase *memory)
 	return (COLOR_PAIR(memory->color_visu));
 }
 
-void	dump_memory_visu(t_vm *vm)
+void	dump_memory_visu(t_vm *vm, WINDOW *win)
 {
 	int			i;
 	t_memcase	*memory;
 
+	wmove(win, 1, 2);
 	memory = vm->memory;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		print_mem_addr_visu(i, vm);
-		attron(get_attr(&memory[i]));
-		printw("%0.2x", (t_byte) memory[i].value);
-		attroff(get_attr(&memory[i]));
-		handle_newline(i, vm);
+		print_mem_addr_visu(i, vm, win);
+		wattron(win, get_attr(&memory[i]));
+		wprintw(win, "%0.2x", (t_byte) memory[i].value);
+		wattroff(win, get_attr(&memory[i]));
+		handle_newline(i, vm, win);
 		i++;
 	}
 }
 
-void	display_cycles(t_vm *vm, int y_pos, int x_pos)
+void	display_cycles(t_vm *vm, WINDOW *win)
 {
-	mvprintw(y_pos, x_pos, "CYCLES");
-	mvprintw(y_pos + 2, x_pos, "%-15s%d", "Total", vm->total_cycles);
-	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Current", vm->current_cycles);
-	mvprintw(y_pos + 5, x_pos, "%-15s%d", "Cycle to die", vm->cycles_to_die);
-	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Cycle delta", CYCLE_DELTA);
+	mvwprintw(win, 1, 9, "CYCLES");
+	mvwprintw(win, 2, 2, "---------------------");
+	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->total_cycles);
+	mvwprintw(win, 5, 2, "%-15s%d", "Current", vm->current_cycles);
+	mvwprintw(win, 7, 2, "%-15s%d", "Cycle to die", vm->cycles_to_die);
+	mvwprintw(win, 8, 2, "%-15s%d", "Cycle delta", CYCLE_DELTA);
 }
 
-void	display_lives(t_vm *vm, int y_pos, int x_pos)
+void	display_lives(t_vm *vm, WINDOW *win)
 {
-	mvprintw(y_pos, x_pos, "LIVES");
-	mvprintw(y_pos + 2, x_pos, "%-15s%d", "Total", vm->lives);
-	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Last player", vm->last_live_player_id);
-	mvprintw(y_pos + 4, x_pos, "%-15s%d", "Verif", vm->verif);
-	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Min lives", NBR_LIVE);
-	mvprintw(y_pos + 7, x_pos, "%-15s%d", "Max checks", MAX_CHECKS);
+	mvwprintw(win, 1, 10, "LIVES");
+	mvwprintw(win, 2, 2, "---------------------");
+	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->lives);
+	mvwprintw(win, 5, 2, "%-15s%d", "Last player", vm->last_live_player_id);
+	mvwprintw(win, 6, 2, "%-15s%d", "Verif", vm->verif);
+	mvwprintw(win, 8, 2, "%-15s%d", "Min lives", NBR_LIVE);
+	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
 
-void	display_proc(t_processus *proc, int y_pos, int x_pos, t_vm *vm, int proc_id)
+void	display_proc(t_processus *proc, t_vm *vm, int proc_id, WINDOW *win)
 {
 	int		i;
 
+	mvwprintw(win, 1, 2, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
+	mvwprintw(win, 3, 2, "%-15s%d", "PC", proc->pc);
+	mvwprintw(win, 4, 2, "%-15s%d", "Index", proc->index);
+	mvwprintw(win, 5, 2, "%-15s%s", "Live", proc->live ? "Yes" : "No");
+	mvwprintw(win, 6, 2, "%-15s0x%0.2x", "Opcode", proc->opcode);
+	mvwprintw(win, 7, 2, "%-15s%d", "Cycles", proc->cycles);
 	i = 0;
-	mvprintw(y_pos, x_pos, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
-	mvprintw(y_pos + 2, x_pos, "%-15s%d", "PC", proc->pc);
-	mvprintw(y_pos + 3, x_pos, "%-15s%d", "Index", proc->index);
-	mvprintw(y_pos + 4, x_pos, "%-15s%s", "Live", proc->live ? "Yes" : "No");
-	mvprintw(y_pos + 5, x_pos, "%-15s0x%0.2x", "Opcode", proc->opcode);
-	mvprintw(y_pos + 6, x_pos, "%-15s%d", "Cycles", proc->cycles);
 	while (i < REG_NUMBER)
 	{
-		mvprintw(y_pos + i + 8, x_pos, "R%-13.2d %d", i + 1, proc->reg[i]);
+		mvwprintw(win, 9 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
 		i++;
 	}
 }
 
 void	display_visu(t_vm *vm)
 {
-	int		bpl;
-	int		x_pos;
-
-	move(1, 0);
-	dump_memory_visu(vm);
-	bpl = bytes_per_line(vm);
-	x_pos = 11 + bpl * 2 + bpl + 10;
-	display_cycles(vm, 1, x_pos);
-	display_lives(vm, 1, x_pos + 30);
-	display_proc(vm->proc, 1, x_pos + 60, vm, 1);
+	dump_memory_visu(vm, vm->visu.mem_win);
+	display_cycles(vm, vm->visu.cycles_win);
+	display_lives(vm, vm->visu.lives_win);
+	display_proc(vm->proc, vm, 1, vm->visu.proc_win);
 	curs_set(0);
 }
+
 
 void	start_visu(t_vm *vm)
 {

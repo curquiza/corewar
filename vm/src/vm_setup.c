@@ -67,7 +67,6 @@ static t_processus	*new_processus(int index, t_vm *vm)
 		exit_malloc_err();
 	new->index = index;
 	vm->memory[index].proc = TRUE;
-	ft_printf("index = %d\n", index);
 	vm->total_proc += 1;
 	return (new);
 }

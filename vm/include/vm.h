@@ -45,6 +45,15 @@
 # define MINI_VISU_LINES	52
 # define MINI_VISU_COLS		204
 
+# define MEM_WIN_X			206
+# define MEM_WIN_Y			66
+# define CYCLES_WIN_X		25
+# define CYCLES_WIN_Y		12
+# define LIVES_WIN_X		25
+# define LIVES_WIN_Y		12
+# define PROC_WIN_X			25
+# define PROC_WIN_Y			26
+
 /*
 ** Misc
 */
@@ -88,7 +97,12 @@ typedef struct	s_visu
 {
 	t_bool	enabled;
 	int		type;
-}		t_visu;
+	WINDOW	*mem_win;
+	WINDOW	*cycles_win;
+	WINDOW	*lives_win;
+	WINDOW	*proc_win;
+	WINDOW	*players_win;
+}				t_visu;
 
 /*
 ** VM ***
