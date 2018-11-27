@@ -54,6 +54,13 @@ static void	init_visu(t_vm *vm)
 	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
 }
 
+static int	get_attr(t_memcase *memory)
+{
+	if (memory->proc == TRUE)
+		return (COLOR_PAIR(memory->color_visu) | A_STANDOUT);
+	return (COLOR_PAIR(memory->color_visu));
+}
+
 void	dump_memory_visu(t_vm *vm)
 {
 	int			i;
@@ -64,12 +71,13 @@ void	dump_memory_visu(t_vm *vm)
 	while (i < MEM_SIZE)
 	{
 		print_mem_addr_visu(i, vm);
-		attron(COLOR_PAIR(memory[i].color_visu));
+		attron(get_attr(&memory[i]));
 		printw("%0.2x", (t_byte) memory[i].value);
-		attroff(COLOR_PAIR(memory[i].color_visu));
+		attroff(get_attr(&memory[i]));
 		handle_newline(i, vm);
 		i++;
 	}
+	curs_set(0);
 }
 
 void	start_visu(t_vm *vm)

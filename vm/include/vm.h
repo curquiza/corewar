@@ -86,19 +86,6 @@ typedef struct	s_visu
 /*
 ** VM ***
 */
-typedef struct	s_memcase
-{
-	t_byte			value;
-	char			color[20];
-	t_color_pair	color_visu;
-}				t_memcase;
-
-typedef struct	s_player
-{
-	t_header	header;
-	int			num;
-	t_byte		prog[CHAMP_MAX_SIZE];
-}				t_player;
 
 typedef struct	s_processus
 {
@@ -110,6 +97,21 @@ typedef struct	s_processus
 	unsigned short		pc;
 	struct s_processus	*next;
 }				t_processus;
+
+typedef struct	s_memcase
+{
+	t_byte			value;
+	char			color[20];
+	t_color_pair	color_visu;
+	t_bool			proc;
+}				t_memcase;
+
+typedef struct	s_player
+{
+	t_header	header;
+	int			num;
+	t_byte		prog[CHAMP_MAX_SIZE];
+}				t_player;
 
 typedef struct 	s_vm
 {

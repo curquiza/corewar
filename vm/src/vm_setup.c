@@ -59,13 +59,14 @@ static void	fill_all_prog_in_memory(t_vm *vm)
 	}
 }
 
-static t_processus	*new_processus(int index)
+static t_processus	*new_processus(int index, t_vm *vm)
 {
 	t_processus		*new;
 
 	if (!(new = ft_memalloc(sizeof(*new))))
 		exit_malloc_err();
 	new->index = index;
+	vm->memory[index].proc = TRUE;
 	return (new);
 }
 
@@ -91,7 +92,7 @@ static void	create_all_first_processus(t_vm *vm)
 	while (i >= 0)
 	{
 		index = get_beginning_index(i, vm);
-		add_processus(&vm->proc, new_processus(index));
+		add_processus(&vm->proc, new_processus(index, vm));
 		i--;
 	}
 }
