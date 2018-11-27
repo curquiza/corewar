@@ -42,6 +42,18 @@ static void	print_mem_addr_visu(int i, t_vm *vm)
 		printw("0x%0.4x |\t", i);
 }
 
+static void	init_visu(t_vm *vm)
+{
+	vm->visu.enabled = TRUE;
+	vm->visu.type = get_visu_type();
+	start_color();
+	init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
+	init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);
+	init_pair(PINK_PAIR, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(GREEN_PAIR, COLOR_GREEN, COLOR_BLACK);
+	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
+}
+
 void	dump_memory_visu(t_vm *vm)
 {
 	int			i;
@@ -69,14 +81,7 @@ void	start_visu(t_vm *vm)
 		print_visu_err(VISU_SIZE_ERR);
 	else
 	{
-		vm->visu.enabled = TRUE;
-		vm->visu.type = get_visu_type();
-		start_color();
-		init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
-		init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);
-		init_pair(PINK_PAIR, COLOR_MAGENTA, COLOR_BLACK);
-		init_pair(GREEN_PAIR, COLOR_GREEN, COLOR_BLACK);
-		init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
+		init_visu(vm);
 		dump_memory_visu(vm);
 		getch();
 		endwin();
