@@ -49,6 +49,8 @@ static void	print_mem_addr_visu(int i, t_vm *vm, WINDOW *win)
 
 static void	init_visu(t_vm *vm)
 {
+	int		i;
+
 	vm->visu.enabled = TRUE;
 	vm->visu.type = get_visu_type();
 	start_color();
@@ -65,6 +67,13 @@ static void	init_visu(t_vm *vm)
 	box(vm->visu.lives_win, ACS_VLINE, ACS_HLINE);
 	vm->visu.proc_win = subwin(stdscr, PROC_WIN_Y, PROC_WIN_X, 1, MEM_WIN_X + 80);
 	box(vm->visu.proc_win, ACS_VLINE, ACS_HLINE);
+	i = 0;
+	while (i < vm->players_number)
+	{
+		vm->visu.players_win[i] = subwin(stdscr, PLAYER_WIN_Y, PLAYER_WIN_X, CYCLES_WIN_Y + 5 + i * PLAYER_WIN_Y, MEM_WIN_X + 20);
+		box(vm->visu.players_win[i], ACS_VLINE, ACS_HLINE);
+		i++;
+	}
 }
 
 static int	get_attr(t_memcase *memory)
@@ -108,8 +117,8 @@ void	display_lives(t_vm *vm, WINDOW *win)
 	mvwprintw(win, 1, 10, "LIVES");
 	mvwprintw(win, 2, 2, "---------------------");
 	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->lives);
-	mvwprintw(win, 5, 2, "%-15s%d", "Last player", vm->last_live_player_id);
-	mvwprintw(win, 6, 2, "%-15s%d", "Verif", vm->verif);
+	mvwprintw(win, 5, 2, "%-15s%d", "Verif", vm->verif);
+	mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player_id);
 	mvwprintw(win, 8, 2, "%-15s%d", "Min lives", NBR_LIVE);
 	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
@@ -132,12 +141,41 @@ void	display_proc(t_processus *proc, t_vm *vm, int proc_id, WINDOW *win)
 	}
 }
 
+t_color_pair	get_player_color(int player_id)
+{
+	if (player_id == 0)
+		return (CYAN_PAIR);
+	else if (player_id == 1)
+		return (PINK_PAIR);
+	else if (player_id == 2)
+		return (GREEN_PAIR);
+	else
+		return (YELLOW_PAIR);
+}
+
+void	display_players(t_vm *vm, WINDOW **wins)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->players_number)
+	{
+		wattron(wins[i], COLOR_PAIR(get_player_color(i)));
+		mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);
+		wattroff(wins[i], COLOR_PAIR(get_player_color(i)));
+		mvwprintw(wins[i], 3, 2, "%-15s%s", "Name", vm->player[i].header.prog_name);
+		mvwprintw(wins[i], 4, 2, "%-15s%d", "Prog size", vm->player[i].header.prog_size);
+		i++;
+	}
+}
+
 void	display_visu(t_vm *vm)
 {
 	dump_memory_visu(vm, vm->visu.mem_win);
 	display_cycles(vm, vm->visu.cycles_win);
 	display_lives(vm, vm->visu.lives_win);
 	display_proc(vm->proc, vm, 1, vm->visu.proc_win);
+	display_players(vm, vm->visu.players_win);
 	curs_set(0);
 }
 

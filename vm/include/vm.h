@@ -53,6 +53,8 @@
 # define LIVES_WIN_Y		12
 # define PROC_WIN_X			25
 # define PROC_WIN_Y			26
+# define PLAYER_WIN_X		25
+# define PLAYER_WIN_Y		6
 
 /*
 ** Misc
@@ -101,7 +103,7 @@ typedef struct	s_visu
 	WINDOW	*cycles_win;
 	WINDOW	*lives_win;
 	WINDOW	*proc_win;
-	WINDOW	*players_win;
+	WINDOW	*players_win[MAX_PLAYERS];
 }				t_visu;
 
 /*
