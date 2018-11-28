@@ -18,6 +18,8 @@ dump_cycle_err2="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
 prog_size_too_large_err="Error: Prog size is too large\n"
 
+status=0
+
 no_such_file_err() { echo "Open error: $1: No such file or directory\n"; }
 wrong_flag_err() { echo "Error: $1: Not an available flag\n"; }
 
@@ -30,6 +32,7 @@ function print_rslt(){
 		echo "$1" ":" >> $trace
 		echo "$2" >> $trace
 		echo "---------------------------" >> $trace
+		status=1
 	fi
 }
 
@@ -94,3 +97,5 @@ run_test "-visu" "$(wrong_flag_err "-visu")"
 run_test "-v" "$(wrong_flag_err "-v")"
 
 rm -f output1 output2
+
+exit $status
