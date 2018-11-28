@@ -68,7 +68,7 @@ static void	init_visu(t_vm *vm)
 	vm->visu.proc_win = subwin(stdscr, PROC_WIN_Y, PROC_WIN_X, 1, MEM_WIN_X + 80);
 	box(vm->visu.proc_win, ACS_VLINE, ACS_HLINE);
 	i = 0;
-	while (i < vm->players_number)
+	while (i < vm->total_players)
 	{
 		vm->visu.players_win[i] = subwin(stdscr, PLAYER_WIN_Y, PLAYER_WIN_X, CYCLES_WIN_Y + 5 + i * PLAYER_WIN_Y, MEM_WIN_X + 20);
 		box(vm->visu.players_win[i], ACS_VLINE, ACS_HLINE);
@@ -158,7 +158,7 @@ void	display_players(t_vm *vm, WINDOW **wins)
 	int		i;
 
 	i = 0;
-	while (i < vm->players_number)
+	while (i < vm->total_players)
 	{
 		wattron(wins[i], COLOR_PAIR(get_player_color(i)));
 		mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);

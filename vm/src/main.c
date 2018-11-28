@@ -17,13 +17,13 @@ void	print_vm(t_vm *vm)
 	int		i;
 
 	ft_printf("VM :\n");
-	ft_printf("Player number = %d\n", vm->players_number);
+	ft_printf("Player number = %d\n", vm->total_players);
 	ft_printf("flag = %b\n", vm->flag);
 	ft_printf("Dump cycles = %d\n", vm->dump_cycle);
 	ft_printf("----------------------\n");
 	ft_printf("PLAYERS :\n");
 	i = 0;
-	while (i < vm->players_number)
+	while (i < vm->total_players)
 	{
 		print_player(&vm->player[i]);
 		i++;

@@ -140,7 +140,7 @@ typedef struct 	s_vm
 {
 	t_memcase	memory[MEM_SIZE];
 	t_player	player[MAX_PLAYERS];
-	int			players_number;
+	int			total_players;
 	int			flag;
 	int			dump_cycle;
 	t_processus	*proc;

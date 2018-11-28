@@ -2,7 +2,7 @@
 
 static int	get_beginning_index(int num, t_vm *vm)
 {
-	return (MEM_SIZE * num / vm->players_number);
+	return (MEM_SIZE * num / vm->total_players);
 }
 
 static void	fill_player_color(int player_num, t_memcase *memcase)
@@ -51,7 +51,7 @@ static void	fill_all_prog_in_memory(t_vm *vm)
 	int		index;
 
 	i = 0;
-	while (i < vm->players_number)
+	while (i < vm->total_players)
 	{
 		index = get_beginning_index(i, vm);
 		fill_memory(index, &vm->player[i], vm, i);
@@ -89,7 +89,7 @@ static void	create_all_first_processus(t_vm *vm)
 	int		i;
 	int		index;
 
-	i = vm->players_number - 1;
+	i = vm->total_players - 1;
 	while (i >= 0)
 	{
 		index = get_beginning_index(i, vm);

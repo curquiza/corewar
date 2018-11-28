@@ -44,7 +44,7 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 		}
 		i++;
 	}
-	if (vm->players_number == 0)
+	if (vm->total_players == 0)
 		return (usage_ret_err());
 	return (SUCCESS);
 }

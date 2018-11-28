@@ -26,11 +26,11 @@ t_ex_ret	manage_player(char *filename, t_vm *vm, int num)
 {
 	t_player	*player;
 
-	if (vm->players_number + 1 > MAX_PLAYERS)
+	if (vm->total_players + 1 > MAX_PLAYERS)
 		/*return (max_player_err());*/
 		return (ft_ret_err(MAX_PLAYER_ERR));
-	vm->players_number += 1;
-	player = &vm->player[vm->players_number - 1];
+	vm->total_players += 1;
+	player = &vm->player[vm->total_players - 1];
 	player->num = num;
 	if (parse_player(filename, player) == FAILURE)
 		return (FAILURE);
