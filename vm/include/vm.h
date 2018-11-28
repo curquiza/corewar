@@ -47,6 +47,8 @@
 
 # define MEM_WIN_X			206
 # define MEM_WIN_Y			66
+# define MINI_MEM_WIN_X		110
+# define MINI_MEM_WIN_Y		50
 # define CYCLES_WIN_X		25
 # define CYCLES_WIN_Y		12
 # define LIVES_WIN_X		25
@@ -55,6 +57,8 @@
 # define PROC_WIN_Y			26
 # define PLAYER_WIN_X		25
 # define PLAYER_WIN_Y		6
+
+# define MINI_VISU_MEM_PART	48
 
 /*
 ** Misc
