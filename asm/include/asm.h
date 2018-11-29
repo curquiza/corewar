@@ -14,6 +14,7 @@
 # define USAGE			"usage: ./asm [-"OPTIONS"] <sourcefile.s>\n\t" USAGE_OPTS
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
 # define FLAG_A			1
+
 /*
 ** ERRORS
 */
@@ -49,7 +50,8 @@ t_ex_ret        parse_comment(t_src_file *file, int fd);
 /*
 ** OUTPUT
 */
-t_ex_ret	write_output_file(t_src_file *file);
+t_ex_ret		write_output_file(t_src_file *file);
+t_ex_ret		write_output_stdout(t_src_file *file);
 
 /*
 ** TOOLS

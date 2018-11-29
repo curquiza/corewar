@@ -22,7 +22,6 @@ static void		init_src_file(t_src_file *file, char *filename)
     ft_bzero(file, sizeof(t_src_file));
     file->filename = filename;
 	file->header.magic = COREWAR_EXEC_MAGIC;
-	file->header.prog_size = sizeof(t_header);
 }
 
 void		print_header(t_header *header)
@@ -51,7 +50,6 @@ int				main (int argc, char **argv)
 	{
 		filename = *argv++;
 		init_src_file(&file, filename);
-		// ft_printf("file: %s", filename);
 		if ((ret = open_file(filename)) == FAILURE)
 		{
 			status = FAILURE;
@@ -59,7 +57,7 @@ int				main (int argc, char **argv)
 		}
 		if ((ret = parse(&file, ret)) != SUCCESS)
 			status = FAILURE ;
-		print_header(&file.header);
+		// print_header(&file.header);
 	}
 	return (status);
 }

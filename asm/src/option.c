@@ -19,7 +19,6 @@ static int		save_options(char *str)
 			g_flags |= ( 1 << (option - options));
 		str++;
 	}
-	ft_printf("%b\n", g_flags);
 	return (0);
 }
 

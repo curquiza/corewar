@@ -11,6 +11,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		parse_name.c \
 		parse_comment.c \
 		output_file.c \
+		output_stdout.c \
 		tools.c \
 		main.c )
 OBJ_DIR = objs

@@ -9,7 +9,7 @@ t_ex_ret             parse(t_src_file *file, int fd)
     if (!(g_flags & FLAG_A))
     	ret = (ret == SUCCESS ? write_output_file(file) : FAILURE);
     else
-    	ft_printf("write to terminal");
-    close (fd);
+    	write_output_stdout(file);
+    close(fd);
     return (ret);
 }
