@@ -57,6 +57,8 @@
 # define PROC_WIN_Y			26
 # define PLAYER_WIN_X		25
 # define PLAYER_WIN_Y		6
+# define USAGE_WIN_X		30
+# define USAGE_WIN_Y		8
 
 # define MINI_VISU_MEM_PART	48
 
@@ -110,6 +112,7 @@ typedef struct	s_visu
 	WINDOW	*lives_win;
 	WINDOW	*proc_win;
 	WINDOW	*players_win[MAX_PLAYERS];
+	WINDOW	*usage_win;
 	int		mem_part;
 	int		proc_id;
 }				t_visu;

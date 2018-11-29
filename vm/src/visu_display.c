@@ -167,6 +167,17 @@ static void	display_players(t_vm *vm, WINDOW **wins)
 	}
 }
 
+static void	display_usage(t_vm *vm, WINDOW *win)
+{
+	(void)vm;
+	box(win, ACS_VLINE, ACS_HLINE);
+	mvwprintw(win, 1, 2, "USAGE");
+	mvwprintw(win, 3, 2, "%-10s%s", "<space>", "start/stop");
+	mvwprintw(win, 4, 2, "%-10s%s", "n", "next step");
+	mvwprintw(win, 5, 2, "%-10s%s", "m", "next memory part");
+	mvwprintw(win, 6, 2, "%-10s%s", "p", "next processus");
+}
+
 void	display_visu(t_vm *vm)
 {
 	int		i;
@@ -179,10 +190,12 @@ void	display_visu(t_vm *vm)
 	display_lives(vm, vm->visu.lives_win);
 	display_proc(vm, vm->visu.proc_id, vm->visu.proc_win);
 	display_players(vm, vm->visu.players_win);
+	display_usage(vm, vm->visu.usage_win);
 	wrefresh(vm->visu.mem_win);
 	wrefresh(vm->visu.cycles_win);
 	wrefresh(vm->visu.lives_win);
 	wrefresh(vm->visu.proc_win);
+	wrefresh(vm->visu.usage_win);
 	i = 0;
 	while (i < vm->total_players)
 	{
