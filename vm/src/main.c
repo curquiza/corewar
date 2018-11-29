@@ -76,8 +76,8 @@ void		launch_corewar(t_vm *vm)
 			|| (vm->visu.enabled && vm->visu.next_step))
 		{
 			// compute vm
-			/*vm->memory[0].value += 1;*/
-			/*vm->player[0].num += 1;*/
+			vm->memory[0].value += 1;
+			vm->player[0].num += 1;
 			vm->visu.next_step = FALSE;
 		}
 		vm->visu.enabled == TRUE ? display_visu(vm) : 0;

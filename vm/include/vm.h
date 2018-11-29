@@ -111,6 +111,7 @@ typedef struct	s_visu
 	WINDOW	*proc_win;
 	WINDOW	*players_win[MAX_PLAYERS];
 	int		mem_part;
+	int		proc_id;
 }				t_visu;
 
 /*

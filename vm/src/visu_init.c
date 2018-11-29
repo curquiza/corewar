@@ -24,6 +24,7 @@ static void	init_visu(t_vm *vm)
 	vm->visu.pause = TRUE;
 	vm->visu.type = get_visu_type();
 	vm->visu.mem_part = 1;
+	vm->visu.proc_id = 1;
 	start_color();
 	init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
 	init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);

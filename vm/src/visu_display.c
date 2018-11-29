@@ -111,10 +111,18 @@ static void	display_lives(t_vm *vm, WINDOW *win)
 	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
 
-static void	display_proc(t_processus *proc, t_vm *vm, int proc_id, WINDOW *win)
+static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 {
 	int		i;
+	t_processus	*proc;
 
+	proc = vm->proc;
+	i = 1;
+	while (i != proc_id)
+	{
+		proc = proc->next;
+		i++;
+	}
 	box(win, ACS_VLINE, ACS_HLINE);
 	mvwprintw(win, 1, 2, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
 	mvwprintw(win, 3, 2, "%-15s%d", "PC", proc->pc);
@@ -169,7 +177,7 @@ void	display_visu(t_vm *vm)
 		dump_memory_visu(vm, vm->visu.mem_win);
 	display_cycles(vm, vm->visu.cycles_win);
 	display_lives(vm, vm->visu.lives_win);
-	display_proc(vm->proc, vm, 1, vm->visu.proc_win);
+	display_proc(vm, vm->visu.proc_id, vm->visu.proc_win);
 	display_players(vm, vm->visu.players_win);
 	wrefresh(vm->visu.mem_win);
 	wrefresh(vm->visu.cycles_win);
