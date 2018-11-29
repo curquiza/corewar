@@ -22,6 +22,6 @@ class Display:
         print(Display.OK + str + Display.END)
 
     def print_filename(filename):
-        print('{:<25}'.format(filename), end='', flush=True)
+        print('{:<30}'.format(filename), end='', flush=True)
         # sys.stdout.write(str) # -> troubles with binary string
 

@@ -4,7 +4,7 @@ OS = $(shell uname)
 
 ifeq ($(OS), Darwin)
 	# MacOs
-	FLAG = -Wall -Wextra -Werror
+	FLAG = -Wall -Wextra -Werror -g
 else
 	# Linux
 	FLAG = -Wall -Wextra

@@ -1,11 +1,18 @@
 NAME = asm
 
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra -Werror -g
 CC = gcc $(FLAG)
 
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
+		error.c \
 		option.c \
+		parse.c \
+		parse_name.c \
+		parse_comment.c \
+		output_file.c \
+		output_stdout.c \
+		tools.c \
 		main.c )
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

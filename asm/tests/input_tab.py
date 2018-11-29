@@ -4,14 +4,27 @@
 # This line will be compared. Give the error type and the line of the error in INPUT.
 
 ERROR_TYPE = {
-    'NO_NAME':              'No name found in the header.',
-    'NO_COMMENT':           'No comment found in the header.',
-    'NAME_TOO_LARGE':       'Name too large.',
-    'COMMENT_TOO_LARGE':    'Comment too large.',
-    'PARAM_NB':             'Wrong number of parameters for this intruction.'
+    'NO_NAME':              'Name was expected in the source file.',
+    'NO_COMMENT':           'Comment was expected in the source file.',
+    'BAD_QUOTES' :          'Bad quoting.',
+    'BIG_NAME' :		    'Name is too long.',
+    'BIG_COMMENT' :		    'Comment is too long.'
+
+    # 'PARAM_NB':             'Wrong number of parameters for this intruction.'
 }
 
 INPUT = {
-    'zork.s':       {'error': False, 'error_type': None,        'error_line': -1},
-    'no_name.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 0},
+    # 'zork.s':       {'error': False, 'error_type': None, 'error_line': -1},
+    'name.none.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 1},
+    'name.too_long.s':    {'error': True,  'error_type': 'BIG_NAME', 'error_line': 1},
+    'name.bad_quoting.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 1},
+    'name.bad_quoting.1.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 1},
+    'name.bad_quoting.2.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 1},
+    'name.instr_before.s':    {'error': True,  'error_type': 'NO_NAME', 'error_line': 3},
+    'comment.none.s':    {'error': True,  'error_type': 'NO_COMMENT', 'error_line': 3},
+    'comment.too_long.s':    {'error': True,  'error_type': 'BIG_COMMENT', 'error_line': 2},
+    'comment.bad_quoting.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 2},
+    'comment.bad_quoting.1.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 2},
+    'comment.bad_quoting.2.s':    {'error': True,  'error_type': 'BAD_QUOTES', 'error_line': 2},
+    'comment.instr_before.s':    {'error': True,  'error_type': 'NO_COMMENT', 'error_line': 2},
 }
