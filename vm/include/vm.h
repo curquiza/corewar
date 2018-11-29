@@ -216,6 +216,8 @@ void			clean_all(void);
 */
 void	start_visu(t_vm *vm);
 void	display_visu(t_vm *vm);
+void	create_visu_subwin(t_vm *vm);
+void	create_mini_visu_subwin(t_vm *vm);
 
 /*
 ** Misc

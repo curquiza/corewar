@@ -17,7 +17,9 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_base.c \
 	  vm_setup.c \
 	  dump_flag.c \
-	  visu.c \
+	  visu_init.c \
+	  visu_display.c \
+	  visu_create_subwin.c \
 	  main.c)
 
 OBJ_DIR = objs

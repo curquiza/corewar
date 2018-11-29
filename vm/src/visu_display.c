@@ -1,28 +1,23 @@
 #include "vm.h"
 
-static t_bool	check_term_size(void)
+static int	get_attr(t_memcase *memory)
 {
-	return (LINES >= MINI_VISU_LINES && COLS >= MINI_VISU_COLS);
+	if (memory->proc == TRUE)
+		return (COLOR_PAIR(memory->color_visu) | A_STANDOUT);
+	return (COLOR_PAIR(memory->color_visu));
 }
 
-static t_visu_type		get_visu_type(void)
-{
-	if (LINES < VISU_LINES || COLS < VISU_COLS)
-		return (MINI_V);
-	return (DEF_V);
-}
-
-static void		print_visu_err(char *err)
-{
-	endwin();
-	ft_dprintf(2, "Error: %s\n", err);
-}
-
-static int		bytes_per_line(t_vm *vm)
+static int	bytes_per_line(t_vm *vm)
 {
 	if (vm->visu.type == MINI_V)
 		return (BYTES_PER_LINE_32);
 	return (BYTES_PER_LINE_64);
+}
+
+static void	print_mem_addr_visu(int i, t_vm *vm, WINDOW *win)
+{
+	if (i % bytes_per_line(vm) == 0)
+		wprintw(win, "0x%0.4x |   ", i);
 }
 
 static void	handle_newline(int i, t_vm *vm, WINDOW *win)
@@ -39,69 +34,6 @@ static void	handle_newline(int i, t_vm *vm, WINDOW *win)
 	}
 	else
 		waddch(win, ' ');
-}
-
-static void	print_mem_addr_visu(int i, t_vm *vm, WINDOW *win)
-{
-	if (i % bytes_per_line(vm) == 0)
-		wprintw(win, "0x%0.4x |   ", i);
-}
-
-static void	create_visu_subwin(t_vm *vm)
-{
-	int		i;
-
-	vm->visu.mem_win = subwin(stdscr, MEM_WIN_Y, MEM_WIN_X, 1, 1);
-	vm->visu.cycles_win = subwin(stdscr, CYCLES_WIN_Y, CYCLES_WIN_X, 1, MEM_WIN_X + 20);
-	vm->visu.lives_win = subwin(stdscr, LIVES_WIN_Y, LIVES_WIN_X, 1, MEM_WIN_X + 50);
-	vm->visu.proc_win = subwin(stdscr, PROC_WIN_Y, PROC_WIN_X, 1, MEM_WIN_X + 80);
-	i = 0;
-	while (i < vm->total_players)
-	{
-		vm->visu.players_win[i] = subwin(stdscr, PLAYER_WIN_Y, PLAYER_WIN_X, CYCLES_WIN_Y + 5 + i * PLAYER_WIN_Y, MEM_WIN_X + 20);
-		i++;
-	}
-}
-
-static void	create_mini_visu_subwin(t_vm *vm)
-{
-	int		i;
-
-	vm->visu.mem_win = subwin(stdscr, MINI_MEM_WIN_Y, MINI_MEM_WIN_X, 1, 1);
-	vm->visu.cycles_win = subwin(stdscr, CYCLES_WIN_Y, CYCLES_WIN_X, 1, MINI_MEM_WIN_X + 20);
-	vm->visu.lives_win = subwin(stdscr, LIVES_WIN_Y, LIVES_WIN_X, 1, MINI_MEM_WIN_X + 50);
-	vm->visu.proc_win = subwin(stdscr, PROC_WIN_Y, PROC_WIN_X, LIVES_WIN_Y + 5, MINI_MEM_WIN_X + 50);
-	i = 0;
-	while (i < vm->total_players)
-	{
-		vm->visu.players_win[i] = subwin(stdscr, PLAYER_WIN_Y, PLAYER_WIN_X, CYCLES_WIN_Y + 5 + i * PLAYER_WIN_Y, MINI_MEM_WIN_X + 20);
-		i++;
-	}
-}
-
-static void	init_visu(t_vm *vm)
-{
-
-	vm->visu.enabled = TRUE;
-	vm->visu.type = get_visu_type();
-	vm->visu.mem_part = 1;
-	start_color();
-	init_pair(DEF_PAIR, COLOR_WHITE, COLOR_BLACK);
-	init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);
-	init_pair(PINK_PAIR, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(GREEN_PAIR, COLOR_GREEN, COLOR_BLACK);
-	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
-	if (vm->visu.type == DEF_V)
-		create_visu_subwin(vm);
-	else
-		create_mini_visu_subwin(vm);
-}
-
-static int	get_attr(t_memcase *memory)
-{
-	if (memory->proc == TRUE)
-		return (COLOR_PAIR(memory->color_visu) | A_STANDOUT);
-	return (COLOR_PAIR(memory->color_visu));
 }
 
 static void	print_memory_visu(int i, t_vm *vm, WINDOW *win)
@@ -251,20 +183,4 @@ void	display_visu(t_vm *vm)
 	}
 	noecho();
 	curs_set(0);
-}
-
-void	start_visu(t_vm *vm)
-{
-	initscr();
-	if (has_colors() == FALSE)
-		print_visu_err(VISU_COLOR_ERR);
-	else if (check_term_size() == FALSE)
-		print_visu_err(VISU_SIZE_ERR);
-	else
-	{
-		init_visu(vm);
-		display_visu(vm);
-		/*wrefresh(vm->visu.mem_win);*/
-		/*getch();*/
-	}
 }
