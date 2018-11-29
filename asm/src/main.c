@@ -6,7 +6,9 @@ static int		open_file(char *filename)
 {
 	struct stat		s;
 	int 			fd;
-	
+
+	if ((ft_strcmp(ft_strrchr(filename, '.'), FILE_EXT)) != 0)
+		return (put_error(USAGE));
 	if ((stat(filename, &s)) < 0)
 		return (ft_ret_err2(filename, NO_EXIST));
 	if ((fd = open(filename, O_RDONLY)) < 0)
@@ -29,6 +31,7 @@ void		print_header(t_header *header)
 	ft_printf("prog name: %s\n", header->prog_name);
 	ft_printf("prog size: %d\n", header->prog_size);
 	ft_printf("prog desc: %s\n", header->comment);
+	ft_printf("============\n");
 }
 
 int				main (int argc, char **argv)
@@ -55,7 +58,7 @@ int				main (int argc, char **argv)
 		}
 		if ((ret = parse(&file, ret)) != SUCCESS)
 			status = FAILURE ;
-		// print_header(&file.header);
+		print_header(&file.header);
 	}
 	return (status);
 }

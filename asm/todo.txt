@@ -1,5 +1,6 @@
 TO DO ASM
 =========
+√ check malloc during name and comment parsing
 - test write header to a file (it will be written at the end to include the
   accurate size)
 - read the end of the file after the comment of the progran, and join into one big string, we

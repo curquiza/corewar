@@ -9,7 +9,6 @@ static int     get_name(t_src_file *file, char *line)
         || ft_strrchr(line, '"') != (line + ft_strlen(line) - 1)
         || count_char(line, '"') > 2)
         return (parse_error(file->nb_line, ERR_QUOTE));
-
     start = line + (ft_strchr(line, '"') - line) + 1;
     size = ft_strlen(start) > PROG_NAME_LENGTH + 1 ? -1 : ft_strlen(start) - 1;
     if (size == -1)
@@ -43,7 +42,7 @@ t_ex_ret        parse_name(t_src_file *file, int fd)
     }
     ft_strdel(&line);
     if (ret == -1)
-        return (ft_ret_err(ERR_READ));
+        return (ft_ret_err(ERR_GNL));
     if (ret == 0 || *(file->header.prog_name) == '\0')
         return (parse_error(file->nb_line, NO_NAME));
     return (SUCCESS);

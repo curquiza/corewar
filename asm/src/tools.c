@@ -6,7 +6,8 @@ int     get_trim_line(const int fd, char **line)
     int     ret;
 
     ret = get_next_line(fd, line);
-    tmp = ft_strtrim(*line);
+    if (!(tmp = ft_strtrim(*line)))
+        put_error_code(ERR_MALLOC, -1);
     free(*line);
     *line = tmp;
     return (ret);
