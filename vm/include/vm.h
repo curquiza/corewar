@@ -142,6 +142,7 @@ typedef struct	s_player
 
 typedef struct 	s_vm
 {
+	t_bool		play;
 	t_memcase	memory[MEM_SIZE];
 	t_player	player[MAX_PLAYERS];
 	int			total_players;
@@ -213,6 +214,7 @@ void			clean_all(void);
 ** Visual
 */
 void	start_visu(t_vm *vm);
+void	display_visu(t_vm *vm);
 
 /*
 ** Misc

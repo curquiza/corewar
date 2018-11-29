@@ -66,6 +66,21 @@ t_ex_ret	init_check(void)
 	return (SUCCESS);
 }
 
+void		launch_corewar(t_vm *vm)
+{
+	while (vm->play == TRUE)
+	{
+		vm->visu.enabled == TRUE ? getch() : 0;
+		// compute vm
+		vm->memory[0].value += 1;
+		vm->player[0].num += 1;
+		vm->visu.enabled == TRUE ? display_visu(vm) : 0;
+		if (vm->memory[0].value == (t_byte) 0x10)
+			vm->play = FALSE;
+	}
+	// print end of game = visu + end sentence on stdout
+}
+
 int	main (int argc, char **argv)
 {
 	t_vm	vm;
@@ -78,15 +93,11 @@ int	main (int argc, char **argv)
 		return (usage_ret_err());
 	if (parsing(argc, argv, &vm) == FAILURE)
 	{
-		/*print_vm(&vm);*/
 		clean_all();
 		exit(FAILURE);
 	}
 	vm_setup(&vm);
-	/*print_vm(&vm);*/
-	/*dump_memory(&vm);*/
-	/*print_processus(&vm);*/
-	endwin();
+	launch_corewar(&vm);
 	clean_all();
 	return (SUCCESS);
 }

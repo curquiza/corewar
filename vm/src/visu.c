@@ -230,8 +230,10 @@ static void	display_players(t_vm *vm, WINDOW **wins)
 	}
 }
 
-static void	display_visu(t_vm *vm)
+void	display_visu(t_vm *vm)
 {
+	int		i;
+
 	if (vm->visu.type == MINI_V)
 		dump_memory_mini_visu_part(vm, vm->visu.mem_win, 1);
 	else
@@ -240,6 +242,17 @@ static void	display_visu(t_vm *vm)
 	display_lives(vm, vm->visu.lives_win);
 	display_proc(vm->proc, vm, 1, vm->visu.proc_win);
 	display_players(vm, vm->visu.players_win);
+	wrefresh(vm->visu.mem_win);
+	wrefresh(vm->visu.cycles_win);
+	wrefresh(vm->visu.lives_win);
+	wrefresh(vm->visu.proc_win);
+	i = 0;
+	while (i < vm->total_players)
+	{
+		wrefresh(vm->visu.players_win[i]);
+		i++;
+	}
+	noecho();
 	curs_set(0);
 }
 
@@ -254,10 +267,6 @@ void	start_visu(t_vm *vm)
 	{
 		init_visu(vm);
 		display_visu(vm);
-		getch();
-		/*vm->memory[0].value = (t_byte) 42;*/
-		/*wclear(vm->visu.mem_win);*/
-		/*display_visu(vm);*/
 		/*wrefresh(vm->visu.mem_win);*/
 		/*getch();*/
 	}
