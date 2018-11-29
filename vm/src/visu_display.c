@@ -172,10 +172,10 @@ static void	display_usage(t_vm *vm, WINDOW *win)
 	(void)vm;
 	box(win, ACS_VLINE, ACS_HLINE);
 	mvwprintw(win, 1, 2, "USAGE");
-	mvwprintw(win, 3, 2, "%-10s%s", "<space>", "start/stop");
-	mvwprintw(win, 4, 2, "%-10s%s", "n", "next step");
-	mvwprintw(win, 5, 2, "%-10s%s", "m", "next memory part");
-	mvwprintw(win, 6, 2, "%-10s%s", "p", "next processus");
+	mvwprintw(win, 3, 2, "%-10s%16s", "<space>", "start/stop");
+	mvwprintw(win, 4, 2, "%-10s%16s", "n", "next step");
+	mvwprintw(win, 5, 2, "%-10s%16s", "m", "next memory part");
+	mvwprintw(win, 6, 2, "%-10s%16s", "p", "next processus");
 }
 
 void	display_visu(t_vm *vm)
