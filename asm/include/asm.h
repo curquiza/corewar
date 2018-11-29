@@ -46,6 +46,7 @@ int				get_options(int *argc, char ***argv);
 t_ex_ret        parse(t_src_file *file, int fd);
 t_ex_ret        parse_name(t_src_file *file, int fd);
 t_ex_ret        parse_comment(t_src_file *file, int fd);
+t_ex_ret        parse_instr(t_src_file *file, int fd);
 
 /*
 ** OUTPUT

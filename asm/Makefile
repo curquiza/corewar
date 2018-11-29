@@ -10,6 +10,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		parse.c \
 		parse_name.c \
 		parse_comment.c \
+		parse_instr.c \
 		output_file.c \
 		output_stdout.c \
 		tools.c \
