@@ -7,16 +7,18 @@
 # include <sys/stat.h>
 
 # define PROG_NAME      "asm: "
-# define FILE_EXT		".s"
+# define INPUT_EXT		".s"
+# define OUTPUT_EXT		".cor"
 # define OPTIONS		"a"
 # define USAGE_OPTS 	"-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
 # define USAGE			"usage: ./asm [-"OPTIONS"] <sourcefile.s>\n\t" USAGE_OPTS
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
-
+# define FLAG_A			1
 /*
 ** ERRORS
 */
 # define ERR_MALLOC		"Malloc error."
+# define ERR_OPEN		"Open error."
 # define NO_EXIST		"No such file or directory."
 # define PERM_DENIED	"Permission denied."
 # define ERR_GNL	    "Read line error."
@@ -28,6 +30,7 @@
 
 typedef struct	s_src_file
 {
+	char		*filename;
 	t_header	header;
 	int			nb_line;
 }				t_src_file;
@@ -42,6 +45,11 @@ int				get_options(int *argc, char ***argv);
 t_ex_ret        parse(t_src_file *file, int fd);
 t_ex_ret        parse_name(t_src_file *file, int fd);
 t_ex_ret        parse_comment(t_src_file *file, int fd);
+
+/*
+** OUTPUT
+*/
+t_ex_ret	write_output_file(t_src_file *file);
 
 /*
 ** TOOLS

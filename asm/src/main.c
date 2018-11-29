@@ -7,7 +7,7 @@ static int		open_file(char *filename)
 	struct stat		s;
 	int 			fd;
 
-	if ((ft_strcmp(ft_strrchr(filename, '.'), FILE_EXT)) != 0)
+	if ((ft_strcmp(ft_strrchr(filename, '.'), INPUT_EXT)) != 0)
 		return (put_error(USAGE));
 	if ((stat(filename, &s)) < 0)
 		return (ft_ret_err2(filename, NO_EXIST));
@@ -16,10 +16,11 @@ static int		open_file(char *filename)
 	return (fd);
 }
 
-static void		init_src_file(t_src_file *file)
+static void		init_src_file(t_src_file *file, char *filename)
 {
 	g_file = file;
     ft_bzero(file, sizeof(t_src_file));
+    file->filename = filename;
 	file->header.magic = COREWAR_EXEC_MAGIC;
 	file->header.prog_size = sizeof(t_header);
 }
@@ -48,8 +49,8 @@ int				main (int argc, char **argv)
 		return (put_error(ILLEGAL_OPTION));
 	while (argc--)
 	{
-		init_src_file(&file);
 		filename = *argv++;
+		init_src_file(&file, filename);
 		// ft_printf("file: %s", filename);
 		if ((ret = open_file(filename)) == FAILURE)
 		{
