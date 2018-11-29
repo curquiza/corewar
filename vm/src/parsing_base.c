@@ -28,6 +28,8 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 {
 	int		i;
 
+	if (argc <= 1)
+		return (usage_ret_err());
 	i = 1;
 	while (i < argc)
 	{

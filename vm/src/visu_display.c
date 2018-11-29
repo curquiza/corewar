@@ -181,6 +181,4 @@ void	display_visu(t_vm *vm)
 		wrefresh(vm->visu.players_win[i]);
 		i++;
 	}
-	noecho();
-	curs_set(0);
 }

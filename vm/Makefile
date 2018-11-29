@@ -20,6 +20,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  visu_init.c \
 	  visu_display.c \
 	  visu_create_subwin.c \
+	  visu_getkey.c \
 	  main.c)
 
 OBJ_DIR = objs

@@ -68,15 +68,21 @@ t_ex_ret	init_check(void)
 
 void		launch_corewar(t_vm *vm)
 {
-	while (vm->play == TRUE)
+	while (vm->play)
 	{
-		vm->visu.enabled == TRUE ? getch() : 0;
-		// compute vm
-		vm->memory[0].value += 1;
-		vm->player[0].num += 1;
+		vm->visu.enabled ? getkey(vm) : 0;
+		if (vm->visu.enabled == FALSE
+			|| (vm->visu.enabled && vm->visu.pause == FALSE)
+			|| (vm->visu.enabled && vm->visu.next_step))
+		{
+			// compute vm
+			/*vm->memory[0].value += 1;*/
+			/*vm->player[0].num += 1;*/
+			vm->visu.next_step = FALSE;
+		}
 		vm->visu.enabled == TRUE ? display_visu(vm) : 0;
-		if (vm->memory[0].value == (t_byte) 0x10)
-			vm->play = FALSE;
+		/*if (vm->memory[0].value == (t_byte) 0x10)*/
+			/*vm->play = FALSE;*/
 	}
 	// print end of game = visu + end sentence on stdout
 }
@@ -89,8 +95,6 @@ int	main (int argc, char **argv)
 	ft_bzero(&vm, sizeof(vm));
 	if (init_check() == FAILURE)
 		exit(FAILURE);
-	if (argc <= 1)
-		return (usage_ret_err());
 	if (parsing(argc, argv, &vm) == FAILURE)
 	{
 		clean_all();

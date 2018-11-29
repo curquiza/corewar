@@ -20,8 +20,8 @@ static void		print_visu_err(char *err)
 
 static void	init_visu(t_vm *vm)
 {
-
 	vm->visu.enabled = TRUE;
+	vm->visu.pause = TRUE;
 	vm->visu.type = get_visu_type();
 	vm->visu.mem_part = 1;
 	start_color();
@@ -34,6 +34,9 @@ static void	init_visu(t_vm *vm)
 		create_visu_subwin(vm);
 	else
 		create_mini_visu_subwin(vm);
+	noecho();
+	curs_set(0);
+	nodelay(stdscr, FALSE);
 }
 
 void	start_visu(t_vm *vm)

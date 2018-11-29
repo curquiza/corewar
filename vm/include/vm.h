@@ -74,7 +74,7 @@
 ** FLAGS
 */
 
-enum			s_enum
+enum			s_flag
 {
 	DUMP_FLAG = 1,
 	VISU_FLAG = 2,
@@ -103,6 +103,8 @@ typedef struct	s_visu
 {
 	t_bool	enabled;
 	int		type;
+	t_bool	pause;
+	t_bool	next_step;
 	WINDOW	*mem_win;
 	WINDOW	*cycles_win;
 	WINDOW	*lives_win;
@@ -218,6 +220,7 @@ void	start_visu(t_vm *vm);
 void	display_visu(t_vm *vm);
 void	create_visu_subwin(t_vm *vm);
 void	create_mini_visu_subwin(t_vm *vm);
+void	getkey(t_vm *vm);
 
 /*
 ** Misc
