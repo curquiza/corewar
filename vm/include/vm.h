@@ -7,7 +7,15 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <ncurses.h>
 
+/*
+** === DEFINE ==================================================================
+*/
+
+/*
+** Error messages
+*/
 # define DEFINE_ERR			"Value not conformed in op.h file"
 # define HEADER_ERR			"Wrong header format"
 # define PROG_SIZE_ERR		"Prog size in header differs from the real prog size"
@@ -18,29 +26,100 @@
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
 # define WRONG_FLAG_ERR		"Not an available flag"
+# define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
+# define VISU_SIZE_ERR		"Window too small to launch visual"
 
-# define NUM_FLAG_STR	"-n"
-# define ZAZ_FLAG_STR	"-zaz"
-# define DUMP_FLAG_STR	"-dump"
+/*
+** Flags
+*/
+# define NUM_FLAG_STR		"-n"
+# define ZAZ_FLAG_STR		"-zaz"
+# define DUMP_FLAG_STR		"-dump"
+# define VISU_FLAG_STR		"-visual"
 
-# define BYTES_PER_LINE		32
-# define BYTES_PER_LINE_ZAZ	64
+/*
+** Visu
+*/
+# define VISU_LINES			83
+# define VISU_COLS			364
+# define MINI_VISU_LINES	52
+# define MINI_VISU_COLS		204
 
-# define DUMP_FLAG	(1 << 0) // 1
-# define ZAZ_FLAG	(1 << 1) // 2
+# define MEM_WIN_X			206
+# define MEM_WIN_Y			66
+# define MINI_MEM_WIN_X		110
+# define MINI_MEM_WIN_Y		50
+# define CYCLES_WIN_X		25
+# define CYCLES_WIN_Y		12
+# define LIVES_WIN_X		25
+# define LIVES_WIN_Y		12
+# define PROC_WIN_X			25
+# define PROC_WIN_Y			26
+# define PLAYER_WIN_X		25
+# define PLAYER_WIN_Y		6
+# define USAGE_WIN_X		30
+# define USAGE_WIN_Y		8
 
-typedef struct	s_memcase
+# define MINI_VISU_MEM_PART	48
+
+/*
+** Misc
+*/
+# define BYTES_PER_LINE_32	32
+# define BYTES_PER_LINE_64	64
+
+/*
+** === STRUCT AND ENUM =========================================================
+*/
+
+/*
+** FLAGS
+*/
+
+enum			s_flag
 {
-	t_byte		value;
-	char		color[20];
-}				t_memcase;
+	DUMP_FLAG = 1,
+	VISU_FLAG = 2,
+	ZAZ_FLAG = 4
+};
 
-typedef struct	s_player
+/*
+** VISU ***
+*/
+typedef enum	e_visu_type
 {
-	t_header	header;
-	int			num;
-	t_byte		prog[CHAMP_MAX_SIZE];
-}				t_player;
+	DEF_V,
+	MINI_V
+}				t_visu_type;
+
+typedef enum	e_color_pair
+{
+	DEF_PAIR,
+	CYAN_PAIR,
+	PINK_PAIR,
+	GREEN_PAIR,
+	YELLOW_PAIR
+}				t_color_pair;
+
+typedef struct	s_visu
+{
+	t_bool	enabled;
+	int		type;
+	t_bool	pause;
+	t_bool	next_step;
+	WINDOW	*mem_win;
+	WINDOW	*cycles_win;
+	WINDOW	*lives_win;
+	WINDOW	*proc_win;
+	WINDOW	*players_win[MAX_PLAYERS];
+	WINDOW	*usage_win;
+	int		mem_part;
+	int		proc_id;
+}				t_visu;
+
+/*
+** VM ***
+*/
 
 typedef struct	s_processus
 {
@@ -53,22 +132,44 @@ typedef struct	s_processus
 	struct s_processus	*next;
 }				t_processus;
 
+typedef struct	s_memcase
+{
+	t_byte			value;
+	char			color[20];
+	t_color_pair	color_visu;
+	t_bool			proc;
+}				t_memcase;
+
+typedef struct	s_player
+{
+	t_header	header;
+	int			num;
+	t_byte		prog[CHAMP_MAX_SIZE];
+}				t_player;
+
 typedef struct 	s_vm
 {
+	t_bool		play;
 	t_memcase	memory[MEM_SIZE];
 	t_player	player[MAX_PLAYERS];
-	int			players_number;
+	int			total_players;
 	int			flag;
 	int			dump_cycle;
 	t_processus	*proc;
+	int			total_proc;
 	int			total_cycles;
 	int			current_cycles;
 	int			cycles_to_die;
 	int			lives;
 	int			verif;
 	int			last_live_player_id;
+	t_visu		visu;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
+
+/*
+** === GLOABAL =================================================================
+*/
 
 t_vm	*g_vm;
 
@@ -107,9 +208,23 @@ t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 void			vm_setup(t_vm *vm);
 
 /*
+** Dump flag
+*/
+void			dump_memory(t_vm *vm);
+
+/*
 ** Clean
 */
 void			clean_all(void);
+
+/*
+** Visual
+*/
+void	start_visu(t_vm *vm);
+void	display_visu(t_vm *vm);
+void	create_visu_subwin(t_vm *vm);
+void	create_mini_visu_subwin(t_vm *vm);
+void	getkey(t_vm *vm);
 
 /*
 ** Misc

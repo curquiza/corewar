@@ -36,6 +36,8 @@ t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 		return (parse_dump_flag(argv, i, vm));
 	else if (ft_strequ(argv[*i], ZAZ_FLAG_STR))
 		vm->flag |= ZAZ_FLAG;
+	else if (ft_strequ(argv[*i], VISU_FLAG_STR))
+		vm->flag |= VISU_FLAG;
 	else
 		return (ft_ret_err2(argv[*i], WRONG_FLAG_ERR));
 	return (SUCCESS);

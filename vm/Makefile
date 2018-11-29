@@ -16,6 +16,11 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
 	  vm_setup.c \
+	  dump_flag.c \
+	  visu_init.c \
+	  visu_display.c \
+	  visu_create_subwin.c \
+	  visu_getkey.c \
 	  main.c)
 
 OBJ_DIR = objs
@@ -24,6 +29,8 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT_DIR = ../libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_H = $(LIBFT_DIR)/include
+
+NCURSES = -lncurses
 
 H_DIR = include
 INCL = -I$(H_DIR) -I$(LIBFT_H)
@@ -40,7 +47,7 @@ $(LIBFT) :
 	@printf "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(OBJ) -o $@ $(LIBFT)
+	@$(CC) $(OBJ) -o $@ $(LIBFT) $(NCURSES)
 	@printf "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(H_DIR)
