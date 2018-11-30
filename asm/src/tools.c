@@ -5,11 +5,12 @@ int     get_trim_line(const int fd, char **line)
     char    *tmp;
     int     ret;
 
+    tmp = NULL;
     ret = get_next_line(fd, line);
-    if (!(tmp = ft_strtrim(*line)))
+    if (*line && !(tmp = ft_strtrim(*line)))
         put_error_code(ERR_MALLOC, -1);
-    free(*line);
-    *line = tmp;
+    *line ? free(*line) : 0;
+    tmp ? *line = tmp : 0;
     return (ret);
 }
 
