@@ -98,7 +98,7 @@ static void	create_all_first_processus(t_vm *vm)
 	}
 }
 
-void	vm_setup(t_vm *vm)
+void		vm_setup(t_vm *vm)
 {
 	fill_all_prog_in_memory(vm);
 	create_all_first_processus(vm);
@@ -106,5 +106,12 @@ void	vm_setup(t_vm *vm)
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->last_live_player = -1;
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
-		start_visu(vm);
+	{
+		if ((vm->visu.trace_fd
+			= open_file(TRACE_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644))
+			== FAILURE)
+			ft_dprintf(2, "Error: %s\n", VISU_TRACE_ERR);
+		else
+			start_visu(vm);
+	}
 }

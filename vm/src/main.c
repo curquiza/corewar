@@ -160,13 +160,14 @@ void		play_one_cycle(t_vm *vm)
 			ft_printf("Cycles to die (%d) reached.\n", vm->cycles_to_die);
 			ft_printf("Killing all dead processus : ");
 			kill_all_dead_processus(&vm->proc, vm);
-			ft_printf("Reseting all processus lives...\n");
+			ft_printf("Reseting all processus lives.\n");
 			reset_all_processus_live(vm->proc);
-			ft_printf("Managing verifications...\n");
+			ft_printf("Managing verifications.\n");
 			manage_verification(vm);
 			if (vm->proc == NULL)
 			{
 				ft_printf("No remaining processus. Gonna stop the game...\n");
+				/*print_str("No remaining processus. Gonna stop the game...\n", NONE, vm);*/
 				vm->play = FALSE;
 			}
 		}
