@@ -66,6 +66,46 @@ t_ex_ret	init_check(void)
 	return (SUCCESS);
 }
 
+void		manage_verification(t_vm *vm)
+{
+	(void)vm;
+}
+
+void		execute_all_proc(t_vm *vm)
+{
+	(void)vm;
+	vm->cycles_to_die -= 1;
+	vm->last_live_player += 1;
+}
+
+void		play_one_cycle(t_vm *vm)
+{
+	if (vm->cycles_to_die <= 0)
+		vm->play = FALSE;
+	else
+	{
+		vm->total_cycles += 1;
+		vm->current_cycles += 1;
+		if (vm->current_cycles == vm->cycles_to_die)
+			manage_verification(vm);
+		if (vm->proc)
+			execute_all_proc(vm);
+		else
+			vm->play = FALSE;
+	}
+}
+
+void		end_of_game(t_vm *vm)
+{
+	// manage visu
+	g_vm->visu.enabled ? endwin() : 0;
+	if (vm->last_live_player == -1)
+		ft_printf("Nobody won !\n");
+	else
+		ft_printf("Player %d won !\n", vm->last_live_player);
+	ft_printf("End of game. Thanks for watching 😎\n");
+}
+
 void		launch_corewar(t_vm *vm)
 {
 	while (vm->play)
@@ -75,16 +115,12 @@ void		launch_corewar(t_vm *vm)
 			|| (vm->visu.enabled && vm->visu.pause == FALSE)
 			|| (vm->visu.enabled && vm->visu.next_step))
 		{
-			// compute vm
-			vm->memory[0].value += 1;
-			vm->player[0].num += 1;
+			play_one_cycle(vm);
 			vm->visu.next_step = FALSE;
 		}
 		vm->visu.enabled == TRUE ? display_visu(vm) : 0;
-		/*if (vm->memory[0].value == (t_byte) 0x10)*/
-			/*vm->play = FALSE;*/
 	}
-	// print end of game = visu + end sentence on stdout
+	end_of_game(vm);
 }
 
 int	main (int argc, char **argv)
