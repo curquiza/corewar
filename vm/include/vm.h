@@ -162,7 +162,7 @@ typedef struct 	s_vm
 	int			cycles_to_die;
 	int			lives;
 	int			verif;
-	int			last_live_player_id;
+	int			last_live_player;
 	t_visu		visu;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
