@@ -68,36 +68,115 @@ t_ex_ret	init_check(void)
 
 void		manage_verification(t_vm *vm)
 {
-	(void)vm;
+	ft_printf("Reseting current_cycles : %d -> %d\n", vm->current_cycles, 0);
+	vm->current_cycles = 0;
+	if (vm->lives < NBR_LIVE)
+	{
+		ft_printf("Total lives (%d) are fewer than NBR_LINE (%d)\n", vm->lives, NBR_LIVE);
+		ft_printf("Incrementing verif : %d -> %d\n", vm->verif, vm->verif + 1);
+		vm->verif += 1;
+		if (vm->verif >= MAX_CHECKS)
+		{
+			ft_printf("Nb of verif (%d) reaches the maximum (%d)\n", vm->verif, MAX_CHECKS);
+			ft_printf("Decrementing cycles_to_die : %d -> %d\n", vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA);
+			vm->cycles_to_die -= CYCLE_DELTA;
+			ft_printf("Reseting verif : %d -> %d\n", vm->verif, 0);
+			vm->verif = 0;
+		}
+	}
+	else
+	{
+		ft_printf("Decrementing cycles_to_die : %d -> %d\n", vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA);
+		vm->cycles_to_die -= CYCLE_DELTA;
+		ft_printf("Reseting verif : %d -> %d\n", vm->verif, 0);
+		vm->verif = 0;
+		ft_printf("Reseting lives : %d -> %d\n", vm->lives, 0);
+		vm->lives = 0;
+	}
+}
+
+void		supp_processus(t_processus **proc, t_vm *vm)
+{
+	t_processus	*supp;
+
+	ft_printf("+");
+	if ((*proc)->next == NULL)
+		ft_printf("\n");
+	supp = *proc;
+	*proc = (*proc)->next;
+	ft_bzero(supp, sizeof(*supp));
+	free(supp);
+	vm->total_proc -= 1;
+}
+
+void		kill_all_dead_processus(t_processus **proc, t_vm *vm)
+{
+	t_processus	*current;
+
+	if (!proc || !*proc)
+		return ;
+	current = *proc;
+	while (current->next)
+	{
+		if (current->next->live == FALSE)
+			supp_processus(&current->next, vm);
+	}
+	if (*proc)
+	{
+		if ((*proc)->live == FALSE)
+			supp_processus(proc, vm);
+	}
+}
+
+void		reset_all_processus_live(t_processus *proc)
+{
+	while (proc)
+	{
+		proc->live = FALSE;
+		proc = proc->next;
+	}
 }
 
 void		execute_all_proc(t_vm *vm)
 {
 	(void)vm;
-	vm->cycles_to_die -= 1;
-	vm->last_live_player += 1;
 }
 
 void		play_one_cycle(t_vm *vm)
 {
 	if (vm->cycles_to_die <= 0)
+	{
+		ft_printf("Cycles to die reaches 0. Gonna stop the game...\n");
 		vm->play = FALSE;
+	}
 	else
 	{
 		vm->total_cycles += 1;
 		vm->current_cycles += 1;
+		ft_printf("execute_all_proc, cycle %d\n", vm->current_cycles);
+		execute_all_proc(vm);
 		if (vm->current_cycles == vm->cycles_to_die)
+		{
+			ft_printf("Cycles to die (%d) reached.\n", vm->cycles_to_die);
+			ft_printf("Killing all dead processus : ");
+			kill_all_dead_processus(&vm->proc, vm);
+			ft_printf("Reseting all processus lives...\n");
+			reset_all_processus_live(vm->proc);
+			ft_printf("Managing verifications...\n");
 			manage_verification(vm);
-		if (vm->proc)
-			execute_all_proc(vm);
-		else
-			vm->play = FALSE;
+			if (vm->proc == NULL)
+			{
+				ft_printf("No remaining processus. Gonna stop the game...\n");
+				vm->play = FALSE;
+			}
+		}
+		//dump if -dump flag
 	}
 }
 
 void		end_of_game(t_vm *vm)
 {
-	// manage visu
+	// TODO : manage visu
 	g_vm->visu.enabled ? endwin() : 0;
 	if (vm->last_live_player == -1)
 		ft_printf("Nobody won !\n");
@@ -108,6 +187,7 @@ void		end_of_game(t_vm *vm)
 
 void		launch_corewar(t_vm *vm)
 {
+	vm->proc->live = TRUE; //DEBUG
 	while (vm->play)
 	{
 		vm->visu.enabled ? getkey(vm) : 0;

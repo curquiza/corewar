@@ -105,6 +105,8 @@ void	vm_setup(t_vm *vm)
 	vm->play = TRUE;
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->last_live_player = -1;
+	/*vm->total_cycles = 1;*/
+	/*vm->current_cycles = 1;*/
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
 		start_visu(vm);
 }
