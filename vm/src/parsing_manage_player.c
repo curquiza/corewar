@@ -6,7 +6,7 @@ static t_ex_ret	parse_player(char *filename, t_player *player)
 	t_header	*player_header;
 
 	player_header = &player->header;
-	if ((fd = open_file(filename)) == FAILURE)
+	if ((fd = open_file(filename, O_RDONLY, 0)) == FAILURE)
 		return (FAILURE);
 	if (read_magic(filename, fd, player_header) == FAILURE
 			|| read_name(filename, fd, player_header) == FAILURE

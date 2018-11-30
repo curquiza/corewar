@@ -180,7 +180,7 @@ t_vm	*g_vm;
 /*
 ** Files manager
 */
-t_ex_ret		open_file(char *filename);
+t_ex_ret		open_file(char *filename, int args, int perm);
 t_ex_ret		close_fd(int fd);
 t_ex_ret		read_error(char *filename);
 
