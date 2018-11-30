@@ -1,5 +1,15 @@
 #include "asm.h"
 
+static t_ex_ret		tokenize(char *line)
+{
+	char	**tokens;
+
+	tokens = ft_strsplit(line, ' ');
+	ft_puttab(tokens);
+	return (SUCCESS);
+}
+
+
 static t_ex_ret		read_lines(t_src_file *file, int fd)
 {
 	char	*line;
@@ -15,10 +25,13 @@ static t_ex_ret		read_lines(t_src_file *file, int fd)
 		}
 		else
 		{
-			ft_putendl(line);
+			ft_printf("-- line: %s\n", line);
+			if ((ret = tokenize(line)) == FAILURE)
+				break ;
 			ft_strdel(&line);
 		}
 	}
+	line ? ft_strdel(&line) : 0;
 	if (ret == -1)
 		return (ft_ret_err(ERR_GNL));
 	return (ret);
@@ -29,5 +42,5 @@ t_ex_ret	parse_instr(t_src_file *file, int fd)
 	int		ret;
 
 	ret = read_lines(file, fd);
-	return (SUCCESS);
+	return (ret);
 }

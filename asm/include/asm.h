@@ -29,11 +29,25 @@
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
 
+typedef struct	s_token
+{
+	struct s_token		*prev;
+	struct s_token		*next;
+	char				*str;
+	unsigned char		encode[4];
+	unsigned short		offset;
+	unsigned char		size;
+	t_arg_type			arg_type; // T_REG: 1 // T_DIR: 2 // T_IND: 4 // T_LAB: 8 //
+
+}				t_token;
+
 typedef struct	s_src_file
 {
+	t_header	header;	
 	char		*filename;
-	t_header	header;
+	t_token		*token;
 	int			nb_line;
+
 }				t_src_file;
 
 extern int		g_flags;

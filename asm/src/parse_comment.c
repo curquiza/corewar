@@ -32,9 +32,9 @@ t_ex_ret        parse_comment(t_src_file *file, int fd)
         }
         else if ((ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING))) == 0)
         {
-            get_comment(file, line);
+            ret = get_comment(file, line);
             ft_strdel(&line);
-            return (SUCCESS);        
+            return (ret);        
         }
         else
             break ;
