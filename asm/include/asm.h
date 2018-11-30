@@ -34,10 +34,10 @@ typedef struct	s_token
 	struct s_token		*prev;
 	struct s_token		*next;
 	char				*str;
-	unsigned char		encode[4];
-	unsigned short		offset;
-	unsigned char		size;
-	t_arg_type			arg_type; // T_REG: 1 // T_DIR: 2 // T_IND: 4 // T_LAB: 8 //
+	unsigned short		offset; 	// memory size is a short
+	unsigned char		encode[4]; 	// from 1 to 4 bytes
+	unsigned char		size; 		// from 1 to 4 bytes
+	t_arg_type			arg_type; 	// T_REG: 1 // T_DIR: 2 // T_IND: 4 // T_LAB: 8 //
 
 }				t_token;
 
@@ -45,7 +45,7 @@ typedef struct	s_src_file
 {
 	t_header	header;	
 	char		*filename;
-	t_token		*token;
+	t_token		*tokens;
 	int			nb_line;
 
 }				t_src_file;
@@ -61,6 +61,13 @@ t_ex_ret        parse(t_src_file *file, int fd);
 t_ex_ret        parse_name(t_src_file *file, int fd);
 t_ex_ret        parse_comment(t_src_file *file, int fd);
 t_ex_ret        parse_instr(t_src_file *file, int fd);
+
+/*
+** TOKENS
+*/
+t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type type);
+void			add_token(t_token **tokens, t_token *new);
+void			print_tokens(t_token *tokens);
 
 /*
 ** OUTPUT

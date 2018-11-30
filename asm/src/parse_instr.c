@@ -1,12 +1,41 @@
 #include "asm.h"
 
-static t_ex_ret		tokenize(char *line)
+static int				is_label(char *line)
 {
-	char	**tokens;
+	const char	*label_chars = LABEL_CHARS;
+	int			len;
 
-	tokens = ft_strsplit(line, ' ');
-	ft_puttab(tokens);
-	return (SUCCESS);
+	len = 0;
+	while(*line && ft_strchr(label_chars, *line))
+	{
+		line++;
+		len++;
+	}
+	if (len && *line == LABEL_CHAR)
+		return (len);
+	return (-1);
+}
+
+static t_ex_ret		parse_line(t_src_file *file, char *line)
+{
+	int			len;
+	int			ret;
+	t_token		*token;
+
+	ret = SUCCESS;
+	token = NULL;
+	if ((len = is_label(line)) != -1)
+	{
+		ft_printf("add label");
+		if ((ret = create_token(&token, line, len, T_LAB)) == SUCCESS)
+			add_token(&(file->tokens), token);
+		return (ret);
+	}
+	else
+	{
+		;//instruction
+	}
+	return (ret);
 }
 
 
@@ -26,7 +55,7 @@ static t_ex_ret		read_lines(t_src_file *file, int fd)
 		else
 		{
 			ft_printf("-- line: %s\n", line);
-			if ((ret = tokenize(line)) == FAILURE)
+			if ((ret = parse_line(file, line)) == FAILURE)
 				break ;
 			ft_strdel(&line);
 		}
@@ -42,5 +71,6 @@ t_ex_ret	parse_instr(t_src_file *file, int fd)
 	int		ret;
 
 	ret = read_lines(file, fd);
+	print_tokens(file->tokens);
 	return (ret);
 }
