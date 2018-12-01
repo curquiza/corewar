@@ -68,6 +68,7 @@ t_ex_ret        parse_instr(t_src_file *file, int fd);
 t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type type);
 void			add_token(t_token **tokens, t_token *new);
 void			print_tokens(t_token *tokens);
+void			free_tokens(t_token **tokens);
 
 /*
 ** OUTPUT
