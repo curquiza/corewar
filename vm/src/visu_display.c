@@ -116,6 +116,8 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	int		i;
 	t_processus	*proc;
 
+	if (vm->proc == NULL)
+		return ;
 	proc = vm->proc;
 	i = 1;
 	while (i != proc_id)

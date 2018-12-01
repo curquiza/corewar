@@ -174,12 +174,13 @@ void		play_one_cycle(t_vm *vm)
 		}
 	}
 	print_str("----------\n", FEW, vm);
-	//dump if -dump flag
+	// TODO : dump if -dump flag
 }
 
 void		end_of_game(t_vm *vm)
 {
 	// TODO : manage visu
+	g_vm->visu.enabled ? sleep(3) : 0;
 	g_vm->visu.enabled ? endwin() : 0;
 	g_vm->visu.enabled ? close(vm->visu.trace_fd) : 0;
 	if (vm->last_live_player == -1)
@@ -202,7 +203,7 @@ void		launch_corewar(t_vm *vm)
 			play_one_cycle(vm);
 			vm->visu.next_step = FALSE;
 		}
-		vm->visu.enabled == TRUE ? display_visu(vm) : 0;
+		vm->visu.enabled? display_visu(vm) : 0;
 	}
 	end_of_game(vm);
 }
