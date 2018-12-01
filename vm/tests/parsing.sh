@@ -17,6 +17,8 @@ dump_cycle_err1="Error: 1 argument is needed for -dump flag\n"
 dump_cycle_err2="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
 prog_size_too_large_err="Error: Prog size is too large\n"
+verbose_err1="Error: 1 argument is needed for -verbose flag\n"
+verbose_err2="Error: Not a valid argument for -verbose flag (1 or 2 accepted)\n"
 
 status=0
 
@@ -95,6 +97,9 @@ run_test "-dump -21" "$dump_cycle_err2"
 run_test "-dump 21 titi" "$(no_such_file_err "titi")"
 run_test "-visu" "$(wrong_flag_err "-visu")"
 run_test "-v" "$(wrong_flag_err "-v")"
+run_test "-verbose" "$verbose_err1"
+run_test "-verbose 12" "$verbose_err2"
+run_test "-verbose coco.cor" "$verbose_err2"
 
 rm -f output1 output2
 
