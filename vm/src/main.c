@@ -68,29 +68,33 @@ t_ex_ret	init_check(void)
 
 void		manage_verification(t_vm *vm)
 {
-	ft_printf("Reseting current_cycles : %d -> %d\n", vm->current_cycles, 0);
+	print_str("\tReseting current_cycles\n", ALL, vm);
 	vm->current_cycles = 0;
 	if (vm->lives < NBR_LIVE)
 	{
-		ft_printf("Total lives (%d) are fewer than NBR_LINE (%d)\n", vm->lives, NBR_LIVE);
-		ft_printf("Incrementing verif : %d -> %d\n", vm->verif, vm->verif + 1);
+		print_str("\tTotal lives are fewer than NBR_LINE : ", FEW, vm);
+		print_compare_intvar(vm->lives, NBR_LIVE, FEW, vm);
+		print_str("\tIncrementing verif : ", FEW, vm);
+		print_upd_intvar(vm->verif, vm->verif + 1, FEW, vm);
 		vm->verif += 1;
 		if (vm->verif >= MAX_CHECKS)
 		{
-			ft_printf("Nb of verif (%d) reaches the maximum (%d)\n", vm->verif, MAX_CHECKS);
-			ft_printf("Decrementing cycles_to_die : %d -> %d\n", vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA);
+			print_str_int("\tNb of verif reaches the maximum", MAX_CHECKS, FEW, vm);
+			print_str("\tDecrementing cycles_to_die : ", FEW, vm);
+			print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA, FEW, vm);
 			vm->cycles_to_die -= CYCLE_DELTA;
-			ft_printf("Reseting verif : %d -> %d\n", vm->verif, 0);
+			print_str("\tReseting verif\n", ALL, vm);
 			vm->verif = 0;
 		}
 	}
 	else
 	{
-		ft_printf("Decrementing cycles_to_die : %d -> %d\n", vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA);
+		print_str("\tDecrementing cycles_to_die : ", FEW, vm);
+		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA, FEW, vm);
 		vm->cycles_to_die -= CYCLE_DELTA;
-		ft_printf("Reseting verif : %d -> %d\n", vm->verif, 0);
+		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;
-		ft_printf("Reseting lives : %d -> %d\n", vm->lives, 0);
+		print_str("\tReseting lives\n", ALL, vm);
 		vm->lives = 0;
 	}
 }
@@ -99,9 +103,9 @@ void		supp_processus(t_processus **proc, t_vm *vm)
 {
 	t_processus	*supp;
 
-	ft_printf("+");
+	print_str("+", ALL, vm);
 	if ((*proc)->next == NULL)
-		ft_printf("\n");
+		print_str("\n", ALL, vm);
 	supp = *proc;
 	*proc = (*proc)->next;
 	ft_bzero(supp, sizeof(*supp));
@@ -144,41 +148,40 @@ void		execute_all_proc(t_vm *vm)
 
 void		play_one_cycle(t_vm *vm)
 {
-	if (vm->cycles_to_die <= 0)
+	vm->total_cycles += 1;
+	vm->current_cycles += 1;
+	print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);
+	print_str("Executing all process\n", FEW, vm);
+	execute_all_proc(vm);
+	if (vm->current_cycles == vm->cycles_to_die)
 	{
-		ft_printf("Cycles to die reaches 0. Gonna stop the game...\n");
-		vm->play = FALSE;
-	}
-	else
-	{
-		vm->total_cycles += 1;
-		vm->current_cycles += 1;
-		ft_printf("execute_all_proc, cycle %d\n", vm->current_cycles);
-		execute_all_proc(vm);
-		if (vm->current_cycles == vm->cycles_to_die)
+		print_str_int("Cycles to die reached", vm->cycles_to_die, FEW, vm);
+		print_str("Killing all dead processus : ", ALL, vm);
+		kill_all_dead_processus(&vm->proc, vm);
+		print_str("Reseting all processus lives\n", ALL, vm);
+		reset_all_processus_live(vm->proc);
+		print_str("Managing verifications\n", ALL, vm);
+		manage_verification(vm);
+		if (vm->proc == NULL)
 		{
-			ft_printf("Cycles to die (%d) reached.\n", vm->cycles_to_die);
-			ft_printf("Killing all dead processus : ");
-			kill_all_dead_processus(&vm->proc, vm);
-			ft_printf("Reseting all processus lives.\n");
-			reset_all_processus_live(vm->proc);
-			ft_printf("Managing verifications.\n");
-			manage_verification(vm);
-			if (vm->proc == NULL)
-			{
-				ft_printf("No remaining processus. Gonna stop the game...\n");
-				/*print_str("No remaining processus. Gonna stop the game...\n", NONE, vm);*/
-				vm->play = FALSE;
-			}
+			print_str("No remaining processus. Gonna stop the game...\n", FEW, vm);
+			vm->play = FALSE;
 		}
-		//dump if -dump flag
+		else if (vm->cycles_to_die <= 0)
+		{
+			print_str("Cycles to die reaches 0. Gonna stop the game...\n", FEW, vm);
+			vm->play = FALSE;
+		}
 	}
+	print_str("----------\n", FEW, vm);
+	//dump if -dump flag
 }
 
 void		end_of_game(t_vm *vm)
 {
 	// TODO : manage visu
 	g_vm->visu.enabled ? endwin() : 0;
+	g_vm->visu.enabled ? close(vm->visu.trace_fd) : 0;
 	if (vm->last_live_player == -1)
 		ft_printf("Nobody won !\n");
 	else

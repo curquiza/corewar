@@ -232,6 +232,7 @@ void			dump_memory(t_vm *vm);
 ** Verbose flag
 */
 void			print_str(char *s, t_verbose type, t_vm *vm);
+void			print_str_int(char *s, int n, t_verbose type, t_vm *vm);
 void			print_upd_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 
