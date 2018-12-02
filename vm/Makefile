@@ -1,6 +1,13 @@
 NAME = corewar
 
-FLAG = -Wall -Wextra -Werror
+ifeq ($(OS), Darwin)
+	# MacOs
+	FLAG = -Wall -Wextra -Werror
+else
+	# Linux
+	FLAG = -Wall -Wextra
+endif
+
 CC = gcc $(FLAG)
 
 SRC_DIR = src
