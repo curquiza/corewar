@@ -17,6 +17,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_base.c \
 	  vm_setup.c \
 	  dump_flag.c \
+	  verbose_flag.c \
+	  manage_end_of_period.c \
 	  visu_init.c \
 	  visu_display.c \
 	  visu_create_subwin.c \

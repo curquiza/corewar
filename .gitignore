@@ -14,3 +14,4 @@ misc/dumb_tests/**/*.cor
 resources/**/*.cor
 asm/tests/input/*.cor
 vm/tests/parsing_trace.txt
+vm/trace.txt

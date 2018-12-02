@@ -28,6 +28,21 @@ static t_ex_ret	parse_dump_flag(char **argv, int *i, t_vm *vm)
 	return (SUCCESS);
 }
 
+static t_ex_ret	parse_verbose_flag(char **argv, int *i, t_vm *vm)
+{
+	if (!argv[*i + 1])
+		return (ft_ret_err(VERBOSE_ERR1));
+	if (ft_strequ("1", argv[*i + 1]))
+		vm->verbose = FEW;
+	else if (ft_strequ("2", argv[*i + 1]))
+		vm->verbose = ALL;
+	else
+		return (ft_ret_err(VERBOSE_ERR2));
+	vm->flag |= VERBOSE_FLAG;
+	*i += 1;
+	return (SUCCESS);
+}
+
 t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 {
 	if (ft_strequ(argv[*i], NUM_FLAG_STR))
@@ -38,6 +53,8 @@ t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
 		vm->flag |= ZAZ_FLAG;
 	else if (ft_strequ(argv[*i], VISU_FLAG_STR))
 		vm->flag |= VISU_FLAG;
+	else if (ft_strequ(argv[*i], VERBOSE_FLAG_STR))
+		return (parse_verbose_flag(argv, i, vm));
 	else
 		return (ft_ret_err2(argv[*i], WRONG_FLAG_ERR));
 	return (SUCCESS);

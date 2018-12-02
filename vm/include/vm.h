@@ -25,9 +25,12 @@
 # define PLAYER_NUM_ERR2	"Player number must be a positive integer value"
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
+# define VERBOSE_ERR1		"1 argument is needed for -verbose flag"
+# define VERBOSE_ERR2		"Not a valid argument for -verbose flag (1 or 2 accepted)"
 # define WRONG_FLAG_ERR		"Not an available flag"
 # define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
 # define VISU_SIZE_ERR		"Window too small to launch visual"
+# define VISU_TRACE_ERR		"Error when opening trace file, impossible to launch visual"
 
 /*
 ** Flags
@@ -36,6 +39,7 @@
 # define ZAZ_FLAG_STR		"-zaz"
 # define DUMP_FLAG_STR		"-dump"
 # define VISU_FLAG_STR		"-visual"
+# define VERBOSE_FLAG_STR	"-verbose"
 
 /*
 ** Visu
@@ -62,6 +66,8 @@
 
 # define MINI_VISU_MEM_PART	48
 
+# define TRACE_FILE			"trace.txt"
+
 /*
 ** Misc
 */
@@ -80,8 +86,16 @@ enum			s_flag
 {
 	DUMP_FLAG = 1,
 	VISU_FLAG = 2,
-	ZAZ_FLAG = 4
+	VERBOSE_FLAG = 4,
+	ZAZ_FLAG = 8
 };
+
+typedef enum	s_verbose
+{
+	NONE,
+	FEW,
+	ALL,
+}				t_verbose;
 
 /*
 ** VISU ***
@@ -115,6 +129,7 @@ typedef struct	s_visu
 	WINDOW	*usage_win;
 	int		mem_part;
 	int		proc_id;
+	int		trace_fd;
 }				t_visu;
 
 /*
@@ -162,8 +177,9 @@ typedef struct 	s_vm
 	int			cycles_to_die;
 	int			lives;
 	int			verif;
-	int			last_live_player_id;
+	int			last_live_player;
 	t_visu		visu;
+	t_verbose	verbose;
 	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
 }				t_vm;
 
@@ -180,7 +196,7 @@ t_vm	*g_vm;
 /*
 ** Files manager
 */
-t_ex_ret		open_file(char *filename);
+t_ex_ret		open_file(char *filename, int args, int perm);
 t_ex_ret		close_fd(int fd);
 t_ex_ret		read_error(char *filename);
 
@@ -213,6 +229,19 @@ void			vm_setup(t_vm *vm);
 void			dump_memory(t_vm *vm);
 
 /*
+** Verbose flag
+*/
+void			print_str(char *s, t_verbose type, t_vm *vm);
+void			print_str_int(char *s, int n, t_verbose type, t_vm *vm);
+void			print_upd_intvar(int v1, int v2, t_verbose type, t_vm *vm);
+void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
+
+/*
+** Game
+*/
+void			manage_end_of_period(t_vm *vm);
+
+/*
 ** Clean
 */
 void			clean_all(void);
@@ -220,11 +249,11 @@ void			clean_all(void);
 /*
 ** Visual
 */
-void	start_visu(t_vm *vm);
-void	display_visu(t_vm *vm);
-void	create_visu_subwin(t_vm *vm);
-void	create_mini_visu_subwin(t_vm *vm);
-void	getkey(t_vm *vm);
+void			start_visu(t_vm *vm);
+void			display_visu(t_vm *vm);
+void			create_visu_subwin(t_vm *vm);
+void			create_mini_visu_subwin(t_vm *vm);
+void			getkey(t_vm *vm);
 
 /*
 ** Misc
@@ -232,5 +261,6 @@ void	getkey(t_vm *vm);
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
+void			print(char *s, int verbose_level, t_vm *vm);
 
 #endif

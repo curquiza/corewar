@@ -106,7 +106,7 @@ static void	display_lives(t_vm *vm, WINDOW *win)
 	mvwprintw(win, 2, 2, "---------------------");
 	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->lives);
 	mvwprintw(win, 5, 2, "%-15s%d", "Verif", vm->verif);
-	mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player_id);
+	mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player);
 	mvwprintw(win, 8, 2, "%-15s%d", "Min lives", NBR_LIVE);
 	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
@@ -116,6 +116,8 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	int		i;
 	t_processus	*proc;
 
+	if (vm->proc == NULL)
+		return ;
 	proc = vm->proc;
 	i = 1;
 	while (i != proc_id)
@@ -182,6 +184,7 @@ void	display_visu(t_vm *vm)
 {
 	int		i;
 
+	erase();
 	if (vm->visu.type == MINI_V)
 		dump_memory_mini_visu_part(vm, vm->visu.mem_win, vm->visu.mem_part);
 	else

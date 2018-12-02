@@ -1,11 +1,11 @@
 #include "vm.h"
 
-t_ex_ret	open_file(char *filename)
+t_ex_ret	open_file(char *filename, int args, int perm)
 {
 	int		fd;
 	char	*err_str;
 
-	if ((fd = open(filename, O_RDONLY)) <= 0)
+	if ((fd = open(filename, args, perm)) <= 0)
 	{
 		if (!(err_str = ft_strjoin("Open error: ", filename)))
 			exit_malloc_err();
