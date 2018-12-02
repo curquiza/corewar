@@ -237,6 +237,11 @@ void			print_upd_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 
 /*
+** Game
+*/
+void			manage_end_of_period(t_vm *vm);
+
+/*
 ** Clean
 */
 void			clean_all(void);
