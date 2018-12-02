@@ -66,18 +66,13 @@ t_ex_ret	init_check(void)
 	return (SUCCESS);
 }
 
-void		execute_all_proc(t_vm *vm)
-{
-	(void)vm;
-}
-
 void		play_one_cycle(t_vm *vm)
 {
 	vm->total_cycles += 1;
 	vm->current_cycles += 1;
 	print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);
 	print_str("Executing all process\n", FEW, vm);
-	execute_all_proc(vm);
+	exec_all_proc(vm);
 	if (vm->current_cycles == vm->cycles_to_die)
 		manage_end_of_period(vm);
 	print_str("----------\n", FEW, vm);
