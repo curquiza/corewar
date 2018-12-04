@@ -142,11 +142,11 @@ typedef struct	s_processus
 {
 	int					index;
 	int					cycles;
-	//t_byte				opcode;
-	//t_op				*op;
+	struct s_op			*current_op;
 	t_bool				live;
 	int					reg[REG_NUMBER];
 	unsigned short		pc;
+	int					carry;
 	struct s_processus	*next;
 }				t_processus;
 
@@ -198,15 +198,14 @@ typedef struct	s_op
 	int			cycles;
 	t_bool		ocp;
 	t_bool		index;
-	void		(*op_func)(t_vm *, t_processus *);
-
+	void		(*func)(t_vm *, t_processus *);
 }				t_op;
 
 /*
 ** === GLOBALS =================================================================
 */
 
-t_op	g_op[OP_NUMBER + 1];
+t_op	g_op[OP_NUMBER];
 t_vm	*g_vm;
 
 /*
@@ -266,6 +265,9 @@ void			exec_all_proc(t_vm *vm);
 ** Operations
 */
 void			op_live(t_vm *vm, t_processus *proc);
+void			op_and(t_vm *vm, t_processus *proc);
+void			op_zjump(t_vm *vm, t_processus *proc);
+void			op_sti(t_vm *vm, t_processus *proc);
 
 /*
 ** Clean

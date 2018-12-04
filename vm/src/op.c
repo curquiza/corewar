@@ -11,25 +11,24 @@
 ** void		(*op_func)(t_vm *, t_processus *)
 */
 
-t_op g_op[17] =
+t_op g_op[OP_NUMBER] =
 {
-	{ 0, 0, 0, {0}, 0, 0, 0, 0 },
 	{ 0x01, "live", 1, { T_DIR }, 10, FALSE, FALSE, &op_live },
 	{ 0x02, "ld", 2, { T_DIR | T_IND, T_REG }, 5, TRUE, FALSE, NULL },
 	{ 0x03, "st", 2, { T_REG, T_IND | T_REG }, 5, TRUE, FALSE, NULL },
 	{ 0x04, "add", 3, { T_REG, T_REG, T_REG }, 10, TRUE, FALSE, NULL },
-	{ 0x05, "sub", 3, { T_REG, T_REG, T_REG }, 10, TRUE, FALSE, NULL },
+	{ 0x05, "sub", 3, { T_REG, T_REG, T_REG }, 10, TRUE, FALSE, &op_and },
 	{ 0x06, "and", 3, { T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG },
 		6, TRUE, FALSE, NULL },
 	{ 0x07, "or", 3, { T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG },
 		6, TRUE, FALSE, NULL },
 	{ 0x08, "xor", 3, { T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG },
 		6, 0, 0, NULL },
-	{ 0x09, "zjump", 1, { T_DIR }, 20, FALSE, TRUE, NULL },
+	{ 0x09, "zjump", 1, { T_DIR }, 20, FALSE, TRUE, &op_zjump },
 	{ 0x0a, "ldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },
 		25, TRUE, TRUE, NULL },
 	{ 0x0b, "sti", 3, { T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG },
-		25, TRUE, TRUE, NULL },
+		25, TRUE, TRUE, &op_sti },
 	{ 0x0c, "fork", 1, { T_DIR }, 800, FALSE, TRUE, NULL },
 	{ 0x0d, "lld", 2, { T_DIR | T_IND, T_REG }, 10, TRUE, FALSE, NULL },
 	{ 0x0e, "lldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },

@@ -24,6 +24,9 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_base.c \
 	  op.c \
 	  op_live.c \
+	  op_and.c \
+	  op_zjump.c \
+	  op_sti.c \
 	  vm_setup.c \
 	  dump_flag.c \
 	  verbose_flag.c \
