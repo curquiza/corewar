@@ -146,7 +146,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(FAILURE);
 	}
-	print_g_op();
+	//print_g_op();
 	vm_setup(&vm);
 	launch_corewar(&vm);
 	clean_all();

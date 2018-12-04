@@ -98,21 +98,6 @@ static void	create_all_first_processus(t_vm *vm)
 	}
 }
 
-
-
-//void		fill_instructions_tab(g_op)
-//{
-//	/*ft_bzero(tab, sizeof(*tab));*/
-//	/*ft_printf("sizeof tab = %d\n", sizeof(tab));*/
-//	/*ft_printf("sizeof *tab = %d\n", sizeof(*tab));*/
-//	/*tab[0] = 0;*/
-//	ft_bzero(tab, sizeof(*tab));
-//	tab++;
-//	tab[1] = (t_op) {0x01, "titi", 1, 200, TRUE, FALSE};
-//	//test[0] = 0;
-//	print_instr_tab(tab);
-//}
-
 void		vm_setup(t_vm *vm)
 {
 	fill_all_prog_in_memory(vm);
@@ -120,7 +105,6 @@ void		vm_setup(t_vm *vm)
 	vm->play = TRUE;
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->last_live_player = -1;
-	/*fill_instructions_tab();*/
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
 	{
 		if ((vm->visu.trace_fd

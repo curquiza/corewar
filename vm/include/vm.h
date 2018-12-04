@@ -74,7 +74,7 @@
 # define BYTES_PER_LINE_32	32
 # define BYTES_PER_LINE_64	64
 
-# define OP_NUMBER		16
+# define OP_NUMBER			16
 
 /*
 ** === STRUCT AND ENUM =========================================================
@@ -199,7 +199,6 @@ typedef struct	s_op
 	t_bool		ocp;
 	t_bool		index;
 	void		(*op_func)(t_vm *, t_processus *);
-	// function (vm, current_proc)
 
 }				t_op;
 
