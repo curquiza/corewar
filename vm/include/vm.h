@@ -135,23 +135,6 @@ typedef struct	s_visu
 }				t_visu;
 
 /*
-** OPERATION ***
-*/
-
-typedef struct	s_op
-{
-	t_byte		opcode;
-	char		*name;
-	int			param_nb;
-	t_byte		param_type[MAX_ARGS_NUMBER];
-	int			cycles;
-	t_bool		ocp;
-	t_bool		index;
-	// function (vm, current_proc)
-
-}				t_op;
-
-/*
 ** VM ***
 */
 
@@ -160,7 +143,7 @@ typedef struct	s_processus
 	int					index;
 	int					cycles;
 	//t_byte				opcode;
-	t_op				*op;
+	//t_op				*op;
 	t_bool				live;
 	int					reg[REG_NUMBER];
 	unsigned short		pc;
@@ -201,6 +184,24 @@ typedef struct 	s_vm
 	t_visu			visu;
 	t_verbose		verbose;
 }				t_vm;
+
+/*
+** OPERATION ***
+*/
+
+typedef struct	s_op
+{
+	t_byte		opcode;
+	char		*name;
+	int			param_nb;
+	t_byte		param_type[MAX_ARGS_NUMBER];
+	int			cycles;
+	t_bool		ocp;
+	t_bool		index;
+	void		(*op_func)(t_vm *, t_processus *);
+	// function (vm, current_proc)
+
+}				t_op;
 
 /*
 ** === GLOBALS =================================================================
@@ -261,6 +262,11 @@ void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 */
 void			manage_end_of_period(t_vm *vm);
 void			exec_all_proc(t_vm *vm);
+
+/*
+** Operations
+*/
+void			op_live(t_vm *vm, t_processus *proc);
 
 /*
 ** Clean
