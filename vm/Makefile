@@ -22,6 +22,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin1.c \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
+	  op.c \
 	  vm_setup.c \
 	  dump_flag.c \
 	  verbose_flag.c \

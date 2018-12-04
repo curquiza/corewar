@@ -41,10 +41,33 @@ void	print_processus(t_vm *vm)
 	{
 		ft_printf("index = %d\n", proc->index);
 		ft_printf("cycles = %d\n", proc->cycles);
-		ft_printf("opcode = 0x%0.2x\n", proc->opcode);
+		//ft_printf("opcode = 0x%0.2x\n", proc->opcode);
 		ft_printf("live = %d\n", proc->live);
 		ft_printf("---\n");
 		proc = proc->next;
+	}
+}
+
+void		print_g_op(void)
+{
+	int		i;
+
+	i = 1;
+	while (i < OP_NUMBER + 1)
+	{
+		ft_printf("Opcode = 0x%.2x\n", g_op[i].opcode);
+		ft_printf("Name = %s\n", g_op[i].name);
+		ft_printf("Param number = %d\n", g_op[i].param_nb);
+		ft_printf("Param type :\n");
+		ft_printf(" > %b\n", g_op[i].param_type[0]);
+		ft_printf(" > %b\n", g_op[i].param_type[1]);
+		ft_printf(" > %b\n", g_op[i].param_type[2]);
+		ft_printf(" > %b\n", g_op[i].param_type[3]);
+		ft_printf("Cycles = %d\n", g_op[i].cycles);
+		ft_printf("OCP ? %d\n", g_op[i].ocp);
+		ft_printf("Index ? %d\n", g_op[i].index);
+		ft_printf("---------\n");
+		i++;
 	}
 }
 
@@ -123,6 +146,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(FAILURE);
 	}
+	print_g_op();
 	vm_setup(&vm);
 	launch_corewar(&vm);
 	clean_all();

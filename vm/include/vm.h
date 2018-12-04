@@ -74,6 +74,8 @@
 # define BYTES_PER_LINE_32	32
 # define BYTES_PER_LINE_64	64
 
+# define OP_NUMBER		16
+
 /*
 ** === STRUCT AND ENUM =========================================================
 */
@@ -133,6 +135,23 @@ typedef struct	s_visu
 }				t_visu;
 
 /*
+** OPERATION ***
+*/
+
+typedef struct	s_op
+{
+	t_byte		opcode;
+	char		*name;
+	int			param_nb;
+	t_byte		param_type[MAX_ARGS_NUMBER];
+	int			cycles;
+	t_bool		ocp;
+	t_bool		index;
+	// function (vm, current_proc)
+
+}				t_op;
+
+/*
 ** VM ***
 */
 
@@ -140,7 +159,8 @@ typedef struct	s_processus
 {
 	int					index;
 	int					cycles;
-	t_byte				opcode;
+	//t_byte				opcode;
+	t_op				*op;
 	t_bool				live;
 	int					reg[REG_NUMBER];
 	unsigned short		pc;
@@ -164,29 +184,29 @@ typedef struct	s_player
 
 typedef struct 	s_vm
 {
-	t_bool		play;
-	t_memcase	memory[MEM_SIZE];
-	t_player	player[MAX_PLAYERS];
-	int			total_players;
-	int			flag;
-	int			dump_cycle;
-	t_processus	*proc;
-	int			total_proc;
-	int			total_cycles;
-	int			current_cycles;
-	int			cycles_to_die;
-	int			lives;
-	int			verif;
-	int			last_live_player;
-	t_visu		visu;
-	t_verbose	verbose;
-	// tableau de pointeur sur fonction des 16 instructions -> instruction[17]
+	t_bool			play;
+	t_memcase		memory[MEM_SIZE];
+	t_player		player[MAX_PLAYERS];
+	int				total_players;
+	int				flag;
+	int				dump_cycle;
+	t_processus		*proc;
+	int				total_proc;
+	int				total_cycles;
+	int				current_cycles;
+	int				cycles_to_die;
+	int				lives;
+	int				verif;
+	int				last_live_player;
+	t_visu			visu;
+	t_verbose		verbose;
 }				t_vm;
 
 /*
-** === GLOABAL =================================================================
+** === GLOBALS =================================================================
 */
 
+t_op	g_op[OP_NUMBER + 1];
 t_vm	*g_vm;
 
 /*
