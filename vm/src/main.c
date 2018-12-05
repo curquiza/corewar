@@ -117,7 +117,6 @@ void		end_of_game(t_vm *vm)
 
 void		launch_corewar(t_vm *vm)
 {
-	vm->proc->live = TRUE; //DEBUG
 	while (vm->play)
 	{
 		vm->visu.enabled ? getkey(vm) : 0;

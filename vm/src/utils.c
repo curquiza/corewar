@@ -11,3 +11,11 @@ t_bool	flag_is_applied(int flag, t_vm *vm)
 {
 	return ((flag & vm->flag) == flag);
 }
+
+/*
+** Handle vm circle memory
+*/
+int		get_mem_index(int index)
+{
+	return (index % (MEM_SIZE - 1));
+}

@@ -73,8 +73,9 @@
 */
 # define BYTES_PER_LINE_32	32
 # define BYTES_PER_LINE_64	64
-
 # define OP_NUMBER			16
+# define OCP_MASQ			3
+# define NUM_REG_SIZE		1
 
 /*
 ** === STRUCT AND ENUM =========================================================
@@ -191,7 +192,7 @@ typedef struct 	s_vm
 
 typedef struct	s_param
 {
-	t_byte		type;
+	t_byte		type; // type est utile ??
 	int			size;
 	int			value;
 }				t_param;
@@ -201,7 +202,7 @@ typedef struct	s_op
 	t_byte		opcode;
 	char		*name;
 	int			param_nb;
-	t_byte		param_type[MAX_ARGS_NUMBER];
+	t_byte		param_type[MAX_ARGS_NUMBER]; // ??
 	int			cycles;
 	t_bool		ocp;
 	t_bool		index;
@@ -230,6 +231,7 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
+uint32_t		memvalue_to_uint32(t_memcase *vm_mem, int index, int size);
 
 /*
 ** Parsing
@@ -297,6 +299,6 @@ void			getkey(t_vm *vm);
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
-void			print(char *s, int verbose_level, t_vm *vm);
+int				get_mem_index(int index);
 
 #endif

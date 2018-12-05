@@ -37,19 +37,76 @@ t_op g_op[OP_NUMBER] =
 	{ 0x10, "aff", 1, { T_REG }, 2, TRUE, FALSE, NULL }
 };
 
-static void	parse_one_param(t_memcase *mem, t_param *params)
+static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *params)
 {
-	params[0].size = DIR_SIZE;
-	params[0].type = T_DIR;
-	params[0].value = (params[0].value | mem->value) << 8;
-	params[0].value = (params[0].value | (mem + 1)->value) << 8;
-	params[0].value = (params[0].value | (mem + 2)->value) << 8;
-	params[0].value |= (mem + 3)->value;
+	if (proc->current_op->index == TRUE)
+		params->size = IND_SIZE;
+	else
+		params->size = DIR_SIZE;
+	/*params->size = DIR_SIZE;*/
+	params->type = T_DIR;
+	params->value = memvalue_to_uint32(mem, proc->index + 1, DIR_SIZE);
+}
+
+static void	parse_all_params(t_memcase *mem, t_param *params, t_processus *proc)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (i < proc->current_op->param_nb)
+	{
+		params[i].value = memvalue_to_uint32(mem, proc->index + 2 + j, params[i].size);
+		j += params[i].size;
+		i++;
+	}
+}
+
+static void	get_type_and_size(int code, t_param *params, t_op *current_op)
+{
+	if (code == REG_CODE)
+	{
+		params->size = NUM_REG_SIZE;
+		params->type = T_REG;
+	}
+	else if (code == DIR_CODE)
+	{
+		if (current_op->index == TRUE)
+			params->size = IND_SIZE;
+		else
+			params->size = DIR_SIZE;
+		params->type = T_DIR;
+	}
+	else if (code == IND_CODE)
+	{
+		params->size = IND_SIZE;
+		params->type = T_IND;
+	}
+}
+
+static void	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
+{
+	int		code;
+	int		i;
+
+	i = 0;
+	while (i < MAX_ARGS_NUMBER)
+	{
+		code = (memvalue >> (6 - i * 2)) & OCP_MASQ;
+		get_type_and_size(code, &params[i], current_op);
+		i++;
+	}
 }
 
 void	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
 {
 	ft_bzero(params, 4 * sizeof(*params));
 	if (proc->current_op->ocp == FALSE)
-		parse_one_param(&vm->memory[proc->index + 1], params);
+		parse_param_without_ocp(vm->memory, proc, &params[0]);
+	else
+	{
+		parse_ocp(vm->memory[get_mem_index(proc->index + 1)].value, params, proc->current_op);
+		parse_all_params(vm->memory, params, proc);
+	}
 }
