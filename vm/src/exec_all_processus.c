@@ -17,17 +17,17 @@ void		move_to_next_op(t_vm *vm, t_processus *proc)
 	// vm->memory[proc->index].proc = TRUE;
 }
 
-void		print_params(t_param *params)
+void		print_params(t_param *params, t_vm *vm)
 {
 	int		i;
 
 	i = 0;
 	while (i < MAX_ARGS_NUMBER)
 	{
-		ft_printf("Params %d\n", i + 1);
-		ft_printf(" > type = %b\n", params[0].type);
-		ft_printf(" > size = %d\n", params[0].size);
-		ft_printf(" > value = 0x%x\n", params[0].value);
+		ft_dprintf(vm->trace_fd, "Params %d\n", i + 1);
+		ft_dprintf(vm->trace_fd, " > type = %b\n", params[0].type);
+		ft_dprintf(vm->trace_fd, " > size = %d\n", params[0].size);
+		ft_dprintf(vm->trace_fd, " > value = 0x%x\n", params[0].value);
 		i++;
 	}
 }
@@ -47,7 +47,7 @@ void		exec_all_proc(t_vm *vm)
 		{
 			//parse params
 			parse_op_params(vm, proc, params);
-			print_params(params);
+			print_params(params, vm); //DEBUG
 			proc->current_op->func(vm, proc);
 			proc->cycles = 0;
 			proc->current_op = NULL;

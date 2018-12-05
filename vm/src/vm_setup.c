@@ -107,10 +107,13 @@ void		vm_setup(t_vm *vm)
 	vm->last_live_player = -1;
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
 	{
-		if ((vm->visu.trace_fd
+		if ((vm->trace_fd
 			= open_file(TRACE_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644))
 			== FAILURE)
+		{
 			ft_dprintf(2, "Error: %s\n", VISU_TRACE_ERR);
+			vm->trace_fd = STDOUT_FILENO;
+		}
 		else
 			start_visu(vm);
 	}

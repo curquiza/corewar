@@ -131,7 +131,6 @@ typedef struct	s_visu
 	WINDOW	*usage_win;
 	int		mem_part;
 	int		proc_id;
-	int		trace_fd;
 }				t_visu;
 
 /*
@@ -183,6 +182,7 @@ typedef struct 	s_vm
 	int				last_live_player;
 	t_visu			visu;
 	t_verbose		verbose;
+	int				trace_fd;
 }				t_vm;
 
 /*

@@ -107,7 +107,7 @@ void		end_of_game(t_vm *vm)
 	// TODO : manage visu
 	g_vm->visu.enabled ? sleep(3) : 0;
 	g_vm->visu.enabled ? endwin() : 0;
-	g_vm->visu.enabled ? close(vm->visu.trace_fd) : 0;
+	g_vm->visu.enabled ? close(vm->trace_fd) : 0;
 	if (vm->last_live_player == -1)
 		ft_printf("Nobody won !\n");
 	else
