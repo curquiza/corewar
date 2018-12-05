@@ -23,7 +23,7 @@ t_op g_op[OP_NUMBER] =
 	{ 0x07, "or", 3, { T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG },
 		6, TRUE, FALSE, NULL },
 	{ 0x08, "xor", 3, { T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG },
-		6, 0, 0, NULL },
+		6, TRUE, FALSE, NULL },
 	{ 0x09, "zjump", 1, { T_DIR }, 20, FALSE, TRUE, &op_zjump },
 	{ 0x0a, "ldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },
 		25, TRUE, TRUE, NULL },
@@ -36,3 +36,20 @@ t_op g_op[OP_NUMBER] =
 	{ 0x0f, "lfork", 1, { T_DIR }, 1000, FALSE, TRUE, NULL },
 	{ 0x10, "aff", 1, { T_REG }, 2, TRUE, FALSE, NULL }
 };
+
+static void	parse_one_param(t_memcase *mem, t_param *params)
+{
+	params[0].size = DIR_SIZE;
+	params[0].type = T_DIR;
+	params[0].value = (params[0].value | mem->value) << 8;
+	params[0].value = (params[0].value | (mem + 1)->value) << 8;
+	params[0].value = (params[0].value | (mem + 2)->value) << 8;
+	params[0].value |= (mem + 3)->value;
+}
+
+void	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
+{
+	ft_bzero(params, 4 * sizeof(*params));
+	if (proc->current_op->ocp == FALSE)
+		parse_one_param(&vm->memory[proc->index + 1], params);
+}
