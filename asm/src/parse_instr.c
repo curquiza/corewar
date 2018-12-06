@@ -32,14 +32,15 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	int			ret;
 
 	tmp = line + file->nb_col;
+	ft_printf("here %s\n", line + file->nb_col);	
 	while ((is_separator(*tmp)))
 		tmp++;
 	start = tmp;
 	len = 0;	
 	while (*tmp)
 	{
-		ft_printf("char: %c\n", *tmp);
 		len++;
+		ft_printf("char: %c-\n", *tmp);
 		if ((is_separator(*tmp)))
 			break ;
 		tmp++;
@@ -47,12 +48,14 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	}
 	if (!len)
 		return (FAILURE);
-	if ((ret = create_token(&token, start, len, T_LAB)) == SUCCESS)
+	ft_printf("len %d\n", len);
+	if ((ret = create_token(&token, start, len, 0)) == SUCCESS)
 	{
 		ft_printf("adding %s\n", token->str);
 		add_token(&(file->tokens), token);
 	}
 	file->nb_col += tmp - (line + file->nb_col);
+	ft_printf("rest %s\n", line + file->nb_col);	
 	return (ret);
 }
 

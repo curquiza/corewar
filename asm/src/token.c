@@ -37,7 +37,8 @@ void			print_tokens(t_token *tokens)
 	ft_printf("-------\n");
 	while (tmp)
 	{
-		ft_printf("%s\n", tmp->str);
+		ft_putstr(tmp->str);
+		ft_printf("\t%d\n", tmp->arg_type);
 		tmp = tmp->next;
 	}
 	ft_printf("-------\n");
