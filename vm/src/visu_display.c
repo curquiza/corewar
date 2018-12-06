@@ -130,7 +130,10 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	mvwprintw(win, 3, 2, "%-15s%d", "PC", proc->pc);
 	mvwprintw(win, 4, 2, "%-15s%d", "Index", proc->index);
 	mvwprintw(win, 5, 2, "%-15s%s", "Live", proc->live ? "Yes" : "No");
-	//mvwprintw(win, 6, 2, "%-15s0x%0.2x", "Opcode", proc->opcode);
+	if (proc->current_op)
+		mvwprintw(win, 6, 2, "%-15s%s", "Op", proc->current_op->name);
+	else
+		mvwprintw(win, 6, 2, "%-15s%s", "Op", "None");
 	mvwprintw(win, 7, 2, "%-15s%d", "Cycles", proc->cycles);
 	i = 0;
 	while (i < REG_NUMBER)
