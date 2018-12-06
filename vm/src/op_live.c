@@ -22,7 +22,7 @@ void	op_live(t_vm *vm, t_processus *proc, t_param *params)
 	print_str("\tLIVE\n", ALL, vm);
 	if (player)
 	{
-		ft_dprintf(vm->trace_fd, "Player %d (%s) is alive",
+		ft_dprintf(vm->trace_fd, "Player %d (%s) is alive\n",
 					player->num, player->header.prog_name);
 		vm->last_live_player = player->num;
 	}

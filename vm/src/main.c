@@ -102,8 +102,24 @@ void		play_one_cycle(t_vm *vm)
 	// TODO : dump if -dump flag
 }
 
+static t_player	*get_player(int num, t_player *players, int total_players)
+{
+	int		i;
+
+	i = 0;
+	while (i < total_players)
+	{
+		if (players[i].num == num)
+			return (&players[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 void		end_of_game(t_vm *vm)
 {
+	t_player	*p;
+
 	// TODO : manage visu
 	g_vm->visu.enabled ? sleep(3) : 0;
 	g_vm->visu.enabled ? endwin() : 0;
@@ -111,7 +127,10 @@ void		end_of_game(t_vm *vm)
 	if (vm->last_live_player == -1)
 		ft_printf("Nobody won !\n");
 	else
-		ft_printf("Player %d won !\n", vm->last_live_player);
+	{
+		p = get_player(vm->last_live_player, vm->player, vm->total_players);
+		ft_printf("Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
+	}
 	ft_printf("End of game. Thanks for watching 😎\n");
 }
 
