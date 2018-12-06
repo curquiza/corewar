@@ -93,5 +93,6 @@ void		exec_all_proc(t_vm *vm)
 			exec_one_cycle(vm, proc, params);
 		}
 		proc = proc->next;
+		i++;
 	}
 }

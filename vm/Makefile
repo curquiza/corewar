@@ -23,6 +23,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
 	  op.c \
+	  op_parsing.c \
 	  op_live.c \
 	  op_and.c \
 	  op_zjump.c \
