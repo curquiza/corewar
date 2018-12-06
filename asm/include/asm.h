@@ -47,6 +47,7 @@ typedef struct	s_src_file
 	char		*filename;
 	t_token		*tokens;
 	int			nb_line;
+	int			nb_col;
 
 }				t_src_file;
 

@@ -34,11 +34,13 @@ void			print_tokens(t_token *tokens)
 	t_token	*tmp;
 
 	tmp = tokens;
+	ft_printf("-------\n");
 	while (tmp)
 	{
 		ft_printf("%s\n", tmp->str);
 		tmp = tmp->next;
 	}
+	ft_printf("-------\n");
 }
 
 void			free_tokens(t_token **tokens)
