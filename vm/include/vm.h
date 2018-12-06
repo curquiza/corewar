@@ -58,7 +58,7 @@
 # define LIVES_WIN_X		25
 # define LIVES_WIN_Y		12
 # define PROC_WIN_X			25
-# define PROC_WIN_Y			26
+# define PROC_WIN_Y			27
 # define PLAYER_WIN_X		25
 # define PLAYER_WIN_Y		6
 # define USAGE_WIN_X		30
@@ -301,5 +301,6 @@ t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 int				get_mem_index(int index);
+t_bool			is_valid_reg(int index);
 
 #endif

@@ -106,7 +106,10 @@ static void	display_lives(t_vm *vm, WINDOW *win)
 	mvwprintw(win, 2, 2, "---------------------");
 	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->lives);
 	mvwprintw(win, 5, 2, "%-15s%d", "Verif", vm->verif);
-	mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player);
+	if (vm->last_live_player == -1)
+		mvwprintw(win, 6, 2, "%-15s%s", "Last player", "None");
+	else
+		mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player);
 	mvwprintw(win, 8, 2, "%-15s%d", "Min lives", NBR_LIVE);
 	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
@@ -135,10 +138,11 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	else
 		mvwprintw(win, 6, 2, "%-15s%s", "Op", "None");
 	mvwprintw(win, 7, 2, "%-15s%d", "Cycles", proc->cycles);
+	mvwprintw(win, 8, 2, "%-15s%d", "Carry", proc->carry);
 	i = 0;
 	while (i < REG_NUMBER)
 	{
-		mvwprintw(win, 9 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
+		mvwprintw(win, 10 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
 		i++;
 	}
 }
