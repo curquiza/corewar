@@ -43,7 +43,6 @@ static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *
 		params->size = IND_SIZE;
 	else
 		params->size = DIR_SIZE;
-	/*params->size = DIR_SIZE;*/
 	params->type = T_DIR;
 	params->value = memvalue_to_uint32(mem, proc->index + 1, DIR_SIZE);
 }

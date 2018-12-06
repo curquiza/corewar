@@ -206,7 +206,7 @@ typedef struct	s_op
 	int			cycles;
 	t_bool		ocp;
 	t_bool		index;
-	void		(*func)(t_vm *, t_processus *);
+	void		(*func)(t_vm *, t_processus *, t_param *);
 }				t_op;
 
 /*
@@ -260,6 +260,7 @@ void			dump_memory(t_vm *vm);
 ** Verbose flag
 */
 void			print_str(char *s, t_verbose type, t_vm *vm);
+void			print_str2(char *s1, char *s2, t_verbose type, t_vm *vm);
 void			print_str_int(char *s, int n, t_verbose type, t_vm *vm);
 void			print_upd_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
@@ -274,10 +275,10 @@ void			exec_all_proc(t_vm *vm);
 ** Operations
 */
 void			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
-void			op_live(t_vm *vm, t_processus *proc);
-void			op_and(t_vm *vm, t_processus *proc);
-void			op_zjump(t_vm *vm, t_processus *proc);
-void			op_sti(t_vm *vm, t_processus *proc);
+void			op_live(t_vm *vm, t_processus *proc, t_param *params);
+void			op_and(t_vm *vm, t_processus *proc, t_param *params);
+void			op_zjump(t_vm *vm, t_processus *proc, t_param *params);
+void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
 
 /*
 ** Clean

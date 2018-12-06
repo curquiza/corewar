@@ -94,6 +94,7 @@ static void	create_all_first_processus(t_vm *vm)
 	{
 		index = get_beginning_index(i, vm);
 		add_processus(&vm->proc, new_processus(index, vm));
+		vm->proc->reg[0] = ~vm->player[i].num;
 		i--;
 	}
 }
