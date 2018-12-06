@@ -18,8 +18,8 @@ void	op_live(t_vm *vm, t_processus *proc, t_param *params)
 {
 	t_player		*player;
 
-	player = get_player(params[0].value, vm->player, vm->total_players);
 	print_str("\tLIVE\n", ALL, vm);
+	player = get_player(params[0].value, vm->player, vm->total_players);
 	if (player)
 	{
 		ft_dprintf(vm->trace_fd, "Player %d (%s) is alive\n",

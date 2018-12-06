@@ -9,15 +9,15 @@ void		print_params(t_param *params, t_vm *vm)
 	{
 		ft_dprintf(vm->trace_fd, "\tParams %d\n", i + 1);
 		if (params[i].type == T_REG)
-			ft_dprintf(vm->trace_fd, "\t > type = T_REG\n");
+			ft_dprintf(vm->trace_fd, "\t> type = T_REG\n");
 		else if (params[i].type == T_DIR)
-			ft_dprintf(vm->trace_fd, " >\t type = T_DIR\n");
+			ft_dprintf(vm->trace_fd, "\t> type = T_DIR\n");
 		else if (params[i].type == T_IND)
-			ft_dprintf(vm->trace_fd, "\t > type = T_IND\n");
+			ft_dprintf(vm->trace_fd, "\t> type = T_IND\n");
 		else
-			ft_dprintf(vm->trace_fd, "\t > type = UNKNOWN\n");
-		ft_dprintf(vm->trace_fd, "\t > size = %d\n", params[i].size);
-		ft_dprintf(vm->trace_fd, "\t > value = 0x%x\n", params[i].value);
+			ft_dprintf(vm->trace_fd, "\t> type = UNKNOWN\n");
+		ft_dprintf(vm->trace_fd, "\t> size = %d\n", params[i].size);
+		ft_dprintf(vm->trace_fd, "\t> value = 0x%x\n", params[i].value);
 		i++;
 	}
 }
@@ -39,12 +39,15 @@ static void		move_to_next_op(t_vm *vm, t_processus *proc, t_param *params)
 	vm->memory[proc->index].proc = FALSE;
 	if (params && proc->current_op)
 	{
+		proc->index += 1;
 		i = 0;
 		while (i < proc->current_op->param_nb)
 		{
-			proc->index += params[i].size + 1;
+			proc->index += params[i].size;
 			i++;
 		}
+		if (proc->current_op->ocp == TRUE)
+			proc->index += 1;
 		proc->index = get_mem_index(proc->index);
 	}
 	else
@@ -63,6 +66,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		parse_op_params(vm, proc, params);
 		/*print_params(params, vm); //DEBUG*/
 		proc->current_op->func(vm, proc, params);
+		ft_dprintf(vm->trace_fd, "proc->reg[3] = %d\n", proc->reg[3]);
 		print_str("\tMoving to the next operation\n", ALL, vm);
 		move_to_next_op(vm, proc, params);
 		proc->current_op = NULL;
