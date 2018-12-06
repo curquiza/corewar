@@ -5,20 +5,20 @@ static int	get_beginning_index(int num, t_vm *vm)
 	return (MEM_SIZE * num / vm->total_players);
 }
 
-static void	fill_player_color(int player_num, t_memcase *memcase)
+static void	fill_player_color(int player_id, t_memcase *memcase)
 {
 
-	if (player_num == 0)
+	if (player_id == 0)
 	{
 		ft_strcpy(memcase->color, CYAN);
 		memcase->color_visu = CYAN_PAIR;
 	}
-	else if (player_num == 1)
+	else if (player_id == 1)
 	{
 		ft_strcpy(memcase->color, PINK);
 		memcase->color_visu = PINK_PAIR;
 	}
-	else if (player_num == 2)
+	else if (player_id == 2)
 	{
 		ft_strcpy(memcase->color, GREEN);
 		memcase->color_visu = GREEN_PAIR;
@@ -30,7 +30,7 @@ static void	fill_player_color(int player_num, t_memcase *memcase)
 	}
 }
 
-static void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
+static void	fill_memory(int index, t_player *player, t_vm *vm, int player_id)
 {
 	unsigned int	i;
 
@@ -40,7 +40,7 @@ static void	fill_memory(int index, t_player *player, t_vm *vm, int player_num)
 		if (i + index >= MEM_SIZE)
 			break;
 		vm->memory[index + i].value = player->prog[i];
-		fill_player_color(player_num, &vm->memory[index + i]);
+		fill_player_color(player_id, &vm->memory[index + i]);
 		i++;
 	}
 }

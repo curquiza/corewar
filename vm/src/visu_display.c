@@ -164,10 +164,12 @@ static void	display_players(t_vm *vm, WINDOW **wins)
 	{
 		box(wins[i], ACS_VLINE, ACS_HLINE);
 		wattron(wins[i], COLOR_PAIR(get_player_color(i)));
-		mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);
+		/*mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);*/
+		mvwprintw(wins[i], 1, 2, "PLAYER %d", i + 1);
 		wattroff(wins[i], COLOR_PAIR(get_player_color(i)));
-		mvwprintw(wins[i], 3, 2, "%-15s%s", "Name", vm->player[i].header.prog_name);
-		mvwprintw(wins[i], 4, 2, "%-15s%d", "Prog size", vm->player[i].header.prog_size);
+		mvwprintw(wins[i], 3, 2, "%-15s%d", "Num", vm->player[i].num);
+		mvwprintw(wins[i], 4, 2, "%-15s%s", "Name", vm->player[i].header.prog_name);
+		/*mvwprintw(wins[i], 4, 2, "%-15s%d", "Prog size", vm->player[i].header.prog_size);*/
 		i++;
 	}
 }
