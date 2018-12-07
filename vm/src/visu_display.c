@@ -131,14 +131,13 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	box(win, ACS_VLINE, ACS_HLINE);
 	mvwprintw(win, 1, 2, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
 	mvwprintw(win, 3, 2, "%-15s%d", "PC", proc->pc);
-	mvwprintw(win, 4, 2, "%-15s%d", "Index", proc->index);
-	mvwprintw(win, 5, 2, "%-15s%s", "Live", proc->live ? "Yes" : "No");
+	mvwprintw(win, 4, 2, "%-15s%d", "Carry", proc->carry);
+	mvwprintw(win, 5, 2, "%-15s%s", "Alive ?", proc->live ? "Yes" : "No");
 	if (proc->current_op)
-		mvwprintw(win, 6, 2, "%-15s%s", "Op", proc->current_op->name);
+		mvwprintw(win, 7, 2, "%-15s%s", "Op", proc->current_op->name);
 	else
-		mvwprintw(win, 6, 2, "%-15s%s", "Op", "None");
-	mvwprintw(win, 7, 2, "%-15s%d", "Cycles", proc->cycles);
-	mvwprintw(win, 8, 2, "%-15s%d", "Carry", proc->carry);
+		mvwprintw(win, 7, 2, "%-15s%s", "Op", "None");
+	mvwprintw(win, 8, 2, "%-15s%d", "Cycles", proc->cycles);
 	i = 0;
 	while (i < REG_NUMBER)
 	{

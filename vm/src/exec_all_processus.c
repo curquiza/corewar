@@ -26,7 +26,7 @@ static t_op	*get_op_from_proc(t_vm *vm, t_processus *proc)
 {
 	t_byte		opcode;
 
-	opcode = vm->memory[proc->index].value;
+	opcode = vm->memory[proc->pc].value;
 	if (opcode <= 0 || opcode > OP_NUMBER)
 		return (NULL);
 	return (&g_op[opcode - 1]);
@@ -36,23 +36,23 @@ static void		move_to_next_op(t_vm *vm, t_processus *proc, t_param *params)
 {
 	int		i;
 
-	vm->memory[proc->index].proc = FALSE;
+	vm->memory[proc->pc].proc = FALSE;
 	if (params && proc->current_op)
 	{
-		proc->index += 1;
+		proc->pc += 1;
 		i = 0;
 		while (i < proc->current_op->param_nb)
 		{
-			proc->index += params[i].size;
+			proc->pc += params[i].size;
 			i++;
 		}
 		if (proc->current_op->ocp == TRUE)
-			proc->index += 1;
-		proc->index = get_mem_index(proc->index);
+			proc->pc += 1;
+		proc->pc = get_mem_index(proc->pc);
 	}
 	else
-		proc->index = get_mem_index(proc->index + 1);
-	vm->memory[proc->index].proc = TRUE;
+		proc->pc = get_mem_index(proc->pc + 1);
+	vm->memory[proc->pc].proc = TRUE;
 	// move PC ?
 }
 

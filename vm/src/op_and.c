@@ -8,7 +8,7 @@ static int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p)
 		return (proc->reg[p->value]);
 	if (p->type == T_IND)
 	{
-		rslt = memvalue_to_uint32(vm->memory, proc->index + p->value % IDX_MOD, REG_SIZE);
+		rslt = memvalue_to_uint32(vm->memory, proc->pc + p->value % IDX_MOD, REG_SIZE);
 		return (rslt);
 	}
 	if (p->type == T_DIR)

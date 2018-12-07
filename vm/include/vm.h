@@ -140,12 +140,12 @@ typedef struct	s_visu
 
 typedef struct	s_processus
 {
-	int					index;
+	//int					index;
+	unsigned short		pc;
 	int					cycles;
 	struct s_op			*current_op;
 	t_bool				live;
 	int					reg[REG_NUMBER];
-	unsigned short		pc;
 	int					carry;
 	struct s_processus	*next;
 }				t_processus;

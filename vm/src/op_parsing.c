@@ -7,7 +7,7 @@ static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *
 	else
 		params->size = DIR_SIZE;
 	params->type = T_DIR;
-	params->value = memvalue_to_uint32(mem, proc->index + 1, DIR_SIZE);
+	params->value = memvalue_to_uint32(mem, proc->pc + 1, DIR_SIZE);
 }
 
 static void	parse_all_params(t_memcase *mem, t_param *params, t_processus *proc)
@@ -19,7 +19,7 @@ static void	parse_all_params(t_memcase *mem, t_param *params, t_processus *proc)
 	i = 0;
 	while (i < proc->current_op->param_nb)
 	{
-		params[i].value = memvalue_to_uint32(mem, proc->index + 2 + j, params[i].size);
+		params[i].value = memvalue_to_uint32(mem, proc->pc + 2 + j, params[i].size);
 		j += params[i].size;
 		i++;
 	}
@@ -68,7 +68,7 @@ void	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
 		parse_param_without_ocp(vm->memory, proc, &params[0]);
 	else
 	{
-		parse_ocp(vm->memory[get_mem_index(proc->index + 1)].value, params, proc->current_op);
+		parse_ocp(vm->memory[get_mem_index(proc->pc + 1)].value, params, proc->current_op);
 		parse_all_params(vm->memory, params, proc);
 	}
 }
