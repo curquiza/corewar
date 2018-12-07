@@ -66,7 +66,6 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		parse_op_params(vm, proc, params);
 		/*print_params(params, vm); //DEBUG*/
 		proc->current_op->func(vm, proc, params);
-		ft_dprintf(vm->trace_fd, "proc->reg[3] = %d\n", proc->reg[3]);
 		print_str("\tMoving to the next operation\n", ALL, vm);
 		move_to_next_op(vm, proc, params);
 		proc->current_op = NULL;

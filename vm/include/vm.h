@@ -192,7 +192,7 @@ typedef struct 	s_vm
 
 typedef struct	s_param
 {
-	t_byte		type; // type est utile ??
+	t_byte		type; // type est utile ?? oui pour get la value en fonction du type
 	int			size;
 	int			value;
 }				t_param;
