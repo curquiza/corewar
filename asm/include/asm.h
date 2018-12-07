@@ -46,6 +46,7 @@ typedef struct	s_src_file
 	t_header	header;	
 	char		*filename;
 	t_token		*tokens;
+	t_token		*current;
 	int			nb_line;
 	int			nb_col;
 
@@ -66,10 +67,12 @@ t_ex_ret        parse_instr(t_src_file *file, int fd);
 /*
 ** TOKENS
 */
-t_ex_ret		link_token(t_src_file *file, char *line, int len);
-t_ex_ret		create_token(t_token **elem, char *line, int len);
+t_ex_ret		link_token(t_src_file *file, char *line, int len, char sep);
+t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type arg_type);
 void			add_token(t_token **tokens, t_token *new);
+void			remove_current_token(t_src_file *file);
 void			print_tokens(t_token *tokens);
+void			print_rev_tokens(t_token *tokens);
 void			free_tokens(t_token **tokens);
 
 /*
