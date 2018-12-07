@@ -1,12 +1,24 @@
 #include "asm.h"
 
-t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type type)
+t_ex_ret		link_token(t_src_file *file, t_token **token, char *line, int len)
+{
+	t_ex_ret	ret;
+
+	if ((ret = create_token(token, line, len)) == SUCCESS)
+	{
+		ft_printf("adding %s\n", (*token)->str);
+		add_token(&(file->tokens), *token);
+	}
+	return (ret);
+}
+
+t_ex_ret		create_token(t_token **elem, char *line, int len)
 {
 	if (!(*elem = (t_token*)malloc(sizeof(t_token))))
 		return (ft_ret_err(ERR_MALLOC));
 	if (!((*elem)->str = ft_strsub(line, 0, len)))
 		return (ft_ret_err(ERR_MALLOC));
-	(*elem)->arg_type = type;
+	(*elem)->arg_type = 0;
 	(*elem)->prev = NULL;
 	(*elem)->next = NULL;
 	return (SUCCESS);

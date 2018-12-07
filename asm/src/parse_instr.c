@@ -19,41 +19,43 @@
 // SUCCESS -> un token est créé, FAILURE -> pas de token créé (EOF ou MALLOC ERR)
 static t_bool				is_separator(char c)
 {
-	if (c == ' ' || c == '\t' || c == SEPARATOR_CHAR)
+	if (c == ' ' || c == '\t' || c == SEPARATOR_CHAR || c == LABEL_CHAR)
 		return (TRUE);
 	return (FALSE);
 }				
 static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 {
-	char		*start;
-	char		*tmp;
-	t_token		*token;
-	int			len;
-	int			ret;
+	t_ex_ret		ret;	
+	char			*start;
+	char			*tmp;
+	t_token			*token;
+	int				len;
 
+	ret = FAILURE;
 	tmp = line + file->nb_col;
-	ft_printf("here %s\n", line + file->nb_col);	
-	while ((is_separator(*tmp)))
-		tmp++;
 	start = tmp;
 	len = 0;	
 	while (*tmp)
 	{
 		len++;
 		ft_printf("char: %c-\n", *tmp);
-		if ((is_separator(*tmp)))
+		if (*tmp == DIRECT_CHAR)
+		{
+			ret = link_token(file, &token, start, len);
+			tmp++;
+			break ;			
+		}
+		else if ((is_separator(*tmp)))
+		{
+			ret = link_token(file, &token, start, len - 1);
 			break ;
-		tmp++;
+		}
+		else
+			tmp++;
 
 	}
-	if (!len)
-		return (FAILURE);
-	ft_printf("len %d\n", len);
-	if ((ret = create_token(&token, start, len, 0)) == SUCCESS)
-	{
-		ft_printf("adding %s\n", token->str);
-		add_token(&(file->tokens), token);
-	}
+	while ((is_separator(*tmp)))
+		tmp++;
 	file->nb_col += tmp - (line + file->nb_col);
 	ft_printf("rest %s\n", line + file->nb_col);	
 	return (ret);
