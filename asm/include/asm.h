@@ -14,7 +14,7 @@
 # define USAGE			"usage: ./asm [-"OPTIONS"] <sourcefile.s>\n\t" USAGE_OPTS
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
 # define FLAG_A			1
-
+# define NEWLINE		"\n"
 /*
 ** ERRORS
 */
