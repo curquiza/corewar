@@ -8,7 +8,7 @@ static int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p)
 		return (proc->reg[p->value]);
 	if (p->type == T_IND)
 	{
-		rslt = memvalue_to_uint32(vm->memory, proc->pc + p->value % IDX_MOD, REG_SIZE);
+		rslt = memvalue_to_uint32(vm->memory, proc->pc + (p->value % IDX_MOD), REG_SIZE);
 		return (rslt);
 	}
 	if (p->type == T_DIR)
@@ -23,7 +23,6 @@ void	op_and(t_vm *vm, t_processus *proc, t_param *params)
 	int		p2;
 
 	print_str("\tAND\n", ALL, vm);
-	/* /!\ Que fait la VM de zaz si invalide reg*/
 	p1 = get_value_according_to_type(vm, proc, &params[0]);
 	p2 = get_value_according_to_type(vm, proc, &params[1]);
 	rslt = p1 & p2;
