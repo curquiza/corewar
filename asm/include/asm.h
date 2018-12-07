@@ -63,6 +63,7 @@ t_ex_ret        parse(t_src_file *file, int fd);
 t_ex_ret        parse_name(t_src_file *file, int fd);
 t_ex_ret        parse_comment(t_src_file *file, int fd);
 t_ex_ret        parse_instr(t_src_file *file, int fd);
+t_ex_ret		check_syntax(int line, t_token *current, t_token *new);
 
 /*
 ** TOKENS
