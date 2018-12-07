@@ -1,13 +1,14 @@
 #include "asm.h"
 
-t_ex_ret		link_token(t_src_file *file, t_token **token, char *line, int len)
+t_ex_ret		link_token(t_src_file *file, char *line, int len)
 {
 	t_ex_ret	ret;
+	t_token		*token;
 
-	if ((ret = create_token(token, line, len)) == SUCCESS)
+	if ((ret = create_token(&token, line, len)) == SUCCESS)
 	{
-		ft_printf("adding %s\n", (*token)->str);
-		add_token(&(file->tokens), *token);
+		ft_printf("adding %s\n", token->str);
+		add_token(&(file->tokens), token);
 	}
 	return (ret);
 }
