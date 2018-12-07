@@ -1,21 +1,5 @@
 #include "asm.h"
 
-// static int				is_label(char *line)
-// {
-// 	const char	*label_chars = LABEL_CHARS;
-// 	int			len;
-
-// 	len = 0;
-// 	while(*line && ft_strchr(label_chars, *line))
-// 	{
-// 		line++;
-// 		len++;
-// 	}
-// 	if (len && *line == LABEL_CHAR)
-// 		return (len);
-// 	return (-1);
-// }
-
 // SUCCESS -> un token est créé, FAILURE -> pas de token créé (EOF ou MALLOC ERR)
 static t_bool				is_separator(char c)
 {
