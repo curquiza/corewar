@@ -22,5 +22,5 @@ int		get_mem_index(int index)
 
 t_bool	is_valid_reg(int index)
 {
-	return (index < 0 || index >= REG_NUMBER);
+	return (index > 0 && index <= REG_NUMBER);
 }
