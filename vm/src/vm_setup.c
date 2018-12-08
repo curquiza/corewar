@@ -89,13 +89,13 @@ static void	create_all_first_processus(t_vm *vm)
 	int		i;
 	int		index;
 
-	i = vm->total_players - 1;
-	while (i >= 0)
+	i = 0;
+	while (i < vm->total_players)
 	{
 		index = get_beginning_index(i, vm);
 		add_processus(&vm->proc, new_processus(index, vm));
 		vm->proc->reg[0] = ~vm->player[i].num;
-		i--;
+		i++;
 	}
 }
 
