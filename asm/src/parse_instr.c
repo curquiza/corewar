@@ -19,11 +19,11 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	char				*tmp;
 	int					len;
 
-	ret = SUCCESS;
+	ret = FAILURE;
 	start = line + file->nb_col;
 	tmp = start;
 	len = 0;
-	while (42)
+	while (*tmp)
 	{
 		len++;
 		ft_printf("char: %c-\n", *tmp);
@@ -35,7 +35,8 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 		}
 		else if ((is_separator(*tmp)))
 		{
-			ret = link_token(file, start, --len);
+			len = (*tmp == LABEL_CHAR ? len : --len);
+			ret = link_token(file, start, len);
 			break ;
 		}
 		else
@@ -43,7 +44,10 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 
 	}
 	if (!*tmp)
+	{
+		ret = link_token(file, start, len);
 		return (FAILURE);
+	}
 	while ((is_separator(*tmp)))
 		tmp++;
 	file->nb_col += tmp - (line + file->nb_col);
@@ -53,8 +57,8 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 
 static t_ex_ret			parse_line(t_src_file *file, char *line)
 {
-	const char	*sep = "<newline>";
-	t_ex_ret	ret;
+	// const char	*sep = "<newline>";
+	// t_ex_ret	ret;
 
 	file->nb_col = 0;
 	while ((get_next_token(file, line)) == SUCCESS)
@@ -62,9 +66,9 @@ static t_ex_ret			parse_line(t_src_file *file, char *line)
 		ft_printf("adding: %s\n", file->current->str);
 		// print_tokens(file->tokens);
 	}
-	ft_printf("adding: %s\n", file->current->str);
-	ret = link_token(file, (char*)sep, ft_strlen(sep));
-	return (ret);
+	// ft_printf("adding: %s\n", file->current->str);
+	// ret = link_token(file, (char*)sep, ft_strlen(sep));
+	return (SUCCESS);
 }
 
 static t_ex_ret		read_lines(t_src_file *file, int fd)
