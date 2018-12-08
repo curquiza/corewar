@@ -26,22 +26,16 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	while (42)
 	{
 		len++;
-		// ft_printf("char: %c-\n", *tmp);
+		ft_printf("char: %c-\n", *tmp);
 		if (*tmp == DIRECT_CHAR)
 		{
-			ret = link_token(file, start, len, *tmp);
+			ret = link_token(file, start, len);
 			tmp++;
 			break ;
 		}
 		else if ((is_separator(*tmp)))
 		{
-			if (file->current && file->current->arg_type & T_DIR)
-			{
-				remove_current_token(file);
-				ret = link_token(file, start, --len, '%');
-			}
-			else
-				ret = link_token(file, start, --len, *tmp);
+			ret = link_token(file, start, --len);
 			break ;
 		}
 		else
@@ -53,7 +47,7 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	while ((is_separator(*tmp)))
 		tmp++;
 	file->nb_col += tmp - (line + file->nb_col);
-	// ft_printf("rest %s\n", line + file->nb_col);	
+	ft_printf("rest %s\n", line + file->nb_col);	
 	return (ret);
 }
 
@@ -67,14 +61,9 @@ static t_ex_ret			parse_line(t_src_file *file, char *line)
 	{
 		ft_printf("adding: %s\n", file->current->str);
 		// print_tokens(file->tokens);
-		if ((ret = check_syntax(file->nb_line, file->current->prev, file->current)) == FAILURE)
-			return (ret);
 	}
-	// check du dernier token
-	if ((ret = check_syntax(file->nb_line, file->current->prev, file->current)) == FAILURE)
-		return (ret);
 	ft_printf("adding: %s\n", file->current->str);
-	ret = link_token(file, (char*)sep, ft_strlen(sep), '\n');
+	ret = link_token(file, (char*)sep, ft_strlen(sep));
 	return (ret);
 }
 

@@ -1,23 +1,11 @@
 #include "asm.h"
 
-t_ex_ret		link_token(t_src_file *file, char *line, int len, char sep)
+t_ex_ret		link_token(t_src_file *file, char *line, int len)
 {
 	t_ex_ret	ret;
 	t_token		*token;
-	t_arg_type	arg_type;
 
-	if (sep == LABEL_CHAR)
-		arg_type = T_LAB;
-	if (sep == DIRECT_CHAR)
-		arg_type = T_DIR;
-	if (sep == '\n')
-		arg_type = T_NEW;
-	if (*line == 'r' && *(line + 1) && ft_isdigit(*(line + 1)))
-		arg_type = T_REG;
-	// OPCODE
-	// INDIRECT
-
-	if ((ret = create_token(&token, line, len, arg_type)) == SUCCESS)
+	if ((ret = create_token(&token, line, len)) == SUCCESS)
 	{
 		add_token(&(file->tokens), token);
 		file->current = token;
@@ -25,13 +13,13 @@ t_ex_ret		link_token(t_src_file *file, char *line, int len, char sep)
 	return (ret);
 }
 
-t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type arg_type)
+t_ex_ret		create_token(t_token **elem, char *line, int len)
 {
 	if (!(*elem = (t_token*)malloc(sizeof(t_token))))
 		return (ft_ret_err(ERR_MALLOC));
 	if (!((*elem)->str = ft_strsub(line, 0, len)))
 		return (ft_ret_err(ERR_MALLOC));
-	(*elem)->arg_type = arg_type;
+	(*elem)->arg_type = 0;
 	(*elem)->prev = NULL;
 	(*elem)->next = NULL;
 	return (SUCCESS);

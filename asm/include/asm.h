@@ -68,8 +68,8 @@ t_ex_ret		check_syntax(int line, t_token *current, t_token *new);
 /*
 ** TOKENS
 */
-t_ex_ret		link_token(t_src_file *file, char *line, int len, char sep);
-t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type arg_type);
+t_ex_ret		link_token(t_src_file *file, char *line, int len);
+t_ex_ret		create_token(t_token **elem, char *line, int len);
 void			add_token(t_token **tokens, t_token *new);
 void			remove_current_token(t_src_file *file);
 void			print_tokens(t_token *tokens);
