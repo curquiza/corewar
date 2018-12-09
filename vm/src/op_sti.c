@@ -48,10 +48,9 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 	p2 = get_index_according_to_type(proc, &params[1]);
 	/* /!\ p3 ne peut pas etre T_IND */
 	p3 = get_index_according_to_type(proc, &params[2]);
-	store_4bytes(vm, p2 + p3, p1, proc);
+	store_4bytes(vm, proc->pc + p2 + p3, p1, proc);
 
 	ft_dprintf(vm->trace_fd, "p1 = 0x%x\n", p1);
-	ft_dprintf(vm->trace_fd, "params[0].value = 0x%x\n", params[0].value);
 	ft_dprintf(vm->trace_fd, "p2 = %x\n", p2);
 	ft_dprintf(vm->trace_fd, "p3 = %d\n", p3);
 }
