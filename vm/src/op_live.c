@@ -18,7 +18,7 @@ void	op_live(t_vm *vm, t_processus *proc, t_param *params)
 {
 	t_player		*player;
 
-	print_str("\tLIVE\n", ALL, vm);
+	print_str("\tExecuting LIVE\n", ALL, vm);
 	player = get_player(params[0].value, vm->player, vm->total_players);
 	if (player)
 	{

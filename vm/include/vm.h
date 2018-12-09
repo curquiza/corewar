@@ -147,7 +147,6 @@ typedef enum	s_run
 
 typedef struct	s_processus
 {
-	//int					index;
 	unsigned short		pc;
 	int					cycles;
 	struct s_op			*current_op;
@@ -308,6 +307,6 @@ t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 int				get_mem_index(int index);
-t_bool			is_valid_reg(int index);
+t_bool			is_valid_reg_index(int index);
 
 #endif
