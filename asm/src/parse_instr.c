@@ -29,9 +29,14 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 		ft_printf("char: %c-\n", *tmp);
 		if (*tmp == DIRECT_CHAR)
 		{
-			ret = link_token(file, start, len);
+			// ret = link_token(file, start, len);
 			tmp++;
-			break ;
+			if (*tmp == LABEL_CHAR)
+			{
+				tmp++;
+				len++;
+			}
+			continue ;
 		}
 		else if ((is_separator(*tmp)))
 		{

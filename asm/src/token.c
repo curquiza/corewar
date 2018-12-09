@@ -62,7 +62,8 @@ void			print_tokens(t_token *tokens)
 	ft_printf("-------\n");
 	while (tmp)
 	{
-		ft_printf("%-20s\t%d\n",tmp->str, tmp->arg_type);
+		// ft_printf("%-20s\t%d\n",tmp->str, tmp->arg_type);
+		ft_printf("%s*\n",tmp->str);
 		tmp = tmp->next;
 	}
 	ft_printf("-------\n");
