@@ -55,6 +55,13 @@ static void		move_to_next_op(t_vm *vm, t_processus *proc, t_param *params)
 	vm->memory[proc->pc].proc = TRUE;
 }
 
+static t_bool	need_move(t_op *op)
+{
+	if (op->opcode == 0x09)
+		return (FALSE);
+	return (TRUE);
+}
+
 static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 {
 	proc->cycles += 1;
@@ -71,7 +78,8 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 			print_str2("\tNo op execution : error in OCP for operation",
 						proc->current_op->name,  ALL, vm);
 		print_str("\tMoving to the next operation\n", ALL, vm);
-		move_to_next_op(vm, proc, params);
+		if (need_move(proc->current_op) == TRUE)
+			move_to_next_op(vm, proc, params);
 		proc->current_op = NULL;
 		proc->cycles = 0;
 	}
@@ -88,7 +96,7 @@ void		exec_all_proc(t_vm *vm)
 	while (proc)
 	{
 		print_str_int("Exec processus", i, ALL, vm);
-		print_str_int("PC =", proc->pc, ALL, vm);
+		print_str_int("\tPC =", proc->pc, ALL, vm);
 		proc->current_op = get_op_from_proc(vm, proc);
 		if (proc->current_op == NULL)
 		{

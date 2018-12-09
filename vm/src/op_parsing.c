@@ -7,7 +7,7 @@ static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *
 	else
 		params->size = DIR_SIZE;
 	params->type = T_DIR;
-	params->value = memvalue_to_uint32(mem, proc->pc + 1, DIR_SIZE);
+	params->value = memvalue_to_uint32(mem, proc->pc + 1, params->size);
 }
 
 static void	parse_all_params(t_memcase *mem, t_param *params, t_processus *proc)

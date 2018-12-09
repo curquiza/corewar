@@ -283,7 +283,7 @@ void			exec_all_proc(t_vm *vm);
 t_bool			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
 void			op_live(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
-void			op_zjump(t_vm *vm, t_processus *proc, t_param *params);
+void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
 
 /*
