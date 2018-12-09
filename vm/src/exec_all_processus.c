@@ -63,9 +63,14 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 	{
 		print_str2("\tNombre of cycles reaches for operation",
 					proc->current_op->name,  ALL, vm);
-		parse_op_params(vm, proc, params);
-		print_params(params, vm); //DEBUG
-		proc->current_op->func(vm, proc, params);
+		if (parse_op_params(vm, proc, params) == TRUE)
+		{
+			print_params(params, vm); //DEBUG
+			proc->current_op->func(vm, proc, params);
+		}
+		else
+			print_str2("\tNo op execution : error in OCP for operation",
+						proc->current_op->name,  ALL, vm);
 		print_str("\tMoving to the next operation\n", ALL, vm);
 		move_to_next_op(vm, proc, params);
 		proc->current_op = NULL;

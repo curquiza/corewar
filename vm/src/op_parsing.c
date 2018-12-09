@@ -47,28 +47,36 @@ static void	get_type_and_size(int code, t_param *params, t_op *current_op)
 	}
 }
 
-static void	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
+static t_bool	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
 {
 	int		code;
 	int		i;
+	t_bool	valid_ocp;
 
 	i = 0;
-	while (i < MAX_ARGS_NUMBER)
+	valid_ocp = TRUE;
+	while (i < current_op->param_nb)
 	{
 		code = (memvalue >> (6 - i * 2)) & OCP_MASQ;
 		get_type_and_size(code, &params[i], current_op);
+		if ((params[i].type & current_op->param_type[i]) != params[i].type)
+			valid_ocp = FALSE;
 		i++;
 	}
+	return (valid_ocp);
 }
 
-void	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
+t_bool	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
 {
 	ft_bzero(params, 4 * sizeof(*params));
 	if (proc->current_op->ocp == FALSE)
 		parse_param_without_ocp(vm->memory, proc, &params[0]);
 	else
 	{
-		parse_ocp(vm->memory[get_mem_index(proc->pc + 1)].value, params, proc->current_op);
+		if (parse_ocp(vm->memory[get_mem_index(proc->pc + 1)].value,
+						params, proc->current_op) == FALSE)
+				return (FALSE);
 		parse_all_params(vm->memory, params, proc);
 	}
+	return (TRUE);
 }

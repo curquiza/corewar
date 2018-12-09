@@ -192,7 +192,7 @@ typedef struct 	s_vm
 
 typedef struct	s_param
 {
-	t_byte		type; // type est utile ?? oui pour get la value en fonction du type
+	t_byte		type;
 	int			size;
 	int			value;
 }				t_param;
@@ -202,7 +202,7 @@ typedef struct	s_op
 	t_byte		opcode;
 	char		*name;
 	int			param_nb;
-	t_byte		param_type[MAX_ARGS_NUMBER]; // ??
+	t_byte		param_type[MAX_ARGS_NUMBER];
 	int			cycles;
 	t_bool		ocp;
 	t_bool		index;
@@ -274,7 +274,7 @@ void			exec_all_proc(t_vm *vm);
 /*
 ** Operations
 */
-void			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
+t_bool			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
 void			op_live(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
 void			op_zjump(t_vm *vm, t_processus *proc, t_param *params);
