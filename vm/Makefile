@@ -1,11 +1,12 @@
 NAME = corewar
 
+OS = $(shell uname)
 ifeq ($(OS), Darwin)
-	# MacOs
-	FLAG = -Wall -Wextra -Werror
+   # MacOs
+   FLAG = -Wall -Wextra -Werror
 else
-	# Linux
-	FLAG = -Wall -Wextra
+   # Linux
+   FLAG = -Wall -Wextra
 endif
 
 CC = gcc $(FLAG)
@@ -26,7 +27,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  op_parsing.c \
 	  op_live.c \
 	  op_and.c \
-	  op_zjump.c \
+	  op_zjmp.c \
 	  op_sti.c \
 	  vm_setup.c \
 	  dump_flag.c \
