@@ -106,7 +106,10 @@ static void	display_lives(t_vm *vm, WINDOW *win)
 	mvwprintw(win, 2, 2, "---------------------");
 	mvwprintw(win, 4, 2, "%-15s%d", "Total", vm->lives);
 	mvwprintw(win, 5, 2, "%-15s%d", "Verif", vm->verif);
-	mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player);
+	if (vm->last_live_player == -1)
+		mvwprintw(win, 6, 2, "%-15s%s", "Last player", "None");
+	else
+		mvwprintw(win, 6, 2, "%-15s%d", "Last player", vm->last_live_player);
 	mvwprintw(win, 8, 2, "%-15s%d", "Min lives", NBR_LIVE);
 	mvwprintw(win, 9, 2, "%-15s%d", "Max checks", MAX_CHECKS);
 }
@@ -128,14 +131,17 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	box(win, ACS_VLINE, ACS_HLINE);
 	mvwprintw(win, 1, 2, "%-15s%d/%d", "PROCESSUS", proc_id, vm->total_proc);
 	mvwprintw(win, 3, 2, "%-15s%d", "PC", proc->pc);
-	mvwprintw(win, 4, 2, "%-15s%d", "Index", proc->index);
-	mvwprintw(win, 5, 2, "%-15s%s", "Live", proc->live ? "Yes" : "No");
-	mvwprintw(win, 6, 2, "%-15s0x%0.2x", "Opcode", proc->opcode);
-	mvwprintw(win, 7, 2, "%-15s%d", "Cycles", proc->cycles);
+	mvwprintw(win, 4, 2, "%-15s%d", "Carry", proc->carry);
+	mvwprintw(win, 5, 2, "%-15s%s", "Alive ?", proc->live ? "Yes" : "No");
+	if (proc->current_op)
+		mvwprintw(win, 7, 2, "%-15s%s", "Op", proc->current_op->name);
+	else
+		mvwprintw(win, 7, 2, "%-15s%s", "Op", "None");
+	mvwprintw(win, 8, 2, "%-15s%d", "Cycles", proc->cycles);
 	i = 0;
 	while (i < REG_NUMBER)
 	{
-		mvwprintw(win, 9 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
+		mvwprintw(win, 10 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
 		i++;
 	}
 }
@@ -161,10 +167,12 @@ static void	display_players(t_vm *vm, WINDOW **wins)
 	{
 		box(wins[i], ACS_VLINE, ACS_HLINE);
 		wattron(wins[i], COLOR_PAIR(get_player_color(i)));
-		mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);
+		/*mvwprintw(wins[i], 1, 2, "PLAYER %d", vm->player[i].num);*/
+		mvwprintw(wins[i], 1, 2, "PLAYER %d", i + 1);
 		wattroff(wins[i], COLOR_PAIR(get_player_color(i)));
-		mvwprintw(wins[i], 3, 2, "%-15s%s", "Name", vm->player[i].header.prog_name);
-		mvwprintw(wins[i], 4, 2, "%-15s%d", "Prog size", vm->player[i].header.prog_size);
+		mvwprintw(wins[i], 3, 2, "%-15s%d", "Num", vm->player[i].num);
+		mvwprintw(wins[i], 4, 2, "%-15s%s", "Name", vm->player[i].header.prog_name);
+		/*mvwprintw(wins[i], 4, 2, "%-15s%d", "Prog size", vm->player[i].header.prog_size);*/
 		i++;
 	}
 }

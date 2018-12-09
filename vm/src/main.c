@@ -39,12 +39,35 @@ void	print_processus(t_vm *vm)
 	proc = vm->proc;
 	while (proc)
 	{
-		ft_printf("index = %d\n", proc->index);
+		ft_printf("PC = %d\n", proc->pc);
 		ft_printf("cycles = %d\n", proc->cycles);
-		ft_printf("opcode = 0x%0.2x\n", proc->opcode);
+		//ft_printf("opcode = 0x%0.2x\n", proc->opcode);
 		ft_printf("live = %d\n", proc->live);
 		ft_printf("---\n");
 		proc = proc->next;
+	}
+}
+
+void		print_g_op(void)
+{
+	int		i;
+
+	i = 1;
+	while (i < OP_NUMBER + 1)
+	{
+		ft_printf("Opcode = 0x%.2x\n", g_op[i].opcode);
+		ft_printf("Name = %s\n", g_op[i].name);
+		ft_printf("Param number = %d\n", g_op[i].param_nb);
+		ft_printf("Param type :\n");
+		ft_printf(" > %b\n", g_op[i].param_type[0]);
+		ft_printf(" > %b\n", g_op[i].param_type[1]);
+		ft_printf(" > %b\n", g_op[i].param_type[2]);
+		ft_printf(" > %b\n", g_op[i].param_type[3]);
+		ft_printf("Cycles = %d\n", g_op[i].cycles);
+		ft_printf("OCP ? %d\n", g_op[i].ocp);
+		ft_printf("Index ? %d\n", g_op[i].index);
+		ft_printf("---------\n");
+		i++;
 	}
 }
 
@@ -66,40 +89,53 @@ t_ex_ret	init_check(void)
 	return (SUCCESS);
 }
 
-void		execute_all_proc(t_vm *vm)
-{
-	(void)vm;
-}
-
 void		play_one_cycle(t_vm *vm)
 {
 	vm->total_cycles += 1;
 	vm->current_cycles += 1;
 	print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);
 	print_str("Executing all process\n", FEW, vm);
-	execute_all_proc(vm);
+	exec_all_proc(vm);
 	if (vm->current_cycles == vm->cycles_to_die)
 		manage_end_of_period(vm);
 	print_str("----------\n", FEW, vm);
 	// TODO : dump if -dump flag
 }
 
+static t_player	*get_player(int num, t_player *players, int total_players)
+{
+	int		i;
+
+	i = 0;
+	while (i < total_players)
+	{
+		if (players[i].num == num)
+			return (&players[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 void		end_of_game(t_vm *vm)
 {
+	t_player	*p;
+
 	// TODO : manage visu
 	g_vm->visu.enabled ? sleep(3) : 0;
 	g_vm->visu.enabled ? endwin() : 0;
-	g_vm->visu.enabled ? close(vm->visu.trace_fd) : 0;
+	g_vm->visu.enabled ? close(vm->trace_fd) : 0;
 	if (vm->last_live_player == -1)
 		ft_printf("Nobody won !\n");
 	else
-		ft_printf("Player %d won !\n", vm->last_live_player);
+	{
+		p = get_player(vm->last_live_player, vm->player, vm->total_players);
+		ft_printf("Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
+	}
 	ft_printf("End of game. Thanks for watching 😎\n");
 }
 
 void		launch_corewar(t_vm *vm)
 {
-	vm->proc->live = TRUE; //DEBUG
 	while (vm->play)
 	{
 		vm->visu.enabled ? getkey(vm) : 0;
@@ -128,6 +164,7 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(FAILURE);
 	}
+	//print_g_op();
 	vm_setup(&vm);
 	launch_corewar(&vm);
 	clean_all();

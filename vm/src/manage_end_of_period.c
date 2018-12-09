@@ -41,10 +41,9 @@ static void	supp_processus(t_processus **proc, t_vm *vm)
 	t_processus	*supp;
 
 	print_str("+", ALL, vm);
-	if ((*proc)->next == NULL)
-		print_str("\n", ALL, vm);
 	supp = *proc;
 	*proc = (*proc)->next;
+	vm->memory[supp->pc].proc = FALSE;
 	ft_bzero(supp, sizeof(*supp));
 	free(supp);
 	vm->total_proc -= 1;
@@ -62,7 +61,10 @@ static void	kill_or_reset_processus(t_processus **proc, t_vm *vm)
 		if (current->next->live == FALSE)
 			supp_processus(&current->next, vm);
 		else
+		{
 			current->next->live = FALSE;
+			current = current->next;
+		}
 	}
 	if (*proc)
 	{
@@ -71,6 +73,7 @@ static void	kill_or_reset_processus(t_processus **proc, t_vm *vm)
 		else
 			(*proc)->live = FALSE;
 	}
+	print_str("\n", ALL, vm);
 }
 
 void	manage_end_of_period(t_vm *vm)

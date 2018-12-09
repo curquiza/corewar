@@ -22,10 +22,17 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin1.c \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
+	  op.c \
+	  op_parsing.c \
+	  op_live.c \
+	  op_and.c \
+	  op_zjump.c \
+	  op_sti.c \
 	  vm_setup.c \
 	  dump_flag.c \
 	  verbose_flag.c \
 	  manage_end_of_period.c \
+	  exec_all_processus.c \
 	  visu_init.c \
 	  visu_display.c \
 	  visu_create_subwin.c \
