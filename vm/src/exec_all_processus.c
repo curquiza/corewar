@@ -84,6 +84,7 @@ void		exec_all_proc(t_vm *vm)
 	while (proc)
 	{
 		print_str_int("Exec processus", i, ALL, vm);
+		print_str_int("PC =", proc->pc, ALL, vm);
 		proc->current_op = get_op_from_proc(vm, proc);
 		if (proc->current_op == NULL)
 		{
