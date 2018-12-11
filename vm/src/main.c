@@ -104,7 +104,6 @@ void		play_one_cycle(t_vm *vm)
 		dump_memory(vm);
 		vm->run = BREAK;
 	}
-	// TODO : dump if -dump flag
 }
 
 static t_player	*get_player(int num, t_player *players, int total_players)
@@ -129,14 +128,17 @@ void		end_of_game(t_vm *vm)
 	g_vm->visu.enabled ? sleep(3) : 0;
 	g_vm->visu.enabled ? endwin() : 0;
 	g_vm->visu.enabled ? close(vm->trace_fd) : 0;
-	if (vm->last_live_player == -1)
-		ft_printf("Nobody won !\n");
-	else
+	if (vm->run != BREAK)
 	{
-		p = get_player(vm->last_live_player, vm->player, vm->total_players);
-		ft_printf("Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
+		if (vm->last_live_player == -1)
+			ft_printf("Nobody won !\n");
+		else
+		{
+			p = get_player(vm->last_live_player, vm->player, vm->total_players);
+			ft_printf("Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
+		}
+		ft_printf("End of game. Thanks for watching 😎\n");
 	}
-	ft_printf("End of game. Thanks for watching 😎\n");
 }
 
 void		launch_corewar(t_vm *vm)
