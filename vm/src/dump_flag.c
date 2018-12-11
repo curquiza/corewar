@@ -29,6 +29,7 @@ void	dump_memory(t_vm *vm)
 	int			i;
 	t_memcase	*memory;
 
+	ft_dprintf(vm->trace_fd, "Dump memory : end of cycle %d\n", vm->dump_cycle);
 	memory = vm->memory;
 	i = 0;
 	while (i < MEM_SIZE)
