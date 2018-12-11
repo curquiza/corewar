@@ -102,7 +102,7 @@ void		play_one_cycle(t_vm *vm)
 	if (vm->current_cycles == vm->dump_cycle)
 	{
 		dump_memory(vm);
-		vm->play = FALSE;
+		vm->run = BREAK;
 	}
 	// TODO : dump if -dump flag
 }
@@ -141,7 +141,7 @@ void		end_of_game(t_vm *vm)
 
 void		launch_corewar(t_vm *vm)
 {
-	while (vm->play)
+	while (vm->run == ON)
 	{
 		vm->visu.enabled ? getkey(vm) : 0;
 		if (vm->visu.enabled == FALSE

@@ -103,7 +103,7 @@ void		vm_setup(t_vm *vm)
 {
 	fill_all_prog_in_memory(vm);
 	create_all_first_processus(vm);
-	vm->play = TRUE;
+	vm->run = ON;
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->last_live_player = -1;
 	vm->trace_fd = STDOUT_FILENO;
