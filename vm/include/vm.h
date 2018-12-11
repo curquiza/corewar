@@ -138,6 +138,13 @@ typedef struct	s_visu
 ** VM ***
 */
 
+typedef enum	s_run
+{
+	ON,
+	OFF,
+	BREAK
+}				t_run;
+
 typedef struct	s_processus
 {
 	//int					index;
@@ -167,7 +174,7 @@ typedef struct	s_player
 
 typedef struct 	s_vm
 {
-	t_bool			play;
+	t_run			run;
 	t_memcase		memory[MEM_SIZE];
 	t_player		player[MAX_PLAYERS];
 	int				total_players;

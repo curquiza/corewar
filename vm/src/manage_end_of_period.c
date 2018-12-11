@@ -87,11 +87,11 @@ void	manage_end_of_period(t_vm *vm)
 	if (vm->proc == NULL)
 	{
 		print_str("No remaining processus. Gonna stop the game...\n", FEW, vm);
-		vm->play = FALSE;
+		vm->run = OFF;
 	}
 	else if (vm->cycles_to_die <= 0)
 	{
 		print_str("Cycles to die reaches 0. Gonna stop the game...\n", FEW, vm);
-		vm->play = FALSE;
+		vm->run = OFF;
 	}
 }
