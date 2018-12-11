@@ -99,11 +99,6 @@ void		play_one_cycle(t_vm *vm)
 	if (vm->current_cycles == vm->cycles_to_die)
 		manage_end_of_period(vm);
 	print_str("----------\n", FEW, vm);
-	if (vm->current_cycles == vm->dump_cycle)
-	{
-		dump_memory(vm);
-		vm->run = BREAK;
-	}
 }
 
 static t_player	*get_player(int num, t_player *players, int total_players)
@@ -153,7 +148,12 @@ void		launch_corewar(t_vm *vm)
 			play_one_cycle(vm);
 			vm->visu.next_step = FALSE;
 		}
-		vm->visu.enabled? display_visu(vm) : 0;
+		vm->visu.enabled ? display_visu(vm) : 0;
+		if (vm->total_cycles == vm->dump_cycle)
+		{
+			dump_memory(vm);
+			vm->run = vm->visu.enabled ? vm->run : BREAK;
+		}
 	}
 	end_of_game(vm);
 }

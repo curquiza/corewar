@@ -119,4 +119,9 @@ void		vm_setup(t_vm *vm)
 		else
 			start_visu(vm);
 	}
+	if (flag_is_applied(DUMP_FLAG, vm) == TRUE && vm->dump_cycle == 0)
+	{
+		dump_memory(vm);
+		vm->run = vm->visu.enabled ? vm->run : BREAK;
+	}
 }
