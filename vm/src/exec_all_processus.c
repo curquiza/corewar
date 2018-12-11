@@ -53,7 +53,6 @@ static void		move_to_next_op(t_vm *vm, t_processus *proc, t_param *params)
 	else
 		proc->pc = get_mem_index(proc->pc + 1);
 	vm->memory[proc->pc].proc = TRUE;
-	// move PC ?
 }
 
 static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
