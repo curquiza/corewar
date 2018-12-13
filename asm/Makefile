@@ -5,6 +5,7 @@ CC = gcc $(FLAG)
 
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
+		op.c \
 		error.c \
 		option.c \
 		parse.c \

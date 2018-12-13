@@ -29,16 +29,13 @@
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
 
+
 typedef struct	s_token
 {
 	struct s_token		*prev;
 	struct s_token		*next;
 	char				*str;
-	unsigned short		offset; 	// memory size is a short
-	unsigned char		encode[4]; 	// from 1 to 4 bytes
-	unsigned char		size; 		// from 1 to 4 bytes
-	t_arg_type			arg_type; 	// T_REG: 1 // T_DIR: 2 // T_IND: 4 // T_LAB: 8 //
-
+	unsigned int		col;
 }				t_token;
 
 typedef struct	s_src_file
@@ -46,12 +43,24 @@ typedef struct	s_src_file
 	t_header	header;	
 	char		*filename;
 	t_token		*tokens;
-	t_token		*current;
 	int			nb_line;
 	int			nb_col;
 
 }				t_src_file;
 
+typedef struct					s_op
+{
+	char						*name;
+	unsigned char				nb_arg;
+	t_arg_type					args[3];
+	unsigned char				opcode;
+	unsigned int				nb_cycle;
+	char						*desc;
+	unsigned char				octal;
+	unsigned char				label;
+} 								t_op;
+
+extern t_op g_op_tab[17];
 extern int		g_flags;
 t_src_file		*g_file;
 
@@ -68,8 +77,8 @@ t_ex_ret		check_syntax(int line, t_token *current, t_token *new);
 /*
 ** TOKENS
 */
-t_ex_ret		link_token(t_src_file *file, char *line, int len, char sep);
-t_ex_ret		create_token(t_token **elem, char *line, int len, t_arg_type arg_type);
+t_ex_ret		link_token(t_src_file *file, char *line, int len, int col);
+t_ex_ret		create_token(t_token **elem, char *line, int len, int col);
 void			add_token(t_token **tokens, t_token *new);
 void			remove_current_token(t_src_file *file);
 void			print_tokens(t_token *tokens);

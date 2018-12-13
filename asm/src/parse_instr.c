@@ -1,17 +1,25 @@
 #include "asm.h"
 
 // SUCCESS -> un token est créé, FAILURE -> pas de token créé (EOF ou MALLOC ERR)
+
+static t_bool				is_whitespace(char c)
+{
+	if (c == ' ' \
+		|| c == '\t' \
+		|| c == '\n')
+		return (TRUE);
+	return (FALSE);
+}
+
 static t_bool				is_separator(char c)
 {
-	if (c == '\0' \
-		|| c == ' ' \
-		|| c == '\t' \
-		|| c == '\n' \
+	if (c == DIRECT_CHAR \
 		|| c == SEPARATOR_CHAR \
 		|| c == LABEL_CHAR)
 		return (TRUE);
 	return (FALSE);
-}				
+}
+
 static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 {
 	t_ex_ret			ret;	
@@ -19,63 +27,45 @@ static t_ex_ret 			get_next_token(t_src_file *file, char *line)
 	char				*tmp;
 	int					len;
 
-	ret = SUCCESS;
+	ret = FAILURE;
 	start = line + file->nb_col;
 	tmp = start;
 	len = 0;
-	while (42)
+	while (*tmp)
 	{
 		len++;
-		// ft_printf("char: %c-\n", *tmp);
-		if (*tmp == DIRECT_CHAR)
+		if ((is_whitespace(*tmp)))
 		{
-			ret = link_token(file, start, len, *tmp);
 			tmp++;
-			break ;
+			continue ;			
 		}
 		else if ((is_separator(*tmp)))
 		{
-			if (file->current && file->current->arg_type & T_DIR)
-			{
-				remove_current_token(file);
-				ret = link_token(file, start, --len, '%');
-			}
-			else
-				ret = link_token(file, start, --len, *tmp);
 			break ;
 		}
 		else
 			tmp++;
-
 	}
-	if (!*tmp)
-		return (FAILURE);
-	while ((is_separator(*tmp)))
-		tmp++;
+	ret = link_token(file, start, len, file->nb_col + len);
 	file->nb_col += tmp - (line + file->nb_col);
-	// ft_printf("rest %s\n", line + file->nb_col);	
 	return (ret);
 }
 
 static t_ex_ret			parse_line(t_src_file *file, char *line)
 {
-	const char	*sep = "<newline>";
-	t_ex_ret	ret;
+	// const char	*sep = "<newline>";
+	// t_ex_ret	ret;
 
 	file->nb_col = 0;
 	while ((get_next_token(file, line)) == SUCCESS)
 	{
-		ft_printf("adding: %s\n", file->current->str);
+		;
+		// ft_printf("adding: %s\n", file->current->str);
 		// print_tokens(file->tokens);
-		if ((ret = check_syntax(file->nb_line, file->current->prev, file->current)) == FAILURE)
-			return (ret);
 	}
-	// check du dernier token
-	if ((ret = check_syntax(file->nb_line, file->current->prev, file->current)) == FAILURE)
-		return (ret);
-	ft_printf("adding: %s\n", file->current->str);
-	ret = link_token(file, (char*)sep, ft_strlen(sep), '\n');
-	return (ret);
+	// ft_printf("adding: %s\n", file->current->str);
+	// ret = link_token(file, (char*)sep, ft_strlen(sep));
+	return (SUCCESS);
 }
 
 static t_ex_ret		read_lines(t_src_file *file, int fd)
