@@ -7,48 +7,6 @@
 ** p3 = reg | dir
 */
 
-
-/*static unsigned short	get_index_according_to_type(t_vm *vm, t_processus *proc, t_param *p)*/
-/*{*/
-	/*unsigned short	rslt;*/
-
-	/*if (p->type == T_DIR)*/
-		/*return ((unsigned short) p->value);*/
-	/*if (p->type == T_IND)*/
-	/*{*/
-		/*// /!\ IDX_MOD ??*/
-		/*rslt = memvalue_to_uint32(vm->memory, proc->pc + (p->value % IDX_MOD), IND_SIZE);*/
-		/*return (rslt);*/
-	/*}*/
-	/*if (p->type == T_REG && is_valid_reg_index(p->value))*/
-		/*return ((unsigned short) proc->reg[p->value - 1]);*/
-	/*return (0);*/
-/*}*/
-
-static void	store_4bytes(t_vm *vm, unsigned short index, int value,
-							t_processus *proc)
-{
-	t_memcase	op_case;
-
-	op_case = vm->memory[proc->pc];
-
-	vm->memory[get_mem_index(index)].value = (t_byte) ((value >> 24) & 0xff);
-	ft_strcpy(vm->memory[get_mem_index(index)].color, op_case.color);
-	vm->memory[get_mem_index(index)].color_visu = op_case.color_visu;
-
-	vm->memory[get_mem_index(index + 1)].value = (t_byte) ((value >> 16) & 0xff);
-	ft_strcpy(vm->memory[get_mem_index(index + 1)].color, op_case.color);
-	vm->memory[get_mem_index(index + 1)].color_visu = op_case.color_visu;
-
-	vm->memory[get_mem_index(index + 2)].value = (t_byte) ((value >> 8) & 0xff);
-	ft_strcpy(vm->memory[get_mem_index(index + 2)].color, op_case.color);
-	vm->memory[get_mem_index(index + 2)].color_visu = op_case.color_visu;
-
-	vm->memory[get_mem_index(index + 3)].value = (t_byte) (value & 0xff);
-	ft_strcpy(vm->memory[get_mem_index(index + 3)].color, op_case.color);
-	vm->memory[get_mem_index(index + 3)].color_visu = op_case.color_visu;
-}
-
 void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 {
 	int		p1;

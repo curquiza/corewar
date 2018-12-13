@@ -283,6 +283,8 @@ void			exec_all_proc(t_vm *vm);
 */
 t_bool			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
 void			op_live(t_vm *vm, t_processus *proc, t_param *params);
+void			op_ld(t_vm *vm, t_processus *proc, t_param *params);
+void			op_st(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
 void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
@@ -311,5 +313,7 @@ int				get_mem_index(unsigned short index);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
 											t_param *p);
+void			store_4bytes(t_vm *vm, unsigned short index, int value,
+							t_processus *proc);
 
 #endif
