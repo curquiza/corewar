@@ -17,12 +17,12 @@ static int     get_name(t_src_file *file, char *line)
     return (SUCCESS);
 }
 
-t_ex_ret        parse_name(t_src_file *file, int fd)
+t_ex_ret        parse_name(t_src_file *file)
 {
     char    *line;
     int     ret;
 
-    while ((ret = get_trim_line(fd, &line)) == 1)
+    while ((ret = get_trim_line(file->fd, &line)) == 1)
 	{
         file->nb_line++;
         if (*line == '#' || *line == '\0')

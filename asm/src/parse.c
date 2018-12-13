@@ -1,12 +1,12 @@
 #include "asm.h"
 
-t_ex_ret		parse(t_src_file *file, int fd)
+t_ex_ret		parse(t_src_file *file)
 {
-	if ((parse_name(file, fd)) == FAILURE)
+	if ((parse_name(file)) == FAILURE)
 		return (FAILURE);
-	if ((parse_comment(file, fd)) == FAILURE)
+	if ((parse_comment(file)) == FAILURE)
 		return (FAILURE);
-	if ((parse_instr(file, fd)) == FAILURE)
+	if ((parser(file)) == FAILURE)
 		return (FAILURE);
 
 	if (!(g_flags & FLAG_A))
@@ -17,6 +17,6 @@ t_ex_ret		parse(t_src_file *file, int fd)
 	else
 		write_output_stdout(file);
 
-	close(fd);
+	close(file->fd);
 	return (SUCCESS);
 }
