@@ -25,6 +25,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_base.c \
 	  op.c \
 	  op_parsing.c \
+	  op_utils.c \
 	  op_live.c \
 	  op_ld.c \
 	  op_st.c \
