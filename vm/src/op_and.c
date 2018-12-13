@@ -1,5 +1,13 @@
 #include "vm.h"
 
+/*
+** And : p1 & p2 and put the result in registre p3
+** p1 = reg | dir | ind
+** p2 = reg | dir | ind
+** p3 = reg
+** Modify the carry
+*/
+
 void	op_and(t_vm *vm, t_processus *proc, t_param *params)
 {
 	int		rslt;

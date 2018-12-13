@@ -1,5 +1,11 @@
 #include "vm.h"
 
+/*
+** Zjmp : jump until the address passed in parameter
+** No OCP
+** p1 = dir
+*/
+
 static void	move_proc_to(t_vm *vm, t_processus *proc, unsigned short index)
 {
 	vm->memory[proc->pc].proc = FALSE;

@@ -45,10 +45,11 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
-run_test "sti_1.cor" 100 1000
-run_test "sti_2.cor" 10 100
-run_test "zjmp_1.cor" 100 1000
-run_test "zjmp_2.cor" 1000 10000
-run_test "zork.cor" 100 1000
+run_test "and_1.cor" 200 1500			# end : 1536
+run_test "sti_1.cor" 200 1500			# end : 1536
+run_test "sti_2.cor" 200 1500			# end : 1536
+run_test "zjmp_1.cor" 200 1500			# end : 1536
+run_test "zjmp_2.cor" 500 3000			# end : 3072
+run_test "zork.cor" 1000 10000			# end : 57955
 
 exit $status

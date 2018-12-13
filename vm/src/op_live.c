@@ -1,5 +1,11 @@
 #include "vm.h"
 
+/*
+** Live : declares the processus as alive
+** No OCP
+** p1 = dir
+*/
+
 static t_player	*get_player(int num, t_player *players, int total_players)
 {
 	int		i;
