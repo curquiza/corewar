@@ -15,7 +15,7 @@ t_bool	flag_is_applied(int flag, t_vm *vm)
 /*
 ** Handle vm circle memory
 */
-int		get_mem_index(int index)
+int		get_mem_index(unsigned short index)
 {
 	return (index % (MEM_SIZE - 1));
 }

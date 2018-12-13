@@ -1,15 +1,16 @@
 #include "vm.h"
 
-static int	get_index_according_to_type(t_processus *proc, t_param *p)
+static unsigned short	get_index_according_to_type(t_processus *proc, t_param *p)
 {
 	if (p->type == T_DIR || p->type == T_IND)
-		return (p->value);
+		return ((unsigned short) p->value);
 	if (p->type == T_REG && is_valid_reg_index(p->value))
-		return (proc->reg[p->value - 1]);
+		return ((unsigned short) proc->reg[p->value - 1]);
 	return (0);
 }
 
-static void	store_4bytes(t_vm *vm, int index, int value, t_processus *proc)
+static void	store_4bytes(t_vm *vm, unsigned short index, int value,
+							t_processus *proc)
 {
 	t_memcase	op_case;
 
@@ -45,7 +46,7 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 	p2 = get_index_according_to_type(proc, &params[1]);
 	p3 = get_index_according_to_type(proc, &params[2]);
 	// /!\ faut il faire ((p2 + p3) % IDX_MOD) ???
-	store_4bytes(vm, proc->pc + p2 + p3, p1, proc);
+	store_4bytes(vm, proc->pc + (unsigned short) (p2 + p3), p1, proc);
 	ft_dprintf(vm->trace_fd, "p1 = 0x%x\n", p1); //DEBUG
 	ft_dprintf(vm->trace_fd, "p2 = %x\n", p2);   //DEBUG
 	ft_dprintf(vm->trace_fd, "p3 = %d\n", p3);   //DEBUG

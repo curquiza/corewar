@@ -12,7 +12,8 @@ uint32_t	str_to_uint32(char *str)
 	return (rslt);
 }
 
-uint32_t	memvalue_to_uint32(t_memcase *vm_mem, int index, int size)
+uint32_t	memvalue_to_uint32(t_memcase *vm_mem, unsigned short index,
+								int size)
 {
 	uint32_t		rslt;
 
