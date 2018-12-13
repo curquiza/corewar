@@ -1,24 +1,5 @@
 #include "vm.h"
 
-/*
-** Get 4 bytes
-*/
-static int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p)
-{
-	int		rslt;
-
-	if (p->type == T_REG && is_valid_reg_index(p->value))
-		return (proc->reg[p->value - 1]);
-	if (p->type == T_IND)
-	{
-		rslt = memvalue_to_uint32(vm->memory, proc->pc + (p->value % IDX_MOD), REG_SIZE);
-		return (rslt);
-	}
-	if (p->type == T_DIR)
-		return (p->value);
-	return (0);
-}
-
 void	op_and(t_vm *vm, t_processus *proc, t_param *params)
 {
 	int		rslt;

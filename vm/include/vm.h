@@ -309,5 +309,7 @@ void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 int				get_mem_index(unsigned short index);
 t_bool			is_valid_reg_index(int index);
+int				get_value_according_to_type(t_vm *vm, t_processus *proc,
+											t_param *p);
 
 #endif
