@@ -13,7 +13,10 @@ static void	handle_newline(int i, t_vm *vm)
 
 	b_per_line = i % bytes_per_line(vm);
 	if (b_per_line == bytes_per_line(vm) - 1)
+	{
+		flag_is_applied(ZAZ_FLAG, vm)? ft_putchar_fd(' ', vm->trace_fd) : 0;
 		ft_putchar_fd('\n', vm->trace_fd);
+	}
 	else
 		ft_putchar_fd(' ', vm->trace_fd);
 }

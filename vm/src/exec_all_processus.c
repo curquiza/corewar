@@ -71,7 +71,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 					proc->current_op->name,  ALL, vm);
 		if (parse_op_params(vm, proc, params) == TRUE)
 		{
-			print_params(params, vm); //DEBUG
+			/*print_params(params, vm); //DEBUG*/
 			proc->current_op->func(vm, proc, params);
 		}
 		else

@@ -86,6 +86,8 @@ fclean_all : fclean_lib fclean
 run_tests :
 	@printf "\033[1;33m----------\n%s\n----------\033[0m\n" "VM PARSING"
 	@tests/parsing.sh
+	@printf "\033[1;33m------------\n%s\n------------\033[0m\n" "VM EXECUTION"
+	@tests/vm_diff.sh
 
 re : fclean all
 
