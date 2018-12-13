@@ -6,8 +6,10 @@ static int		open_file(char *filename)
 {
 	struct stat		s;
 	int 			fd;
+	char			*extension;
 
-	if ((ft_strcmp(ft_strrchr(filename, '.'), INPUT_EXT)) != 0)
+	extension = ft_strrchr(filename, '.');
+	if (!extension || (ft_strcmp(extension, INPUT_EXT)) != 0)
 		return (put_error(USAGE));
 	if ((stat(filename, &s)) < 0)
 		return (ft_ret_err2(filename, NO_EXIST));
@@ -57,6 +59,7 @@ int				main (int argc, char **argv)
 		}
 		if ((ret = parse(&file, ret)) != SUCCESS)
 			status = FAILURE ;
+		free_tokens(&(file.tokens));
 		// print_header(&file.header);
 	}
 	return (status);

@@ -6,7 +6,7 @@ t_ex_ret	put_error(char *e)
 	return (FAILURE);
 }
 
-int		put_error_code(char *e, int code)
+int			put_error_code(char *e, int code)
 {
 	ft_putendl_fd(e, STDERR_FILENO);
 	return (code);

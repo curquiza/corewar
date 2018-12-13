@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/11/09 11:55:53 by curquiza         ###   ########.fr       */
+/*   Updated: 2018/12/07 15:14:01 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef char	t_arg_type;
 # define T_DIR					2
 # define T_IND					4
 # define T_LAB					8
+# define T_OPC					16
+# define T_NEW					32
 
 /*
 ** Exec

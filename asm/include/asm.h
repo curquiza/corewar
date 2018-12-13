@@ -14,7 +14,7 @@
 # define USAGE			"usage: ./asm [-"OPTIONS"] <sourcefile.s>\n\t" USAGE_OPTS
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
 # define FLAG_A			1
-
+# define NEWLINE		"\n"
 /*
 ** ERRORS
 */
@@ -29,13 +29,38 @@
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
 
+
+typedef struct	s_token
+{
+	struct s_token		*prev;
+	struct s_token		*next;
+	char				*str;
+	unsigned int		col;
+}				t_token;
+
 typedef struct	s_src_file
 {
+	t_header	header;	
 	char		*filename;
-	t_header	header;
+	t_token		*tokens;
 	int			nb_line;
+	int			nb_col;
+
 }				t_src_file;
 
+typedef struct					s_op
+{
+	char						*name;
+	unsigned char				nb_arg;
+	t_arg_type					args[3];
+	unsigned char				opcode;
+	unsigned int				nb_cycle;
+	char						*desc;
+	unsigned char				octal;
+	unsigned char				label;
+} 								t_op;
+
+extern t_op g_op_tab[17];
 extern int		g_flags;
 t_src_file		*g_file;
 
@@ -46,6 +71,19 @@ int				get_options(int *argc, char ***argv);
 t_ex_ret        parse(t_src_file *file, int fd);
 t_ex_ret        parse_name(t_src_file *file, int fd);
 t_ex_ret        parse_comment(t_src_file *file, int fd);
+t_ex_ret        parse_instr(t_src_file *file, int fd);
+t_ex_ret		check_syntax(int line, t_token *current, t_token *new);
+
+/*
+** TOKENS
+*/
+t_ex_ret		link_token(t_src_file *file, char *line, int len, int col);
+t_ex_ret		create_token(t_token **elem, char *line, int len, int col);
+void			add_token(t_token **tokens, t_token *new);
+void			remove_current_token(t_src_file *file);
+void			print_tokens(t_token *tokens);
+void			print_rev_tokens(t_token *tokens);
+void			free_tokens(t_token **tokens);
 
 /*
 ** OUTPUT
