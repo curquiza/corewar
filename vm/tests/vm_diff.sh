@@ -50,8 +50,10 @@ run_test "st_1.cor"			0 300  1500		# end : 1536
 run_test "sti_1.cor"		0 200  1500		# end : 1536
 run_test "sti_2.cor"		0 200  1500		# end : 1536
 run_test "sti_3.cor"		0 200  1500		# end : 1536
+run_test "sti_4.cor"		0 200  1500		# end : 1536
 run_test "zjmp_1.cor"		0 200  1500		# end : 1536
 run_test "zjmp_2.cor"		0 500  3000		# end : 3072
+run_test "zjmp_3.cor"		0 500  1500		# end : 1536
 run_test "fork_2.cor"		0 500  1500		# end : 1536
 run_test "zork.cor"			0 1000 10000	# end : 57955
 run_test "bigzork.cor"		0 1000 10000	# end : 28363
