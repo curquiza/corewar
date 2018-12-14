@@ -23,8 +23,9 @@ t_ex_ret		parser(t_src_file *file)
 			return (FAILURE);
 		ft_printf("%d ", nb_line);
 		print_tokens(tokens);
-		ret = parse_line(tokens);
+		ret = parse_line(tokens); // quit or continue ?
 		free_tokens(&tokens);
+		ft_strdel(&line);
 	}
 	return (SUCCESS);
 }
