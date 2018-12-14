@@ -290,6 +290,8 @@ void			op_live(t_vm *vm, t_processus *proc, t_param *params);
 void			op_ld(t_vm *vm, t_processus *proc, t_param *params);
 void			op_st(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
+void			op_or(t_vm *vm, t_processus *proc, t_param *params);
+void			op_xor(t_vm *vm, t_processus *proc, t_param *params);
 void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
 void			op_fork(t_vm *vm, t_processus *proc, t_param *params);

@@ -32,6 +32,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  op_ld.c \
 	  op_st.c \
 	  op_and.c \
+	  op_or.c \
+	  op_xor.c \
 	  op_zjmp.c \
 	  op_sti.c \
 	  op_fork.c \
