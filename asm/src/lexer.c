@@ -1,9 +1,5 @@
 #include "asm.h"
 
-/*
-** lexer take a line and return a list of tokens.
-*/
-
 static t_type 			get_token_type(char *str, int len)
 {
 	t_type	type;
@@ -54,6 +50,9 @@ static int			tokenize(char *start)
 	return (-2);
 }
 
+/*
+** lexer: take a line and return a list of tokens.
+*/
 
 t_ex_ret			lexer(t_token **tokens, char *line, int nb_line)
 {

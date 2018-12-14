@@ -27,6 +27,10 @@ typedef struct					s_op
 
 extern t_op 					g_op_tab[17];
 
+t_ex_ret        				parse(t_src_file *file);
+t_ex_ret        				parse_name(t_src_file *file);
+t_ex_ret        				parse_comment(t_src_file *file);
 t_ex_ret						parser(t_src_file *file);
+t_ex_ret     					parse_error(int line, char *message);
 
 #endif
