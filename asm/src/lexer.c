@@ -4,31 +4,30 @@
 ** lexer take a line and return a list of tokens.
 */
 
-t_bool				is_whitespace(char c)
+static t_type 			get_token_type(char *str, int len)
 {
-	static const char 	*whitespaces = WHITESPACES;
+	t_type	type;
+	char	*tmp;
 
-	if ((ft_strchr(whitespaces, c)))
-		return (TRUE);
-	return (FALSE);
-}
-
-t_bool				is_special_char(char c)
-{
-	static const char 	*special_chars = SPECIAL_CHARS;
-
-	if ((ft_strchr(special_chars, c)))
-		return (TRUE);
-	return (FALSE);
-}
-
-t_bool				is_label_char(char c)
-{
-	static const char 	*label_chars = LABEL_CHARS;
-
-	if ((ft_strchr(label_chars, c)))
-		return (TRUE);
-	return (FALSE);
+	type = NONE;
+	tmp = ft_strsub(str, 0, len);
+	if (is_whitespace(*tmp))
+		type = WHITESPACE;
+	if (is_special_char(*tmp))
+		type = which_special_char(*tmp);
+	if (is_string_char(*tmp))
+	{
+		if (ft_is_int(tmp))
+			type |= INTEGER;
+		if (is_registre(tmp))
+			type |= REGISTRE;
+		if (is_opcode(tmp))
+			type |= OPCODE;
+		if (is_label_string(tmp))
+			type |= LABEL;
+	}
+	free(tmp);
+	return (type);
 }
 
 static int			tokenize(char *start)
@@ -46,9 +45,9 @@ static int			tokenize(char *start)
 			end++;
 		return (end - start);
 	}
-	if (is_label_char(*end))
+	if (is_string_char(*end))
 	{
-		while (is_label_char(*end))
+		while (is_string_char(*end))
 			end++;
 		return (end - start);
 	}

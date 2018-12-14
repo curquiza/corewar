@@ -1,15 +1,17 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-typedef struct	s_src_file
-{
-	int			fd;
-	t_header	header;	
-	char		*filename;
-	t_token		*tokens;
-	int			nb_line;
+# define NB_OPCODE				16
 
-}				t_src_file;
+typedef struct					s_src_file
+{
+	int							fd;
+	t_header					header;	
+	char						*filename;
+	t_token						*tokens;
+	int							nb_line;
+
+}								t_src_file;
 
 typedef struct					s_op
 {
@@ -23,8 +25,8 @@ typedef struct					s_op
 	unsigned char				label;
 } 								t_op;
 
-extern t_op g_op_tab[17];
+extern t_op 					g_op_tab[17];
 
-t_ex_ret		parser(t_src_file *file);
+t_ex_ret						parser(t_src_file *file);
 
 #endif

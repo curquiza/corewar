@@ -1,18 +1,6 @@
 #include "asm.h"
 
-t_ex_ret		link_token(t_token **tokens, char *line, int len, t_type type)
-{
-	t_ex_ret	ret;
-	t_token		*new;
-
-	if ((ret = create_token(&new, line, len, type)) == SUCCESS)
-	{
-		add_token(tokens, new);
-	}
-	return (ret);
-}
-
-t_ex_ret		create_token(t_token **elem, char *line, int len, t_type type)
+static t_ex_ret		create_token(t_token **elem, char *line, int len, t_type type)
 {
 	if (!(*elem = (t_token*)malloc(sizeof(t_token))))
 		return (ft_ret_err(ERR_MALLOC));
@@ -24,7 +12,7 @@ t_ex_ret		create_token(t_token **elem, char *line, int len, t_type type)
 	return (SUCCESS);
 }
 
-void			add_token(t_token **tokens, t_token *new)
+static void			add_token(t_token **tokens, t_token *new)
 {
 	t_token	*tmp;
 
@@ -41,22 +29,19 @@ void			add_token(t_token **tokens, t_token *new)
 	return ;
 }
 
-void			print_tokens(t_token *tokens)
+t_ex_ret			link_token(t_token **tokens, char *line, int len, t_type type)
 {
-	t_token	*tmp;
+	t_ex_ret	ret;
+	t_token		*new;
 
-	tmp = tokens;
-	ft_printf("---\n");
-	while (tmp)
+	if ((ret = create_token(&new, line, len, type)) == SUCCESS)
 	{
-		ft_printf("%-30s",tmp->str);
-		print_token_type(tmp->type);
-		tmp = tmp->next;
+		add_token(tokens, new);
 	}
-	ft_printf("---\n");
+	return (ret);
 }
 
-void			free_tokens(t_token **tokens)
+void				free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
 	t_token	*prev;
