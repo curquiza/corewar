@@ -26,7 +26,7 @@ t_op g_op[OP_NUMBER] =
 		6, TRUE, FALSE, &op_xor },
 	{ 0x09, "zjmp", 1, { T_DIR }, 20, FALSE, TRUE, &op_zjmp },
 	{ 0x0a, "ldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },
-		25, TRUE, TRUE, NULL },
+		25, TRUE, TRUE, &op_ldi },
 	{ 0x0b, "sti", 3, { T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG },
 		25, TRUE, TRUE, &op_sti },
 	{ 0x0c, "fork", 1, { T_DIR }, 800, FALSE, TRUE, &op_fork },
