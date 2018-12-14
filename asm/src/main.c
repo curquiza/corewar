@@ -57,7 +57,9 @@ int				main (int argc, char **argv)
 			status = FAILURE;
 			continue ;
 		}
-		if ((ret = parse(&file, ret)) != SUCCESS)
+		else
+			file.fd = ret;
+		if ((ret = parse(&file)) != SUCCESS)
 			status = FAILURE ;
 		free_tokens(&(file.tokens));
 		// print_header(&file.header);

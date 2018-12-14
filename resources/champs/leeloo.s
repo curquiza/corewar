@@ -19,16 +19,16 @@ pare:	st r16,:begin -52
 	st r16,:begin -44
 	st r16,:begin -52
 	st r16,:begin -44
-	zjmp %:pare
+	zjmp %:pare # -50
 toto:	st r15,-480
 	st r4,-481
 	st r7,-482
 	st r8,-483
 	st r13,-484
 	st r14,-485
-	zjmp %-510
+	zjmp %-510 # -510
 deb:	
-st1:	st r1,:lastlive1 +1
+st1:	st r1,:lastlive1 +1 # *(lastlive + 1) = r1
 st2:	st r1,:lastlive2 +1
 st3:	st r1,:lastlive3 +1
 st4:	st r1,:lastlive4 +1

@@ -1,18 +1,6 @@
 #include "asm.h"
 
-t_ex_ret		link_token(t_src_file *file, char *line, int len, int col)
-{
-	t_ex_ret	ret;
-	t_token		*token;
-
-	if ((ret = create_token(&token, line, len, col)) == SUCCESS)
-	{
-		add_token(&(file->tokens), token);
-	}
-	return (ret);
-}
-
-t_ex_ret		create_token(t_token **elem, char *line, int len, int col)
+static t_ex_ret		create_token(t_token **elem, char *line, int len, t_type type)
 {
 	if (!(*elem = (t_token*)malloc(sizeof(t_token))))
 		return (ft_ret_err(ERR_MALLOC));
@@ -20,11 +8,11 @@ t_ex_ret		create_token(t_token **elem, char *line, int len, int col)
 		return (ft_ret_err(ERR_MALLOC));
 	(*elem)->prev = NULL;
 	(*elem)->next = NULL;
-	(*elem)->col = col;
+	(*elem)->type = type;
 	return (SUCCESS);
 }
 
-void			add_token(t_token **tokens, t_token *new)
+static void			add_token(t_token **tokens, t_token *new)
 {
 	t_token	*tmp;
 
@@ -41,47 +29,19 @@ void			add_token(t_token **tokens, t_token *new)
 	return ;
 }
 
-// void			remove_current_token(t_src_file *file)
-// {
-// 	t_token	*tmp;
-
-// 	tmp = file->current;
-// 	file->current = file->current->prev;
-// 	tmp->prev->next = tmp->next;
-// 	free (tmp->str);
-// 	free (tmp);
-
-// }
-
-void			print_tokens(t_token *tokens)
+t_ex_ret			link_token(t_token **tokens, char *line, int len, t_type type)
 {
-	t_token	*tmp;
+	t_ex_ret	ret;
+	t_token		*new;
 
-	tmp = tokens;
-	ft_printf("-------\n");
-	while (tmp)
+	if ((ret = create_token(&new, line, len, type)) == SUCCESS)
 	{
-		ft_printf("%s*\n",tmp->str);
-		tmp = tmp->next;
+		add_token(tokens, new);
 	}
-	ft_printf("-------\n");
+	return (ret);
 }
 
-void			print_rev_tokens(t_token *tokens)
-{
-	t_token	*tmp;
-
-	tmp = tokens;
-	ft_printf("-------\n");
-	while (tmp)
-	{
-		ft_printf("%s*\n",tmp->str);
-		tmp = tmp->prev;
-	}
-	ft_printf("-------\n");
-}
-
-void			free_tokens(t_token **tokens)
+void				free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
 	t_token	*prev;

@@ -8,12 +8,13 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		op.c \
 		error.c \
 		option.c \
-		parse.c \
+		parser.c \
 		parse_name.c \
 		parse_comment.c \
-		parse_instr.c \
-		syntax.c \
+		lexer.c \
+		print_lexer.c \
 		token.c \
+		token_types.c \
 		output_file.c \
 		output_stdout.c \
 		tools.c \
