@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static int	get_beginning_index(int num, t_vm *vm)
+int	get_beginning_index(int num, t_vm *vm)
 {
 	return (MEM_SIZE * num / vm->total_players);
 }
@@ -55,46 +55,6 @@ static void	fill_all_prog_in_memory(t_vm *vm)
 	{
 		index = get_beginning_index(i, vm);
 		fill_memory(index, &vm->player[i], vm, i);
-		i++;
-	}
-}
-
-static t_processus	*new_processus(int index, t_vm *vm)
-{
-	t_processus		*new;
-
-	if (!(new = ft_memalloc(sizeof(*new))))
-		exit_malloc_err();
-	new->pc = index;
-	vm->memory[index].proc = TRUE;
-	vm->total_proc += 1;
-	return (new);
-}
-
-static void	add_processus(t_processus **alst, t_processus *new)
-{
-	if (!alst)
-		return ;
-	else if (!*alst)
-		*alst = new;
-	else
-	{
-		new->next = *alst;
-		*alst = new;
-	}
-}
-
-static void	create_all_first_processus(t_vm *vm)
-{
-	int		i;
-	int		index;
-
-	i = 0;
-	while (i < vm->total_players)
-	{
-		index = get_beginning_index(i, vm);
-		add_processus(&vm->proc, new_processus(index, vm));
-		vm->proc->reg[0] = ~vm->player[i].num;
 		i++;
 	}
 }

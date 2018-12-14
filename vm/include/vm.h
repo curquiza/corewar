@@ -256,6 +256,10 @@ t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 /*
 ** Setup : before starting
 */
+t_processus		*new_processus(int index, t_vm *vm);
+void			add_processus(t_processus **alst, t_processus *new);
+void			create_all_first_processus(t_vm *vm);
+int				get_beginning_index(int num, t_vm *vm);
 void			vm_setup(t_vm *vm);
 
 /*
@@ -288,6 +292,7 @@ void			op_st(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
 void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
+void			op_fork(t_vm *vm, t_processus *proc, t_param *params);
 
 /*
 ** Clean

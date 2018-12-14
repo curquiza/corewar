@@ -23,6 +23,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin1.c \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
+	  vm_setup.c \
+	  vm_setup_processus.c \
 	  op.c \
 	  op_parsing.c \
 	  op_utils.c \
@@ -32,7 +34,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  op_and.c \
 	  op_zjmp.c \
 	  op_sti.c \
-	  vm_setup.c \
+	  op_fork.c \
 	  dump_flag.c \
 	  verbose_flag.c \
 	  manage_end_of_period.c \

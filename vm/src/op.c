@@ -29,7 +29,7 @@ t_op g_op[OP_NUMBER] =
 		25, TRUE, TRUE, NULL },
 	{ 0x0b, "sti", 3, { T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG },
 		25, TRUE, TRUE, &op_sti },
-	{ 0x0c, "fork", 1, { T_DIR }, 800, FALSE, TRUE, NULL },
+	{ 0x0c, "fork", 1, { T_DIR }, 800, FALSE, TRUE, &op_fork },
 	{ 0x0d, "lld", 2, { T_DIR | T_IND, T_REG }, 10, TRUE, FALSE, NULL },
 	{ 0x0e, "lldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },
 		50, TRUE, TRUE, NULL },

@@ -26,10 +26,10 @@ function check_diff() {
 	fi
 }
 
-# Usage : run_test "file" "step" "cycle_max"
+# Usage : run_test "file" "begin" "step" "cycle_max"
 function run_test() {
 	echo "$1"
-	for i in $(seq 0 "$2" "$3"); do
+	for i in $(seq "$2" "$3" "$4"); do
 		local rslt=$(check_diff "$i" "$tests_folder/$1")
 		if [[ $rslt == "1" ]]; then
 			printf "  > %-20s$GREEN%s$DEF\n" "$i" "✓"
@@ -45,13 +45,15 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
-run_test "and_1.cor" 200 1500			# end : 1536
-run_test "sti_1.cor" 200 1500			# end : 1536
-run_test "sti_2.cor" 200 1500			# end : 1536
-run_test "sti_3.cor" 200 1500			# end : 1536
-run_test "zjmp_1.cor" 200 1500			# end : 1536
-run_test "zjmp_2.cor" 500 3000			# end : 3072
-run_test "zork.cor" 1000 10000			# end : 57955
-run_test "bigzork.cor" 1000 10000		# end : 28363
+run_test "and_1.cor" 0 200 1500			# end : 1536
+run_test "st_1.cor" 0 1 20				# end : 1536
+run_test "sti_1.cor" 0 200 1500			# end : 1536
+run_test "sti_2.cor" 0 200 1500			# end : 1536
+run_test "sti_3.cor" 0 200 1500			# end : 1536
+run_test "zjmp_1.cor" 0 200 1500		# end : 1536
+run_test "zjmp_2.cor" 0 500 3000		# end : 3072
+run_test "zork.cor" 0 1000 10000		# end : 57955
+run_test "bigzork.cor" 0 1000 10000		# end : 28363
+run_test "turtle.cor" 1730 1 1750		# end : 40481
 
 exit $status
