@@ -57,11 +57,13 @@ void			print_tokens(t_token *tokens)
 	t_token	*tmp;
 
 	tmp = tokens;
+	ft_printf("---\n");
 	while (tmp)
 	{
 		ft_printf("%s\n",tmp->str);
 		tmp = tmp->next;
 	}
+	ft_printf("---\n");
 }
 
 void			print_rev_tokens(t_token *tokens)
