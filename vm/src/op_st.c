@@ -11,8 +11,8 @@ void	op_st(t_vm *vm, t_processus *proc, t_param *params)
 	int		v_to_st;
 
 	print_str("\tExecuting ST\n", ALL, vm);
-	if (is_valid_reg_index(params[0].value))
-	{
+	/*if (is_valid_reg_index(params[0].value))*/
+	/*{*/
 		v_to_st = proc->reg[params[0].value - 1];
 		if (params[1].type == T_REG && is_valid_reg_index(params[1].value))
 			proc->reg[params[1].value - 1] = v_to_st;
@@ -26,5 +26,5 @@ void	op_st(t_vm *vm, t_processus *proc, t_param *params)
 			ft_dprintf(vm->trace_fd, "addr = %d\n", (unsigned short) (proc->pc + (params[1].value)));
 			ft_dprintf(vm->trace_fd, "get_mem_index(addr) = %d\n", get_mem_index((unsigned short) (proc->pc + (params[1].value))));
 		}
-	}
+	/*}*/
 }

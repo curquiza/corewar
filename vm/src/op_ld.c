@@ -14,10 +14,10 @@ void	op_ld(t_vm *vm, t_processus *proc, t_param *params)
 
 	print_str("\tExecuting LD\n", ALL, vm);
 	reg_index = params[1].value;
-	if (is_valid_reg_index(reg_index))
-	{
+	/*if (is_valid_reg_index(reg_index))*/
+	/*{*/
 		v_to_ld = get_value_according_to_type(vm, proc, &params[0]);
 		proc->reg[reg_index - 1] = v_to_ld;
 		proc->carry = v_to_ld == 0 ? 1 : 0 ;
-	}
+	/*}*/
 }

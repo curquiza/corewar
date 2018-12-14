@@ -14,8 +14,8 @@ void	op_or(t_vm *vm, t_processus *proc, t_param *params)
 	int		p2;
 
 	print_str("\tExecuting OR\n", ALL, vm);
-	if (is_valid_reg_index(params[2].value) == TRUE)
-	{
+	/*if (is_valid_reg_index(params[2].value) == TRUE)*/
+	/*{*/
 		p1 = get_value_according_to_type(vm, proc, &params[0]);
 		p2 = get_value_according_to_type(vm, proc, &params[1]);
 		proc->reg[params[2].value - 1] = p1 | p2;
@@ -23,5 +23,5 @@ void	op_or(t_vm *vm, t_processus *proc, t_param *params)
 		ft_dprintf(vm->trace_fd, "p1 = 0x%x\n", p1); //DEBUG
 		ft_dprintf(vm->trace_fd, "p2 = 0x%x\n", p2); //DEBUG
 		ft_dprintf(vm->trace_fd, "p3 = 0x%x\n", params[2].value); //DEBUG
-	}
+	/*}*/
 }
