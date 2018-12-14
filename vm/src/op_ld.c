@@ -18,7 +18,6 @@ void	op_ld(t_vm *vm, t_processus *proc, t_param *params)
 	{
 		v_to_ld = get_value_according_to_type(vm, proc, &params[0]);
 		proc->reg[reg_index - 1] = v_to_ld;
-		// est ce qu'on modifie le carry si reg_index n'est pas valide ??
 		proc->carry = v_to_ld == 0 ? 1 : 0 ;
 	}
 }
