@@ -31,17 +31,15 @@ t_bool		is_label_char(char c)
 
 int					tokenize(char *start)
 {
-	const char 	*label_chars = LABEL_CHARS;
-	const char 	*special_chars = SPECIAL_CHARS;
-	const char 	*whitespaces = " \t";
+	static const char 	*label_chars = LABEL_CHARS;
+	static const char 	*special_chars = SPECIAL_CHARS;
+	static const char 	*whitespaces = WHITESPACES;
 	char 	*end;
 	
 	if (!*start)
 		return (-1);
-	
 	if (ft_strchr(special_chars, *start))
 		return (1);
-
 	end = start;
 	if (ft_strchr(whitespaces, *end))
 	{
@@ -49,11 +47,11 @@ int					tokenize(char *start)
 			end++;
 		return (end - start);
 	}
-
-	while (*end++)
+	if (ft_strchr(label_chars, *end))
 	{
-		if (!*end || (ft_strchr(whitespaces, *end) || (ft_strchr(special_chars, *end))))
-			return (end - start);
+		while (ft_strchr(label_chars, *end))
+			end++;
+		return (end - start);
 	}
 	return (-2);
 }
@@ -61,25 +59,24 @@ int					tokenize(char *start)
 
 t_ex_ret			lexer(t_token **tokens, char *line)
 {
+	int		len;
+	char	*stop;
 
-
-	int			len;
-	int			stop;
-
-
-	ft_printf("lexer!");
-
-	stop = ft_strlen(line);
-	while (stop--)
+	stop = line + ft_strlen(line);
+	while (*line)
 	{
 		ft_printf("ici: %s\t", line);
-		if ((len = tokenize(line, special_chars, whitespaces)) < 0)
+		if ((len = tokenize(line)) < 0)
 			break ;
 		ft_printf("len: %d\n", len);
-		link_token(tokens, line, len);
-		line += len;
-		stop -= len;
+		if ((link_token(tokens, line, len)) == FAILURE)
+			return (FAILURE);
+		if ((line + len) <= stop)
+			line += len;
+		else
+			break ;
 	}
-	print_tokens(*tokens);
+	if (len == -2)
+		return (ft_ret_err(INVALID_CHAR));
 	return (SUCCESS);
 }

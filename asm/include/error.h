@@ -21,5 +21,6 @@
 # define NO_COMMENT		"Comment was expected in the source file."
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
+# define INVALID_CHAR	"Invalid ascii symbol."
 
 #endif

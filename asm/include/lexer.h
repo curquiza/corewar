@@ -1,7 +1,8 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-# define SPECIAL_CHARS "#:,%+-"
+# define SPECIAL_CHARS 	"#:,%+-"
+# define WHITESPACES 	" \t\f\n\r\t\v"
 
 typedef enum e_type
 {
