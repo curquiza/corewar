@@ -1,18 +1,18 @@
 #include "asm.h"
 
-t_ex_ret		link_token(t_token **tokens, char *line, int len)
+t_ex_ret		link_token(t_token **tokens, char *line, int len, t_type type)
 {
 	t_ex_ret	ret;
 	t_token		*new;
 
-	if ((ret = create_token(&new, line, len)) == SUCCESS)
+	if ((ret = create_token(&new, line, len, type)) == SUCCESS)
 	{
 		add_token(tokens, new);
 	}
 	return (ret);
 }
 
-t_ex_ret		create_token(t_token **elem, char *line, int len)
+t_ex_ret		create_token(t_token **elem, char *line, int len, t_type type)
 {
 	if (!(*elem = (t_token*)malloc(sizeof(t_token))))
 		return (ft_ret_err(ERR_MALLOC));
@@ -20,6 +20,7 @@ t_ex_ret		create_token(t_token **elem, char *line, int len)
 		return (ft_ret_err(ERR_MALLOC));
 	(*elem)->prev = NULL;
 	(*elem)->next = NULL;
+	(*elem)->type = type;
 	return (SUCCESS);
 }
 
@@ -40,18 +41,6 @@ void			add_token(t_token **tokens, t_token *new)
 	return ;
 }
 
-// void			remove_current_token(t_src_file *file)
-// {
-// 	t_token	*tmp;
-
-// 	tmp = file->current;
-// 	file->current = file->current->prev;
-// 	tmp->prev->next = tmp->next;
-// 	free (tmp->str);
-// 	free (tmp);
-
-// }
-
 void			print_tokens(t_token *tokens)
 {
 	t_token	*tmp;
@@ -60,22 +49,11 @@ void			print_tokens(t_token *tokens)
 	ft_printf("---\n");
 	while (tmp)
 	{
-		ft_printf("%s*\n",tmp->str);
+		ft_printf("%-30s",tmp->str);
+		print_token_type(tmp->type);
 		tmp = tmp->next;
 	}
 	ft_printf("---\n");
-}
-
-void			print_rev_tokens(t_token *tokens)
-{
-	t_token	*tmp;
-
-	tmp = tokens;
-	while (tmp)
-	{
-		ft_printf("%s\n",tmp->str);
-		tmp = tmp->prev;
-	}
 }
 
 void			free_tokens(t_token **tokens)

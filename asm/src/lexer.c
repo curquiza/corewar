@@ -4,52 +4,51 @@
 ** lexer take a line and return a list of tokens.
 */
 
-t_bool		is_whitespace(char c)
+t_bool				is_whitespace(char c)
 {
-	if (c == ' ' || c == '\t')
+	static const char 	*whitespaces = WHITESPACES;
+
+	if ((ft_strchr(whitespaces, c)))
 		return (TRUE);
 	return (FALSE);
 }
 
-t_bool		is_special_char(char c)
+t_bool				is_special_char(char c)
 {
-	const char *special_chars = SPECIAL_CHARS;
+	static const char 	*special_chars = SPECIAL_CHARS;
 
-	if (!(ft_strchr(special_chars, c)))
+	if ((ft_strchr(special_chars, c)))
 		return (TRUE);
 	return (FALSE);
 }
 
-t_bool		is_label_char(char c)
-{
-	const char *laber_chars = LABEL_CHARS;
-
-	if (!(ft_strchr(laber_chars, c)))
-		return (TRUE);
-	return (FALSE);
-}
-
-int					tokenize(char *start)
+t_bool				is_label_char(char c)
 {
 	static const char 	*label_chars = LABEL_CHARS;
-	static const char 	*special_chars = SPECIAL_CHARS;
-	static const char 	*whitespaces = WHITESPACES;
-	char 	*end;
+
+	if ((ft_strchr(label_chars, c)))
+		return (TRUE);
+	return (FALSE);
+}
+
+static int			tokenize(char *start)
+{
+	char 				*end;
 	
-	if (!*start)
+	if (!*start || *start == COMMENT_CHAR)
 		return (-1);
-	if (ft_strchr(special_chars, *start))
+	if (is_special_char(*start))
 		return (1);
 	end = start;
-	if (ft_strchr(whitespaces, *end))
+	if (is_whitespace(*end))
 	{
-		while (ft_strchr(whitespaces, *end))
+		while (is_whitespace(*end))
 			end++;
 		return (end - start);
 	}
-	if (ft_strchr(label_chars, *end))
+	if (is_label_char(*end))
 	{
-		while (ft_strchr(label_chars, *end))
+		while (is_label_char(*end))
 			end++;
 		return (end - start);
 	}
@@ -57,26 +56,26 @@ int					tokenize(char *start)
 }
 
 
-t_ex_ret			lexer(t_token **tokens, char *line)
+t_ex_ret			lexer(t_token **tokens, char *line, int nb_line)
 {
 	int		len;
-	char	*stop;
+	int		col;
+	int		stop;
+	t_type	type;
 
-	stop = line + ft_strlen(line);
-	while (*line)
+	stop = ft_strlen(line);
+	col = 0;
+	len = 0;
+	while ((col + len) <= stop)
 	{
-		ft_printf("ici: %s\t", line);
-		if ((len = tokenize(line)) < 0)
+		if ((len = tokenize(line + col)) < 0)
 			break ;
-		ft_printf("len: %d\n", len);
-		if ((link_token(tokens, line, len)) == FAILURE)
+		type = get_token_type(line + col, len);
+		if ((link_token(tokens, line + col, len, type)) == FAILURE)
 			return (FAILURE);
-		if ((line + len) <= stop)
-			line += len;
-		else
-			break ;
+		col += len;
 	}
 	if (len == -2)
-		return (ft_ret_err(INVALID_CHAR));
+		return (parse_error(nb_line, INVALID_CHAR));
 	return (SUCCESS);
 }
