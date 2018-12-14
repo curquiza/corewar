@@ -196,6 +196,12 @@ typedef struct 	s_vm
 ** OPERATION ***
 */
 
+typedef enum	s_addr_type
+{
+	DEF_ADDR,
+	RESTRICT,
+}				t_addr_type;
+
 typedef struct	s_param
 {
 	t_byte		type;
@@ -237,8 +243,8 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-uint32_t		memvalue_to_uint32(t_memcase *vm_mem, unsigned short index,
-									int size);
+uint32_t		memvalue_to_uint32(t_memcase *vm_mem, t_processus *proc,
+									signed short index, int size);
 
 /*
 ** Parsing
@@ -319,11 +325,14 @@ void			getkey(t_vm *vm);
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
-int				get_mem_index(unsigned short index);
+//int				get_mem_index(unsigned short index);
+int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
 											t_param *p);
-void			store_4bytes(t_vm *vm, unsigned short index, int value,
+//void			store_4bytes(t_vm *vm, unsigned short index, int value,
+							//t_processus *proc);
+void			store_4bytes(t_vm *vm, signed short index, int value,
 							t_processus *proc);
 
 #endif

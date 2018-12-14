@@ -49,18 +49,18 @@ static void		move_to_next_op(t_processus *proc, t_param *params)
 		}
 		if (proc->current_op->ocp == TRUE)
 			proc->pc += 1;
-		proc->pc = get_mem_index(proc->pc);
+		proc->pc = get_mem_index(proc, 0, DEF_ADDR);
 	}
 	else
-		proc->pc = get_mem_index(proc->pc + 1);
+		proc->pc = get_mem_index(proc, 1, DEF_ADDR);
 	/*vm->memory[proc->pc].proc = TRUE;*/
 	/*proc->current_op = NULL;*/
 	/*proc->cycles = 0;*/
 }
 
-static t_bool	need_move(t_op *op)
+static t_bool	need_move(t_processus *proc)
 {
-	if (op->opcode == 0x09)
+	if (proc->current_op->opcode == 0x09 && proc->carry == 1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -81,7 +81,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 			print_str2("\tNo op execution : error in OCP for operation",
 						proc->current_op->name,  ALL, vm);
 		print_str("\tMoving to the next operation\n", ALL, vm);
-		if (need_move(proc->current_op) == TRUE)
+		if (need_move(proc) == TRUE)
 			move_to_next_op(proc, params);
 		proc->current_op = NULL;
 		proc->cycles = 0;

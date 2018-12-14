@@ -19,12 +19,10 @@ void	op_st(t_vm *vm, t_processus *proc, t_param *params)
 		else if (params[1].type == T_IND)
 		{
 			store_4bytes(vm,
-					/*(unsigned short) (proc->pc + ((params[1].value) % IDX_MOD)),*/
-					(unsigned short) (proc->pc + (params[1].value)),
+					/*(unsigned short) (proc->pc + (((signed short) (params[1].value)) % IDX_MOD)),*/
+					params[1].value,
+					/*(unsigned short) (proc->pc + (params[1].value)),*/
 					v_to_st, proc);
-			ft_dprintf(vm->trace_fd, "v_to_st = %d\n", v_to_st);
-			ft_dprintf(vm->trace_fd, "addr = %d\n", (unsigned short) (proc->pc + (params[1].value)));
-			ft_dprintf(vm->trace_fd, "get_mem_index(addr) = %d\n", get_mem_index((unsigned short) (proc->pc + (params[1].value))));
 		}
 	/*}*/
 }

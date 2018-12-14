@@ -22,9 +22,7 @@ void	op_ldi(t_vm *vm, t_processus *proc, t_param *params)
 		p1 = get_value_according_to_type(vm, proc, &params[0]);
 		p2 = get_value_according_to_type(vm, proc, &params[1]);
 		/*v_to_ld = get_value_according_to_type(vm, proc, &params[0]);*/
-		v_to_ld = memvalue_to_uint32(vm->memory,
-									(unsigned short) (proc->pc + p1 + p2),
-									REG_SIZE);
+		v_to_ld = memvalue_to_uint32(vm->memory, proc, p1 + p2, REG_SIZE);
 		proc->reg[reg_index - 1] = v_to_ld;
 		proc->carry = v_to_ld == 0 ? 1 : 0 ;
 	/*}*/
