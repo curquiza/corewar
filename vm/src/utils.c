@@ -17,7 +17,7 @@ t_bool	flag_is_applied(int flag, t_vm *vm)
 */
 int		get_mem_index(unsigned short index)
 {
-	return (index % (MEM_SIZE - 1));
+	return (index % MEM_SIZE);
 }
 
 t_bool	is_valid_reg_index(int index)
