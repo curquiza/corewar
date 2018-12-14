@@ -38,6 +38,7 @@ int					tokenize(char *start)
 	
 	if (!*start)
 		return (-1);
+	
 	if (ft_strchr(special_chars, *start))
 		return (1);
 
@@ -46,6 +47,7 @@ int					tokenize(char *start)
 	{
 		while (ft_strchr(whitespaces, *end))
 			end++;
+		return (end - start);
 	}
 
 	while (*end++)
