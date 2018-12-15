@@ -25,7 +25,7 @@ t_ex_ret		parse(t_src_file *file)
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_line(t_token *tokens, int nb_line)
+t_ex_ret		parse_line(t_token_list *tokens, int nb_line)
 {
 	(void)nb_line;
 	(void)tokens;
@@ -39,9 +39,9 @@ t_ex_ret		parse_line(t_token *tokens, int nb_line)
 
 t_ex_ret		parser(t_src_file *file)
 {
-	char		*line;
-	t_token 	*tokens;
-	int			ret;
+	char			*line;
+	t_token_list 	*tokens;
+	int				ret;
 
 	tokens = NULL;
 	while ((get_next_line(file->fd, &line)) > 0)
