@@ -28,7 +28,7 @@ static int			tokenize(char *start)
 ** lexer: take a line and return a list of tokens.
 */
 
-t_ex_ret			lexer(t_token **tokens, char *line, int nb_line)
+t_ex_ret			lexer(t_token_list **tokens, char *line, int nb_line)
 {
 	int		len;
 	int		col;
@@ -43,8 +43,6 @@ t_ex_ret			lexer(t_token **tokens, char *line, int nb_line)
 		if ((len = tokenize(line + col)) < 0)
 			break ;
 		token_name = ft_strsub(line, col, len);
-		// type = get_token_type(token_name);
-		// free(token_name);
 		if ((link_token(tokens, &token_name, nb_line, col)) == FAILURE)
 			return (FAILURE);
 		col += len;

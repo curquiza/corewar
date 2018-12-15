@@ -8,9 +8,7 @@ typedef struct					s_src_file
 	int							fd;
 	t_header					header;	
 	char						*filename;
-	t_token						*tokens;
 	int							nb_line;
-
 }								t_src_file;
 
 typedef struct					s_op

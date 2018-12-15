@@ -25,16 +25,16 @@ static void			print_token_type(t_type type)
 	ft_putendl("");
 }
 
-void			print_tokens(t_token *tokens)
+void			print_tokens(t_token_list *tokens)
 {
-	t_token	*tmp;
+	t_token_list	*tmp;
 
 	tmp = tokens;
 	ft_printf("---\n");
 	while (tmp)
 	{
-		ft_printf("%d-%d %-30s", tmp->line, tmp->col, tmp->str);
-		print_token_type(tmp->type);
+		ft_printf("%d-%d %-30s", tmp->token->line, tmp->token->col, tmp->token->str);
+		print_token_type(tmp->token->type);
 		tmp = tmp->next;
 	}
 	ft_printf("---\n");
