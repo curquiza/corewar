@@ -24,6 +24,13 @@ t_src_file		*g_file;
 int				get_options(int *argc, char ***argv);
 
 /*
+** INPUT
+*/
+t_ex_ret		read_file(t_src_file *file, t_list **head);
+void			print_file(t_list *file);
+void 			del(void *content, size_t content_size);
+
+/*
 ** OUTPUT
 */
 t_ex_ret		write_output_file(t_src_file *file);
@@ -36,5 +43,6 @@ t_ex_ret		put_error(char *e);
 int				put_error_code(char *e, int code);
 int     		get_trim_line(const int fd, char **line);
 int     		count_char(char *s, char c);
+t_ex_ret		list_to_array(t_list *input, char ***array, int len);
 
 #endif

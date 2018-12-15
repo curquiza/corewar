@@ -8,6 +8,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		op.c \
 		error.c \
 		option.c \
+		read_file.c \
 		parser.c \
 		parse_name.c \
 		parse_comment.c \
