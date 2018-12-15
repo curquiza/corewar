@@ -66,9 +66,13 @@ t_ex_ret		parser(t_src_file *file)
 	{
 		file->nb_line++;
 		if ((lexer(&tokens, *tmp, file->nb_line)) == FAILURE)
-				return (FAILURE);
+		{
+			ft_tabdel(&array_input);
+			free_tokens(&tokens);
+			return (FAILURE);
+		}
 		print_tokens(tokens);
-		ret = parse_line(tokens, file->nb_line);
+		ret = parse_line(tokens, file->nb_line); // return ??
 		free_tokens(&tokens);
 		tmp++;
 	}
