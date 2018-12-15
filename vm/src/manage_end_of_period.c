@@ -31,9 +31,9 @@ static void	manage_cycles_verification(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;
-		print_str("\tReseting lives\n", ALL, vm);
-		vm->lives = 0;
 	}
+	print_str("\tReseting lives\n", ALL, vm);
+	vm->lives = 0;
 }
 
 static void	supp_processus(t_processus **proc, t_vm *vm)
