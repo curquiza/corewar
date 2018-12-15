@@ -38,32 +38,30 @@ t_ex_ret		parse_line(t_token_list *tokens, int nb_line)
 ** parser: read the end of the file, line by line and parse them.
 */
 
-t_ex_ret		parser(t_src_file *file)
+t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 {
 	t_ex_ret		ret;
 	t_list 			*list_input;
+
+	list_input = NULL;
+	ret = FAILURE;
+	if ((read_file(file, &list_input)) == SUCCESS)
+		ret = list_to_array(list_input, array_input, ft_lstlen(list_input));
+	ft_lstdel(&list_input, &del);
+	return (ret);
+}
+
+t_ex_ret		parser(t_src_file *file)
+{
+	t_ex_ret		ret;
 	char			**array_input;
 	t_token_list 	*tokens;
 	char			**tmp;
 
-	(void)tokens;
-	(void)array_input;
-	(void)tmp;
-	
-	list_input = NULL;
 	array_input = NULL;
 	tokens = NULL;
-	
-	ret = read_file(file, &list_input);
-	print_file(list_input);
-
-	ret = list_to_array(list_input, &array_input, ft_lstlen(list_input));
-	ft_puttab(array_input);
-
-	ft_lstdel(&list_input, &del);
-
+	init_parser(file, &array_input);
 	tmp = array_input;
-
 	while (*tmp)
 	{
 		file->nb_line++;
@@ -74,7 +72,6 @@ t_ex_ret		parser(t_src_file *file)
 		free_tokens(&tokens);
 		tmp++;
 	}
-
 	ft_tabdel(&array_input);
 	return (ret);
 }
