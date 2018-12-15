@@ -64,5 +64,6 @@ int				main (int argc, char **argv)
 		free_tokens(&(file.tokens));
 		// print_header(&file.header);
 	}
+	while (1);
 	return (status);
 }

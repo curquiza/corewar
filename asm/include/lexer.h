@@ -8,6 +8,7 @@
 typedef enum 			e_type
 {
 	NONE,
+	STRING = 1,
 	OPCODE = 2,
 	INTEGER = 4,
 	REGISTRE = 8,
@@ -24,11 +25,19 @@ typedef struct			s_token
 	struct s_token		*next;
 	char				*str;
 	t_type				type;
+	unsigned int		line;
 	unsigned int		col;
 }						t_token;
 
+// typedef struct			s_link
+// {
+// 	struct s_token		*prev;
+// 	struct s_token		*next;
+// 	struct s_token		*token;
+// }						t_link;
+
 t_ex_ret				lexer(t_token **tokens, char *line, int nb_line);
-t_ex_ret				link_token(t_token **tokens, char *line, int len, t_type type);
+t_ex_ret			link_token(t_token **tokens, char **token_name, int line, int col);
 void					free_tokens(t_token **tokens);
 
 /*
