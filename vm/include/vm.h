@@ -304,6 +304,7 @@ void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_ldi(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
 void			op_fork(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lfork(t_vm *vm, t_processus *proc, t_param *params);
 
 /*
 ** Clean
