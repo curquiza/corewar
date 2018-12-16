@@ -40,6 +40,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  op_ldi.c \
 	  op_sti.c \
 	  op_fork.c \
+	  op_lld.c \
+	  op_lldi.c \
 	  op_lfork.c \
 	  op_aff.c \
 	  dump_flag.c \

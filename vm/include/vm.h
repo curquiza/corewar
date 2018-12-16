@@ -243,7 +243,11 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-uint32_t		memvalue_to_uint32(t_memcase *vm_mem, t_processus *proc,
+uint32_t		memvalue_to_uint32_restrict(t_memcase *vm_mem,
+									t_processus *proc,
+									signed short index, int size);
+uint32_t		memvalue_to_uint32_norestrict(t_memcase *vm_mem,
+									t_processus *proc,
 									signed short index, int size);
 
 /*
@@ -304,6 +308,8 @@ void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
 void			op_ldi(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
 void			op_fork(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lld(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lldi(t_vm *vm, t_processus *proc, t_param *params);
 void			op_lfork(t_vm *vm, t_processus *proc, t_param *params);
 void			op_aff(t_vm *vm, t_processus *proc, t_param *params);
 
@@ -331,7 +337,7 @@ t_bool			flag_is_applied(int flag, t_vm *vm);
 int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
-											t_param *p);
+											t_param *p, t_addr_type addr_type);
 //void			store_4bytes(t_vm *vm, unsigned short index, int value,
 							//t_processus *proc);
 void			store_4bytes(t_vm *vm, signed short index, int value,

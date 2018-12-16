@@ -15,7 +15,7 @@ uint32_t	str_to_uint32(char *str)
 /*
 ** /!\ Address restriction
 */
-uint32_t	memvalue_to_uint32(t_memcase *vm_mem, t_processus *proc,
+uint32_t	memvalue_to_uint32_restrict(t_memcase *vm_mem, t_processus *proc,
 								signed short index, int size)
 {
 	uint32_t		rslt;
@@ -29,5 +29,22 @@ uint32_t	memvalue_to_uint32(t_memcase *vm_mem, t_processus *proc,
 		rslt = (rslt << 8) | (t_byte) vm_mem[get_mem_index(proc, index + 2, RESTRICT)].value;
 	if (size >= 4)
 		rslt = (rslt << 8) | (t_byte) vm_mem[get_mem_index(proc, index + 3, RESTRICT)].value;
+	return (rslt);
+}
+
+uint32_t	memvalue_to_uint32_norestrict(t_memcase *vm_mem, t_processus *proc,
+								signed short index, int size)
+{
+	uint32_t		rslt;
+
+	rslt = 0;
+	if (size >= 1)
+		rslt |= (t_byte) vm_mem[get_mem_index(proc, index, DEF_ADDR)].value;
+	if (size >= 2)
+		rslt = (rslt << 8) | (t_byte) vm_mem[get_mem_index(proc, index + 1, DEF_ADDR)].value;
+	if (size >= 3)
+		rslt = (rslt << 8) | (t_byte) vm_mem[get_mem_index(proc, index + 2, DEF_ADDR)].value;
+	if (size >= 4)
+		rslt = (rslt << 8) | (t_byte) vm_mem[get_mem_index(proc, index + 3, DEF_ADDR)].value;
 	return (rslt);
 }

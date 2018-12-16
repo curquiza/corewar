@@ -29,7 +29,8 @@ t_bool	is_valid_reg_index(int index)
 /*
 ** Get 4 bytes according to parameter type
 */
-int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p)
+int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p,
+								t_addr_type addr_type)
 {
 	int		rslt;
 
@@ -37,7 +38,12 @@ int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p)
 		return (proc->reg[p->value - 1]);
 	if (p->type == T_IND)
 	{
-		rslt = memvalue_to_uint32(vm->memory, proc, p->value, REG_SIZE);
+		if (addr_type == RESTRICT)
+			rslt = memvalue_to_uint32_restrict(vm->memory, proc, p->value,
+											REG_SIZE);
+		else
+			rslt = memvalue_to_uint32_norestrict(vm->memory, proc, p->value,
+											REG_SIZE);
 		return (rslt);
 	}
 	if (p->type == T_DIR)

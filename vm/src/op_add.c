@@ -15,8 +15,8 @@ void	op_add(t_vm *vm, t_processus *proc, t_param *params)
 	int		p3;
 
 	print_str("\tExecuting ADD\n", ALL, vm);
-	p1 = get_value_according_to_type(vm, proc, &params[0]);
-	p2 = get_value_according_to_type(vm, proc, &params[1]);
+	p1 = get_value_according_to_type(vm, proc, &params[0], RESTRICT);
+	p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);
 	p3 = params[2].value;
 	proc->reg[p3 - 1] = p1 + p2;
 	proc->carry = ((p1 + p2) == 0) ? 1 : 0; // pas sûr pour le zero !

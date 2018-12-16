@@ -7,7 +7,7 @@ static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *
 	else
 		params->size = DIR_SIZE;
 	params->type = T_DIR;
-	params->value = memvalue_to_uint32(mem, proc, 1, params->size);
+	params->value = memvalue_to_uint32_norestrict(mem, proc, 1, params->size);
 }
 
 static t_bool	parse_all_params(t_memcase *mem, t_param *params,
@@ -23,7 +23,8 @@ static t_bool	parse_all_params(t_memcase *mem, t_param *params,
 	while (i < proc->current_op->param_nb)
 	{
 		/*params[i].value = memvalue_to_uint32(mem, proc->pc + 2 + j, params[i].size);*/
-		params[i].value = memvalue_to_uint32(mem, proc, 2 + j, params[i].size);
+		params[i].value = memvalue_to_uint32_norestrict(mem, proc, 2 + j,
+														params[i].size);
 		if (params[i].type == T_REG
 			&& is_valid_reg_index(params[i].value) == FALSE)
 			valid_params = FALSE;
