@@ -81,11 +81,11 @@ run_test "Gagnant.cor"				0 2600 26000	# end : 26024
 run_test "Octobre_Rouge_V4.2.cor"	0 2740 27400	# end : 27438
 run_test "helltrain.cor"			0 2740 27400	# end : 27439
 
-tests_folder="../../dlaurent_corewar/appendix/champions/unitests"
+#tests_folder="tests/input_dlaurent_unitests"
 #for file in "$tests_folder"/*.cor ; do
 	#name="$(basename "$file")"
 	#run_test "$name" 0 500 1500
 #done
-# FAIL : ld_st_overflow.cor ldi_bug_in_zaz_corewar.cor lld2.cor lldi.cor st_30.cor st_34.cor st_38.cor st_3c.cor
+# FAIL : ld_st_overflow.cor ldi_bug_in_zaz_corewar.cor lld2.cor lldi.cor
 
 exit $status
