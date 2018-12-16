@@ -1,5 +1,11 @@
 #include "vm.h"
 
+/*
+** Live : declares the processus as alive
+** No OCP
+** p1 = dir
+*/
+
 static t_player	*get_player(int num, t_player *players, int total_players)
 {
 	int		i;
@@ -18,7 +24,7 @@ void	op_live(t_vm *vm, t_processus *proc, t_param *params)
 {
 	t_player		*player;
 
-	print_str("\tLIVE\n", ALL, vm);
+	print_str("\tExecuting LIVE\n", ALL, vm);
 	player = get_player(params[0].value, vm->player, vm->total_players);
 	if (player)
 	{

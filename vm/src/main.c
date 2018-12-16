@@ -93,7 +93,9 @@ void		play_one_cycle(t_vm *vm)
 {
 	vm->total_cycles += 1;
 	vm->current_cycles += 1;
-	print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);
+	/*print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);*/
+	print_str("Starting a new cycle : ", FEW, vm);
+	print_compare_intvar(vm->current_cycles, vm->total_cycles, FEW, vm);
 	print_str("Executing all process\n", FEW, vm);
 	exec_all_proc(vm);
 	if (vm->current_cycles == vm->cycles_to_die)

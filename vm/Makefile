@@ -1,11 +1,12 @@
 NAME = corewar
 
+OS = $(shell uname)
 ifeq ($(OS), Darwin)
-	# MacOs
-	FLAG = -Wall -Wextra -Werror
+   # MacOs
+   FLAG = -Wall -Wextra -Werror
 else
-	# Linux
-	FLAG = -Wall -Wextra
+   # Linux
+   FLAG = -Wall -Wextra
 endif
 
 CC = gcc $(FLAG)
@@ -22,13 +23,27 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  parsing_read_bin1.c \
 	  parsing_read_bin2.c \
 	  parsing_base.c \
+	  vm_setup.c \
+	  vm_setup_processus.c \
 	  op.c \
 	  op_parsing.c \
+	  op_utils.c \
 	  op_live.c \
+	  op_ld.c \
+	  op_st.c \
+	  op_add.c \
+	  op_sub.c \
 	  op_and.c \
-	  op_zjump.c \
+	  op_or.c \
+	  op_xor.c \
+	  op_zjmp.c \
+	  op_ldi.c \
 	  op_sti.c \
-	  vm_setup.c \
+	  op_fork.c \
+	  op_lld.c \
+	  op_lldi.c \
+	  op_lfork.c \
+	  op_aff.c \
 	  dump_flag.c \
 	  verbose_flag.c \
 	  manage_end_of_period.c \
@@ -85,6 +100,8 @@ fclean_all : fclean_lib fclean
 run_tests :
 	@printf "\033[1;33m----------\n%s\n----------\033[0m\n" "VM PARSING"
 	@tests/parsing.sh
+	@printf "\033[1;33m------------\n%s\n------------\033[0m\n" "VM EXECUTION"
+	@tests/vm_diff.sh
 
 re : fclean all
 

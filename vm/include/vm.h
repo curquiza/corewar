@@ -147,7 +147,6 @@ typedef enum	s_run
 
 typedef struct	s_processus
 {
-	//int					index;
 	unsigned short		pc;
 	int					cycles;
 	struct s_op			*current_op;
@@ -197,6 +196,12 @@ typedef struct 	s_vm
 ** OPERATION ***
 */
 
+typedef enum	s_addr_type
+{
+	DEF_ADDR,
+	RESTRICT,
+}				t_addr_type;
+
 typedef struct	s_param
 {
 	t_byte		type;
@@ -238,7 +243,12 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-uint32_t		memvalue_to_uint32(t_memcase *vm_mem, int index, int size);
+uint32_t		memvalue_to_uint32_restrict(t_memcase *vm_mem,
+									t_processus *proc,
+									signed short index, int size);
+uint32_t		memvalue_to_uint32_norestrict(t_memcase *vm_mem,
+									t_processus *proc,
+									signed short index, int size);
 
 /*
 ** Parsing
@@ -256,6 +266,10 @@ t_ex_ret		parsing(int argc, char **argv, t_vm *vm);
 /*
 ** Setup : before starting
 */
+t_processus		*new_processus(int index, t_vm *vm);
+void			add_processus(t_processus **alst, t_processus *new);
+void			create_all_first_processus(t_vm *vm);
+int				get_beginning_index(int num, t_vm *vm);
 void			vm_setup(t_vm *vm);
 
 /*
@@ -283,9 +297,21 @@ void			exec_all_proc(t_vm *vm);
 */
 t_bool			parse_op_params(t_vm *vm, t_processus *proc, t_param *params);
 void			op_live(t_vm *vm, t_processus *proc, t_param *params);
+void			op_ld(t_vm *vm, t_processus *proc, t_param *params);
+void			op_st(t_vm *vm, t_processus *proc, t_param *params);
+void			op_add(t_vm *vm, t_processus *proc, t_param *params);
+void			op_sub(t_vm *vm, t_processus *proc, t_param *params);
 void			op_and(t_vm *vm, t_processus *proc, t_param *params);
-void			op_zjump(t_vm *vm, t_processus *proc, t_param *params);
+void			op_or(t_vm *vm, t_processus *proc, t_param *params);
+void			op_xor(t_vm *vm, t_processus *proc, t_param *params);
+void			op_zjmp(t_vm *vm, t_processus *proc, t_param *params);
+void			op_ldi(t_vm *vm, t_processus *proc, t_param *params);
 void			op_sti(t_vm *vm, t_processus *proc, t_param *params);
+void			op_fork(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lld(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lldi(t_vm *vm, t_processus *proc, t_param *params);
+void			op_lfork(t_vm *vm, t_processus *proc, t_param *params);
+void			op_aff(t_vm *vm, t_processus *proc, t_param *params);
 
 /*
 ** Clean
@@ -307,7 +333,14 @@ void			getkey(t_vm *vm);
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_bool			flag_is_applied(int flag, t_vm *vm);
-int				get_mem_index(int index);
-t_bool			is_valid_reg(int index);
+//int				get_mem_index(unsigned short index);
+int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);
+t_bool			is_valid_reg_index(int index);
+int				get_value_according_to_type(t_vm *vm, t_processus *proc,
+											t_param *p, t_addr_type addr_type);
+//void			store_4bytes(t_vm *vm, unsigned short index, int value,
+							//t_processus *proc);
+void			store_4bytes(t_vm *vm, signed short index, int value,
+							t_processus *proc);
 
 #endif
