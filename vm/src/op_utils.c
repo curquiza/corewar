@@ -8,7 +8,7 @@ int		get_mem_index(t_processus *proc, signed short index, t_addr_type addr)
 	unsigned short		tmp;
 
 	if (addr != RESTRICT)
-		return ((proc->pc + index) % MEM_SIZE);
+		return ((proc->pc + (unsigned short) index) % MEM_SIZE);
 	tmp = (unsigned short) (proc->pc + (index % IDX_MOD));
 	/*ft_dprintf(1, "proc->pc = %d\n", proc->pc);*/
 	/*ft_dprintf(1, "index = %d\n", index);*/
