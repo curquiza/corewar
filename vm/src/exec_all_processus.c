@@ -86,9 +86,11 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		else
 			print_str2("\tNo op execution : error in OCP for operation",
 						proc->current_op->name,  ALL, vm);
-		print_str("\tMoving to the next operation\n", ALL, vm);
 		if (need_move(proc, op_succeed) == TRUE)
+		{
+			print_str("\tMoving to the next operation\n", ALL, vm);
 			move_to_next_op(proc, params);
+		}
 		proc->current_op = NULL;
 		proc->cycles = 0;
 	}

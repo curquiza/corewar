@@ -7,7 +7,6 @@ t_processus	*new_processus(int index, t_vm *vm)
 	if (!(new = ft_memalloc(sizeof(*new))))
 		exit_malloc_err();
 	new->pc = index;
-	vm->memory[index].proc = TRUE;
 	vm->total_proc += 1;
 	return (new);
 }

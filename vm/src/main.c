@@ -151,7 +151,8 @@ void		launch_corewar(t_vm *vm)
 			vm->visu.next_step = FALSE;
 		}
 		vm->visu.enabled ? display_visu(vm) : 0;
-		if (vm->total_cycles == vm->dump_cycle)
+		if (flag_is_applied(DUMP_FLAG, vm) == TRUE
+			&&	vm->total_cycles == vm->dump_cycle)
 		{
 			dump_memory(vm);
 			vm->run = vm->visu.enabled ? vm->run : BREAK;

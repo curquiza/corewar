@@ -34,12 +34,13 @@ static t_bool	parse_all_params(t_memcase *mem, t_param *params,
 	return (valid_params);
 }
 
-static void	get_type_and_size(int code, t_param *params, t_op *current_op)
+static t_bool	get_type_and_size(int code, t_param *params, t_op *current_op)
 {
 	if (code == REG_CODE)
 	{
 		params->size = NUM_REG_SIZE;
 		params->type = T_REG;
+		return (TRUE);
 	}
 	else if (code == DIR_CODE)
 	{
@@ -48,12 +49,15 @@ static void	get_type_and_size(int code, t_param *params, t_op *current_op)
 		else
 			params->size = DIR_SIZE;
 		params->type = T_DIR;
+		return (TRUE);
 	}
 	else if (code == IND_CODE)
 	{
 		params->size = IND_SIZE;
 		params->type = T_IND;
+		return (TRUE);
 	}
+	return (FALSE);
 }
 
 static t_bool	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
@@ -67,7 +71,9 @@ static t_bool	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
 	while (i < current_op->param_nb)
 	{
 		code = (memvalue >> (6 - i * 2)) & OCP_MASQ;
-		get_type_and_size(code, &params[i], current_op);
+		ft_printf("code = %d\n", code);
+		if (get_type_and_size(code, &params[i], current_op) == FALSE)
+			valid_ocp = FALSE;
 		if ((params[i].type & current_op->param_type[i]) != params[i].type)
 			valid_ocp = FALSE;
 		i++;
