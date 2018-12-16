@@ -22,4 +22,8 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 		/*store_4bytes(vm, (unsigned short) (proc->pc + (p2 + p3)), p1, proc);*/
 		store_4bytes(vm, p2 + p3, p1, proc);
 	/*}*/
+	/*ft_printf("params[0].value %x\n", params[0].value);*/
+	/*ft_printf("params[1].value %x\n", params[1].value);*/
+	/*ft_printf("params[2].value %x\n", params[2].value);*/
+	/*ft_printf("pc = %x\n", proc->pc);*/
 }

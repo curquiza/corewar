@@ -71,7 +71,6 @@ static t_bool	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
 	while (i < current_op->param_nb)
 	{
 		code = (memvalue >> (6 - i * 2)) & OCP_MASQ;
-		ft_printf("code = %d\n", code);
 		if (get_type_and_size(code, &params[i], current_op) == FALSE)
 			valid_ocp = FALSE;
 		if ((params[i].type & current_op->param_type[i]) != params[i].type)
