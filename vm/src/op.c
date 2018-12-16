@@ -34,5 +34,5 @@ t_op g_op[OP_NUMBER] =
 	{ 0x0e, "lldi", 3, { T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG },
 		50, TRUE, TRUE, NULL },
 	{ 0x0f, "lfork", 1, { T_DIR }, 1000, FALSE, TRUE, &op_lfork },
-	{ 0x10, "aff", 1, { T_REG }, 2, TRUE, FALSE, NULL }
+	{ 0x10, "aff", 1, { T_REG }, 2, TRUE, FALSE, &op_aff }
 };
