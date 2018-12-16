@@ -60,7 +60,6 @@ run_test "bigzork.cor"		0 4000 28000	# end : 28363
 run_test "turtle.cor"		0 4000 40000	# end : 40481
 run_test "fluttershy.cor"	0 5000 25000	# end : 25903
 run_test "_.cor"			0 2740 27400	# end : 27439
-run_test "helltrain.cor"	0 2740 27000	# end : 27439
-#run_test "helltrain.cor"	25770 1 25780	# end : 27439
+run_test "helltrain.cor"	0 2740 27400	# end : 27439
 
 exit $status

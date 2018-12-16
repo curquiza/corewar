@@ -21,8 +21,5 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 		p3 = get_value_according_to_type(vm, proc, &params[2], RESTRICT);
 		/*store_4bytes(vm, (unsigned short) (proc->pc + (p2 + p3)), p1, proc);*/
 		store_4bytes(vm, p2 + p3, p1, proc);
-		ft_dprintf(vm->trace_fd, "p1 = 0x%x\n", p1); //DEBUG
-		ft_dprintf(vm->trace_fd, "p2 = %x\n", p2);   //DEBUG
-		ft_dprintf(vm->trace_fd, "p3 = %d\n", p3);   //DEBUG
 	/*}*/
 }

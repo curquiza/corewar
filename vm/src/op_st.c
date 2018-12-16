@@ -18,11 +18,7 @@ void	op_st(t_vm *vm, t_processus *proc, t_param *params)
 			proc->reg[params[1].value - 1] = v_to_st;
 		else if (params[1].type == T_IND)
 		{
-			store_4bytes(vm,
-					/*(unsigned short) (proc->pc + (((signed short) (params[1].value)) % IDX_MOD)),*/
-					params[1].value,
-					/*(unsigned short) (proc->pc + (params[1].value)),*/
-					v_to_st, proc);
+			store_4bytes(vm, params[1].value, v_to_st, proc);
 		}
 	/*}*/
 }
