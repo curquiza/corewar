@@ -52,7 +52,7 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
-tests_folder="tests/input_instructions"
+#tests_folder="tests/input_instructions"
 run_test "and_1.cor"		0 500  1500		# end : 1536
 run_test "st_1.cor"			0 500  1500		# end : 1536
 run_test "sti_1.cor"		0 500  1500		# end : 1536
@@ -84,6 +84,13 @@ run_test "Car.cor"					0 2000 14000	# end : too long
 run_test "Gagnant.cor"				0 2600 26000	# end : 26024
 run_test "Octobre_Rouge_V4.2.cor"	0 2740 27400	# end : 27438
 run_test "helltrain.cor"			0 2740 27400	# end : 27439
+run_test "casimir.cor"				800 1 900	# end : 28162 FAIL 860
+
+#tests_folder="tests/input_champs"
+#for file in "$tests_folder"/*.cor ; do
+   #name="$(basename "$file")"
+   #run_test "$name" 0 500 1500
+#done
 
 #tests_folder="tests/input_dlaurent_unitests"
 #for file in "$tests_folder"/*.cor ; do
@@ -95,8 +102,8 @@ run_test "helltrain.cor"			0 2740 27400	# end : 27439
 
 #tests_folder="tests/input_dlaurent_compiled"
 #for file in "$tests_folder"/*.cor ; do
-	#name="$(basename "$file")"
-	#run_test "$name" 0 1000 10000
+   #name="$(basename "$file")"
+   #run_test "$name" 0 500 1500
 #done
 
 exit $status
