@@ -58,15 +58,20 @@ static void		move_to_next_op(t_processus *proc, t_param *params)
 	/*proc->cycles = 0;*/
 }
 
-static t_bool	need_move(t_processus *proc)
+static t_bool	need_move(t_processus *proc, t_bool op_succeed)
 {
-	if (proc->current_op->opcode == 0x09 && proc->carry == 1)
+	if (proc->current_op->opcode == 0x09
+			&& proc->carry == 1
+			&& op_succeed == TRUE)
 		return (FALSE);
 	return (TRUE);
 }
 
 static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 {
+	t_bool	op_succeed;
+
+	op_succeed = FALSE;
 	proc->cycles += 1;
 	if (proc->cycles == proc->current_op->cycles && proc->current_op)
 	{
@@ -76,12 +81,13 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		{
 			/*print_params(params, vm); //DEBUG*/
 			proc->current_op->func(vm, proc, params);
+			op_succeed = TRUE;
 		}
 		else
 			print_str2("\tNo op execution : error in OCP for operation",
 						proc->current_op->name,  ALL, vm);
 		print_str("\tMoving to the next operation\n", ALL, vm);
-		if (need_move(proc) == TRUE)
+		if (need_move(proc, op_succeed) == TRUE)
 			move_to_next_op(proc, params);
 		proc->current_op = NULL;
 		proc->cycles = 0;
