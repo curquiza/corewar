@@ -13,6 +13,11 @@ tests_folder="tests/input_instructions"
 
 status=0
 
+function basename() {
+	local s="$1"
+	echo "${s##*/}"
+}
+
 # Usage : check_diff "cycles" "file"
 function check_diff() {
 	$corewar "$1" "$2" | tail -n 64 > output1 2>&1
@@ -45,21 +50,42 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
+tests_folder="tests/input_instructions"
 run_test "and_1.cor"		0 500  1500		# end : 1536
 run_test "st_1.cor"			0 500  1500		# end : 1536
 run_test "sti_1.cor"		0 500  1500		# end : 1536
 run_test "sti_2.cor"		0 500  1500		# end : 1536
 run_test "sti_3.cor"		0 500  1500		# end : 1536
 run_test "sti_4.cor"		0 500  1500		# end : 1536
+run_test "st_30.cor"		0 500  3000		# end : 3072
 run_test "zjmp_1.cor"		0 500  1500		# end : 1536
 run_test "zjmp_2.cor"		0 1000 3000		# end : 3072
 run_test "zjmp_3.cor"		0 500  1500		# end : 1536
 run_test "fork_2.cor"		0 500  1500		# end : 1536
-run_test "zork.cor"			0 5000 57000	# end : 57955
-run_test "bigzork.cor"		0 4000 28000	# end : 28363
-run_test "turtle.cor"		0 4000 40000	# end : 40481
-run_test "fluttershy.cor"	0 5000 25000	# end : 25903
-run_test "_.cor"			0 2740 27400	# end : 27439
-run_test "helltrain.cor"	0 2740 27400	# end : 27439
+run_test "lfork.cor"		0 500  1500		# end : 1536
+
+tests_folder="tests/input_champs"
+run_test "ex.cor"					0 1000 3000		# end : 3072
+run_test "jumper.cor"				0 6000 24000	# end : 24690
+run_test "maxidef.cor"				0 2590 25900	# end : 25902
+run_test "mortel.cor"				0 1000 7400		# end : 7430
+run_test "slider2.cor"				0 2520 25200	# end : 25200 FAIL
+run_test "toto.cor"					0 6500 26000	# end : 26024
+run_test "zork.cor"					0 5000 57000	# end : 57955
+run_test "bigzork.cor"				0 4000 28000	# end : 28363
+run_test "turtle.cor"				0 4000 40000	# end : 40481
+run_test "fluttershy.cor"			0 5000 25000	# end : 25903
+run_test "_.cor"					0 2740 27400	# end : 27439
+run_test "Car.cor"					0 2000 14000	# end : too long
+run_test "Gagnant.cor"				0 2600 26000	# end : 26024
+run_test "Octobre_Rouge_V4.2.cor"	0 2740 27400	# end : 27438
+run_test "helltrain.cor"			0 2740 27400	# end : 27439
+
+tests_folder="../../dlaurent_corewar/appendix/champions/unitests"
+#for file in "$tests_folder"/*.cor ; do
+	#name="$(basename "$file")"
+	#run_test "$name" 0 500 1500
+#done
+# FAIL : ld_st_overflow.cor ldi_bug_in_zaz_corewar.cor lld2.cor lldi.cor st_30.cor st_34.cor st_38.cor st_3c.cor
 
 exit $status
