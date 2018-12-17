@@ -17,9 +17,4 @@ void	op_lld(t_vm *vm, t_processus *proc, t_param *params)
 	v_to_ld = get_value_according_to_type(vm, proc, &params[0], DEF_ADDR);
 	proc->reg[reg_index - 1] = v_to_ld;
 	proc->carry = v_to_ld == 0 ? 1 : 0 ;
-	/*ft_printf("-12288 = %x\n", -12288);*/
-	/*ft_printf("v_to_ld = %x\n", v_to_ld);*/
-	/*ft_printf("pc = %x\n", proc->pc);*/
-	/*ft_printf("reg_index = %x\n", reg_index);*/
-	/*ft_printf("params[0].value = %d\n", params[0].value);*/
 }
