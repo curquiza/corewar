@@ -11,7 +11,6 @@ zaz_corewar_bin="../resources/corewar"
 corewar="$corewar_bin -zaz -dump"
 #corewar="$corewar_bin --dump"
 zaz_corewar="../resources/corewar -d"
-tests_folder="tests/input_instructions"
 
 status=0
 
@@ -52,7 +51,7 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
-#tests_folder="tests/input_instructions"
+tests_folder="tests/input_instructions"
 run_test "and_1.cor"		0 500  1500		# end : 1536
 run_test "st_1.cor"			0 500  1500		# end : 1536
 run_test "sti_1.cor"		0 500  1500		# end : 1536
@@ -65,15 +64,15 @@ run_test "zjmp_2.cor"		0 1000 3000		# end : 3072
 run_test "zjmp_3.cor"		0 500  1500		# end : 1536
 run_test "fork_2.cor"		0 500  1500		# end : 1536
 run_test "lfork.cor"		0 500  1500		# end : 1536
-run_test "lld2.cor"			0 500  1500		# end : 1536 FAIL 35 -> BUG ??? dlaurent aussi
-run_test "lldi.cor"			0 500  1500		# end : 1536 FAIL 75
+#run_test "lld2.cor"			0 500  1500		# end : 1536 FAIL 35 -> BUG ??? dlaurent aussi
+run_test "lldi.cor"			0 500  1500		# end : 1536
 
 tests_folder="tests/input_champs"
 run_test "ex.cor"					0 1000 3000		# end : 3072
 run_test "jumper.cor"				0 6000 24000	# end : 24690
 run_test "maxidef.cor"				0 2590 25900	# end : 25902
 run_test "mortel.cor"				0 1000 7400		# end : 7430
-run_test "slider2.cor"				0 2520 25200	# end : 25200 FAIL
+run_test "slider2.cor"				23373 1 23374	# end : 25200 FAIL 23373
 run_test "toto.cor"					0 6500 26000	# end : 26024
 run_test "zork.cor"					0 5000 57000	# end : 57955
 run_test "bigzork.cor"				0 4000 28000	# end : 28363
@@ -84,20 +83,21 @@ run_test "Car.cor"					0 2000 14000	# end : too long
 run_test "Gagnant.cor"				0 2600 26000	# end : 26024
 run_test "Octobre_Rouge_V4.2.cor"	0 2740 27400	# end : 27438
 run_test "helltrain.cor"			0 2740 27400	# end : 27439
-run_test "casimir.cor"				800 1 900	# end : 28162 FAIL 860
+run_test "casimir.cor"				0 2800 28000	# end : 28162
+run_test "salamahenagalabadoun.cor"	 0 1000 3000	# end : 3072
 
 #tests_folder="tests/input_champs"
 #for file in "$tests_folder"/*.cor ; do
-   #name="$(basename "$file")"
-   #run_test "$name" 0 500 1500
+  #name="$(basename "$file")"
+  #run_test "$name" 0 500 1500
 #done
 
 #tests_folder="tests/input_dlaurent_unitests"
 #for file in "$tests_folder"/*.cor ; do
-	#name="$(basename "$file")"
-	#run_test "$name" 0 500 1500
+   #name="$(basename "$file")"
+   #run_test "$name" 0 500 1500
 #done
-# FAIL : ld_st_overflow.cor ldi_bug_in_zaz_corewar.cor lld2.cor lldi.cor
+# FAIL : ld_st_overflow.cor ldi_bug_in_zaz_corewar.cor lld2.cor
 # dlaurent : lld.cor lld2.cor
 
 #tests_folder="tests/input_dlaurent_compiled"

@@ -10,11 +10,8 @@ int		get_mem_index(t_processus *proc, signed short index, t_addr_type addr)
 	if (addr != RESTRICT)
 		return ((proc->pc + (unsigned short) index) % MEM_SIZE);
 	tmp = (unsigned short) (proc->pc + (index % IDX_MOD));
-	/*ft_dprintf(1, "proc->pc = %d\n", proc->pc);*/
 	/*ft_dprintf(1, "index = %d\n", index);*/
-	/*ft_dprintf(1, "tmp = %d\n", tmp);*/
-	/*ft_dprintf(1, "tmp mod MEM_SIZE = %d\n", tmp % MEM_SIZE);*/
-	/*ft_dprintf(1, "====\n");*/
+	/*printf("index mod IDX_MOD = %d\n", index % IDX_MOD);*/
 	return (tmp % MEM_SIZE);
 }
 
@@ -39,10 +36,10 @@ int	get_value_according_to_type(t_vm *vm, t_processus *proc, t_param *p,
 	if (p->type == T_IND)
 	{
 		if (addr_type == RESTRICT)
-			rslt = memvalue_to_uint32_restrict(vm->memory, proc, p->value,
+			rslt = memvalue_to_int32_restrict(vm->memory, proc, p->value,
 											REG_SIZE);
 		else
-			rslt = memvalue_to_uint32_norestrict(vm->memory, proc, p->value,
+			rslt = memvalue_to_int32_norestrict(vm->memory, proc, p->value,
 											REG_SIZE);
 		return (rslt);
 	}

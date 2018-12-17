@@ -15,10 +15,10 @@ uint32_t	str_to_uint32(char *str)
 /*
 ** /!\ Address restriction
 */
-uint32_t	memvalue_to_uint32_restrict(t_memcase *vm_mem, t_processus *proc,
+int32_t	memvalue_to_int32_restrict(t_memcase *vm_mem, t_processus *proc,
 								signed short index, int size)
 {
-	uint32_t		rslt;
+	int32_t		rslt;
 
 	rslt = 0;
 	if (size >= 1)
@@ -32,7 +32,7 @@ uint32_t	memvalue_to_uint32_restrict(t_memcase *vm_mem, t_processus *proc,
 	return (rslt);
 }
 
-uint32_t	memvalue_to_uint32_norestrict(t_memcase *vm_mem, t_processus *proc,
+int32_t	memvalue_to_int32_norestrict(t_memcase *vm_mem, t_processus *proc,
 								signed short index, int size)
 {
 	uint32_t		rslt;
