@@ -59,6 +59,7 @@ static int	get_value_according_to_type_sti(t_vm *vm, t_processus *proc, t_param 
 		return ((int16_t) p->value);
 	return (0);
 }
+
 void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 {
 	int		p1;

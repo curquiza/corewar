@@ -52,20 +52,21 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 fi
 
 tests_folder="tests/input_instructions"
-run_test "and_1.cor"		0 500  1500		# end : 1536
-run_test "st_1.cor"			0 500  1500		# end : 1536
-run_test "sti_1.cor"		0 500  1500		# end : 1536
-run_test "sti_2.cor"		0 500  1500		# end : 1536
-run_test "sti_3.cor"		0 500  1500		# end : 1536
-run_test "sti_4.cor"		0 500  1500		# end : 1536
-run_test "st_30.cor"		0 500  3000		# end : 3072
-run_test "zjmp_1.cor"		0 500  1500		# end : 1536
-run_test "zjmp_2.cor"		0 1000 3000		# end : 3072
-run_test "zjmp_3.cor"		0 500  1500		# end : 1536
-run_test "fork_2.cor"		0 500  1500		# end : 1536
-run_test "lfork.cor"		0 500  1500		# end : 1536
-#run_test "lld2.cor"			0 500  1500		# end : 1536 FAIL 35 -> BUG ??? dlaurent aussi
-run_test "lldi.cor"			0 500  1500		# end : 1536
+run_test "and_1.cor"			0 500  1500		# end : 1536
+run_test "st_1.cor"				0 500  1500		# end : 1536
+run_test "sti_1.cor"			0 500  1500		# end : 1536
+run_test "sti_2.cor"			0 500  1500		# end : 1536
+run_test "sti_3.cor"			0 500  1500		# end : 1536
+run_test "sti_4.cor"			0 500  1500		# end : 1536
+run_test "st_30.cor"			0 500  3000		# end : 3072
+run_test "zjmp_1.cor"			0 500  1500		# end : 1536
+run_test "zjmp_2.cor"			0 1000 3000		# end : 3072
+run_test "zjmp_3.cor"			0 500  1500		# end : 1536
+run_test "fork_2.cor"			0 500  1500		# end : 1536
+run_test "lfork.cor"			0 500  1500		# end : 1536
+#run_test "lld2.cor"				0 500  1500		# end : 1536 FAIL 35 -> BUG ??? dlaurent aussi
+run_test "lldi.cor"				0 500  1500		# end : 1536
+run_test "ld_st_overflow.cor"	0 500 1500		# end : 1536 FAIL 680
 
 tests_folder="tests/input_champs"
 run_test "ex.cor"					0 1000 3000		# end : 3072

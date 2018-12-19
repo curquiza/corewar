@@ -16,6 +16,8 @@ void	op_st(t_vm *vm, t_processus *proc, t_param *params)
 		proc->reg[params[1].value - 1] = v_to_st;
 	else if (params[1].type == T_IND)
 	{
+		/*printf("param = %d\n", params[1].value);*/
+		/*printf("v_to_st = %d\n", v_to_st);*/
 		store_4bytes(vm, params[1].value, v_to_st, proc);
 	}
 }
