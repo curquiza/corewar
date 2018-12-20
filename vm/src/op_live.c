@@ -6,7 +6,7 @@
 ** p1 = dir
 */
 
-static t_player	*get_player(int num, t_player *players, int total_players)
+static t_player	*get_player_live(int num, t_player *players, int total_players)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ void	op_live(t_vm *vm, t_processus *proc, t_param *params)
 	t_player		*player;
 
 	print_str("\tExecuting LIVE\n", ALL, vm);
-	player = get_player(params[0].value, vm->player, vm->total_players);
+	player = get_player_live(params[0].value, vm->player, vm->total_players);
 	if (player)
 	{
 		ft_dprintf(vm->trace_fd, "Player %d (%s) is alive\n",

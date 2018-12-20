@@ -11,3 +11,17 @@ t_bool	flag_is_applied(int flag, t_vm *vm)
 {
 	return ((flag & vm->flag) == flag);
 }
+
+t_player	*get_player(int num, t_player *players, int total_players)
+{
+	int		i;
+
+	i = 0;
+	while (i < total_players)
+	{
+		if (players[i].num == num)
+			return (&players[i]);
+		i++;
+	}
+	return (NULL);
+}

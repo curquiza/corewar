@@ -335,6 +335,7 @@ void			getkey(t_vm *vm);
 */
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
+t_player		*get_player(int num, t_player *players, int total_players);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 //int				get_mem_index(unsigned short index);
 int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);

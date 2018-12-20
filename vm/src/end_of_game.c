@@ -1,19 +1,5 @@
 #include "vm.h"
 
-static t_player	*get_player(int num, t_player *players, int total_players)
-{
-	int		i;
-
-	i = 0;
-	while (i < total_players)
-	{
-		if (players[i].num == num)
-			return (&players[i]);
-		i++;
-	}
-	return (NULL);
-}
-
 static void		print_visu_rslt(t_vm *vm, WINDOW *win, int i)
 {
 	t_player	*p;
