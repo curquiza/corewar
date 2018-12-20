@@ -71,7 +71,7 @@ static void	dump_memory_mini_visu_part(t_vm *vm, WINDOW *win, int part)
 		print_memory_visu(i, vm, win);
 		i++;
 	}
-	mvwprintw(stdscr, LINES - 1, 2, "MEMORY PART %d/3", part);
+	mvwprintw(stdscr, MINI_MEM_WIN_Y + 1, 2, "MEMORY PART %d/3", part);
 }
 
 static void	dump_memory_visu(t_vm *vm, WINDOW *win)
