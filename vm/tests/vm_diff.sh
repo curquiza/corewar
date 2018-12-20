@@ -55,7 +55,7 @@ if [[ ! -f $corewar_bin ]] || [[ ! -f $zaz_corewar_bin ]]; then
 	exit 1
 fi
 
-tests_folder="tests/input_instructions"
+tests_folder="tests/input_basics"
 run_test "and_1.cor"							0 500   1500	# end : 1536
 run_test "st_1.cor"								0 500   1500	# end : 1536
 run_test "sti_1.cor"							0 500   1500	# end : 1536
