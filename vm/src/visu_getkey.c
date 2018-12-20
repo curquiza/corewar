@@ -38,4 +38,11 @@ void	getkey(t_vm *vm)
 		vm->visu.mem_part = vm->visu.mem_part % 3 + 1;
 	else if (c == 'p')
 		vm->visu.proc_id = vm->visu.proc_id % vm->total_proc + 1;
+	else if (c == 'P')
+	{
+		if (vm->visu.proc_id - 1 == 0)
+			vm->visu.proc_id = vm->total_proc;
+		else
+			vm->visu.proc_id = vm->visu.proc_id - 1;
+	}
 }
