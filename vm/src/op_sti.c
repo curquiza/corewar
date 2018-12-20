@@ -35,11 +35,7 @@ void	store_4bytes_sti(t_vm *vm, int16_t index, int value,
 	vm->memory[index % MEM_SIZE].color_visu = op_case.color_visu;
 }
 
-/*
-** Get 4 bytes according to parameter type
-*/
-static int	get_value_according_to_type_sti(t_vm *vm, t_processus *proc, t_param *p,
-								t_addr_type addr_type)
+static int	get_value_according_to_type_sti(t_vm *vm, t_processus *proc, t_param *p)
 {
 	int		rslt;
 
@@ -47,12 +43,7 @@ static int	get_value_according_to_type_sti(t_vm *vm, t_processus *proc, t_param 
 		return (proc->reg[p->value - 1]);
 	if (p->type == T_IND)
 	{
-		if (addr_type == RESTRICT)
-			rslt = memvalue_to_int32_restrict(vm->memory, proc, p->value,
-											REG_SIZE);
-		else
-			rslt = memvalue_to_int32_norestrict(vm->memory, proc, p->value,
-											REG_SIZE);
+		rslt = memvalue_to_int32_restrict(vm->memory, proc, p->value, REG_SIZE);
 		return ((int16_t) rslt);
 	}
 	if (p->type == T_DIR)
@@ -71,9 +62,9 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 	/*p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);*/
 	/*p3 = get_value_according_to_type(vm, proc, &params[2], RESTRICT);*/
 	/*printf("p1 = %d\n", p1);*/
-	p2 = get_value_according_to_type_sti(vm, proc, &params[1], RESTRICT);
+	p2 = get_value_according_to_type_sti(vm, proc, &params[1]);
 	/*printf("p2 = %d\n", p2);*/
-	p3 = get_value_according_to_type_sti(vm, proc, &params[2], RESTRICT);
+	p3 = get_value_according_to_type_sti(vm, proc, &params[2]);
 	/*printf("p3 = %d\n", p3);*/
 	/*printf("p2 + p3 = %d\n", p2 + p3);*/
 	/*printf("p2 + p3 mod IDX_MOD = %d\n", (p2 + p3) % IDX_MOD);*/
