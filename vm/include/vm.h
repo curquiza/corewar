@@ -61,7 +61,7 @@
 # define PROC_WIN_Y			27
 # define PLAYER_WIN_X		25
 # define PLAYER_WIN_Y		6
-# define USAGE_WIN_X		30
+# define USAGE_WIN_X		35
 # define USAGE_WIN_Y		8
 
 # define MINI_VISU_MEM_PART	48
