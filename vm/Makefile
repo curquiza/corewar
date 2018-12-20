@@ -52,6 +52,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  visu_display.c \
 	  visu_create_subwin.c \
 	  visu_getkey.c \
+	  end_of_game.c \
 	  main.c)
 
 OBJ_DIR = objs

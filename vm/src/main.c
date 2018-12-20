@@ -2,75 +2,6 @@
 
 t_vm *g_vm = NULL;
 
-/*void	print_player(t_player *p)*/
-/*{*/
-	/*ft_printf("Player num %d (%#0x)\n", p->num, ~p->num);*/
-	/*ft_printf("header :\n");*/
-	/*ft_printf("-> magic = %#0x\n", p->header.magic);*/
-	/*ft_printf("-> name = %s\n", p->header.prog_name);*/
-	/*ft_printf("-> size = %d\n", p->header.prog_size);*/
-	/*ft_printf("-> comment = %s\n", p->header.comment);*/
-/*}*/
-
-/*void	print_vm(t_vm *vm)*/
-/*{*/
-	/*int		i;*/
-
-	/*ft_printf("VM :\n");*/
-	/*ft_printf("Player number = %d\n", vm->total_players);*/
-	/*ft_printf("flag = %b\n", vm->flag);*/
-	/*ft_printf("Dump cycles = %d\n", vm->dump_cycle);*/
-	/*ft_printf("----------------------\n");*/
-	/*ft_printf("PLAYERS :\n");*/
-	/*i = 0;*/
-	/*while (i < vm->total_players)*/
-	/*{*/
-		/*print_player(&vm->player[i]);*/
-		/*i++;*/
-		/*ft_printf("---\n");*/
-	/*}*/
-	/*ft_printf("----------------------\n");*/
-/*}*/
-
-/*void	print_processus(t_vm *vm)*/
-/*{*/
-	/*t_processus	*proc;*/
-
-	/*proc = vm->proc;*/
-	/*while (proc)*/
-	/*{*/
-		/*ft_printf("PC = %d\n", proc->pc);*/
-		/*ft_printf("cycles = %d\n", proc->cycles);*/
-		/*//ft_printf("opcode = 0x%0.2x\n", proc->opcode);*/
-		/*ft_printf("live = %d\n", proc->live);*/
-		/*ft_printf("---\n");*/
-		/*proc = proc->next;*/
-	/*}*/
-/*}*/
-
-/*void		print_g_op(void)*/
-/*{*/
-	/*int		i;*/
-
-	/*i = 1;*/
-	/*while (i < OP_NUMBER + 1)*/
-	/*{*/
-		/*ft_printf("Opcode = 0x%.2x\n", g_op[i].opcode);*/
-		/*ft_printf("Name = %s\n", g_op[i].name);*/
-		/*ft_printf("Param number = %d\n", g_op[i].param_nb);*/
-		/*ft_printf("Param type :\n");*/
-		/*ft_printf(" > %b\n", g_op[i].param_type[0]);*/
-		/*ft_printf(" > %b\n", g_op[i].param_type[1]);*/
-		/*ft_printf(" > %b\n", g_op[i].param_type[2]);*/
-		/*ft_printf(" > %b\n", g_op[i].param_type[3]);*/
-		/*ft_printf("Cycles = %d\n", g_op[i].cycles);*/
-		/*ft_printf("OCP ? %d\n", g_op[i].ocp);*/
-		/*ft_printf("Index ? %d\n", g_op[i].index);*/
-		/*ft_printf("---------\n");*/
-		/*i++;*/
-	/*}*/
-/*}*/
-
 t_ex_ret	init_check(void)
 {
 	if (IND_SIZE != 2 || REG_SIZE != 4 || DIR_SIZE != REG_SIZE
@@ -101,41 +32,6 @@ void		play_one_cycle(t_vm *vm)
 	if (vm->current_cycles == vm->cycles_to_die)
 		manage_end_of_period(vm);
 	print_str("----------\n", FEW, vm);
-}
-
-static t_player	*get_player(int num, t_player *players, int total_players)
-{
-	int		i;
-
-	i = 0;
-	while (i < total_players)
-	{
-		if (players[i].num == num)
-			return (&players[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-void		end_of_game(t_vm *vm)
-{
-	t_player	*p;
-
-	// TODO : manage visu
-	g_vm->visu.enabled ? sleep(3) : 0;
-	g_vm->visu.enabled ? endwin() : 0;
-	g_vm->visu.enabled ? close(vm->trace_fd) : 0;
-	if (vm->run != BREAK)
-	{
-		if (vm->last_live_player == -1)
-			ft_printf("Nobody won !\n");
-		else
-		{
-			p = get_player(vm->last_live_player, vm->player, vm->total_players);
-			ft_printf("Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
-		}
-		ft_printf("End of game. Thanks for watching 😎\n");
-	}
 }
 
 void		launch_corewar(t_vm *vm)

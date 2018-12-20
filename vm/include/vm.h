@@ -63,6 +63,8 @@
 # define PLAYER_WIN_Y		6
 # define USAGE_WIN_X		35
 # define USAGE_WIN_Y		8
+# define END_WIN_X			50
+# define END_WIN_Y			13
 
 # define MINI_VISU_MEM_PART	48
 
@@ -291,6 +293,7 @@ void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 */
 void			manage_end_of_period(t_vm *vm);
 void			exec_all_proc(t_vm *vm);
+void			end_of_game(t_vm *vm);
 
 /*
 ** Operations
