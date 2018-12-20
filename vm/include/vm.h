@@ -243,10 +243,10 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-uint32_t		memvalue_to_uint32_restrict(t_memcase *vm_mem,
+int32_t		memvalue_to_int32_restrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
-uint32_t		memvalue_to_uint32_norestrict(t_memcase *vm_mem,
+int32_t		memvalue_to_int32_norestrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
 

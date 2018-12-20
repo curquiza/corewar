@@ -141,7 +141,7 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 	i = 0;
 	while (i < REG_NUMBER)
 	{
-		mvwprintw(win, 10 + i, 2, "R%-13.2d %d", i + 1, proc->reg[i]);
+		mvwprintw(win, 10 + i, 2, "R%-9.2d 0x%.8x", i + 1, proc->reg[i]);
 		i++;
 	}
 }

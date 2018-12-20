@@ -6,7 +6,45 @@
 ** p2 = reg | dir
 ** p3 = reg
 ** Modify the carry.
+**
+** Bug VM zaz : int32_t in IND condition (in get_value_according_to_type) should
+** be int16_t
 */
+
+static int	get_value_according_to_type_ldi(t_vm *vm, t_processus *proc, t_param *p)
+{
+	int		rslt;
+
+	if (p->type == T_REG && is_valid_reg_index(p->value))
+		return (proc->reg[p->value - 1]);
+	if (p->type == T_IND)
+	{
+		rslt = memvalue_to_int32_restrict(vm->memory, proc, p->value, REG_SIZE);
+		return ((int32_t) rslt);
+	}
+	if (p->type == T_DIR)
+		return ((int16_t) p->value);
+	return (0);
+}
+
+static int32_t	memvalue_to_int32_ldi(t_memcase *vm_mem, int32_t index, int size)
+{
+	int32_t		rslt;
+	/*int			tmp;*/
+
+	/*tmp = get_mem_index(proc, index, RESTRICT);*/
+	rslt = 0;
+	if (size >= 1)
+		/*rslt |= (t_byte) vm_mem[tmp].value;*/
+		rslt |= (t_byte) vm_mem[index % MEM_SIZE].value;
+	if (size >= 2)
+		rslt = (rslt << 8) | (t_byte) vm_mem[(index + 1) % MEM_SIZE].value;
+	if (size >= 3)
+		rslt = (rslt << 8) | (t_byte) vm_mem[(index + 2) % MEM_SIZE].value;
+	if (size >= 4)
+		rslt = (rslt << 8) | (t_byte) vm_mem[(index + 3) % MEM_SIZE].value;
+	return (rslt);
+}
 
 void	op_ldi(t_vm *vm, t_processus *proc, t_param *params)
 {
@@ -17,14 +55,16 @@ void	op_ldi(t_vm *vm, t_processus *proc, t_param *params)
 
 	print_str("\tExecuting LDI\n", ALL, vm);
 	reg_index = params[2].value;
-	/*if (is_valid_reg_index(reg_index))*/
-	/*{*/
-		p1 = get_value_according_to_type(vm, proc, &params[0], RESTRICT);
-		p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);
-		/*v_to_ld = get_value_according_to_type(vm, proc, &params[0]);*/
-		v_to_ld = memvalue_to_uint32_restrict(vm->memory, proc, p1 + p2,
-												REG_SIZE);
-		proc->reg[reg_index - 1] = v_to_ld;
-		proc->carry = v_to_ld == 0 ? 1 : 0 ;
-	/*}*/
+	p1 = get_value_according_to_type_ldi(vm, proc, &params[0]);
+	p2 = get_value_according_to_type_ldi(vm, proc, &params[1]);
+	/*p1 = get_value_according_to_type(vm, proc, &params[0], RESTRICT);*/
+	/*p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);*/
+	/*printf("p1 = %d\n", p1);*/
+	/*printf("p2 = %d\n", p2);*/
+	/*v_to_ld = get_value_according_to_type(vm, proc, &params[0]);*/
+	/*v_to_ld = memvalue_to_int32_restrict(vm->memory, proc, p1 + p2,*/
+											/*REG_SIZE);*/
+	v_to_ld = memvalue_to_int32_ldi(vm->memory, proc->pc + (((int32_t) (p1 + p2))% IDX_MOD), REG_SIZE);
+	proc->reg[reg_index - 1] = v_to_ld;
+	proc->carry = v_to_ld == 0 ? 1 : 0 ;
 }
