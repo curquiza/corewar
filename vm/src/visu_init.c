@@ -44,9 +44,15 @@ void	start_visu(t_vm *vm)
 {
 	initscr();
 	if (has_colors() == FALSE)
+	{
 		print_visu_err(VISU_COLOR_ERR);
+		vm->trace_fd = STDOUT_FILENO;
+	}
 	else if (check_term_size() == FALSE)
+	{
 		print_visu_err(VISU_SIZE_ERR);
+		vm->trace_fd = STDOUT_FILENO;
+	}
 	else
 	{
 		init_visu(vm);
