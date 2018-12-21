@@ -23,6 +23,7 @@
 # define MAX_PLAYER_ERR		"Too many champions"
 # define PLAYER_NUM_ERR1	"2 arguments are needed for -n flag"
 # define PLAYER_NUM_ERR2	"Player number must be a positive integer value"
+# define PLAYER_NUM_ERR3	"2 players cannot have the same number"
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
 # define VERBOSE_ERR1		"1 argument is needed for -verbose flag"
