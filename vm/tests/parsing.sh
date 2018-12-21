@@ -13,6 +13,7 @@ header_err="Error: Wrong header format\n"
 prog_size_err="Error: Prog size in header differs from the real prog size\n"
 player_num_err1="Error: 2 arguments are needed for -n flag\n"
 player_num_err2="Error: Player number must be a positive integer value\n"
+player_num_err3="Error: 2 players cannot have the same number\n"
 dump_cycle_err1="Error: 1 argument is needed for -dump flag\n"
 dump_cycle_err2="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
@@ -80,7 +81,10 @@ run_test "-n -21 coco" "$player_num_err2"
 run_test "-n 1a coco" "$player_num_err2"
 run_test "-n ++01 coco" "$player_num_err2"
 run_test "-n --01 coco" "$player_num_err2"
-run_test "tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
+run_test "-n 1 $input_path/zork.cor $input_path/zork.cor -n 1 $input_path/zork.cor" \
+			"$player_num_err3" \
+			"< 2 players with same number >"
+run_test "$input_path/zork.cor $input_path/zork.cor $input_path/zork.cor $input_path/zork.cor $input_path/zork.cor" \
 			"$too_many_champ_err" \
 			"< 5 champions >"
 run_test "tests/input_parsing/zork.cor -n 1 tests/input_parsing/zork.cor tests/input_parsing/zork.cor -n 0 tests/input_parsing/zork.cor tests/input_parsing/zork.cor" \
