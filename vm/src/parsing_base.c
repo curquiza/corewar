@@ -5,7 +5,7 @@ static t_bool	num_available(int num, t_vm *vm)
 	int		i;
 
 	i = 0;
-	while (i < MAX_PLAYERS)
+	while (i < vm->total_players)
 	{
 		if (vm->player[i].num == num)
 			return (FALSE);
@@ -24,16 +24,38 @@ static int		generate_player_num(t_vm *vm)
 	return (num);
 }
 
-static void	init_player_num(t_player *players)
+static t_bool	check_double_num(int current_player_id, t_vm *vm)
 {
 	int		i;
 
 	i = 0;
-	while (i < MAX_PLAYERS)
+	while (i < vm->total_players)
 	{
-		players[i].num = -1;
+		if (i != current_player_id
+			&& vm->player[i].num == vm->player[current_player_id].num)
+			return (FALSE);
 		i++;
 	}
+	return (TRUE);
+}
+
+static t_ex_ret	manage_players_numbers(t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->total_players)
+	{
+		if (vm->player[i].num == -1)
+			vm->player[i].num = generate_player_num(vm);
+		else
+		{
+			if (check_double_num(i, vm) == FALSE)
+				return (ft_ret_err(PLAYER_NUM_ERR3));
+		}
+		i++;
+	}
+	return (SUCCESS);
 }
 
 t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
@@ -42,7 +64,6 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 
 	if (argc <= 1)
 		return (usage_ret_err());
-	init_player_num(vm->player);
 	i = 1;
 	while (i < argc)
 	{
@@ -53,7 +74,7 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 		}
 		else if (argv[i])
 		{
-			if (manage_player(argv[i], vm, generate_player_num(vm))
+			if (manage_player(argv[i], vm, -1)
 				== FAILURE)
 				return (FAILURE);
 		}
@@ -61,5 +82,5 @@ t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
 	}
 	if (vm->total_players == 0)
 		return (usage_ret_err());
-	return (SUCCESS);
+	return (manage_players_numbers(vm));
 }
