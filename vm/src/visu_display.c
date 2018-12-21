@@ -131,7 +131,7 @@ static void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
 		return ;
 	proc = vm->proc;
 	i = 1;
-	while (i != proc_id)
+	while (proc && i != proc_id)
 	{
 		proc = proc->next;
 		i++;
@@ -257,6 +257,8 @@ void	display_visu(t_vm *vm)
 	rm_proc_display(vm);
 	display_cycles(vm, vm->visu.cycles_win);
 	display_lives(vm, vm->visu.lives_win);
+	if (vm->visu.proc_id > vm->total_proc)
+		vm->visu.proc_id = vm->total_proc;
 	display_proc(vm, vm->visu.proc_id, vm->visu.proc_win);
 	display_players(vm, vm->visu.players_win);
 	display_usage(vm, vm->visu.usage_win);
