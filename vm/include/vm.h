@@ -67,7 +67,7 @@
 # define END_WIN_Y			13
 
 # define MINI_VISU_MEM_PART	48
-
+# define END_COUNTDOWN		7
 # define TRACE_FILE			"trace.txt"
 
 /*

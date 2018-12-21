@@ -34,7 +34,7 @@ static void		visu_end(t_vm *vm)
 
 	end_win = subwin(stdscr, END_WIN_Y, END_WIN_X, (LINES - END_WIN_Y) / 2,
 					(COLS - END_WIN_X)  / 2);
-	i = 5;
+	i = END_COUNTDOWN;
 	while (i != 0)
 	{
 		werase(end_win);
@@ -59,7 +59,8 @@ void		end_of_game(t_vm *vm)
 		else
 		{
 			p = get_player(vm->last_live_player, vm->player, vm->total_players);
-			ft_dprintf(vm->trace_fd, "Player %d (%s) won !\n", vm->last_live_player, p->header.prog_name);
+			ft_dprintf(vm->trace_fd, "Player %d (%s) won !\n",
+						vm->last_live_player, p->header.prog_name);
 		}
 		ft_dprintf(vm->trace_fd, "End of game. Thanks for watching 😎\n");
 	}
