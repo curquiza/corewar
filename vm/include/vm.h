@@ -63,9 +63,11 @@
 # define PLAYER_WIN_Y		6
 # define USAGE_WIN_X		35
 # define USAGE_WIN_Y		8
+# define END_WIN_X			50
+# define END_WIN_Y			13
 
 # define MINI_VISU_MEM_PART	48
-
+# define END_COUNTDOWN		7
 # define TRACE_FILE			"trace.txt"
 
 /*
@@ -291,6 +293,7 @@ void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 */
 void			manage_end_of_period(t_vm *vm);
 void			exec_all_proc(t_vm *vm);
+void			end_of_game(t_vm *vm);
 
 /*
 ** Operations
@@ -332,6 +335,7 @@ void			getkey(t_vm *vm);
 */
 t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
+t_player		*get_player(int num, t_player *players, int total_players);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 //int				get_mem_index(unsigned short index);
 int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);

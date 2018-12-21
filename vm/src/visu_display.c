@@ -101,15 +101,23 @@ static void	display_cycles(t_vm *vm, WINDOW *win)
 
 static void	display_lives(t_vm *vm, WINDOW *win)
 {
+	t_player	*p;
+
 	box(win, ACS_VLINE, ACS_HLINE);
 	mvwprintw(win, 1, 10, "LIVES");
 	mvwprintw(win, 2, 2, "---------------------");
 	mvwprintw(win, 4, 2, "%-15s%6d", "Total", vm->lives);
 	mvwprintw(win, 5, 2, "%-15s%6d", "Verif", vm->verif);
 	if (vm->last_live_player == -1)
-		mvwprintw(win, 6, 2, "%-15s%6s", "Last player", "None");
+		mvwprintw(win, 6, 2, "%-15s%6s", "Last", "None");
 	else
-		mvwprintw(win, 6, 2, "%-15s%6d", "Last player", vm->last_live_player);
+	{
+		p = get_player(vm->last_live_player, vm->player, vm->total_players);
+		if (ft_strlen(p->header.prog_name) > 12)
+			mvwprintw(win, 6, 2, "%-9s%9.9s...", "Last", p->header.prog_name);
+		else
+			mvwprintw(win, 6, 2, "%-9s%12s", "Last", p->header.prog_name);
+	}
 	mvwprintw(win, 8, 2, "%-15s%6d", "Min lives", NBR_LIVE);
 	mvwprintw(win, 9, 2, "%-15s%6d", "Max checks", MAX_CHECKS);
 }
@@ -174,11 +182,13 @@ static void	display_players(t_vm *vm, WINDOW **wins)
 		wattron(wins[i], COLOR_PAIR(get_player_color(i)));
 		mvwprintw(wins[i], 1, 2, "PLAYER %d", i + 1);
 		wattroff(wins[i], COLOR_PAIR(get_player_color(i)));
-		mvwprintw(wins[i], 3, 2, "%-9s%11d", "Num", vm->player[i].num);
+		mvwprintw(wins[i], 3, 2, "%-9s%12d", "Num", vm->player[i].num);
 		if (ft_strlen(vm->player[i].header.prog_name) > 12)
-			mvwprintw(wins[i], 4, 2, "%-9s%9.9s...", "Name", vm->player[i].header.prog_name);
+			mvwprintw(wins[i], 4, 2, "%-9s%9.9s...", "Name",
+						vm->player[i].header.prog_name);
 		else
-			mvwprintw(wins[i], 4, 2, "%-9s%12.12s", "Name", vm->player[i].header.prog_name);
+			mvwprintw(wins[i], 4, 2, "%-9s%12.12s", "Name",
+						vm->player[i].header.prog_name);
 		i++;
 	}
 }
