@@ -19,8 +19,5 @@ void	op_add(t_vm *vm, t_processus *proc, t_param *params)
 	p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);
 	p3 = params[2].value;
 	proc->reg[p3 - 1] = p1 + p2;
-	proc->carry = ((p1 + p2) == 0) ? 1 : 0; // pas sûr pour le zero !
-	/*ft_dprintf(vm->trace_fd, "p1 = 0x%x\n", p1); //DEBUG*/
-	/*ft_dprintf(vm->trace_fd, "p2 = 0x%x\n", p2); //DEBUG*/
-	/*ft_dprintf(vm->trace_fd, "p3 = 0x%x\n", p3); //DEBUG*/
+	proc->carry = ((p1 + p2) == 0) ? 1 : 0;
 }

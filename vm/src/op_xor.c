@@ -14,11 +14,8 @@ void	op_xor(t_vm *vm, t_processus *proc, t_param *params)
 	int		p2;
 
 	print_str("\tExecuting XOR\n", ALL, vm);
-	/*if (is_valid_reg_index(params[2].value) == TRUE)*/
-	/*{*/
-		p1 = get_value_according_to_type(vm, proc, &params[0], RESTRICT);
-		p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);
-		proc->reg[params[2].value - 1] = p1 ^ p2;
-		proc->carry = ((p1 ^ p2) == 0) ? 1 : 0; // pas sûr pour le zero !
-	/*}*/
+	p1 = get_value_according_to_type(vm, proc, &params[0], RESTRICT);
+	p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);
+	proc->reg[params[2].value - 1] = p1 ^ p2;
+	proc->carry = ((p1 ^ p2) == 0) ? 1 : 0; // pas sûr pour le zero !
 }

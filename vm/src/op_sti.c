@@ -59,18 +59,7 @@ void	op_sti(t_vm *vm, t_processus *proc, t_param *params)
 
 	print_str("\tExecuting STI\n", ALL, vm);
 	p1 = proc->reg[params[0].value - 1];
-	/*p2 = get_value_according_to_type(vm, proc, &params[1], RESTRICT);*/
-	/*p3 = get_value_according_to_type(vm, proc, &params[2], RESTRICT);*/
-	/*printf("p1 = %d\n", p1);*/
 	p2 = get_value_according_to_type_sti(vm, proc, &params[1]);
-	/*printf("p2 = %d\n", p2);*/
 	p3 = get_value_according_to_type_sti(vm, proc, &params[2]);
-	/*printf("p3 = %d\n", p3);*/
-	/*printf("p2 + p3 = %d\n", p2 + p3);*/
-	/*printf("p2 + p3 mod IDX_MOD = %d\n", (p2 + p3) % IDX_MOD);*/
-	/*store_4bytes(vm, p2 + p3, p1, proc);*/
 	store_4bytes_sti(vm, proc->pc + ((int16_t) ((p2 + p3) % IDX_MOD)), p1, proc);
-	/*ft_printf("params[0].value %x\n", params[0].value);*/
-	/*ft_printf("params[1].value %x\n", params[1].value);*/
-	/*ft_printf("params[2].value %x\n", params[2].value);*/
 }

@@ -25,10 +25,12 @@ function check_diff() {
 	$corewar "$1" $2 | tail -n 64 > output1 2>&1
 	$zaz_corewar "$1" $2 | tail -n 64 > output2 2>&1
 	local rslt="$(diff output1 output2)"
+	#echo "rslt = $rslt" 1>&2
 	rm -f output1 output2
 	if [[ "$rslt" == "" ]]; then
 		echo "1"
 	else
+		echo $rslt > lol
 		echo "0"
 	fi
 }
@@ -50,7 +52,7 @@ function run_test() {
 
 # Usage : check_winner "files"
 function check_winner() {
-	local my_winner="$($corewar_bin $1 | grep "won !" | awk -F'[()]' '{print $2}')"
+	local my_winner="$($corewar_bin -zaz $1 | grep "won !" | awk -F'[()]' '{print $2}')"
 	local zaz_winner="$($zaz_corewar_bin $1 | grep "has won" | cut -d "\"" -f 2)"
 	if [[ "$my_winner" == "$zaz_winner" ]] && [[ "$my_winner" != "" ]]; then
 		echo "1"
@@ -220,10 +222,17 @@ tests_folder="tests/input_champs"
 #run_test "zultimate-surrender.cor"		0 1000  3000	# end : 3072
 
 echo "** BATTLES **"
-run_battle "Explosive_Kitty.cor ultimate.cor"			0 3920 39200	#end : 39218
-run_battle "Explosive_Kitty.cor ultimate.cor zork.cor"	0 3570 35700	#end : 35796
-run_battle "maxidef.cor turtle.cor gedeon.cor"			0 2430 24300	#end : 24367
-run_battle "youforkmytralala.cor Gagnant.cor"			0 5100 25900	#end : 25900
+run_battle "toto.cor MarineKing.cor jinx.cor"			0 12150 24300			#end : 24367
+#run_battle "toto.cor MarineKing.cor jinx.cor"			3850 1  3856			#end : 24367 fail: 3856
+run_battle "Misaka_Mikoto.cor mortel.cor"				0 13100 26200			#end : 26227
+run_battle "Wall.cor littlepuppy.cor skynet.cor"		0 12950 25900			#end : 25903
+run_battle "littlepuppy.cor ex1.cor"					0 2300  4600	"NO"	#end : 4608
+run_battle "THUNDER.cor loose.cor jumper.cor"			0 12300 24600			#end : 24691
+run_battle "overwatch.cor terminator.cor Asombra.cor"	0 10500 59000			#end : 59491
+run_battle "Explosive_Kitty.cor ultimate.cor"			0 3920  39200			#end : 39218
+run_battle "Explosive_Kitty.cor ultimate.cor zork.cor"	0 3570  35700			#end : 35796
+run_battle "maxidef.cor turtle.cor gedeon.cor"			0 2430  24300			#end : 24367
+run_battle "youforkmytralala.cor Gagnant.cor"			0 5100  25900			#end : 25900
 
 #tests_folder="tests/input_dlaurent_unitests"
 #for file in "$tests_folder"/*.cor ; do
