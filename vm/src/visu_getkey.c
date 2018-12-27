@@ -1,18 +1,18 @@
 #include "vm.h"
 
-/*t_bool		kbhit(void)*/
-/*{*/
-	/*int c;*/
-
-	/*c = getch();*/
-	/*if (c != ERR)*/
-	/*{*/
-		/*ungetch(c);*/
-		/*return (TRUE);*/
-	/*}*/
-	/*else*/
-		/*return (FALSE);*/
-/*}*/
+static void	toogle_pause(t_vm *vm)
+{
+	if (vm->visu.pause)
+	{
+		vm->visu.pause = FALSE;
+		nodelay(stdscr, TRUE);
+	}
+	else
+	{
+		vm->visu.pause = TRUE;
+		nodelay(stdscr, FALSE);
+	}
+}
 
 void	getkey(t_vm *vm)
 {
@@ -22,18 +22,7 @@ void	getkey(t_vm *vm)
 	if (c == 'n')
 		vm->visu.next_step = TRUE;
 	else if (c == ' ')
-	{
-		if (vm->visu.pause)
-		{
-			vm->visu.pause = FALSE;
-			nodelay(stdscr, TRUE);
-		}
-		else
-		{
-			vm->visu.pause = TRUE;
-			nodelay(stdscr, FALSE);
-		}
-	}
+		toogle_pause(vm);
 	else if (c == 'm' && vm->visu.type == MINI_V)
 		vm->visu.mem_part = vm->visu.mem_part % 3 + 1;
 	else if (c == 'p')

@@ -176,23 +176,23 @@ typedef struct	s_player
 
 typedef struct 	s_vm
 {
-	t_run			run;
-	t_memcase		memory[MEM_SIZE];
-	t_player		player[MAX_PLAYERS];
-	int				total_players;
-	int				flag;
-	int				dump_cycle;
-	t_processus		*proc;
-	int				total_proc;
-	int				total_cycles;
-	int				current_cycles;
-	int				cycles_to_die;
-	int				lives;
-	int				verif;
-	int				last_live_player;
-	t_visu			visu;
-	t_verbose		verbose;
-	int				trace_fd;
+	t_run		run;
+	t_memcase	memory[MEM_SIZE];
+	t_player	player[MAX_PLAYERS];
+	int			total_players;
+	int			flag;
+	int			dump_cycle;
+	t_processus	*proc;
+	int			total_proc;
+	int			total_cycles;
+	int			current_cycles;
+	int			cycles_to_die;
+	int			lives;
+	int			verif;
+	int			last_live_player;
+	t_visu		visu;
+	t_verbose	verbose;
+	int			trace_fd;
 }				t_vm;
 
 /*
@@ -246,10 +246,10 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-int32_t		memvalue_to_int32_restrict(t_memcase *vm_mem,
+int32_t			memvalue_to_int32_restrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
-int32_t		memvalue_to_int32_norestrict(t_memcase *vm_mem,
+int32_t			memvalue_to_int32_norestrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
 
@@ -293,7 +293,7 @@ void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 ** Game
 */
 void			manage_end_of_period(t_vm *vm);
-void			exec_all_proc(t_vm *vm);
+void			exec_all_proc(t_vm *vm, t_processus *proc);
 void			end_of_game(t_vm *vm);
 
 /*
@@ -330,6 +330,15 @@ void			display_visu(t_vm *vm);
 void			create_visu_subwin(t_vm *vm);
 void			create_mini_visu_subwin(t_vm *vm);
 void			getkey(t_vm *vm);
+int				bytes_per_line_visu(t_vm *vm);
+void			print_memory_visu(int i, t_vm *vm, WINDOW *win);
+void			dump_memory_visu(t_vm *vm, WINDOW *win);
+void			dump_memory_mini_visu_part(t_vm *vm, WINDOW *win, int part);
+void			display_proc(t_vm *vm, int proc_id, WINDOW *win);
+void			display_players(t_vm *vm, WINDOW **wins);
+void			display_cycles(t_vm *vm, WINDOW *win);
+void			display_lives(t_vm *vm, WINDOW *win);
+void			display_usage(t_vm *vm, WINDOW *win);
 
 /*
 ** Misc
@@ -338,13 +347,10 @@ t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_player		*get_player(int num, t_player *players, int total_players);
 t_bool			flag_is_applied(int flag, t_vm *vm);
-//int				get_mem_index(unsigned short index);
 int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
 											t_param *p, t_addr_type addr_type);
-//void			store_4bytes(t_vm *vm, unsigned short index, int value,
-							//t_processus *proc);
 void			store_4bytes(t_vm *vm, signed short index, int value,
 							t_processus *proc);
 

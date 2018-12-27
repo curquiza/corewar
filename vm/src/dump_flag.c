@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static int		bytes_per_line(t_vm *vm)
+static int	bytes_per_line(t_vm *vm)
 {
 	if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
 		return (BYTES_PER_LINE_64);
@@ -27,7 +27,7 @@ static void	print_mem_addr(int i, t_vm *vm)
 		ft_dprintf(vm->trace_fd, "0x%0.4x : ", i);
 }
 
-void	dump_memory(t_vm *vm)
+void		dump_memory(t_vm *vm)
 {
 	int			i;
 	t_memcase	*memory;
