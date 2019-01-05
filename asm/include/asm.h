@@ -3,7 +3,9 @@
 
 # include "libft.h"
 # include "op.h"
+# include "src_file.h"
 # include "error.h"
+# include "op_tab.h"
 # include "lexer.h"
 # include "parser.h"
 # include <fcntl.h>
@@ -16,7 +18,6 @@
 # define FLAG_A			1
 
 extern int		g_flags;
-t_src_file		*g_file;
 
 /*
 ** INIT
@@ -28,7 +29,6 @@ int				get_options(int *argc, char ***argv);
 */
 t_ex_ret		read_file(t_src_file *file, t_list **head);
 void			print_file(t_list *file);
-void 			del(void *content, size_t content_size);
 
 /*
 ** OUTPUT
@@ -37,10 +37,15 @@ t_ex_ret		write_output_file(t_src_file *file);
 t_ex_ret		write_output_stdout(t_src_file *file);
 
 /*
-** TOOLS
+** ERROR
 */
 t_ex_ret		put_error(char *e);
 int				put_error_code(char *e, int code);
+
+/*
+** TOOLS
+*/
+void 			del(void *content, size_t content_size);
 int     		get_trim_line(const int fd, char **line);
 int     		count_char(char *s, char c);
 t_ex_ret		list_to_array(t_list *input, char ***array, int len);

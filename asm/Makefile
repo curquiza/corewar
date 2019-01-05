@@ -9,10 +9,12 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		error.c \
 		option.c \
 		read_file.c \
+		lexer.c \
 		parser.c \
 		parse_name.c \
 		parse_comment.c \
-		lexer.c \
+		ast.c \
+		label.c \
 		print_lexer.c \
 		token.c \
 		token_types.c \

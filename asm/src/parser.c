@@ -25,10 +25,18 @@ t_ex_ret		parse(t_src_file *file)
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_line(t_token_list *tokens, int nb_line)
+t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
 {
 	(void)nb_line;
+	(void)ast;
 	(void)tokens;
+
+	// if ((init_label(&(ast->label), tokens)) == FAILURE)
+		// return (FAILURE);
+	
+	// if (!(ast->label = (t_label*)malloc(sizeof(t_label))))
+		// return (ft_ret_err(ERR_MALLOC));
+	// ast->label->label = tokens;
 
 	return (SUCCESS);
 }
@@ -50,14 +58,6 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 	return (ret);
 }
 
-t_ex_ret		new_lines_array(t_line ***lines, int nb_line)
-{
-	if (!(*lines = (t_line**)malloc(sizeof(t_line) * (nb_line + 1))))
-		return (ft_ret_err(ERR_MALLOC));
-	(*lines)[nb_line] = 0;
-	return (SUCCESS);
-}
-
 t_ex_ret		parser(t_src_file *file)
 {
 	t_ex_ret		ret;
@@ -65,27 +65,31 @@ t_ex_ret		parser(t_src_file *file)
 	t_token_list 	*tokens;
 	int 			i;
 	int 			nb_line;
-	t_line			**lines;
+	t_ast			**ast;
 
 	array_input = NULL;
 	tokens = NULL;
-	lines = NULL;
+	ast = NULL;
 	init_parser(file, &array_input);
 	nb_line = ft_tablen(array_input);
-	if ((new_lines_array(&lines, nb_line)) == FAILURE)
+	if ((init_ast_array(&ast, nb_line)) == FAILURE)
 		return (FAILURE);
+	print_ast_array(ast);
 	i = 0;
 	while (i < nb_line)
 	{
-		file->nb_line++;
-		if ((lexer(&tokens, array_input[i], file->nb_line)) == FAILURE)
+		if ((lexer(&tokens, array_input[i], i + file->nb_line)) == FAILURE)
 		{
 			ft_tabdel(&array_input);
 			free_tokens(&tokens);
 			return (FAILURE);
 		}
 		print_tokens(tokens);
-		ret = parse_line(tokens, file->nb_line); // return ??
+		
+		if ((ret = parse_line(ast[i], tokens, i + file->nb_line)) == FAILURE)
+		{
+
+		}
 		free_tokens(&tokens);
 		i++;
 	}
