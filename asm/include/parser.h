@@ -23,6 +23,25 @@ typedef struct					s_op
 	unsigned char				label;
 } 								t_op;
 
+typedef struct 					s_label
+{
+	t_token 					*label;
+}								t_label;
+
+typedef struct 					s_instr
+{
+	t_op 						*opcode;
+	t_token 					*arguments;
+}								t_instr;
+
+typedef struct					s_line
+{
+	t_label						*label;
+	t_instr						*instr;
+	int							size;
+	int							offset;
+}								t_line;
+
 extern t_op 					g_op_tab[17];
 
 t_ex_ret        				parse(t_src_file *file);
