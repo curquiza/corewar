@@ -1,5 +1,4 @@
 #include "asm.h"
-#include <stdio.h>
 
 /*
 ** parse: organize parsing of the name, comment, and instructions.
@@ -51,21 +50,35 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 	return (ret);
 }
 
+t_ex_ret		new_lines_array(t_line ***lines, int nb_line)
+{
+	if (!(*lines = (t_line**)malloc(sizeof(t_line) * (nb_line + 1))))
+		return (ft_ret_err(ERR_MALLOC));
+	(*lines)[nb_line] = 0;
+	return (SUCCESS);
+}
+
 t_ex_ret		parser(t_src_file *file)
 {
 	t_ex_ret		ret;
 	char			**array_input;
 	t_token_list 	*tokens;
-	char			**tmp;
+	int 			i;
+	int 			nb_line;
+	t_line			**lines;
 
 	array_input = NULL;
 	tokens = NULL;
+	lines = NULL;
 	init_parser(file, &array_input);
-	tmp = array_input;
-	while (*tmp)
+	nb_line = ft_tablen(array_input);
+	if ((new_lines_array(&lines, nb_line)) == FAILURE)
+		return (FAILURE);
+	i = 0;
+	while (i < nb_line)
 	{
 		file->nb_line++;
-		if ((lexer(&tokens, *tmp, file->nb_line)) == FAILURE)
+		if ((lexer(&tokens, array_input[i], file->nb_line)) == FAILURE)
 		{
 			ft_tabdel(&array_input);
 			free_tokens(&tokens);
@@ -74,7 +87,7 @@ t_ex_ret		parser(t_src_file *file)
 		print_tokens(tokens);
 		ret = parse_line(tokens, file->nb_line); // return ??
 		free_tokens(&tokens);
-		tmp++;
+		i++;
 	}
 	ft_tabdel(&array_input);
 	return (ret);
