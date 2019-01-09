@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dump_flag.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/09 20:14:00 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/09 20:14:52 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static int	bytes_per_line(t_vm *vm)
@@ -14,7 +26,7 @@ static void	handle_newline(int i, t_vm *vm)
 	b_per_line = i % bytes_per_line(vm);
 	if (b_per_line == bytes_per_line(vm) - 1)
 	{
-		flag_is_applied(ZAZ_FLAG, vm)? ft_putchar_fd(' ', vm->trace_fd) : 0;
+		flag_is_applied(ZAZ_FLAG, vm) ? ft_putchar_fd(' ', vm->trace_fd) : 0;
 		ft_putchar_fd('\n', vm->trace_fd);
 	}
 	else
@@ -39,10 +51,10 @@ void		dump_memory(t_vm *vm)
 	{
 		print_mem_addr(i, vm);
 		if (flag_is_applied(ZAZ_FLAG, vm) == TRUE)
-			ft_dprintf(vm->trace_fd, "%0.2x", (t_byte) memory[i].value);
+			ft_dprintf(vm->trace_fd, "%0.2x", (t_byte)memory[i].value);
 		else
 			ft_dprintf(vm->trace_fd, "%s%0.2x%s", memory[i].color,
-					(t_byte) memory[i].value, DEF);
+					(t_byte)memory[i].value, DEF);
 		handle_newline(i, vm);
 		i++;
 	}
