@@ -45,12 +45,12 @@ void	start_visu(t_vm *vm)
 	initscr();
 	if (has_colors() == FALSE)
 	{
-		print_visu_err(VISU_COLOR_ERR);
+		print_visu_err(VISU_COLOR_ERR VISU_IMP_TO_LAUNCH);
 		vm->trace_fd = STDOUT_FILENO;
 	}
 	else if (check_term_size() == FALSE)
 	{
-		print_visu_err(VISU_SIZE_ERR);
+		print_visu_err(VISU_SIZE_ERR VISU_IMP_TO_LAUNCH);
 		vm->trace_fd = STDOUT_FILENO;
 	}
 	else
