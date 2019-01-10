@@ -3,9 +3,8 @@
 
 # include "libft.h"
 # include "op.h"
-# include "src_file.h"
+# include "struct.h"
 # include "error.h"
-# include "op_tab.h"
 # include "lexer.h"
 # include "parser.h"
 # include <fcntl.h>
@@ -17,7 +16,12 @@
 # define OPTIONS		"a"
 # define FLAG_A			1
 
+
+/*
+** GLOBAL VARIABLES
+*/
 extern int		g_flags;
+extern t_op 	g_op_tab[17];
 
 /*
 ** INIT

@@ -62,6 +62,7 @@ int				main (int argc, char **argv)
 		if ((ret = parse(&file)) != SUCCESS)
 			status = FAILURE ;
 		// print_header(&file.header);
+		free_ast_array(&file.ast);
 	}
 	// while (1);
 	return (status);
