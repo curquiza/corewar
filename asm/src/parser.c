@@ -25,23 +25,42 @@ t_ex_ret		parse(t_src_file *file)
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
+void			skip_whitespaces(t_token_list **tokens)
 {
-	(void)nb_line;
+	t_token_list	*current;
+	t_token_list	*tmp;
+
+	current = *tokens;
+	ft_printf("current->token->str: %s\n", current->token->str);
+	while (current)
+	{
+		if (current->token->type == WHITESPACE)
+		{
+			tmp = current;
+			current = current->next;
+			tmp->next = NULL;
+			current->prev = NULL;
+			free_tokens(&tmp);
+		}
+		else
+			break ;
+	}
+	*tokens = current;
+}
+
+t_ex_ret		parse_line(t_ast *ast, t_token_list **tokens, int nb_line)
+{
+	if (!*tokens)
+		return (SUCCESS);
 	(void)ast;
-	(void)tokens;
-
-	if (!ast)
-		ft_printf("ast null\n");
-	else
-		ft_printf("ok ast\n");
-	
-	ft_printf("sieof ast->label %d\n", sizeof(ast->label));
-
-	ft_printf("lol\n");
-	ast->label = tokens;
-	ft_printf("lol\n");
-
+	(void)nb_line;
+	skip_whitespaces(tokens);
+	if (!*tokens)
+		return (SUCCESS);
+	if ((*tokens)->token->type != STRING)
+		return (parse_error(nb_line, "Invalid token."));
+	else if ()
+	print_tokens(*tokens);
 	return (SUCCESS);
 }
 
@@ -57,7 +76,11 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 	list_input = NULL;
 	ret = FAILURE;
 	if ((read_file(file, &list_input)) == SUCCESS)
-		ret = list_to_array(list_input, array_input, ft_lstlen(list_input));	
+	{
+		// ft_printf("File: "); // debug
+		// print_file(list_input); // debug
+		ret = list_to_array(list_input, array_input, ft_lstlen(list_input)); // stocker list len.	
+	}
 	ft_lstdel(&list_input, &del);
 	return (ret);
 }
@@ -65,16 +88,17 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 t_ex_ret		parser(t_src_file *file)
 {
 	t_ex_ret		ret;
-	char			**array_input;
+	char			**array_input; // struc globale
 	t_token_list 	*tokens;
 	int 			i;
-	int 			nb_line;
+	int 			nb_line; // suppr
 
-	array_input = NULL;
-	init_parser(file, &array_input);
-	nb_line = ft_tablen(array_input);
+	array_input = NULL;  // struc globale
+	init_parser(file, &array_input); // struc globale
+	nb_line = ft_tablen(array_input); // optimization ?
 	if ((init_ast_array(&file->ast, nb_line)) == FAILURE)
 		return (FAILURE);
+	file->nb_line++;
 	i = 0;
 	while (i < nb_line)
 	{
@@ -86,7 +110,7 @@ t_ex_ret		parser(t_src_file *file)
 			return (FAILURE);
 		}
 		// print_tokens(tokens);
-		if ((ret = parse_line(file->ast[i], tokens, i + file->nb_line)) == FAILURE)
+		if ((ret = parse_line(file->ast[i], &tokens, i + file->nb_line)) == FAILURE)
 		{
 			ft_tabdel(&array_input);
 			free_tokens(&tokens);

@@ -1,7 +1,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef enum 			e_type
+typedef enum 					e_type
 {
 	NONE,
 	STRING = 1,
@@ -13,22 +13,22 @@ typedef enum 			e_type
 	COLON = 64,
 	SEPARATOR = 128,
 	DIRECT = 256
-}						t_type;
+}								t_type;
 
-typedef struct			s_token
+typedef struct					s_token
 {
-	char				*str;
-	t_type				type;
-	unsigned int		line;
-	unsigned int		col;
-}						t_token;
+	char						*str;
+	t_type						type;
+	unsigned int				line;
+	unsigned int				col;
+}								t_token;
 
-typedef struct			s_token_list
+typedef struct					s_token_list
 {
-	struct s_token_list		*prev;
-	struct s_token_list		*next;
-	struct s_token			*token;
-}						t_token_list;
+	struct s_token_list			*prev;
+	struct s_token_list			*next;
+	struct s_token				*token;
+}								t_token_list;
 
 typedef struct					s_op
 {
@@ -59,8 +59,6 @@ typedef struct					s_src_file
 	int							nb_line;
 	t_ast						**ast;
 }								t_src_file;
-
-t_src_file		*g_file;
 
 #endif
 

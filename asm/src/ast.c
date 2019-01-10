@@ -17,16 +17,6 @@ t_ex_ret		init_ast_array(t_ast ***ast, int nb_line)
 	return (SUCCESS);
 }
 
-// static int 		len_ast_array(t_ast **ast)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (ast[i])
-// 		i++;
-// 	return (i);
-// }
-
 void			free_ast_array(t_ast ***ast)
 {
 	int		i;
@@ -36,7 +26,7 @@ void			free_ast_array(t_ast ***ast)
 	i = 0;
 	while ((*ast)[i])
 	{
-		ft_printf("free nb: %d\n", i);
+		ft_printf("free nb: %d\n", i); // debug
 		free_tokens(&((*ast)[i])->label);
 		free_tokens(&((*ast)[i])->arguments);
 		free((*ast)[i]);
@@ -53,7 +43,7 @@ void			print_ast_array(t_ast **ast)
 	i = 0;
 	while (ast[i])
 	{
-		ft_printf("--- ast nb: %d\n", i);		
+		ft_printf("===== ast nb: %d\n", i);		
 		if (!(ast[i]->label))
 			ft_printf("label null\n");
 		else
@@ -70,6 +60,7 @@ void			print_ast_array(t_ast **ast)
 			ft_printf("size: %d\n", ast[i]->size);
 		if (!(ast[i]->offset))
 			ft_printf("offset: %d\n", ast[i]->offset);
-		i++;						
+		i++;
+		ft_printf("=====\n");			
 	}
 }

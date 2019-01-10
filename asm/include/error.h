@@ -22,5 +22,6 @@
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
 # define INVALID_CHAR	"Invalid character."
+# define EXPECT_LABEL	"Label name was expected."
 
 #endif

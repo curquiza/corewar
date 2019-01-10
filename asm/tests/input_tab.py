@@ -9,7 +9,8 @@ ERROR_TYPE = {
     'BAD_QUOTES' :          'Bad quoting.',
     'BIG_NAME' :		    'Name is too long.',
     'BIG_COMMENT' :		    'Comment is too long.',
-    'INVALID_CHAR' :        'Invalid character.'
+    'INVALID_CHAR' :        'Invalid character.',
+    'EXPECT_LABEL' :        'Label name was expected.'
 
     # 'PARAM_NB':             'Wrong number of parameters for this intruction.'
 }
@@ -30,4 +31,5 @@ INPUT = {
     'comment.instr_before.s':    {'error': True,  'error_type': 'NO_COMMENT', 'error_line': 2},
     'lexer.bad_char.s':    {'error': True,  'error_type': 'INVALID_CHAR', 'error_line': 4},
     'lexer.empty.s':    {'error': False,  'error_type': None, 'error_line': -1},
+    'parser.label.no_str.s':    {'error': True,  'error_type': 'EXPECT_LABEL', 'error_line': 3},
 }
