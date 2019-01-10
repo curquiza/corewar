@@ -6,10 +6,8 @@ YELLOW="\x1b[33m"
 DEF="\033[0m"
 
 corewar_bin="./corewar"
-#corewar_bin="../../dlaurent_corewar/vm/corewar"
 zaz_corewar_bin="../resources/corewar"
 corewar="$corewar_bin -zaz -dump"
-#corewar="$corewar_bin --dump"
 zaz_corewar="../resources/corewar -d"
 trace="tests/vm_diff_trace.txt"
 
@@ -25,7 +23,6 @@ function check_diff() {
 	$corewar "$1" $2 | tail -n 64 > output1 2>&1
 	$zaz_corewar "$1" $2 | tail -n 64 > output2 2>&1
 	local rslt="$(diff output1 output2)"
-	#echo "rslt = $rslt" 1>&2
 	rm -f output1 output2
 	if [[ "$rslt" == "" ]]; then
 		echo "1"
