@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_getkey.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:22 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:56:22 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static void	toogle_pause(t_vm *vm)
@@ -14,7 +26,7 @@ static void	toogle_pause(t_vm *vm)
 	}
 }
 
-void	getkey(t_vm *vm)
+void		getkey(t_vm *vm)
 {
 	char	c;
 

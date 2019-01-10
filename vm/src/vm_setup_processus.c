@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm_setup_processus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:35 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:56:07 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 t_processus	*new_processus(int index, t_vm *vm)
@@ -11,7 +23,7 @@ t_processus	*new_processus(int index, t_vm *vm)
 	return (new);
 }
 
-void	add_processus(t_processus **alst, t_processus *new)
+void		add_processus(t_processus **alst, t_processus *new)
 {
 	if (!alst)
 		return ;
@@ -24,7 +36,7 @@ void	add_processus(t_processus **alst, t_processus *new)
 	}
 }
 
-void	create_all_first_processus(t_vm *vm)
+void		create_all_first_processus(t_vm *vm)
 {
 	int		i;
 	int		index;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_manage_flag.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:51:36 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 11:01:05 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_ex_ret	parse_num_flag(char **argv, int *i, t_vm *vm)
@@ -43,7 +55,7 @@ static t_ex_ret	parse_verbose_flag(char **argv, int *i, t_vm *vm)
 	return (SUCCESS);
 }
 
-t_ex_ret			manage_flag(char **argv, int *i, t_vm *vm)
+t_ex_ret		manage_flag(char **argv, int *i, t_vm *vm)
 {
 	if (ft_strequ(argv[*i], NUM_FLAG_STR))
 		return (parse_num_flag(argv, i, vm));

@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm_setup.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:27 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:55:43 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-int	get_beginning_index(int num, t_vm *vm)
+int			get_beginning_index(int num, t_vm *vm)
 {
 	return (MEM_SIZE * num / vm->total_players);
 }
 
 static void	fill_player_color(int player_id, t_memcase *memcase)
 {
-
 	if (player_id == 0)
 	{
 		ft_strcpy(memcase->color, CYAN);
@@ -38,7 +49,7 @@ static void	fill_memory(int index, t_player *player, t_vm *vm, int player_id)
 	while (i < player->header.prog_size)
 	{
 		if (i + index >= MEM_SIZE)
-			break;
+			break ;
 		vm->memory[index + i].value = player->prog[i];
 		fill_player_color(player_id, &vm->memory[index + i]);
 		i++;
@@ -69,8 +80,8 @@ void		vm_setup(t_vm *vm)
 	vm->trace_fd = STDOUT_FILENO;
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
 	{
-		if ((vm->trace_fd
-			= open_file(TRACE_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644))
+		if ((vm->trace_fd = open_file(TRACE_FILE,
+										O_WRONLY | O_CREAT | O_TRUNC, 0644))
 			== FAILURE)
 		{
 			ft_dprintf(2, "Error: %s\n", VISU_TRACE_ERR);

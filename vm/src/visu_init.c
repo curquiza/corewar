@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:25 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:22:17 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_bool		check_term_size(void)
@@ -12,13 +24,13 @@ static t_visu_type	get_visu_type(void)
 	return (DEF_V);
 }
 
-static void		print_visu_err(char *err)
+static void			print_visu_err(char *err)
 {
 	endwin();
 	ft_dprintf(2, "Error: %s\n", err);
 }
 
-static void	init_visu(t_vm *vm)
+static void			init_visu(t_vm *vm)
 {
 	vm->visu.enabled = TRUE;
 	vm->visu.pause = TRUE;
@@ -40,17 +52,17 @@ static void	init_visu(t_vm *vm)
 	nodelay(stdscr, FALSE);
 }
 
-void	start_visu(t_vm *vm)
+void				start_visu(t_vm *vm)
 {
 	initscr();
 	if (has_colors() == FALSE)
 	{
-		print_visu_err(VISU_COLOR_ERR VISU_IMP_TO_LAUNCH);
+		print_visu_err(VISU_COLOR_ERR);
 		vm->trace_fd = STDOUT_FILENO;
 	}
 	else if (check_term_size() == FALSE)
 	{
-		print_visu_err(VISU_SIZE_ERR VISU_IMP_TO_LAUNCH);
+		print_visu_err(VISU_SIZE_ERR);
 		vm->trace_fd = STDOUT_FILENO;
 	}
 	else

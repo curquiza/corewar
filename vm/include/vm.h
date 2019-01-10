@@ -6,7 +6,7 @@
 /*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:10:26 by curquiza          #+#    #+#             */
-/*   Updated: 2019/01/03 19:10:44 by curquiza         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:27:01 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 # define VISU_COLOR_ERR		"Terminal does not support color"
 # define VISU_SIZE_ERR		"Window too small to launch visual"
 # define VISU_TRACE_ERR		"Error when opening trace file"
-# define VISU_IMP_TO_LAUNCH	", impossible to launch visual"
 
 /*
 ** Flags

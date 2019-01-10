@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:51:09 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 11:02:49 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-static void	parse_param_without_ocp(t_memcase *mem, t_processus *proc, t_param *params)
+static void		parse_param_without_ocp(t_memcase *mem, t_processus *proc,
+										t_param *params)
 {
 	if (proc->current_op->index == TRUE)
 		params->size = IND_SIZE;
@@ -22,7 +35,6 @@ static t_bool	parse_all_params(t_memcase *mem, t_param *params,
 	i = 0;
 	while (i < proc->current_op->param_nb)
 	{
-		/*params[i].value = memvalue_to_uint32(mem, proc->pc + 2 + j, params[i].size);*/
 		params[i].value = memvalue_to_int32_norestrict(mem, proc, 2 + j,
 														params[i].size);
 		if (params[i].type == T_REG
@@ -80,7 +92,7 @@ static t_bool	parse_ocp(t_byte memvalue, t_param *params, t_op *current_op)
 	return (valid_ocp);
 }
 
-t_bool	parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
+t_bool			parse_op_params(t_vm *vm, t_processus *proc, t_param *params)
 {
 	ft_bzero(params, 4 * sizeof(*params));
 	if (proc->current_op->ocp == FALSE)

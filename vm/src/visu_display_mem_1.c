@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_display_mem_1.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:09 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:24:09 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static int	get_attr(t_memcase *memory)
@@ -36,14 +48,14 @@ static void	handle_newline(int i, t_vm *vm, WINDOW *win)
 		waddch(win, ' ');
 }
 
-void	print_memory_visu(int i, t_vm *vm, WINDOW *win)
+void		print_memory_visu(int i, t_vm *vm, WINDOW *win)
 {
 	t_memcase	*memory;
 
 	memory = vm->memory;
 	print_mem_addr_visu(i, vm, win);
 	wattron(win, get_attr(&memory[i]));
-	wprintw(win, "%0.2x", (t_byte) memory[i].value);
+	wprintw(win, "%0.2x", (t_byte)memory[i].value);
 	wattroff(win, get_attr(&memory[i]));
 	handle_newline(i, vm, win);
 }

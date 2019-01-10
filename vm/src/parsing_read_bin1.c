@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_read_bin1.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:51:42 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 11:00:47 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 t_ex_ret	handle_read_prog_err(int read_ret, char *filename,
@@ -15,6 +27,7 @@ t_ex_ret	handle_read_prog_err(int read_ret, char *filename,
 /*
 ** Read of prog_size +1 -> to check if the prog is not too big.
 */
+
 t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 {
 	char	*buff;
@@ -33,5 +46,3 @@ t_ex_ret	read_prog(char *filename, int fd, t_player *player)
 	ft_strdel(&buff);
 	return (SUCCESS);
 }
-
-

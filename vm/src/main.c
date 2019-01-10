@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:40:04 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:49:12 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 t_vm *g_vm = NULL;
@@ -47,7 +59,7 @@ static void		launch_corewar(t_vm *vm)
 		}
 		vm->visu.enabled ? display_visu(vm) : 0;
 		if (flag_is_applied(DUMP_FLAG, vm) == TRUE
-			&&	vm->total_cycles == vm->dump_cycle)
+			&& vm->total_cycles == vm->dump_cycle)
 		{
 			dump_memory(vm);
 			vm->run = vm->visu.enabled ? vm->run : BREAK;
@@ -56,7 +68,7 @@ static void		launch_corewar(t_vm *vm)
 	end_of_game(vm);
 }
 
-int	main (int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_vm	vm;
 

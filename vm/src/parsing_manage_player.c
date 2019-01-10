@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_manage_player.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:51:38 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:59:05 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_ex_ret	parse_player(char *filename, t_player *player)
 {
-	int		fd;
+	int			fd;
 	t_header	*player_header;
 
 	player_header = &player->header;
@@ -22,7 +34,7 @@ static t_ex_ret	parse_player(char *filename, t_player *player)
 	return (close_fd(fd));
 }
 
-t_ex_ret	manage_player(char *filename, t_vm *vm, int num)
+t_ex_ret		manage_player(char *filename, t_vm *vm, int num)
 {
 	t_player	*player;
 
@@ -33,6 +45,5 @@ t_ex_ret	manage_player(char *filename, t_vm *vm, int num)
 	player->num = num;
 	if (parse_player(filename, player) == FAILURE)
 		return (FAILURE);
-	/*print_player(player); //DEBUG*/
 	return (SUCCESS);
 }

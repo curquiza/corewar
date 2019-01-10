@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_display_players.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:14 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:25:01 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_color_pair	get_player_color(int player_id)
@@ -12,7 +24,7 @@ static t_color_pair	get_player_color(int player_id)
 		return (YELLOW_PAIR);
 }
 
-void	display_players(t_vm *vm, WINDOW **wins)
+void				display_players(t_vm *vm, WINDOW **wins)
 {
 	int		i;
 

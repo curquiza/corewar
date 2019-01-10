@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_base.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:51:33 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:56:45 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_bool	num_available(int num, t_vm *vm)
@@ -58,7 +70,7 @@ static t_ex_ret	manage_players_numbers(t_vm *vm)
 	return (SUCCESS);
 }
 
-t_ex_ret	parsing(int argc, char **argv, t_vm *vm)
+t_ex_ret		parsing(int argc, char **argv, t_vm *vm)
 {
 	int		i;
 

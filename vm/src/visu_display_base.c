@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_display_base.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:02 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:23:42 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-static void	load_proc_display(t_vm *vm)
+static void		load_proc_display(t_vm *vm)
 {
 	t_processus *proc;
 
@@ -12,7 +24,7 @@ static void	load_proc_display(t_vm *vm)
 	}
 }
 
-static void	rm_proc_display(t_vm *vm)
+static void		rm_proc_display(t_vm *vm)
 {
 	t_processus *proc;
 
@@ -41,9 +53,8 @@ static void		refresh_all(t_vm *vm)
 	}
 }
 
-void	display_visu(t_vm *vm)
+void			display_visu(t_vm *vm)
 {
-
 	erase();
 	load_proc_display(vm);
 	if (vm->visu.type == MINI_V)

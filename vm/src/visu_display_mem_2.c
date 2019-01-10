@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_display_mem_2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:12 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:24:33 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 void	dump_memory_mini_visu_part(t_vm *vm, WINDOW *win, int part)
@@ -39,5 +51,3 @@ void	dump_memory_visu(t_vm *vm, WINDOW *win)
 		i++;
 	}
 }
-
-

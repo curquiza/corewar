@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_all_processus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:49:52 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 13:49:22 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static t_op		*get_op_from_proc(t_vm *vm, t_processus *proc)
@@ -49,7 +61,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 	if (proc->cycles == proc->current_op->cycles && proc->current_op)
 	{
 		print_str2("\tNombre of cycles reaches for operation",
-					proc->current_op->name,  ALL, vm);
+					proc->current_op->name, ALL, vm);
 		if (parse_op_params(vm, proc, params) == TRUE)
 		{
 			proc->current_op->func(vm, proc, params);
@@ -57,7 +69,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		}
 		else
 			print_str2("\tNo op execution : error in OCP for operation",
-						proc->current_op->name,  ALL, vm);
+						proc->current_op->name, ALL, vm);
 		if (need_move(proc, op_succeed) == TRUE)
 		{
 			print_str("\tMoving to the next operation\n", ALL, vm);
@@ -68,7 +80,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 	}
 }
 
-void		exec_all_proc(t_vm *vm, t_processus	*proc)
+void			exec_all_proc(t_vm *vm, t_processus *proc)
 {
 	t_param		params[MAX_ARGS_NUMBER];
 	int			i;

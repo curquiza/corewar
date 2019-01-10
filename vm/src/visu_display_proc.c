@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu_display_proc.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:52:17 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:25:49 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static void	display_title(t_vm *vm, int proc_id, WINDOW *win)
@@ -11,12 +23,11 @@ static void	display_title(t_vm *vm, int proc_id, WINDOW *win)
 	else
 		mvwprintw(win, 1, 2, "%-15s%2d/%d", "PROCESSUS", proc_id,
 					vm->total_proc);
-
 }
 
-void	display_proc(t_vm *vm, int proc_id, WINDOW *win)
+void		display_proc(t_vm *vm, int proc_id, WINDOW *win)
 {
-	int		i;
+	int			i;
 	t_processus	*proc;
 
 	if (vm->proc == NULL)
