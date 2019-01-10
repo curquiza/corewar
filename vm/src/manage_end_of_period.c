@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_end_of_period.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:50:09 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 14:09:55 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static void	handle_no_enough_live(t_vm *vm)
@@ -11,7 +23,8 @@ static void	handle_no_enough_live(t_vm *vm)
 	{
 		print_str_int("\tNb of verif reaches the maximum", MAX_CHECKS, FEW, vm);
 		print_str("\tDecrementing cycles_to_die : ", ALL, vm);
-		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA, ALL, vm);
+		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA,
+						ALL, vm);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;
@@ -27,7 +40,8 @@ static void	manage_cycles_verification(t_vm *vm)
 	else
 	{
 		print_str("\tDecrementing cycles_to_die : ", FEW, vm);
-		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA, FEW, vm);
+		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA,
+						FEW, vm);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;
@@ -76,7 +90,7 @@ static void	kill_or_reset_processus(t_processus **proc, t_vm *vm)
 	print_str("\n", ALL, vm);
 }
 
-void	manage_end_of_period(t_vm *vm)
+void		manage_end_of_period(t_vm *vm)
 {
 	print_str_int("Cycles to die reached", vm->cycles_to_die, FEW, vm);
 	print_str("Reseting all processus lives\n", ALL, vm);

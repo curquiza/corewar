@@ -10,7 +10,7 @@ input_path="./tests/input_parsing"
 trace="./tests/parsing_trace.txt"
 
 header_err="Error: Wrong header format\n"
-prog_size_err="Error: Prog size in header differs from the real prog size\n"
+prog_size_err="Error: Header prog size differs from the real prog size\n"
 player_num_err1="Error: 2 arguments are needed for -n flag\n"
 player_num_err2="Error: Player number must be a positive integer value\n"
 player_num_err3="Error: 2 players cannot have the same number\n"
@@ -19,7 +19,7 @@ dump_cycle_err2="Error: Dump cycle must be a positive integer value\n"
 too_many_champ_err="Error: Too many champions\n"
 prog_size_too_large_err="Error: Prog size is too large\n"
 verbose_err1="Error: 1 argument is needed for -verbose flag\n"
-verbose_err2="Error: Not a valid argument for -verbose flag (1 or 2 accepted)\n"
+verbose_err2="Error: Not a valid argument for -verbose flag (1 or 2)\n"
 
 status=0
 

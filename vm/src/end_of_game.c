@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   end_of_game.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:49:48 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:53:52 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static void		print_visu_rslt(t_vm *vm, WINDOW *win, int i)
@@ -21,7 +33,6 @@ static void		print_visu_rslt(t_vm *vm, WINDOW *win, int i)
 			mvwprintw(win, 5,
 						(END_WIN_X - (12 + ft_strlen(p->header.prog_name))) / 2,
 						"Player \"%s\" won !", p->header.prog_name);
-		
 		mvwprintw(win, 7, (END_WIN_X - 3) / 2, "^.^");
 	}
 	mvwprintw(win, 10, (END_WIN_X - 18) / 2, "Quitting in %d s...", i);
@@ -33,7 +44,7 @@ static void		visu_end(t_vm *vm)
 	int		i;
 
 	end_win = subwin(stdscr, END_WIN_Y, END_WIN_X, (LINES - END_WIN_Y) / 2,
-					(COLS - END_WIN_X)  / 2);
+					(COLS - END_WIN_X) / 2);
 	i = END_COUNTDOWN;
 	while (i != 0)
 	{
@@ -48,7 +59,7 @@ static void		visu_end(t_vm *vm)
 		close(vm->trace_fd);
 }
 
-void		end_of_game(t_vm *vm)
+void			end_of_game(t_vm *vm)
 {
 	t_player	*p;
 

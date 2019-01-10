@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_live.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:50:50 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 13:22:37 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 /*
@@ -20,7 +32,7 @@ static t_player	*get_player_live(int num, t_player *players, int total_players)
 	return (NULL);
 }
 
-void	op_live(t_vm *vm, t_processus *proc, t_param *params)
+void			op_live(t_vm *vm, t_processus *proc, t_param *params)
 {
 	t_player		*player;
 

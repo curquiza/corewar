@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/03 19:10:26 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 15:27:01 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VM_H
 # define VM_H
 
@@ -18,7 +30,7 @@
 */
 # define DEFINE_ERR			"Value not conformed in op.h file"
 # define HEADER_ERR			"Wrong header format"
-# define PROG_SIZE_ERR		"Prog size in header differs from the real prog size"
+# define PROG_SIZE_ERR		"Header prog size differs from the real prog size"
 # define MAX_PROG_SIZE_ERR	"Prog size is too large"
 # define MAX_PLAYER_ERR		"Too many champions"
 # define PLAYER_NUM_ERR1	"2 arguments are needed for -n flag"
@@ -27,11 +39,11 @@
 # define DUMP_CYCLE_ERR1	"1 argument is needed for -dump flag"
 # define DUMP_CYCLE_ERR2	"Dump cycle must be a positive integer value"
 # define VERBOSE_ERR1		"1 argument is needed for -verbose flag"
-# define VERBOSE_ERR2		"Not a valid argument for -verbose flag (1 or 2 accepted)"
+# define VERBOSE_ERR2		"Not a valid argument for -verbose flag (1 or 2)"
 # define WRONG_FLAG_ERR		"Not an available flag"
-# define VISU_COLOR_ERR		"Terminal does not support color, impossible to launch visual"
+# define VISU_COLOR_ERR		"Terminal does not support color"
 # define VISU_SIZE_ERR		"Window too small to launch visual"
-# define VISU_TRACE_ERR		"Error when opening trace file, impossible to launch visual"
+# define VISU_TRACE_ERR		"Error when opening trace file"
 
 /*
 ** Flags
@@ -87,8 +99,7 @@
 /*
 ** FLAGS
 */
-
-enum			s_flag
+enum			e_flag
 {
 	DUMP_FLAG = 1,
 	VISU_FLAG = 2,
@@ -96,7 +107,7 @@ enum			s_flag
 	ZAZ_FLAG = 8
 };
 
-typedef enum	s_verbose
+typedef enum	e_verbose
 {
 	NONE,
 	FEW,
@@ -141,7 +152,7 @@ typedef struct	s_visu
 ** VM ***
 */
 
-typedef enum	s_run
+typedef enum	e_run
 {
 	ON,
 	OFF,
@@ -174,32 +185,32 @@ typedef struct	s_player
 	t_byte		prog[CHAMP_MAX_SIZE];
 }				t_player;
 
-typedef struct 	s_vm
+typedef struct	s_vm
 {
-	t_run			run;
-	t_memcase		memory[MEM_SIZE];
-	t_player		player[MAX_PLAYERS];
-	int				total_players;
-	int				flag;
-	int				dump_cycle;
-	t_processus		*proc;
-	int				total_proc;
-	int				total_cycles;
-	int				current_cycles;
-	int				cycles_to_die;
-	int				lives;
-	int				verif;
-	int				last_live_player;
-	t_visu			visu;
-	t_verbose		verbose;
-	int				trace_fd;
+	t_run		run;
+	t_memcase	memory[MEM_SIZE];
+	t_player	player[MAX_PLAYERS];
+	int			total_players;
+	int			flag;
+	int			dump_cycle;
+	t_processus	*proc;
+	int			total_proc;
+	int			total_cycles;
+	int			current_cycles;
+	int			cycles_to_die;
+	int			lives;
+	int			verif;
+	int			last_live_player;
+	t_visu		visu;
+	t_verbose	verbose;
+	int			trace_fd;
 }				t_vm;
 
 /*
 ** OPERATION ***
 */
 
-typedef enum	s_addr_type
+typedef enum	e_addr_type
 {
 	DEF_ADDR,
 	RESTRICT,
@@ -246,10 +257,10 @@ t_ex_ret		read_error(char *filename);
 ** Conversions
 */
 uint32_t		str_to_uint32(char *str);
-int32_t		memvalue_to_int32_restrict(t_memcase *vm_mem,
+int32_t			memvalue_to_int32_restrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
-int32_t		memvalue_to_int32_norestrict(t_memcase *vm_mem,
+int32_t			memvalue_to_int32_norestrict(t_memcase *vm_mem,
 									t_processus *proc,
 									signed short index, int size);
 
@@ -293,7 +304,7 @@ void			print_compare_intvar(int v1, int v2, t_verbose type, t_vm *vm);
 ** Game
 */
 void			manage_end_of_period(t_vm *vm);
-void			exec_all_proc(t_vm *vm);
+void			exec_all_proc(t_vm *vm, t_processus *proc);
 void			end_of_game(t_vm *vm);
 
 /*
@@ -330,6 +341,15 @@ void			display_visu(t_vm *vm);
 void			create_visu_subwin(t_vm *vm);
 void			create_mini_visu_subwin(t_vm *vm);
 void			getkey(t_vm *vm);
+int				bytes_per_line_visu(t_vm *vm);
+void			print_memory_visu(int i, t_vm *vm, WINDOW *win);
+void			dump_memory_visu(t_vm *vm, WINDOW *win);
+void			dump_memory_mini_visu_part(t_vm *vm, WINDOW *win, int part);
+void			display_proc(t_vm *vm, int proc_id, WINDOW *win);
+void			display_players(t_vm *vm, WINDOW **wins);
+void			display_cycles(t_vm *vm, WINDOW *win);
+void			display_lives(t_vm *vm, WINDOW *win);
+void			display_usage(t_vm *vm, WINDOW *win);
 
 /*
 ** Misc
@@ -338,13 +358,11 @@ t_ex_ret		usage_ret_err(void);
 void			exit_malloc_err(void);
 t_player		*get_player(int num, t_player *players, int total_players);
 t_bool			flag_is_applied(int flag, t_vm *vm);
-//int				get_mem_index(unsigned short index);
-int				get_mem_index(t_processus *proc, signed short index, t_addr_type addr);
+int				get_mem_index(t_processus *proc, signed short index,
+								t_addr_type addr);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
 											t_param *p, t_addr_type addr_type);
-//void			store_4bytes(t_vm *vm, unsigned short index, int value,
-							//t_processus *proc);
 void			store_4bytes(t_vm *vm, signed short index, int value,
 							t_processus *proc);
 

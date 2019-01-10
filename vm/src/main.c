@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 10:40:04 by curquiza          #+#    #+#             */
+/*   Updated: 2019/01/10 10:49:12 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 t_vm *g_vm = NULL;
 
-t_ex_ret	init_check(void)
+static t_ex_ret	init_check(void)
 {
 	if (IND_SIZE != 2 || REG_SIZE != 4 || DIR_SIZE != REG_SIZE
 		|| REG_CODE != 1 || DIR_CODE != 2 || IND_CODE != 3
@@ -20,21 +32,20 @@ t_ex_ret	init_check(void)
 	return (SUCCESS);
 }
 
-void		play_one_cycle(t_vm *vm)
+static void		play_one_cycle(t_vm *vm)
 {
 	vm->total_cycles += 1;
 	vm->current_cycles += 1;
-	/*print_str_int("Starting a new cycle", vm->current_cycles, FEW, vm);*/
 	print_str("Starting a new cycle : ", FEW, vm);
 	print_compare_intvar(vm->current_cycles, vm->total_cycles, FEW, vm);
 	print_str("Executing all process\n", FEW, vm);
-	exec_all_proc(vm);
+	exec_all_proc(vm, vm->proc);
 	if (vm->current_cycles == vm->cycles_to_die)
 		manage_end_of_period(vm);
 	print_str("----------\n", FEW, vm);
 }
 
-void		launch_corewar(t_vm *vm)
+static void		launch_corewar(t_vm *vm)
 {
 	while (vm->run == ON)
 	{
@@ -48,7 +59,7 @@ void		launch_corewar(t_vm *vm)
 		}
 		vm->visu.enabled ? display_visu(vm) : 0;
 		if (flag_is_applied(DUMP_FLAG, vm) == TRUE
-			&&	vm->total_cycles == vm->dump_cycle)
+			&& vm->total_cycles == vm->dump_cycle)
 		{
 			dump_memory(vm);
 			vm->run = vm->visu.enabled ? vm->run : BREAK;
@@ -57,7 +68,7 @@ void		launch_corewar(t_vm *vm)
 	end_of_game(vm);
 }
 
-int	main (int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_vm	vm;
 
@@ -70,7 +81,6 @@ int	main (int argc, char **argv)
 		clean_all();
 		exit(FAILURE);
 	}
-	//print_g_op();
 	vm_setup(&vm);
 	launch_corewar(&vm);
 	clean_all();

@@ -49,7 +49,14 @@ SRC = $(addprefix $(SRC_DIR)/, \
 	  manage_end_of_period.c \
 	  exec_all_processus.c \
 	  visu_init.c \
-	  visu_display.c \
+	  visu_display_base.c \
+	  visu_display_mem_1.c \
+	  visu_display_mem_2.c \
+	  visu_display_cycles.c \
+	  visu_display_usage.c \
+	  visu_display_proc.c \
+	  visu_display_lives.c \
+	  visu_display_players.c \
 	  visu_create_subwin.c \
 	  visu_getkey.c \
 	  end_of_game.c \
