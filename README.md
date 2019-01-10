@@ -1,5 +1,14 @@
 # Corewar
 
+## Dependencies :
+- gcc
+- make
+- ncures :  
+  ```apt-get install libncurses5-dev libncursesw5-dev```
+  or
+  ```brew install ncurses```
+  
+
 ## ASM
 ### Usage
 ```bash
