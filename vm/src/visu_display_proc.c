@@ -6,7 +6,7 @@
 /*   By: curquiza <curquiza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 10:52:17 by curquiza          #+#    #+#             */
-/*   Updated: 2019/01/10 15:25:49 by curquiza         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:48:51 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ void		display_proc(t_vm *vm, int proc_id, WINDOW *win)
 		mvwprintw(win, 7, 2, "%-15s%6s", "Op", "None");
 	mvwprintw(win, 8, 2, "%-15s%6d", "Cycles", proc->cycles);
 	i = 0;
-	while (i++ < REG_NUMBER)
+	while (i < REG_NUMBER)
+	{
 		mvwprintw(win, 10 + i, 2, "R%-9.2d 0x%.8x", i + 1, proc->reg[i]);
+		i++;
+	}
 }
