@@ -75,5 +75,19 @@ int				ft_printf(char *s, ...)
 	va_start(arg, s);
 	ft_printf_loop(s, arg, &data, f);
 	va_end(arg);
-	return (ft_display_and_exit(s, data));
+	return (ft_display_and_exit(1, s, data));
+}
+
+int				ft_dprintf(int fd, char *s, ...)
+{
+	va_list		arg;
+	t_data		data;
+	int			(*f[122])(va_list, t_arg *);
+
+	ft_bzero(&data, sizeof(data));
+	ft_init_ftab(f);
+	va_start(arg, s);
+	ft_printf_loop(s, arg, &data, f);
+	va_end(arg);
+	return (ft_display_and_exit(fd, s, data));
 }

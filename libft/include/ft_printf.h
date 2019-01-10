@@ -57,6 +57,7 @@ typedef struct	s_data
 ** ft_printf.c
 */
 int				ft_printf(char *s, ...);
+int				ft_dprintf(int fd, char *s, ...);
 
 /*
 ** Parsing
@@ -111,6 +112,6 @@ int				ft_conv_b(va_list arg, t_arg *current);
 /*
 ** Display
 */
-int				ft_display_and_exit(char *s, t_data data);
+int				ft_display_and_exit(int fd, char *s, t_data data);
 
 #endif

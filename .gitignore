@@ -13,3 +13,6 @@ misc/dumb_tests/**/*.cor
 **/*.pyc
 resources/**/*.cor
 asm/tests/input/*.cor
+vm/tests/parsing_trace.txt
+vm/tests/vm_diff_trace.txt
+vm/trace.txt

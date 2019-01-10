@@ -23,8 +23,8 @@ t_file	*ft_create_elem(int fd)
 {
 	t_file	*new;
 
-	if (!(new = (t_file *)malloc(sizeof(*new))))
-		ft_exit("malloc error", 1);
+	if (!(new = ft_memalloc(sizeof(*new))))
+		return (NULL);
 	new->fd = fd;
 	if (!(new->buff = ft_strnew(BUFF_SIZE)))
 		return (NULL);

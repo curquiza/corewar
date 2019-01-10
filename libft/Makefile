@@ -1,13 +1,22 @@
 NAME = libft.a
 
-FLAG = -Wall -Wextra -Werror
+OS = $(shell uname)
+
+ifeq ($(OS), Darwin)
+	# MacOs
+	FLAG = -Wall -Wextra -Werror
+else
+	# Linux
+	FLAG = -Wall -Wextra
+endif
+
 CC = gcc $(FLAG)
 
-SRC = src
+SRC = src/
 C_DIR = $(addprefix $(SRC)/, \
 		ft \
 		gnl \
-		ft_printf) 
+		ft_printf)
 
 C_FILES = $(addprefix $(SRC)/, \
 		  $(FT) \
@@ -101,7 +110,11 @@ FT = $(addprefix ft/, \
 	  ft_strupper.c \
 	  ft_strlower.c \
 	  ft_putnbr2.c \
-	  ft_memjoin.c)
+	  ft_memjoin.c \
+	  ft_atoli.c \
+	  ft_is_int.c \
+	  ft_ret_err.c \
+	  ft_ret_err2.c)
 
 GNL = $(addprefix gnl/, \
 	  get_next_line.c)
@@ -126,7 +139,7 @@ FT_PRINTF = $(addprefix ft_printf/, \
 		  precision.c \
 		  padding.c \
 		  display.c \
-		  ft_printf.c) 
+		  ft_printf.c)
 
 OBJ = obj/
 O_DIR = $(C_DIR:$(SRC)/%=$(OBJ)/%)
@@ -137,7 +150,7 @@ INCL = -I$(H_DIR)
 
 all : $(NAME)
 
-$(NAME) : $(O_FILES) 
+$(NAME) : $(O_FILES)
 	@ar rc $@ $^
 	@ranlib $@
 

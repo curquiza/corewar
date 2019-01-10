@@ -22,8 +22,19 @@ On peut supposer qu'un padding est fait pour avoir un multiple de 4... ?
 est aligné au multiple de 4 octets supérieur.
 128 + 1 -> 132 pour le name
 2048 + 1 -> 2052 pour le comment
+-> on ne peut pas verifier mon hytpothèse car pas possible de modifier le define
+dans la VM de zaz, mais l'idée est qu'il y a un bloc de 4 octets à zéro après le
+name et le commentaire
 
 --------------------------------------------------------------------------------
 
 VM
 ==
+
+1. À quoi sert le binary mode de la VM de zaz ?
+
+2. Si je lance le même match (= même vm, même players) j'aurais forcément exactement
+le même résultat ?
+-> je dirais que oui.
+
+

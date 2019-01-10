@@ -1,11 +1,20 @@
 # Corewar
 
+## Dependencies :
+- gcc
+- make
+- ncures :  
+  ```apt-get install libncurses5-dev libncursesw5-dev```
+  or
+  ```brew install ncurses```
+  
+
 ## ASM
 ### Usage
 ```bash
 ./asm [file_name].s
 ```
-_to complete : how it works, all error types..._
+_to complete_
 ### Tests part
 #### Add a test
 1) Add your input file (`.s`) in `asm/tests/input/` folder.
@@ -32,9 +41,16 @@ make -C asm
 python3 asm/tests/main.py
 ```
 ## VM
-_usage, how it works ..._
-## Visu
-_usage ..._
+
+```bash
+./corewar [-dump N] [-zaz] [-visual] [-verbose 1|2] [-n N <champion>] <champion> ...
+```
+- dump N : dumps memory after N cycles then exits, where N is int >= 0
+- zaz : displays like zaz VM (line of 64 bytes) for dump flag
+- n N : forces champion's number to N, where N is int >= 0
+- visual : displays a Ncurses visual
+- verbose : verbose mode (1 : basic | 2 : all)
+
 ## Work process
 
 ### Want to take some notes ?
@@ -52,10 +68,10 @@ Don't forget to complete your documentation part when working ;)
 
 ### Git process
 
-- 3 pre-master branches will be used : `asm`, `vm` and `visu`.
+- 2 pre-master branches will be used : `asm` and `vm`.
 - No direct push on these pre-master branches (and on `master` of course).
-- For each feature, create a branch from `asm`/`vm`/`visu`. When the feature is finished, merge on the pre-master. Of course, if your feature has nothing to do with pre-master topic, create a branch from `master`.
-- Pre-master branch (`asm`/`vm`/`visu`) can be merged on master only if all the work is totally completed = all tests green + norminette ok + documentation.
+- For each feature, create a branch from `asm`/`vm`. When the feature is finished, merge on the pre-master. Of course, if your feature has nothing to do with pre-master topic, create a branch from `master`.
+- Pre-master branch (`asm`/`vm`) can be merged on master only if all the work is totally completed = all tests green + norminette ok + documentation.
 - Don't forget that 42 headers (for the norm) are git cancer. Add them only on your last commit, just before the final merge :)
 
 ### Break process
