@@ -85,6 +85,8 @@ t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
 	else
 		return (SUCCESS);
 	ft_printf("pa - token: %s\n", (*tokens)->token->str);
+	if (((ast->opcode->func)(ast, *tokens, nb_line)) == FAILURE)
+		return (FAILURE);
 
 	return (SUCCESS);
 }
