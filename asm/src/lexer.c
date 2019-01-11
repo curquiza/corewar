@@ -38,7 +38,7 @@ t_ex_ret			lexer(t_token_list **tokens, char *line, int nb_line)
 	stop = ft_strlen(line);
 	col = 0;
 	len = 0;
-	while ((col + len) <= stop)
+	while (col <= stop)
 	{
 		if ((len = tokenize(line + col)) < 0)
 			break ;
