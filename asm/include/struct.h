@@ -30,22 +30,10 @@ typedef struct					s_token_list
 	struct s_token				*token;
 }								t_token_list;
 
-typedef struct					s_op
-{
-	char						*name;
-	unsigned char				nb_arg;
-	t_arg_type					args[3];
-	unsigned char				opcode;
-	unsigned int				nb_cycle;
-	char						*desc;
-	unsigned char				octal;
-	unsigned char				label;
-} 								t_op;
-
 typedef struct					s_ast
 {
 	char						*label;
-	t_op 						*opcode;
+	struct s_op 				*opcode;
 	char						**arguments;
 	int							size;
 	int							offset;
@@ -59,6 +47,19 @@ typedef struct					s_src_file
 	int							nb_line;
 	t_ast						**ast;
 }								t_src_file;
+
+typedef struct					s_op
+{
+	char						*name;
+	unsigned int				param_nb;
+	t_arg_type					param_type[MAX_ARGS_NUMBER];
+	unsigned char				opcode;
+	unsigned int				cycle; // suppr ?
+	char						*desc; // suppr ?
+	unsigned char				octal; // ?
+	unsigned char				label; // ?
+	t_ex_ret					(*func)(t_ast *, t_token_list *, int);
+} 								t_op;
 
 #endif
 

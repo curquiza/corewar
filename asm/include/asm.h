@@ -21,7 +21,7 @@
 ** GLOBAL VARIABLES
 */
 extern int		g_flags;
-extern t_op 	g_op_tab[17];
+extern t_op 	g_op_tab[NB_OPCODE + 1];
 t_src_file		*g_file;
 
 /*
@@ -46,6 +46,8 @@ t_ex_ret		write_output_stdout(t_src_file *file);
 */
 t_ex_ret		put_error(char *e);
 int				put_error_code(char *e, int code);
+t_ex_ret     	parse_error(int line, char *message);
+t_ex_ret     	parse_error_token(int line, char *token, char *message);
 
 /*
 ** TOOLS

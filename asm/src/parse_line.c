@@ -29,7 +29,7 @@ t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 	ft_printf("pl - token: %s\n", (*tokens)->token->str);
 
 	if ((*tokens)->token->type != STRING)
-		return (parse_error(nb_line, "Invalid token."));
+		return (parse_error_token(nb_line, (*tokens)->token->str, "Invalid token."));
 	else if (((*tokens)->token->type == STRING)
 		&& (*tokens)->next
 		&& ((*tokens)->next->token->type == COLON))
@@ -49,14 +49,44 @@ t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 		return (SUCCESS);
 	ft_printf("po - token: %s\n", (*tokens)->token->str);
 	if ((*tokens)->token->type != STRING)
-		return (parse_error(nb_line, "Invalid token."));
+		return (parse_error_token(nb_line, (*tokens)->token->str,"Invalid token."));
 	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
 	{
 		ast->opcode = &g_op_tab[nb];
 		*tokens = (*tokens)->next ? (*tokens)->next : NULL;
 		return (SUCCESS);
 	}
-	return (parse_error(nb_line, "Invalid opcode."));
+	return (parse_error_token(nb_line, (*tokens)->token->str, "Invalid opcode."));
+}
+
+// int 			count_separator(t_token_list *tokens)
+// {
+// 	t_token_list	*tmp;
+// 	int				count;
+
+// 	tmp = tokens;
+// 	count = 0;	
+// 	while (tmp)
+// 	{
+// 		if (tmp->token->type == SEPARATOR)
+// 			count++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (count);
+// }
+
+t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
+{
+	(void)ast;
+
+	*tokens = skip_whitespaces(*tokens);
+	if (!*tokens && ast->opcode)
+		return (parse_error_token(nb_line, ast->opcode->name, "Wrong number of arguments."));
+	else
+		return (SUCCESS);
+	ft_printf("pa - token: %s\n", (*tokens)->token->str);
+
+	return (SUCCESS);
 }
 
 t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
@@ -70,6 +100,8 @@ t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
 		return (FAILURE);
 	if ((parse_opcode(ast, &current_token, nb_line)) == FAILURE)
 		return (FAILURE);
+	if ((parse_arguments(ast, &current_token, nb_line)) == FAILURE)
+		return (FAILURE);	
 	print_tokens(current_token);
 
 	return (SUCCESS);
