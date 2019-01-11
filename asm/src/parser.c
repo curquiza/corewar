@@ -25,45 +25,6 @@ t_ex_ret		parse(t_src_file *file)
 	return (SUCCESS);
 }
 
-void			skip_whitespaces(t_token_list **tokens)
-{
-	t_token_list	*current;
-	t_token_list	*tmp;
-
-	current = *tokens;
-	ft_printf("current->token->str: %s\n", current->token->str);
-	while (current)
-	{
-		if (current->token->type == WHITESPACE)
-		{
-			tmp = current;
-			current = current->next;
-			tmp->next = NULL;
-			current->prev = NULL;
-			free_tokens(&tmp);
-		}
-		else
-			break ;
-	}
-	*tokens = current;
-}
-
-t_ex_ret		parse_line(t_ast *ast, t_token_list **tokens, int nb_line)
-{
-	if (!*tokens)
-		return (SUCCESS);
-	(void)ast;
-	(void)nb_line;
-	skip_whitespaces(tokens);
-	if (!*tokens)
-		return (SUCCESS);
-	if ((*tokens)->token->type != STRING)
-		return (parse_error(nb_line, "Invalid token."));
-	else if ()
-	print_tokens(*tokens);
-	return (SUCCESS);
-}
-
 /*
 ** parser: read the end of the file, line by line and parse them.
 */
@@ -109,15 +70,15 @@ t_ex_ret		parser(t_src_file *file)
 			free_tokens(&tokens);
 			return (FAILURE);
 		}
-		// print_tokens(tokens);
-		if ((ret = parse_line(file->ast[i], &tokens, i + file->nb_line)) == FAILURE)
+		print_tokens(tokens);
+		if ((ret = parse_line(file->ast[i], tokens, i + file->nb_line)) == FAILURE)
 		{
 			ft_tabdel(&array_input);
 			free_tokens(&tokens);
 			// free ast
 			return (FAILURE);
 		}
-		// free_tokens(&tokens);
+		free_tokens(&tokens);
 		i++;
 	}
 	print_ast_array(file->ast);

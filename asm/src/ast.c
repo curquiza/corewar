@@ -27,8 +27,8 @@ void			free_ast_array(t_ast ***ast)
 	while ((*ast)[i])
 	{
 		ft_printf("free nb: %d\n", i); // debug
-		free_tokens(&((*ast)[i])->label);
-		free_tokens(&((*ast)[i])->arguments);
+		// free_tokens(&((*ast)[i])->label);
+		// free_tokens(&((*ast)[i])->arguments);
 		free((*ast)[i]);
 		i++;
 	}
@@ -47,15 +47,18 @@ void			print_ast_array(t_ast **ast)
 		if (!(ast[i]->label))
 			ft_printf("label null\n");
 		else
-			print_tokens(ast[i]->label);
+			ft_printf("label: %s\n", ast[i]->label);
 		if (!(ast[i]->opcode))
 			ft_printf("opcode null\n");
 		else
-			ft_printf("opcode: \n", ast[i]->opcode[0]);
+			ft_printf("opcode: %s\n", ast[i]->opcode->name);
 		if (!(ast[i]->arguments))
 			ft_printf("arguments null\n");
 		else
-			print_tokens(ast[i]->arguments);		
+		{
+			ft_printf("arguments:\n");
+			ft_puttab(ast[i]->arguments);		
+		}
 		if (!(ast[i]->size))
 			ft_printf("size: %d\n", ast[i]->size);
 		if (!(ast[i]->offset))

@@ -17,9 +17,9 @@ t_bool					is_special_char(char c);
 t_bool					is_string_char(char c);
 t_bool					is_label_char(char c);
 t_bool					is_label_string(char *str);
-t_bool					is_opcode(char *str);
 t_bool					is_registre(char *str);
 t_type 					which_special_char(char c);
+int						is_opcode(char *str);
 
 /*
 ** PRINT LEXER

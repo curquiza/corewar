@@ -44,9 +44,9 @@ typedef struct					s_op
 
 typedef struct					s_ast
 {
-	t_token_list				*label;
+	char						*label;
 	t_op 						*opcode;
-	t_token_list				*arguments;
+	char						**arguments;
 	int							size;
 	int							offset;
 }								t_ast;
