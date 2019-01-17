@@ -22,6 +22,12 @@
 # define BIG_COMMENT	"Comment is too long."
 # define ERR_QUOTE		"Bad quoting."
 # define INVALID_CHAR	"Invalid character."
+# define INVALID_TOKEN	"Invalid token."
+# define INVALID_OPCODE	"Invalid opcode."
+# define INVALID_PARAM	"Invalid parameter."
 # define EXPECT_LABEL	"Label name was expected."
+# define EXPECT_PARAMS	"Expecting parameters."
+# define EXPECT_DIRECT	"Expecting DIRECT parameter."
+# define NB_PARAMS		"Wrong number of parameters."
 
 #endif

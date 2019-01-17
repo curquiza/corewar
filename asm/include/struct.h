@@ -34,7 +34,9 @@ typedef struct					s_ast
 {
 	char						*label;
 	struct s_op 				*opcode;
-	char						**arguments;
+	char						*arguments[MAX_ARGS_NUMBER];
+	t_arg_type					arg_type[MAX_ARGS_NUMBER];	
+	int							ocp;
 	int							size;
 	int							offset;
 }								t_ast;
@@ -58,7 +60,7 @@ typedef struct					s_op
 	char						*desc; // suppr ?
 	unsigned char				octal; // ?
 	unsigned char				label; // ?
-	t_ex_ret					(*func)(t_ast *, t_token_list *, int);
+	t_ex_ret					(*func)(t_ast *, t_token_list **, int);
 } 								t_op;
 
 #endif

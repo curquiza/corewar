@@ -1,9 +1,7 @@
 .name "zork"  
 .comment "I'M ALIIIIVE"
 
-coco:
-		sti r1, %:live,
-		and r1, %0, r1
-
-live:	live %1
-		zjmp %:live
+titi: live %1
+coco: live %:titi
+live %2
+ld 84        ,r8

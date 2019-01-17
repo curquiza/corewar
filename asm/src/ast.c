@@ -17,6 +17,19 @@ t_ex_ret		init_ast_array(t_ast ***ast, int nb_line)
 	return (SUCCESS);
 }
 
+	
+void			free_arguments(char *arguments[MAX_ARGS_NUMBER])
+{
+	int i;
+
+	i = 0;
+	while (i < MAX_ARGS_NUMBER)
+	{
+		ft_strdel(&arguments[i]);
+		i++;
+	}
+}
+
 void			free_ast_array(t_ast ***ast)
 {
 	int		i;
@@ -27,8 +40,8 @@ void			free_ast_array(t_ast ***ast)
 	while ((*ast)[i])
 	{
 		ft_printf("free nb: %d\n", i); // debug
-		// free_tokens(&((*ast)[i])->label);
-		// free_tokens(&((*ast)[i])->arguments);
+		ft_strdel(&((*ast)[i])->label);
+		free_arguments((*ast)[i]->arguments);
 		free((*ast)[i]);
 		i++;
 	}
@@ -51,18 +64,20 @@ void			print_ast_array(t_ast **ast)
 		if (!(ast[i]->opcode))
 			ft_printf("opcode null\n");
 		else
-			ft_printf("opcode: %s\n", ast[i]->opcode->name);
-		if (!(ast[i]->arguments))
+			ft_printf("opcode: %s\t%x\n", ast[i]->opcode->name, ast[i]->opcode->opcode);
+		if (!*(ast[i]->arguments))
 			ft_printf("arguments null\n");
 		else
 		{
 			ft_printf("arguments:\n");
 			ft_puttab(ast[i]->arguments);		
 		}
-		if (!(ast[i]->size))
-			ft_printf("size: %d\n", ast[i]->size);
-		if (!(ast[i]->offset))
-			ft_printf("offset: %d\n", ast[i]->offset);
+		ft_printf("arg_type param1: %d\n", ast[i]->arg_type[0]);
+		ft_printf("arg_type param2: %d\n", ast[i]->arg_type[1]);
+		ft_printf("arg_type param3: %d\n", ast[i]->arg_type[2]);
+		ft_printf("ocp: %b\n", ast[i]->ocp);
+		ft_printf("size: %d\n", ast[i]->size);
+		ft_printf("offset: %d\n", ast[i]->offset);
 		i++;
 		ft_printf("=====\n");			
 	}

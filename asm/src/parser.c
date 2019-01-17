@@ -46,6 +46,12 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 	return (ret);
 }
 
+void			fill_offset(t_ast **ast, int i)
+{
+	if (ast[i + 1])
+		(ast[i + 1])->offset = (ast[i])->offset + (ast[i])->size;
+}
+
 t_ex_ret		parser(t_src_file *file)
 {
 	t_ex_ret		ret;
@@ -78,6 +84,7 @@ t_ex_ret		parser(t_src_file *file)
 			// free ast
 			return (FAILURE);
 		}
+		fill_offset(file->ast, i);
 		free_tokens(&tokens);
 		i++;
 	}
