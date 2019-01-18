@@ -65,10 +65,8 @@ typedef struct					s_op
 	unsigned int				param_nb;
 	t_arg_type					param_type[MAX_ARGS_NUMBER];
 	unsigned char				opcode;
-	unsigned int				cycle; // suppr ?
-	char						*desc; // suppr ?
-	unsigned char				octal; // ?
-	unsigned char				label; // ?
+	unsigned char				ocp;
+	unsigned char				index;
 } 								t_op;
 
 #endif

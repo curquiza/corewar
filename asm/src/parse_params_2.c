@@ -31,7 +31,7 @@ int			parse_direct(t_ast *ast, t_token_list *tokens, int pos)
 
 int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 {
-	if (tokens->token->type == STRING && ft_is_int(tokens->token->str) == TRUE)
+	if (tokens->token->type == STRING && ft_is_int(tokens->token->str) == TRUE) // is short !!!
 	{
 		ast->arg_type[pos] = T_IND;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);

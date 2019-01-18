@@ -29,10 +29,14 @@ void		print_ast_stdout(t_ast **ast)
 		if (ast[i]->opcode)
 		{
 			ft_printf("%-5d (%-3d) :\t\t%s\t", ast[i]->offset, ast[i]->size, ast[i]->opcode->name);
+
 			print_params(ast[i]);
-			ft_printf("            \t\t%d\n", ast[i]->opcode->param_nb);
+			if (ast[i]->ocp)
+				ft_printf("            \t%d\t%d\n", ast[i]->opcode->param_nb, ast[i]->ocp);
+			else
+				ft_printf("            \t%d\t\n", ast[i]->opcode->param_nb);
 			// print raw bytes
-			ft_printf("            \t\t%d\n", ast[i]->opcode->param_nb);
+			ft_printf("            \t%d\n", ast[i]->opcode->param_nb);
 			// print int bytes for addresse
 		}
 		ft_printf("\n");
