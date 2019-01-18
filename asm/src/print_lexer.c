@@ -13,15 +13,7 @@ static void			print_token_type(t_type type)
 	if (type == DIRECT)
 		ft_putstr("DIRECT");
 	if (type & STRING)
-		ft_putstr("STRING ");	
-	// if (type & LABEL)
-	// 	ft_putstr("LABEL ");
-	// if (type & OPCODE)
-	// 	ft_putstr("OPCODE ");
-	// if (type & INTEGER)
-	// 	ft_putstr("INTEGER ");
-	// if (type & REGISTRE)
-	// 	ft_putstr("REGISTRE ");
+		ft_putstr("STRING ");
 	ft_putendl("");
 }
 
@@ -30,12 +22,12 @@ void			print_tokens(t_token_list *tokens)
 	t_token_list	*tmp;
 
 	tmp = tokens;
-	ft_printf("---\n");
+	ft_printf(RED"\n--- lex\n"DEF);
 	while (tmp)
 	{
 		ft_printf("%d-%d %-30s", tmp->token->line, tmp->token->col, tmp->token->str);
 		print_token_type(tmp->token->type);
 		tmp = tmp->next;
 	}
-	ft_printf("---\n");
+	ft_printf("--- lex\n");
 }

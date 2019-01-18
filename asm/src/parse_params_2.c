@@ -1,7 +1,5 @@
 #include "asm.h"
 
-// DIRECT % VALUE | % : STRING
-
 int			parse_direct(t_ast *ast, t_token_list *tokens, int pos)
 {
 	if (tokens->token->type != DIRECT || !tokens->next)
@@ -10,6 +8,7 @@ int			parse_direct(t_ast *ast, t_token_list *tokens, int pos)
 		tokens = tokens->next;
 	if (tokens->token->type == STRING && ft_is_int(tokens->token->str) == TRUE)
 	{
+		ast->arg_type[pos] = T_DIR;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += DIR_SIZE;
 		tokens = tokens->next;
@@ -21,6 +20,7 @@ int			parse_direct(t_ast *ast, t_token_list *tokens, int pos)
 		tokens = tokens->next;
 	if (tokens->token->type == STRING && is_label_string(tokens->token->str) == TRUE)
 	{
+		ast->arg_type[pos] = T_DIR | T_LAB;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += DIR_SIZE;
 		tokens = tokens->next;
@@ -29,12 +29,11 @@ int			parse_direct(t_ast *ast, t_token_list *tokens, int pos)
 	return (-1);
 }
 
-// INDIRECT VALUE | STRING
-
 int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 {
 	if (tokens->token->type == STRING && ft_is_int(tokens->token->str) == TRUE)
 	{
+		ast->arg_type[pos] = T_IND;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += IND_SIZE;
 		tokens = tokens->next;
@@ -50,13 +49,11 @@ int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 	return (-1);
 }
 
-// REGISTRE r VALUE
-
-
 int			parse_registre(t_ast *ast, t_token_list *tokens, int pos)
 {
 	if (tokens->token->type == STRING && is_registre(tokens->token->str) == TRUE)
 	{
+		ast->arg_type[pos] = T_REG;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += REG_SIZE;
 		tokens = tokens->next;
@@ -76,35 +73,23 @@ t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens,
 {
 	int ret;
 
-	if ((param & T_REG) == T_REG)
+	if (((param & T_REG) == T_REG)\
+		&& ((ret = parse_registre(ast, *tokens, pos)) != -1))
 	{
-		ast->arg_type[pos] = T_REG;
-		ft_printf("apply_parse_param REG\n"); // debug
-		if ((ret = parse_registre(ast, *tokens, pos)) != -1)
-		{
-			*tokens = move_tokens(*tokens, ret);
-			return (SUCCESS);
-		}
+		*tokens = move_tokens(*tokens, ret);
+		return (SUCCESS);
 	}
-	if ((param & T_DIR) == T_DIR)
+	if (((param & T_DIR) == T_DIR)\
+		&& ((ret = parse_direct(ast, *tokens, pos)) != -1))
 	{
-		ast->arg_type[pos] = T_DIR;
-		ft_printf("apply_parse_param DIR\n"); // debug
-		if ((ret = parse_direct(ast, *tokens, pos)) != -1)
-		{
-			*tokens = move_tokens(*tokens, ret);
-			return (SUCCESS);
-		}
+		*tokens = move_tokens(*tokens, ret);
+		return (SUCCESS);
 	}
-	if ((param & T_IND) == T_IND)
+	if (((param & T_IND) == T_IND)\
+		&& ((ret = parse_indirect(ast, *tokens, pos)) != -1))
 	{
-		ast->arg_type[pos] = T_IND;
-		ft_printf("apply_parse_param IND\n"); // debug
-		if ((ret = parse_indirect(ast, *tokens, pos)) != -1)
-		{
-			*tokens = move_tokens(*tokens, ret);
-			return (SUCCESS);
-		}
+		*tokens = move_tokens(*tokens, ret);
+		return (SUCCESS);
 	}
 	return (FAILURE);
 }

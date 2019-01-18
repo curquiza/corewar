@@ -89,7 +89,7 @@ t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
 		return (FAILURE);
 	if ((parse_arguments(ast, &current_token, nb_line)) == FAILURE)
 		return (FAILURE);
-	print_tokens(current_token);
+	// print_tokens(current_token); // debug
 
 	return (SUCCESS);
 }

@@ -84,11 +84,12 @@ t_ex_ret		parser(t_src_file *file)
 			// free ast
 			return (FAILURE);
 		}
+		print_one_ast(file->ast[i]);
 		fill_offset(file->ast, i);
 		free_tokens(&tokens);
 		i++;
 	}
-	print_ast_array(file->ast);
+	// print_ast_array(file->ast);
 	ft_tabdel(&array_input);
 	return (ret);
 }

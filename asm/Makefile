@@ -5,11 +5,11 @@ CC = gcc $(FLAG)
 
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
-		op.c \
-		error.c \
-		option.c \
-		read_file.c \
 		lexer.c \
+		token.c \
+		token_types.c \
+		\
+		op.c \
 		parser.c \
 		parse_name.c \
 		parse_comment.c \
@@ -17,12 +17,17 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		parse_params_1.c \
 		parse_params_2.c \
 		ast.c \
-		print_lexer.c \
-		token.c \
-		token_types.c \
+		\
+		read_file.c \
 		output_file.c \
 		output_stdout.c \
+		\
+		option.c \
+		error.c \
 		tools.c \
+		print_lexer.c \
+		print_ast.c \
+		\
 		main.c )
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
