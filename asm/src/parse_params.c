@@ -29,22 +29,40 @@ t_ex_ret		parse_direct(t_ast *ast, t_token_list **tokens, int pos)
 	return (FAILURE);
 }
 
+// INDIRECT VALUE | STRING
+
 t_ex_ret		parse_indirect(t_ast *ast, t_token_list **tokens, int pos)
 {
-	(void)ast;
-	(void)tokens;
-	(void)pos;
-	
-	return (SUCCESS);
+	if ((*tokens)->token->type == STRING && ft_is_int((*tokens)->token->str) == TRUE)
+	{
+		ast->arguments[pos] = ft_strdup((*tokens)->token->str);
+		ast->size += IND_SIZE;
+		(*tokens) = (*tokens)->next;
+		return (SUCCESS);
+	}
+	if ((*tokens)->token->type == STRING && is_label_string((*tokens)->token->str) == TRUE)
+	{
+		ast->arguments[pos] = ft_strdup((*tokens)->token->str);
+		ast->size += IND_SIZE;
+		(*tokens) = (*tokens)->next;
+		return (SUCCESS);
+	}	
+	return (FAILURE);
 }
+
+// REGISTRE r VALUE
+
 
 t_ex_ret		parse_registre(t_ast *ast, t_token_list **tokens, int pos)
 {
-	(void)ast;
-	(void)tokens;
-	(void)pos;
-	
-	return (SUCCESS);
+	if ((*tokens)->token->type == STRING && is_registre((*tokens)->token->str) == TRUE)
+	{
+		ast->arguments[pos] = ft_strdup((*tokens)->token->str);
+		ast->size += REG_SIZE;
+		(*tokens) = (*tokens)->next;
+		return (SUCCESS);
+	}	
+	return (FAILURE);
 }
 
 t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens, int pos)
