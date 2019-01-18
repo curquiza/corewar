@@ -1,53 +1,22 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define NB_OPCODE				16
+# include "ast.h"
 
-typedef struct					s_src_file
-{
-	int							fd;
-	t_header					header;	
-	char						*filename;
-	int							nb_line;
-}								t_src_file;
+# define NB_OPCODE		16
 
-typedef struct					s_op
-{
-	char						*name;
-	unsigned char				nb_arg;
-	t_arg_type					args[3];
-	unsigned char				opcode;
-	unsigned int				nb_cycle;
-	char						*desc;
-	unsigned char				octal;
-	unsigned char				label;
-} 								t_op;
+t_ex_ret		parse(t_src_file *file);
+t_ex_ret		parse_name(t_src_file *file);
+t_ex_ret		parse_comment(t_src_file *file);
+t_ex_ret		parser(t_src_file *file);
+t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line);
 
-typedef struct 					s_label
-{
-	t_token 					*label;
-}								t_label;
+t_ex_ret		parse_parameters(t_ast *ast, t_token_list **tokens, int nb_line);
 
-typedef struct 					s_instr
-{
-	t_op 						*opcode;
-	t_token 					*arguments;
-}								t_instr;
-
-typedef struct					s_line
-{
-	t_label						*label;
-	t_instr						*instr;
-	int							size;
-	int							offset;
-}								t_line;
-
-extern t_op 					g_op_tab[17];
-
-t_ex_ret        				parse(t_src_file *file);
-t_ex_ret        				parse_name(t_src_file *file);
-t_ex_ret        				parse_comment(t_src_file *file);
-t_ex_ret						parser(t_src_file *file);
-t_ex_ret     					parse_error(int line, char *message);
+t_token_list	*skip_whitespaces(t_token_list *tokens);
+int				parse_direct(t_ast *ast, t_token_list *tokens, int pos);
+int				parse_indirect(t_ast *ast, t_token_list *tokens, int pos);
+int				parse_registre(t_ast *ast, t_token_list *tokens, int pos);
+t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens, int pos);
 
 #endif

@@ -17,3 +17,9 @@ t_ex_ret     parse_error(int line, char *message)
     ft_dprintf(2, "Error line %d: %s\n", line, message);
     return (FAILURE);
 }
+
+t_ex_ret     parse_error_token(int line, char *token, char *message)
+{
+    ft_dprintf(2, "Error line %d: <%s> %s\n", line, token, message);
+    return (FAILURE);
+}

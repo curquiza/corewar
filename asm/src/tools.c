@@ -1,6 +1,6 @@
 #include "asm.h"
 
-int     get_trim_line(const int fd, char **line)
+int             get_trim_line(const int fd, char **line)
 {
     char    *tmp;
     int     ret;
@@ -14,7 +14,7 @@ int     get_trim_line(const int fd, char **line)
     return (ret);
 }
 
-int      count_char(char *s, char c)
+int             count_char(char *s, char c)
 {
     int     count;
 

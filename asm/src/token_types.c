@@ -47,7 +47,7 @@ t_bool		is_label_string(char *str)
 	return (TRUE);
 }
 
-t_bool		is_opcode(char *str)
+int			is_opcode(char *str)
 {
 	int 		i;
 
@@ -55,10 +55,10 @@ t_bool		is_opcode(char *str)
 	while (i < NB_OPCODE)
 	{
 		if ((ft_strcmp(g_op_tab[i].name, str)) == 0)
-			return (TRUE);
+			return (i);
 		i++;
 	}
-	return (FALSE);
+	return (-1);
 }
 
 t_bool		is_registre(char *str)

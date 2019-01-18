@@ -1,106 +1,95 @@
 #include "asm.h"
 
-// SUCCESS -> un token est créé, FAILURE -> pas de token créé (EOF ou MALLOC ERR)
+/*
+** parse_line: rules to define a valid isntruction.
+*/
 
-static t_bool				is_whitespace(char c)
+t_token_list	*skip_whitespaces(t_token_list *tokens)
 {
-	if (c == ' ' \
-		|| c == '\t' \
-		|| c == '\n')
-		return (TRUE);
-	return (FALSE);
-}
+	t_token_list	*current;
 
-static t_bool				is_separator(char c)
-{
-	if (c == DIRECT_CHAR \
-		|| c == SEPARATOR_CHAR \
-		|| c == LABEL_CHAR)
-		return (TRUE);
-	return (FALSE);
-}
-
-static t_ex_ret 			get_next_token(t_src_file *file, char *line)
-{
-	t_ex_ret			ret;	
-	char				*start;
-	char				*tmp;
-	int					len;
-
-	ret = FAILURE;
-	start = line + file->nb_col;
-	tmp = start;
-	len = 0;
-	while (*tmp)
+	if (!tokens)
+		return (NULL);
+	current = tokens;
+	while (current)
 	{
-		len++;
-		if ((is_whitespace(*tmp)))
-		{
-			tmp++;
-			continue ;			
-		}
-		else if ((is_separator(*tmp)))
-		{
-			break ;
-		}
+		if (current->token->type == WHITESPACE)
+			current = current->next;
 		else
-			tmp++;
+			break ;
 	}
-	ret = link_token(file, start, len, file->nb_col + len);
-	file->nb_col += tmp - (line + file->nb_col);
-	return (ret);
+	return (current);
 }
 
-static t_ex_ret			parse_line(t_src_file *file, char *line)
+t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 {
-	// const char	*sep = "<newline>";
-	// t_ex_ret	ret;
+	// parse label
+	if (!(*tokens = skip_whitespaces(*tokens)))
+		return (SUCCESS);
+	// ft_printf("pl - token: %s\n", (*tokens)->token->str); // debug
 
-	file->nb_col = 0;
-	while ((get_next_token(file, line)) == SUCCESS)
+	if ((*tokens)->token->type != STRING)
+		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
+	else if (((*tokens)->token->type == STRING)
+		&& (*tokens)->next
+		&& ((*tokens)->next->token->type == COLON)) // euh, check label valid ?? is_label_string
 	{
-		;
-		// ft_printf("adding: %s\n", file->current->str);
-		// print_tokens(file->tokens);
+		ast->label = ft_strdup((*tokens)->token->str);
+		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;		
+		// return (SUCCESS);
 	}
-	// ft_printf("adding: %s\n", file->current->str);
-	// ret = link_token(file, (char*)sep, ft_strlen(sep));
 	return (SUCCESS);
 }
 
-static t_ex_ret		read_lines(t_src_file *file, int fd)
+t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 {
-	char		*line;
-	t_ex_ret	ret;
-	int			ret_gnl;
+	int		nb;
 
-	while ((ret_gnl = get_trim_line(fd, &line)) == 1)
+	if (!(*tokens = skip_whitespaces(*tokens)))
+		return (SUCCESS);
+	// ft_printf("po - token: %s\n", (*tokens)->token->str); // debug
+	if ((*tokens)->token->type != STRING)
+		return (parse_error_token(nb_line, (*tokens)->token->str,INVALID_TOKEN));
+	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
 	{
-		file->nb_line++;
-		if (*line == '#' || *line == '\0')
-		{
-			ft_strdel(&line);
-			continue ;
-		}
-		else
-		{
-			ft_printf("-- line: %s\n", line);
-			if ((ret = parse_line(file, line)) == FAILURE)
-				break ;
-			ft_strdel(&line);
-		}
+		ast->opcode = &g_op_tab[nb];
+		ast->size += 1;
+		*tokens = (*tokens)->next ? (*tokens)->next : NULL;
+		return (SUCCESS);
 	}
-	line ? ft_strdel(&line) : 0;
-	if (ret_gnl == -1)
-		return (ft_ret_err(ERR_GNL));
-	return (ret);
+	return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_OPCODE));
 }
 
-t_ex_ret	parse_instr(t_src_file *file, int fd)
-{
-	t_ex_ret	ret;
 
-	ret = read_lines(file, fd);
-	print_tokens(file->tokens);
-	return (ret);
+
+t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
+{
+	*tokens = skip_whitespaces(*tokens);
+	if (!*tokens && ast->opcode)
+		return (parse_error_token(nb_line, ast->opcode->name, NB_PARAMS));
+	else if (!*tokens)
+		return (SUCCESS);
+	// ft_printf("pa - token: %s\n", (*tokens)->token->str); // debug
+	if (parse_parameters(ast, tokens, nb_line) == FAILURE)
+		return (FAILURE);
+
+	return (SUCCESS);
+}
+
+t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
+{
+	t_token_list *current_token;
+	
+	if (!tokens)
+		return (SUCCESS);
+	current_token = tokens;
+	if ((parse_label(ast, &current_token, nb_line)) == FAILURE)
+		return (FAILURE);
+	if ((parse_opcode(ast, &current_token, nb_line)) == FAILURE)
+		return (FAILURE);
+	if ((parse_arguments(ast, &current_token, nb_line)) == FAILURE)
+		return (FAILURE);
+	// print_tokens(current_token); // debug
+
+	return (SUCCESS);
 }
