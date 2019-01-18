@@ -41,6 +41,7 @@ int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 	}
 	if (tokens->token->type == STRING && is_label_string(tokens->token->str) == TRUE)
 	{
+		ast->arg_type[pos] = T_IND | T_LAB;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += IND_SIZE;
 		tokens = tokens->next;

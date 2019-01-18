@@ -41,6 +41,14 @@ typedef struct					s_ast
 	int							offset;
 }								t_ast;
 
+typedef struct					s_symbol
+{
+	struct s_symbol			*prev;
+	struct s_symbol			*next;
+	char						*label;
+	int							offset;	
+}								t_symbol;
+
 typedef struct					s_src_file
 {
 	int							fd;
@@ -48,6 +56,7 @@ typedef struct					s_src_file
 	char						*filename;
 	int							nb_line;
 	t_ast						**ast;
+	t_symbol					*symbol_table;
 }								t_src_file;
 
 typedef struct					s_op

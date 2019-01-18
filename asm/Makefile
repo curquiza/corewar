@@ -22,6 +22,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		output_file.c \
 		output_stdout.c \
 		\
+		symbol_table.c \
 		encode.c \
 		\
 		option.c \
@@ -29,6 +30,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		tools.c \
 		print_lexer.c \
 		print_ast.c \
+		print_symbol_table.c \
 		\
 		main.c )
 OBJ_DIR = objs

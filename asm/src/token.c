@@ -119,7 +119,7 @@ t_ex_ret			link_token(t_token_list **tokens, char **token_name, int line, int co
 	return (ret);
 }
 
-static void				free_token(t_token *token)
+static void			free_token(t_token *token)
 {
 	free(token->str);
 	free(token);

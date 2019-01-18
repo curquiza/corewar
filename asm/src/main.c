@@ -65,6 +65,7 @@ int				main (int argc, char **argv)
 			status = FAILURE ;	
 		// print_header(&file.header);
 		free_ast_array(&file.ast);
+		free_symbol_table(&file.symbol_table);
 	}
 	// while (1);
 	return (status);
