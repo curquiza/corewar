@@ -31,9 +31,9 @@ t_ex_ret		parse_lfork(t_ast *ast, t_token_list **tokens, int nb_line);
 t_ex_ret		parse_aff(t_ast *ast, t_token_list **tokens, int nb_line);
 
 t_token_list	*skip_whitespaces(t_token_list *tokens);
-t_ex_ret		parse_direct(t_ast *ast, t_token_list **tokens, int pos);
-t_ex_ret		parse_indirect(t_ast *ast, t_token_list **tokens, int pos);
-t_ex_ret		parse_registre(t_ast *ast, t_token_list **tokens, int pos);
+int				parse_direct(t_ast *ast, t_token_list *tokens, int pos);
+int				parse_indirect(t_ast *ast, t_token_list *tokens, int pos);
+int				parse_registre(t_ast *ast, t_token_list *tokens, int pos);
 t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens, int pos);
 
 #endif
