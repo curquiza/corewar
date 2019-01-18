@@ -4,6 +4,7 @@
 # include "ast.h"
 
 # define NB_OPCODE		16
+# define NUM_REG_SIZE	1
 
 t_ex_ret		parse(t_src_file *file);
 t_ex_ret		parse_name(t_src_file *file);

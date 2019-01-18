@@ -56,7 +56,7 @@ int			parse_registre(t_ast *ast, t_token_list *tokens, int pos)
 	{
 		ast->arg_type[pos] = T_REG;
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
-		ast->size += REG_SIZE;
+		ast->size += NUM_REG_SIZE;
 		tokens = tokens->next;
 		return (1);
 	}	
