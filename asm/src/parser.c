@@ -76,7 +76,7 @@ t_ex_ret		parser(t_src_file *file)
 			free_tokens(&tokens);
 			return (FAILURE);
 		}
-		print_tokens(tokens);
+		// print_tokens(tokens); // debug
 		if ((ret = parse_line(file->ast[i], tokens, i + file->nb_line)) == FAILURE)
 		{
 			ft_tabdel(&array_input);
@@ -84,13 +84,14 @@ t_ex_ret		parser(t_src_file *file)
 			// free ast
 			return (FAILURE);
 		}
-		print_one_ast(file->ast[i]);
+		// print_one_ast(file->ast[i]);
 		fill_offset(file->ast, i);
 		free_tokens(&tokens);
 		i++;
 	}
-	// print_ast_array(file->ast);
+	print_ast_array(file->ast); // debug
 	ft_tabdel(&array_input);
+	file->header.prog_size = file->ast[i - 1] ? file->ast[i - 1]->offset + file->ast[i - 1]->size : 0;
 	return (ret);
 }
 

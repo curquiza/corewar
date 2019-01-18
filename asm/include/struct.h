@@ -64,4 +64,3 @@ typedef struct					s_op
 } 								t_op;
 
 #endif
-

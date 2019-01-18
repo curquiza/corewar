@@ -22,6 +22,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		output_file.c \
 		output_stdout.c \
 		\
+		encode.c \
+		\
 		option.c \
 		error.c \
 		tools.c \

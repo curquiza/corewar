@@ -9,7 +9,7 @@ t_ex_ret		parse_parameters(t_ast *ast, t_token_list **tokens, int nb_line)
 	unsigned int i;
 
 	i = 0;
-	ft_printf("ast->opcode->param_nb: %d\n", ast->opcode->param_nb);
+	// ft_printf("ast->opcode->param_nb: %d\n", ast->opcode->param_nb); // debug
 	while (i < ast->opcode->param_nb)
 	{
 		if (apply_parse_param(ast->opcode->param_type[i], ast, tokens, i) == FAILURE)
@@ -18,7 +18,7 @@ t_ex_ret		parse_parameters(t_ast *ast, t_token_list **tokens, int nb_line)
 
 		if (!(*tokens = skip_whitespaces(*tokens)))
 			break ;
-		ft_printf("str: %s\n", (*tokens)->token->str); // debug
+		// ft_printf("str: %s\n", (*tokens)->token->str); // debug
 		
 		if ((*tokens)->token->type == SEPARATOR)
 		{
@@ -29,9 +29,9 @@ t_ex_ret		parse_parameters(t_ast *ast, t_token_list **tokens, int nb_line)
 			break ;
 		
 	}
-	ft_printf("i: %d\n", i);
+	// ft_printf("i: %d\n", i); // debug
 	if (i != ast->opcode->param_nb)
-		return (parse_error(nb_line, INVALID_TOKEN"plop"));
+		return (parse_error(nb_line, INVALID_TOKEN));
 	return (SUCCESS);
 }
 

@@ -26,7 +26,7 @@ t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 	// parse label
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	ft_printf("pl - token: %s\n", (*tokens)->token->str);
+	// ft_printf("pl - token: %s\n", (*tokens)->token->str); // debug
 
 	if ((*tokens)->token->type != STRING)
 		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
@@ -47,7 +47,7 @@ t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	ft_printf("po - token: %s\n", (*tokens)->token->str);
+	// ft_printf("po - token: %s\n", (*tokens)->token->str); // debug
 	if ((*tokens)->token->type != STRING)
 		return (parse_error_token(nb_line, (*tokens)->token->str,INVALID_TOKEN));
 	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
@@ -69,7 +69,7 @@ t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
 		return (parse_error_token(nb_line, ast->opcode->name, NB_PARAMS));
 	else if (!*tokens)
 		return (SUCCESS);
-	ft_printf("pa - token: %s\n", (*tokens)->token->str);
+	// ft_printf("pa - token: %s\n", (*tokens)->token->str); // debug
 	if (parse_parameters(ast, tokens, nb_line) == FAILURE)
 		return (FAILURE);
 

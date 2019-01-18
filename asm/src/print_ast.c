@@ -35,7 +35,10 @@ void			print_ast_array(t_ast **ast)
 	while (ast[i])
 	{
 		ft_printf("\n===== ast nb: %d\n", i);
-		print_one_ast(ast[i]);
+		if (ast[i]->label || ast[i]->opcode)
+			print_one_ast(ast[i]);
+		else
+			ft_printf("empty line\n");
 		i++;
 		ft_printf("=====\n");			
 	}

@@ -7,6 +7,7 @@
 # include "error.h"
 # include "lexer.h"
 # include "parser.h"
+# include "encode.h"
 # include <fcntl.h>
 # include <sys/stat.h>
 
