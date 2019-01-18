@@ -13,9 +13,9 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		parser.c \
 		parse_name.c \
 		parse_comment.c \
-		parse_line.c \
-		parse_opcode_1.c \
-		parse_params.c \
+		parse_instr.c \
+		parse_params_1.c \
+		parse_params_2.c \
 		ast.c \
 		print_lexer.c \
 		token.c \

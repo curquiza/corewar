@@ -76,6 +76,16 @@ t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens,
 {
 	int ret;
 
+	if ((param & T_REG) == T_REG)
+	{
+		ast->arg_type[pos] = T_REG;
+		ft_printf("apply_parse_param REG\n"); // debug
+		if ((ret = parse_registre(ast, *tokens, pos)) != -1)
+		{
+			*tokens = move_tokens(*tokens, ret);
+			return (SUCCESS);
+		}
+	}
 	if ((param & T_DIR) == T_DIR)
 	{
 		ast->arg_type[pos] = T_DIR;
@@ -91,16 +101,6 @@ t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens,
 		ast->arg_type[pos] = T_IND;
 		ft_printf("apply_parse_param IND\n"); // debug
 		if ((ret = parse_indirect(ast, *tokens, pos)) != -1)
-		{
-			*tokens = move_tokens(*tokens, ret);
-			return (SUCCESS);
-		}
-	}
-	if ((param & T_REG) == T_REG)
-	{
-		ast->arg_type[pos] = T_REG;
-		ft_printf("apply_parse_param REG\n"); // debug
-		if ((ret = parse_registre(ast, *tokens, pos)) != -1)
 		{
 			*tokens = move_tokens(*tokens, ret);
 			return (SUCCESS);
