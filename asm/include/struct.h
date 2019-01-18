@@ -60,7 +60,6 @@ typedef struct					s_op
 	char						*desc; // suppr ?
 	unsigned char				octal; // ?
 	unsigned char				label; // ?
-	t_ex_ret					(*func)(t_ast *, t_token_list **, int);
 } 								t_op;
 
 #endif
