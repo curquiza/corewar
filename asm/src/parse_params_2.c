@@ -39,6 +39,10 @@ int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 		tokens = tokens->next;
 		return (1);
 	}
+	if (tokens->token->type != COLON || !tokens->next)
+		return (-1);
+	else
+		tokens = tokens->next;	
 	if (tokens->token->type == STRING && is_label_string(tokens->token->str) == TRUE)
 	{
 		ast->arg_type[pos] = T_IND | T_LAB;
