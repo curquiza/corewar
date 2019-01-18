@@ -49,7 +49,7 @@ int			parse_indirect(t_ast *ast, t_token_list *tokens, int pos)
 		ast->arguments[pos] = ft_strdup(tokens->token->str);
 		ast->size += IND_SIZE;
 		tokens = tokens->next;
-		return (1);
+		return (2);
 	}	
 	return (-1);
 }

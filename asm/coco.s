@@ -4,4 +4,4 @@
 titi: live %1
 coco: live %:titi
 live %2
-ld 84        ,r8
+ld :coco        ,r8
