@@ -5,7 +5,7 @@
 
 # define NB_OPCODE		16
 # define NUM_REG_SIZE	1
-# define NUM_DIR_SIZE	2
+# define NUM_INDEX_SIZE	2
 # define NUM_OP_SIZE	1
 
 t_ex_ret		parse(t_src_file *file);
