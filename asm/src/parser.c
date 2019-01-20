@@ -89,7 +89,7 @@ t_ex_ret		parser(t_src_file *file)
 		free_tokens(&tokens);
 		i++;
 	}
-	print_ast_array(file->ast); // debug
+	// print_ast_array(file->ast); // debug
 	ft_tabdel(&array_input);
 	file->header.prog_size = file->ast[i - 1] ? file->ast[i - 1]->offset + file->ast[i - 1]->size : 0;
 	return (ret);

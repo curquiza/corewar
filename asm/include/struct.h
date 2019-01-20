@@ -57,6 +57,7 @@ typedef struct					s_src_file
 	int							nb_line;
 	t_ast						**ast;
 	t_symbol					*symbol_table;
+	char						output[CHAMP_MAX_SIZE];
 }								t_src_file;
 
 typedef struct					s_op
