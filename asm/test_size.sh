@@ -25,7 +25,7 @@ function test_prog_size () {
 # run_tests "path"
 function run_tests () {
 
-	for entry in `find $1 -type f | grep .s`
+	for entry in `find $1 -type f -name "*.s"`
 	do
 		echo -n "test" $entry ": "
 		test_prog_size $entry
