@@ -36,7 +36,7 @@ typedef struct					s_ast
 	struct s_op 				*opcode;
 	char						*arguments[MAX_ARGS_NUMBER];
 	t_arg_type					arg_type[MAX_ARGS_NUMBER];	
-	int							ocp;
+	unsigned int				ocp;
 	int							size;
 	int							offset;
 }								t_ast;

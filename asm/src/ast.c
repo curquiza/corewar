@@ -12,7 +12,7 @@ t_ex_ret		init_ast_array(t_ast ***ast, int nb_line)
 	{
 		if (!((*ast)[i] = (t_ast*)ft_memalloc(sizeof(t_ast))))
 			return (ft_ret_err(ERR_MALLOC));
-		(*ast)[i]->ocp = 118; // debug
+		// (*ast)[i]->ocp = 118; // debug
 		i++;
 	}
 	return (SUCCESS);

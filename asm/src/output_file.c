@@ -13,6 +13,7 @@ t_ex_ret	write_output_file(t_src_file *file)
 	if ((fd = open(output, O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
 		return (ft_ret_err(ERR_OPEN));
 	write(fd, (const char*)&(file->header), sizeof(file->header));
+	write(fd, file->output, file->header.prog_size);
 	free(tmp);
 	free(output);
 	close(fd);
