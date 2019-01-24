@@ -14,7 +14,7 @@ t_ex_ret	write_output_file(t_src_file *file)
 		return (ft_ret_err(ERR_OPEN));
 	write(fd, (const char*)&(file->header), sizeof(file->header)); // little endian to big
 	ft_printf("%s %s\n", WRITING_PROG, output);
-	write(fd, file->output, file->header.prog_size);
+	write(fd, file->output, ft_swap_int(file->header.prog_size));
 	free(tmp);
 	free(output);
 	close(fd);
