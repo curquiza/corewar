@@ -35,18 +35,17 @@ unsigned char	create_ocp(t_ast *ast)
 	return (ast->ocp);
 }
 
-unsigned short	get_indirect(t_src_file *file, int i, int j)
+t_ex_ret 		get_indirect(t_src_file *file, int i, int j)
 {
 	if ((file->ast[i]->arg_type[j] & T_LAB) == T_LAB)
 	{
 		ft_printf("get_indirect label: %d\n", 0);
-		return (0);
 	}
 	else
 	{
-		ft_printf("get_indirect value: %d\n", (unsigned short)ft_atoi(file->ast[i]->arguments[j]));
-		return ((unsigned short)ft_atoi(file->ast[i]->arguments[j]));
+		ft_printf("get_indirect value: %d\n", 0);
 	}
+	return (SUCCESS);
 }
 
 unsigned char	get_registre(char *r)
@@ -69,7 +68,7 @@ void			encode_parameters(t_src_file *file, int i, int pos)
 		}
 		if ((file->ast[i]->arg_type[j] & T_IND) == T_IND)
 		{
-			file->output[pos] = get_indirect(file, i, j); // cast et ne recupere qu'une seule valeur...
+			get_indirect(file, i, j);
 			pos += IND_SIZE;
 		}		
 		j++;
