@@ -43,8 +43,8 @@ typedef struct					s_ast
 
 typedef struct					s_symbol
 {
-	struct s_symbol			*prev;
-	struct s_symbol			*next;
+	struct s_symbol				*prev;
+	struct s_symbol				*next;
 	char						*label;
 	int							offset;	
 }								t_symbol;

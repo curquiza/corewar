@@ -35,26 +35,55 @@ unsigned char	create_ocp(t_ast *ast)
 	return (ast->ocp);
 }
 
-t_ex_ret 		get_indirect(t_src_file *file, int i, int j)
+t_symbol		*search_symbol_table(t_symbol *symbol_table, char *str)
 {
-	if ((file->ast[i]->arg_type[j] & T_LAB) == T_LAB)
+	t_symbol *tmp;
+
+	tmp = symbol_table;
+	while (tmp)
 	{
-		ft_printf("get_indirect label: %d\n", 0);
+		if (ft_strncmp(tmp->label, str, ft_strlen(str)) == 0)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	else
-	{
-		ft_printf("get_indirect value: %d\n", 0);
-	}
+	return (NULL);
+}		
+
+t_ex_ret 		get_indirect_label(unsigned char *output, char *label, t_symbol *symbol_table, int offset)
+{
+	unsigned short	*tmp;
+	t_symbol		*label_ptr;
+
+	(void)offset;
+
+	tmp = (unsigned short*)output;
+	if ((label_ptr = search_symbol_table(symbol_table, label)) == NULL)
+		return (label_not_found(label));
+	
+	ft_printf("get_indirect_label:%s %d\n", label, (unsigned short)(offset - label_ptr->offset - offset)); // debug
+	*tmp = (unsigned short)(label_ptr->offset - offset); // big_endian...
+	
 	return (SUCCESS);
 }
 
-unsigned char	get_registre(char *r)
+void			get_indirect_value(unsigned char *output, char *value)
 {
-	ft_printf("get_registre: %d\n", ft_atoi(r + 1));
-	return (ft_atoi(r + 1));
+	unsigned short *tmp;
+
+	tmp = (unsigned short*)output;
+	ft_printf("get_indirect_value: %d\n", ft_atoi(value)); // debug
+	*tmp = (unsigned short)ft_atoi(value);
+	return ;
 }
 
-void			encode_parameters(t_src_file *file, int i, int pos)
+void			get_registre(unsigned char *output, char *r)
+{
+	ft_printf("get_registre: %d\n", ft_atoi(r + 1));
+	*output = ft_atoi(r + 1);
+	return ;
+}
+
+t_ex_ret			encode_parameters(t_src_file *file, int i, int pos)
 {
 	unsigned int		j;
 
@@ -63,17 +92,23 @@ void			encode_parameters(t_src_file *file, int i, int pos)
 	{
 		if ((file->ast[i]->arg_type[j] & T_REG) == T_REG)
 		{
-			file->output[pos] = get_registre(file->ast[i]->arguments[j]);
+			get_registre(file->output + pos, file->ast[i]->arguments[j]);
 			pos += NUM_REG_SIZE;
 		}
 		if ((file->ast[i]->arg_type[j] & T_IND) == T_IND)
 		{
-			get_indirect(file, i, j);
+			if ((file->ast[i]->arg_type[j] & T_LAB) == T_LAB)
+			{
+				if (get_indirect_label(file->output + pos, file->ast[i]->arguments[j], file->symbol_table, file->ast[i]->offset) == FAILURE)
+					return (FAILURE);
+			}
+			else
+				get_indirect_value(file->output + pos, file->ast[i]->arguments[j]);
 			pos += IND_SIZE;
 		}		
 		j++;
 	}
-
+	return (SUCCESS);
 }
 
 t_ex_ret		encode_instructions(t_src_file *file)
@@ -91,7 +126,8 @@ t_ex_ret		encode_instructions(t_src_file *file)
 			file->output[start] = file->ast[i]->opcode->opcode;
 			if (file->ast[i]->opcode->ocp)
 				file->output[start + 1] = create_ocp(file->ast[i]);
-			encode_parameters(file, i, start + 2);
+			if (encode_parameters(file, i, start + 2) == FAILURE)
+				return (FAILURE);
 		}
 		i++;
 	}

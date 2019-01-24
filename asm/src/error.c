@@ -23,3 +23,9 @@ t_ex_ret     parse_error_token(int line, char *token, char *message)
     ft_dprintf(2, "Error line %d: <%s> %s\n", line, token, message);
     return (FAILURE);
 }
+
+t_ex_ret     label_not_found(char *label)
+{
+    ft_dprintf(2, "Error: <%s> %s\n", label, NO_LABEL);
+    return (FAILURE);
+}

@@ -36,6 +36,8 @@ void		print_header(t_header *header)
 	ft_printf("============\n");
 }
 
+// verif : taille des arguments...
+
 int				main (int argc, char **argv)
 {
 	int			ret;
