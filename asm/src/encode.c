@@ -34,7 +34,7 @@ t_ex_ret		encode_instructions(t_src_file *file)
 	i = 0;
 	while (file->ast[i])
 	{
-		printf("%d %d", CHAMP_MAX_SIZE, file->ast[i]->offset);	
+		printf("%d %d\n", CHAMP_MAX_SIZE, file->ast[i]->offset);	
 		start = file->ast[i]->offset;
 		file->output[start] = file->ast[i]->opcode->opcode;
 		if (file->ast[i]->opcode->ocp)
@@ -47,8 +47,12 @@ t_ex_ret		encode_instructions(t_src_file *file)
 t_ex_ret		encode(t_src_file *file)
 {
 	create_symbol_table(file);
-	// print_symbol_table(file->symbol_table); // debug
-	encode_instructions(file);
+	print_symbol_table(file->symbol_table); // debug
+	printf("champ max size %d vs prog_size %d\n", CHAMP_MAX_SIZE, file->header.prog_size);	
+	if (file->header.prog_size > CHAMP_MAX_SIZE)
+		return (ft_ret_err(CHAMP_TOO_LONG));
+	else
+		encode_instructions(file);
 
 	return (SUCCESS);
 }

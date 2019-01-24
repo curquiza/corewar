@@ -32,11 +32,11 @@ void		print_ast_stdout(t_ast **ast)
 
 			print_params(ast[i]);
 			if (ast[i]->ocp)
-				ft_printf("            \t%d %d\n", ast[i]->opcode->param_nb, ast[i]->ocp);
+				ft_printf("            \t\t%d %d\n", ast[i]->opcode->opcode, ast[i]->ocp);
 			else
-				ft_printf("            \t%d\t\n", ast[i]->opcode->param_nb);
+				ft_printf("            \t\t%d\t\n", ast[i]->opcode->opcode);
 			// print raw bytes
-			ft_printf("            \t%d\n", ast[i]->opcode->param_nb);
+			ft_printf("            \t\t%d\n", ast[i]->opcode->opcode);
 			// print int bytes for addresse
 		}
 		ft_printf("\n");
