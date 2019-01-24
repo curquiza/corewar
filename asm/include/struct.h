@@ -36,7 +36,7 @@ typedef struct					s_ast
 	struct s_op 				*opcode;
 	char						*arguments[MAX_ARGS_NUMBER];
 	t_arg_type					arg_type[MAX_ARGS_NUMBER];	
-	unsigned int				ocp;
+	unsigned char				ocp;
 	int							size;
 	int							offset;
 }								t_ast;
@@ -57,7 +57,7 @@ typedef struct					s_src_file
 	int							nb_line;
 	t_ast						**ast;
 	t_symbol					*symbol_table;
-	char						output[CHAMP_MAX_SIZE];
+	unsigned char				output[CHAMP_MAX_SIZE];
 }								t_src_file;
 
 typedef struct					s_op

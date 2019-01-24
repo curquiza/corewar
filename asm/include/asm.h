@@ -16,6 +16,7 @@
 # define OUTPUT_EXT		".cor"
 # define OPTIONS		"a"
 # define FLAG_A			1
+# define WRITING_PROG	"Writing output program to"
 
 
 /*

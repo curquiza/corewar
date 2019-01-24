@@ -3,24 +3,33 @@
 void			fill_ocp(t_ast *ast, int pos)
 {
 	if ((ast->arg_type[pos] & T_DIR)== T_DIR)
-		ast->ocp |= DIR_CODE << (pos * 2);
+	{
+		// ft_printf("ajout T_DIR %b\n", DIR_CODE << ((3 - pos) * 2)); // debug
+		ast->ocp |= (DIR_CODE << ((3 - pos) * 2));
+	}
 	else if ((ast->arg_type[pos] & T_IND) == T_IND)
-		ast->ocp |= IND_CODE << (pos * 2);
+	{
+		// ft_printf("ajout T_IND %b\n", IND_CODE << ((3 - pos) * 2)); // debug
+		ast->ocp |= (IND_CODE << ((3 - pos) * 2));
+	}
 	else if ((ast->arg_type[pos] & T_REG) == T_REG)
-		ast->ocp |= REG_CODE << (pos * 2);
+	{
+		// ft_printf("ajout T_REG %b\n", REG_CODE << ((3 - pos) * 2)); // debug
+		ast->ocp |= (REG_CODE << ((3 - pos) * 2));
+	}
 }
 
-unsigned int			create_ocp(t_ast *ast)
+unsigned char	create_ocp(t_ast *ast)
 {
-	int		i;
+	unsigned int		i;
 	
 	if (!ast->opcode->ocp)
 		return (0);
 	i = 0;
-	while (i < MAX_ARGS_NUMBER)
+	while (i < ast->opcode->param_nb)
 	{
-		printf("%s %d", ast->opcode->name, ast->opcode->opcode);	
 		fill_ocp(ast, i);
+		// ft_printf("%d %b\n", i, ast->ocp); // debug
 		i++;
 	}
 	return (ast->ocp);
@@ -34,11 +43,14 @@ t_ex_ret		encode_instructions(t_src_file *file)
 	i = 0;
 	while (file->ast[i])
 	{
-		printf("%d %d\n", CHAMP_MAX_SIZE, file->ast[i]->offset);	
-		start = file->ast[i]->offset;
-		file->output[start] = file->ast[i]->opcode->opcode;
-		if (file->ast[i]->opcode->ocp)
-			file->output[start + 1] = create_ocp(file->ast[i]);
+		printf("%d %d\n", file->ast[i]->offset, file->header.prog_size);	
+		if (file->ast[i]->opcode)
+		{
+			start = file->ast[i]->offset;
+			file->output[start] = file->ast[i]->opcode->opcode;
+			if (file->ast[i]->opcode->ocp)
+				file->output[start + 1] = create_ocp(file->ast[i]);
+		}
 		i++;
 	}
 	return (SUCCESS);

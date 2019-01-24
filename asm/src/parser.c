@@ -13,11 +13,8 @@ t_ex_ret		parse(t_src_file *file)
 	if ((parser(file)) == FAILURE)
 		return (FAILURE);
 	
-	if (file->header.prog_size > CHAMP_MAX_SIZE\
-		&& (encode(file)) != SUCCESS)
-	{
+	if ((encode(file)) != SUCCESS)
 		return (FAILURE);
-	}
 
 	if (!(g_flags & FLAG_A))
 	{
