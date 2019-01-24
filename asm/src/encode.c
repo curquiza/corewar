@@ -61,7 +61,7 @@ t_ex_ret 		get_indirect_label(unsigned char *output, char *label, t_symbol *symb
 		return (label_not_found(label));
 	
 	ft_printf("get_indirect_label:%s %d\n", label, (unsigned short)(offset - label_ptr->offset - offset)); // debug
-	*tmp = (unsigned short)(label_ptr->offset - offset); // big_endian...
+	*tmp = ft_swap_short((unsigned short)(label_ptr->offset - offset)); // big_endian...
 	
 	return (SUCCESS);
 }
