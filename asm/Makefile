@@ -24,6 +24,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		\
 		symbol_table.c \
 		encode.c \
+		encode_ocp.c \
+		encode_indirect.c \
 		encode_tools.c \
 		\
 		option.c \

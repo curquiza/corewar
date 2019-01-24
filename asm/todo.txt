@@ -2,3 +2,5 @@ TO DO ASM
 =========
 fonction de veirf des constantes
 offset et size sont des shorts
+direct
+output
