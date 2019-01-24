@@ -1,5 +1,17 @@
 #include "asm.h"
 
+void			fill_prog_size(t_src_file *file)
+{
+	int i;
+
+	i = 0;
+	while (file->ast[i])
+	{
+		i++;
+	}
+	file->header.prog_size = file->ast[i - 1] ? ft_swap_int(file->ast[i - 1]->offset + file->ast[i - 1]->size) : 0;
+}
+
 /*
 ** parse: organize parsing of the name, comment, and instructions.
 */
@@ -13,6 +25,10 @@ t_ex_ret		parse(t_src_file *file)
 	if ((parser(file)) == FAILURE)
 		return (FAILURE);
 	
+	fill_prog_size(file);
+	if (ft_swap_int(file->header.prog_size) > CHAMP_MAX_SIZE)
+		return (ft_ret_err(CHAMP_TOO_LONG));
+
 	if ((encode(file)) != SUCCESS)
 		return (FAILURE);
 
@@ -48,6 +64,8 @@ t_ex_ret		init_parser(t_src_file *file, char ***array_input)
 	ft_lstdel(&list_input, &del);
 	return (ret);
 }
+
+
 
 void			fill_offset(t_ast **ast, int i)
 {
@@ -94,7 +112,7 @@ t_ex_ret		parser(t_src_file *file)
 	}
 	// print_ast_array(file->ast); // debug
 	ft_tabdel(&array_input);
-	file->header.prog_size = file->ast[i - 1] ? file->ast[i - 1]->offset + file->ast[i - 1]->size : 0;
+	// file->header.prog_size = file->ast[i - 1] ? file->ast[i - 1]->offset + file->ast[i - 1]->size : 0;
 	return (ret);
 }
 

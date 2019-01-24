@@ -11,7 +11,7 @@ KO=0
 function test_prog_size () {
 
 	./asm -a $1 | grep size > moi
-	/Users/sfranc/42/corewar/resources/./asm -a $1 | grep size > zaz
+	/Users/sarahfranc/sarah/corewar/resources/./asm -a $1 | grep size > zaz
 	if [[ "$(cat zaz)" != "" && "$(cat zaz)" != "" && "$(cat zaz)" == "$(cat moi)" ]] ; then
 		printf "${GREEN}OK${DEF}\n"
 		OK=$((OK+1))
@@ -35,7 +35,7 @@ function run_tests () {
 
 function main() {
 
-	local path1="/Users/sfranc/42/corewar/resources/champs"
+	local path1="/Users/sarahfranc/sarah/corewar/resources/champs"
 
 	run_tests $path1
 

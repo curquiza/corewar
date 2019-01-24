@@ -138,11 +138,8 @@ t_ex_ret		encode(t_src_file *file)
 {
 	create_symbol_table(file);
 	print_symbol_table(file->symbol_table); // debug
-	printf("champ max size %d vs prog_size %d\n", CHAMP_MAX_SIZE, file->header.prog_size);	
-	if (file->header.prog_size > CHAMP_MAX_SIZE)
-		return (ft_ret_err(CHAMP_TOO_LONG));
-	else
-		encode_instructions(file);
-
+	
+	if (encode_instructions(file) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }

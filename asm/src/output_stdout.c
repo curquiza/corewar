@@ -46,7 +46,7 @@ void		print_ast_stdout(t_ast **ast)
 
 t_ex_ret	write_output_stdout(t_src_file *file)
 {
-	ft_printf("Program size : %d bytes\n", file->header.prog_size);
+	ft_printf("Program size : %d bytes\n", ft_swap_int(file->header.prog_size));
 	ft_printf("Name: \"%s\"\n", file->header.prog_name);
 	ft_printf("Comment: \"%s\"\n\n", file->header.comment);
 	print_ast_stdout(file->ast);
