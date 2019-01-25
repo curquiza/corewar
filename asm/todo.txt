@@ -4,3 +4,4 @@ fonction de veirf des constantes
 offset et size sont des shorts
 direct
 output
+reading file...?

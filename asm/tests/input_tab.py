@@ -32,6 +32,7 @@ INPUT = {
 	'lexer.bad_char.s':	{'error': True,  'error_type': 'INVALID_CHAR', 'error_line': 4},
 	'lexer.empty.s':	{'error': False,  'error_type': None, 'error_line': -1},
 	'parser.label.no_str.s':	{'error': True,  'error_type': 'EXPECT_LABEL', 'error_line': 3},
+	'coco.s':	{'error': False,  'error_type': None, 'error_line': -1},
 	'42.s':	{'error': False,  'error_type': None, 'error_line': -1},
 	'Asombra.s':	{'error': False,  'error_type': None, 'error_line': -1},
 	# 'Backward.s':	{'error': False,  'error_type': None, 'error_line': -1},

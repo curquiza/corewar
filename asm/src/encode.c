@@ -19,12 +19,18 @@ t_ex_ret		encode_parameters(t_src_file *file, int i, int pos)
 			get_registre(file->output + pos, file->ast[i]->arguments[j]);
 			pos += NUM_REG_SIZE;
 		}
-		if ((file->ast[i]->arg_type[j] & T_IND) == T_IND)
+		else if ((file->ast[i]->arg_type[j] & T_IND) == T_IND)
 		{
 			if (get_indirect(file, i, j, pos) == FAILURE)
 				return (FAILURE);
 			pos += IND_SIZE;
-		}		
+		}
+		else if ((file->ast[i]->arg_type[j] & T_DIR) == T_DIR)
+		{
+			if (get_direct(file, i, j, pos) == FAILURE)
+				return (FAILURE);
+			pos += get_dir_size(file->ast[i]->opcode->index);
+		}			
 		j++;
 	}
 	return (SUCCESS);
@@ -44,8 +50,11 @@ t_ex_ret		encode_instructions(t_src_file *file)
 			start = file->ast[i]->offset;
 			file->output[start] = file->ast[i]->opcode->opcode;
 			if (file->ast[i]->opcode->ocp)
+			{
 				file->output[start + 1] = create_ocp(file->ast[i]);
-			if (encode_parameters(file, i, start + 2) == FAILURE)
+				start++;
+			}
+			if (encode_parameters(file, i, start + 1) == FAILURE)
 				return (FAILURE);
 		}
 		i++;

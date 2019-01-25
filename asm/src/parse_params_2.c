@@ -1,6 +1,6 @@
 #include "asm.h"
 
-static int 		get_dir_size(int index)
+int 		get_dir_size(int index)
 {
 	if (index)
 		return (NUM_INDEX_SIZE);

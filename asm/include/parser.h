@@ -21,5 +21,6 @@ int				parse_direct(t_ast *ast, t_token_list *tokens, int pos);
 int				parse_indirect(t_ast *ast, t_token_list *tokens, int pos);
 int				parse_registre(t_ast *ast, t_token_list *tokens, int pos);
 t_ex_ret		apply_parse_param(t_arg_type param, t_ast *ast, t_token_list **tokens, int pos);
+int 		get_dir_size(int index);
 
 #endif
