@@ -29,5 +29,7 @@
 # define EXPECT_PARAMS	"Expecting parameters."
 # define EXPECT_DIRECT	"Expecting DIRECT parameter."
 # define NB_PARAMS		"Wrong number of parameters."
+# define CHAMP_TOO_LONG "The code of the champion is too long."
+# define NO_LABEL 		"No such label while attempting to dereference."
 
 #endif

@@ -29,10 +29,14 @@ void		print_ast_stdout(t_ast **ast)
 		if (ast[i]->opcode)
 		{
 			ft_printf("%-5d (%-3d) :\t\t%s\t", ast[i]->offset, ast[i]->size, ast[i]->opcode->name);
+
 			print_params(ast[i]);
-			ft_printf("            \t\t%d\n", ast[i]->opcode->param_nb);
+			if (ast[i]->ocp)
+				ft_printf("            \t\t%d %d\n", ast[i]->opcode->opcode, ast[i]->ocp);
+			else
+				ft_printf("            \t\t%d\t\n", ast[i]->opcode->opcode);
 			// print raw bytes
-			ft_printf("            \t\t%d\n", ast[i]->opcode->param_nb);
+			ft_printf("            \t\t%d\n", ast[i]->opcode->opcode);
 			// print int bytes for addresse
 		}
 		ft_printf("\n");
@@ -42,7 +46,7 @@ void		print_ast_stdout(t_ast **ast)
 
 t_ex_ret	write_output_stdout(t_src_file *file)
 {
-	ft_printf("Program size: %d bytes\n", file->header.prog_size);
+	ft_printf("Program size : %d bytes\n", ft_swap_int(file->header.prog_size));
 	ft_printf("Name: \"%s\"\n", file->header.prog_name);
 	ft_printf("Comment: \"%s\"\n\n", file->header.comment);
 	print_ast_stdout(file->ast);

@@ -1,7 +1,9 @@
 TO DO ASM
 =========
-√ check malloc during name and comment parsing
-√ test write header to a file (it will be written at the end to include the
-  accurate size)
-X read the end of the file after the comment of the progran, and join into one big string, we will need all label to parse and encode.
-- read line by line and tokenize, we will encode after.
+fonction de veirf des constantes
+offset et size sont des shorts
+√ direct
+value = int or unsigned int ??
+multiple line comment...
+output
+reading file...?

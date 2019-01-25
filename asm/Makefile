@@ -22,13 +22,19 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		output_file.c \
 		output_stdout.c \
 		\
+		symbol_table.c \
 		encode.c \
+		encode_ocp.c \
+		encode_indirect.c \
+		encode_direct.c \
+		encode_tools.c \
 		\
 		option.c \
 		error.c \
 		tools.c \
 		print_lexer.c \
 		print_ast.c \
+		print_symbol_table.c \
 		\
 		main.c )
 OBJ_DIR = objs
@@ -73,7 +79,11 @@ fclean_lib :
 
 fclean_all : fclean_lib fclean
 
-run_tests :
+clean_tests :
+	@echo "cleaning old tests files..."
+	@rm -f tests/input/*.cor
+
+run_tests : clean_tests
 	@printf "\033[1;33m---------\n%s\n---------\033[0m\n" "ARGUMENTS"
 	@./tests/run_tests.sh
 	@printf "\033[1;33m--------------------\n%s\n--------------------\033[0m\n" "ASM PARSING + OUTPUT"

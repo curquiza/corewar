@@ -23,7 +23,7 @@ static void		init_src_file(t_src_file *file, char *filename)
 	g_file = file;
     ft_bzero(file, sizeof(t_src_file));
     file->filename = filename;
-	file->header.magic = COREWAR_EXEC_MAGIC;
+	file->header.magic = ft_swap_int(COREWAR_EXEC_MAGIC);
 }
 
 void		print_header(t_header *header)
@@ -35,6 +35,8 @@ void		print_header(t_header *header)
 	ft_printf("prog desc: %s\n", header->comment);
 	ft_printf("============\n");
 }
+
+// verif : taille des arguments...
 
 int				main (int argc, char **argv)
 {
@@ -61,10 +63,10 @@ int				main (int argc, char **argv)
 			file.fd = ret;
 		if ((ret = parse(&file)) != SUCCESS)
 			status = FAILURE ;
-		if ((ret = encode(&file)) != SUCCESS)
-			status = FAILURE ;	
+	
 		// print_header(&file.header);
 		free_ast_array(&file.ast);
+		free_symbol_table(&file.symbol_table);
 	}
 	// while (1);
 	return (status);

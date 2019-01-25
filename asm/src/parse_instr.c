@@ -54,6 +54,8 @@ t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 	{
 		ast->opcode = &g_op_tab[nb];
 		ast->size += 1;
+		if (ast->opcode->ocp)
+			ast->size += NUM_OP_SIZE;
 		*tokens = (*tokens)->next ? (*tokens)->next : NULL;
 		return (SUCCESS);
 	}

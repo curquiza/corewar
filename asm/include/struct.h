@@ -36,10 +36,18 @@ typedef struct					s_ast
 	struct s_op 				*opcode;
 	char						*arguments[MAX_ARGS_NUMBER];
 	t_arg_type					arg_type[MAX_ARGS_NUMBER];	
-	int							ocp;
+	unsigned char				ocp;
 	int							size;
 	int							offset;
 }								t_ast;
+
+typedef struct					s_symbol
+{
+	struct s_symbol				*prev;
+	struct s_symbol				*next;
+	char						*label;
+	int							offset;	
+}								t_symbol;
 
 typedef struct					s_src_file
 {
@@ -48,6 +56,8 @@ typedef struct					s_src_file
 	char						*filename;
 	int							nb_line;
 	t_ast						**ast;
+	t_symbol					*symbol_table;
+	unsigned char				output[CHAMP_MAX_SIZE];
 }								t_src_file;
 
 typedef struct					s_op
@@ -56,10 +66,8 @@ typedef struct					s_op
 	unsigned int				param_nb;
 	t_arg_type					param_type[MAX_ARGS_NUMBER];
 	unsigned char				opcode;
-	unsigned int				cycle; // suppr ?
-	char						*desc; // suppr ?
-	unsigned char				octal; // ?
-	unsigned char				label; // ?
+	unsigned char				ocp;
+	unsigned char				index;
 } 								t_op;
 
 #endif
