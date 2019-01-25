@@ -2,6 +2,8 @@ TO DO ASM
 =========
 fonction de veirf des constantes
 offset et size sont des shorts
-direct
+√ direct
+value = int or unsigned int ??
+multiple line comment...
 output
 reading file...?
