@@ -1,6 +1,6 @@
 #include "asm.h"
 
-t_token_list	*skip_whitespaces(t_token_list *tokens)
+t_token_list		*skip_whitespaces(t_token_list *tokens)
 {
 	t_token_list	*current;
 
@@ -22,14 +22,15 @@ static t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
 	if ((*tokens)->token->type != STRING)
-		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
+		return (parse_error_token(nb_line,
+			(*tokens)->token->str, INVALID_TOKEN));
 	else if (((*tokens)->token->type == STRING)
 		&& is_label_string((*tokens)->token->str)
 		&& (*tokens)->next
 		&& ((*tokens)->next->token->type == COLON))
 	{
 		ast->label = ft_strdup((*tokens)->token->str);
-		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;		
+		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;
 	}
 	return (SUCCESS);
 }
@@ -41,7 +42,8 @@ static t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
 	if ((*tokens)->token->type != STRING)
-		return (parse_error_token(nb_line, (*tokens)->token->str,INVALID_TOKEN));
+		return (parse_error_token(nb_line,
+			(*tokens)->token->str, INVALID_TOKEN));
 	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
 	{
 		ast->opcode = &g_op_tab[nb];
@@ -54,9 +56,8 @@ static t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 	return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_OPCODE));
 }
 
-
-
-static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens,
+						int nb_line)
 {
 	*tokens = skip_whitespaces(*tokens);
 	if (!*tokens && ast->opcode)
@@ -65,7 +66,6 @@ static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
 		return (SUCCESS);
 	if (parse_parameters(ast, tokens, nb_line) == FAILURE)
 		return (FAILURE);
-
 	return (SUCCESS);
 }
 
@@ -74,10 +74,10 @@ static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
 ** and some parameters (also named arguments).
 */
 
-t_ex_ret		parse_instr(t_ast *ast, t_token_list *tokens, int nb_line)
+t_ex_ret			parse_instr(t_ast *ast, t_token_list *tokens, int nb_line)
 {
 	t_token_list *current_token;
-	
+
 	if (!tokens)
 		return (SUCCESS);
 	current_token = tokens;

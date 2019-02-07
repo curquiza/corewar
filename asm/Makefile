@@ -35,9 +35,6 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		option.c \
 		error.c \
 		tools.c \
-		print_lexer.c \
-		print_ast.c \
-		print_symbol_table.c \
 		\
 		main.c )
 OBJ_DIR = objs
