@@ -37,6 +37,8 @@ void			print_file(t_list *file);
 */
 t_ex_ret		write_output_file(t_src_file *file);
 t_ex_ret		write_output_stdout(t_src_file *file);
+void			print_relative_params(t_ast *ast, unsigned char *output);
+void			print_raw_params(t_ast *ast, unsigned char *output);
 
 /*
 ** ERROR

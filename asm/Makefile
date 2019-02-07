@@ -21,6 +21,7 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		read_file.c \
 		output_file.c \
 		output_stdout.c \
+		output_stdout_params.c \
 		\
 		symbol_table.c \
 		encode.c \
