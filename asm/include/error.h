@@ -4,8 +4,8 @@
 /*
 ** USAGE
 */
-# define USAGE_OPTS 	"-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
-# define USAGE			"usage: ./asm [-"OPTIONS"] <sourcefile.s>\n\t" USAGE_OPTS
+# define USAGE_OPTS 	"-a: writes an annotated version of the code to stdout."
+# define USAGE			"usage: ./asm [-"OPTIONS"] <src_file.s>\n\t" USAGE_OPTS
 # define ILLEGAL_OPTION	PROG_NAME "illegal option\n" USAGE
 
 /*

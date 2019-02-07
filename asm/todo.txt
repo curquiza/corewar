@@ -1,6 +1,6 @@
 TO DO ASM
 =========
-fonction de veirf des constantes
+fonction de verif des constantes
 offset et size sont des shorts
 √ direct
 value = int or unsigned int ??

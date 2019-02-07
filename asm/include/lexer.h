@@ -6,7 +6,8 @@
 # define STRING_CHARS	LABEL_CHARS"-"
 
 t_ex_ret				lexer(t_token_list **tokens, char *line, int nb_line);
-t_ex_ret				link_token(t_token_list **tokens, char **token_name, int line, int col);
+t_ex_ret				link_token(t_token_list **tokens, char **token_name,
+							int line, int col);
 void					free_tokens(t_token_list **tokens);
 
 /*
@@ -18,7 +19,7 @@ t_bool					is_string_char(char c);
 t_bool					is_label_char(char c);
 t_bool					is_label_string(char *str);
 t_bool					is_registre(char *str);
-t_type 					which_special_char(char c);
+t_type					which_special_char(char c);
 int						is_opcode(char *str);
 
 /*

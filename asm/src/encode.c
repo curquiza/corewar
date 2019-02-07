@@ -2,7 +2,7 @@
 
 void			get_registre(unsigned char *output, char *r)
 {
-	ft_printf("get_registre: %d\n", ft_atoi(r + 1));
+	ft_printf("get_registre: %d\n", ft_atoi(r + 1)); // debug
 	*output = ft_atoi(r + 1);
 	return ;
 }
@@ -44,7 +44,7 @@ t_ex_ret		encode_instructions(t_src_file *file)
 	i = 0;
 	while (file->ast[i])
 	{
-		printf("%d %d\n", file->ast[i]->offset, ft_swap_int(file->header.prog_size));
+		printf("%d %d\n", file->ast[i]->offset, ft_swap_int(file->header.prog_size)); // debug
 		if (file->ast[i]->opcode)
 		{
 			start = file->ast[i]->offset;
