@@ -29,11 +29,11 @@ static void			print_params(t_ast *ast)
 	}
 }
 
-static void			print_opcode_ocp(unsigned char opcode, unsigned char ocp)
+static void			print_opcode_ocp(unsigned char ocp, unsigned char opcode)
 {
-	if (ocp)
+	if (ocp != 0)
 	{
-		ft_printf("%21s%-2d%8d%6s", "", (unsigned int)ocp, (unsigned int)opcode,
+		ft_printf("%21s%-2d%8d%6s", "", (unsigned int)opcode, (unsigned int)ocp,
 			"");
 	}
 	else

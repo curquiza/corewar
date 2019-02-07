@@ -1,9 +1,13 @@
 #include "asm.h"
 
+/*
+** TOKENIZE: the rules to cut a string into words.
+*/
+
 static int			tokenize(char *start)
 {
-	char 				*end;
-	
+	char	*end;
+
 	if (!*start || *start == COMMENT_CHAR)
 		return (-1);
 	if (is_special_char(*start))
@@ -25,7 +29,7 @@ static int			tokenize(char *start)
 }
 
 /*
-** lexer: take a line and return a list of tokens.
+** LEXER: take a line and return a list of tokens.
 */
 
 t_ex_ret			lexer(t_token_list **tokens, char *line, int nb_line)

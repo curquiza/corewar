@@ -5,7 +5,7 @@ int g_flags = 0;
 static int		open_file(char *filename)
 {
 	struct stat		s;
-	int 			fd;
+	int				fd;
 	char			*extension;
 
 	extension = ft_strrchr(filename, '.');
@@ -21,24 +21,14 @@ static int		open_file(char *filename)
 static void		init_src_file(t_src_file *file, char *filename)
 {
 	g_file = file;
-    ft_bzero(file, sizeof(t_src_file));
-    file->filename = filename;
+	ft_bzero(file, sizeof(t_src_file));
+	file->filename = filename;
 	file->header.magic = ft_swap_int(COREWAR_EXEC_MAGIC);
-}
-
-void		print_header(t_header *header)
-{
-	ft_printf("== HEADER ==\n");
-	ft_printf("magic: %x\n", header->magic);
-	ft_printf("prog name: %s\n", header->prog_name);
-	ft_printf("prog size: %d\n", header->prog_size);
-	ft_printf("prog desc: %s\n", header->comment);
-	ft_printf("============\n");
 }
 
 // verif : taille des arguments...
 
-int				main (int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	int			ret;
 	int			status;
@@ -63,8 +53,6 @@ int				main (int argc, char **argv)
 			file.fd = ret;
 		if ((ret = parse(&file)) != SUCCESS)
 			status = FAILURE ;
-	
-		// print_header(&file.header);
 		free_ast_array(&file.ast);
 		free_symbol_table(&file.symbol_table);
 	}

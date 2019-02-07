@@ -2,7 +2,6 @@
 
 void			get_registre(unsigned char *output, char *r)
 {
-	ft_printf("get_registre: %d\n", ft_atoi(r + 1)); // debug
 	*output = ft_atoi(r + 1);
 	return ;
 }
@@ -30,7 +29,7 @@ t_ex_ret		encode_parameters(t_src_file *file, int i, int pos)
 			if (get_direct(file, i, j, pos) == FAILURE)
 				return (FAILURE);
 			pos += get_dir_size(file->ast[i]->opcode->index);
-		}			
+		}
 		j++;
 	}
 	return (SUCCESS);
@@ -44,7 +43,6 @@ t_ex_ret		encode_instructions(t_src_file *file)
 	i = 0;
 	while (file->ast[i])
 	{
-		printf("%d %d\n", file->ast[i]->offset, ft_swap_int(file->header.prog_size)); // debug
 		if (file->ast[i]->opcode)
 		{
 			start = file->ast[i]->offset;
@@ -65,8 +63,6 @@ t_ex_ret		encode_instructions(t_src_file *file)
 t_ex_ret		encode(t_src_file *file)
 {
 	create_symbol_table(file);
-	print_symbol_table(file->symbol_table); // debug
-	
 	if (encode_instructions(file) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
