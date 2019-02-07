@@ -1,7 +1,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef enum 					e_type
+typedef enum					e_type
 {
 	NONE,
 	STRING = 1,
@@ -33,9 +33,9 @@ typedef struct					s_token_list
 typedef struct					s_ast
 {
 	char						*label;
-	struct s_op 				*opcode;
+	struct s_op					*opcode;
 	char						*arguments[MAX_ARGS_NUMBER];
-	t_arg_type					arg_type[MAX_ARGS_NUMBER];	
+	t_arg_type					arg_type[MAX_ARGS_NUMBER];
 	unsigned char				ocp;
 	int							size;
 	int							offset;
@@ -46,13 +46,13 @@ typedef struct					s_symbol
 	struct s_symbol				*prev;
 	struct s_symbol				*next;
 	char						*label;
-	int							offset;	
+	int							offset;
 }								t_symbol;
 
 typedef struct					s_src_file
 {
 	int							fd;
-	t_header					header;	
+	t_header					header;
 	char						*filename;
 	int							nb_line;
 	t_ast						**ast;
@@ -68,6 +68,6 @@ typedef struct					s_op
 	unsigned char				opcode;
 	unsigned char				ocp;
 	unsigned char				index;
-} 								t_op;
+}								t_op;
 
 #endif

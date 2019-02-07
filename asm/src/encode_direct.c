@@ -12,7 +12,6 @@ static t_ex_ret 		get_direct_label(unsigned char *output, char *label, t_symbol 
 	ft_printf("get_indirect_label:%s %d\n", label, (unsigned int)(offset - label_ptr->offset - offset)); // debug
 	*tmp = ft_swap_int((unsigned int)(label_ptr->offset - offset));
 	return (SUCCESS);
-	return (SUCCESS);
 }
 
 static void			get_direct_value(unsigned char *output, char *value) 
