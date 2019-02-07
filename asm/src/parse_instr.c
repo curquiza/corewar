@@ -24,8 +24,9 @@ static t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 	if ((*tokens)->token->type != STRING)
 		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
 	else if (((*tokens)->token->type == STRING)
+		&& is_label_string((*tokens)->token->str)
 		&& (*tokens)->next
-		&& ((*tokens)->next->token->type == COLON)) // euh, check label valid ?? is_label_string
+		&& ((*tokens)->next->token->type == COLON))
 	{
 		ast->label = ft_strdup((*tokens)->token->str);
 		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;		

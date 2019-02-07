@@ -9,6 +9,8 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		token.c \
 		token_types.c \
 		\
+		compile.c \
+		\
 		op.c \
 		parser.c \
 		parse_name.c \

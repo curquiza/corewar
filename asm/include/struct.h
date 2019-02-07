@@ -56,6 +56,7 @@ typedef struct					s_src_file
 	char						*filename;
 	int							nb_line;
 	int							nb_instr;
+	t_token_list				*tokens;
 	t_ast						**ast;
 	t_symbol					*symbol_table;
 	char						**input;

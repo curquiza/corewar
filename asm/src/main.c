@@ -28,6 +28,14 @@ static void		init_src_file(t_src_file *file, char *filename)
 
 // verif : taille des arguments...
 
+static void		cleaning(t_src_file *file)
+{
+	free_ast_array(&file->ast);
+	free_symbol_table(&file->symbol_table);
+	ft_tabdel(&file->input);
+	free_tokens(&file->tokens);
+}
+
 int				main(int argc, char **argv)
 {
 	int			ret;
@@ -53,8 +61,7 @@ int				main(int argc, char **argv)
 			file.fd = ret;
 		if ((ret = compile(&file)) != SUCCESS)
 			status = FAILURE ;
-		free_ast_array(&file.ast);
-		free_symbol_table(&file.symbol_table);
+		cleaning(&file);
 	}
 	// while (1);
 	return (status);
