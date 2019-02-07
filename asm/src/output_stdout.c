@@ -65,7 +65,7 @@ static void			print_ast_stdout(t_ast **ast, unsigned char *output)
 	}
 }
 
-t_ex_ret		write_output_stdout(t_src_file *file)
+t_ex_ret			write_output_stdout(t_src_file *file)
 {
 	ft_printf("Program size : %d bytes\n", ft_swap_int(file->header.prog_size));
 	ft_printf("Name: \"%s\"\n", file->header.prog_name);
