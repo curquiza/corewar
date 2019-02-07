@@ -27,7 +27,7 @@ t_ex_ret		parse(t_src_file *file)
 	
 	fill_prog_size(file);
 	if (ft_swap_int(file->header.prog_size) > CHAMP_MAX_SIZE)
-		return (ft_ret_err(CHAMP_TOO_LONG));
+		return (parse_error(0, CHAMP_TOO_LONG));
 
 	if ((encode(file)) != SUCCESS)
 		return (FAILURE);
