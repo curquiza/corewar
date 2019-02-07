@@ -55,8 +55,10 @@ typedef struct					s_src_file
 	t_header					header;
 	char						*filename;
 	int							nb_line;
+	int							nb_instr;
 	t_ast						**ast;
 	t_symbol					*symbol_table;
+	char						**input;
 	unsigned char				output[CHAMP_MAX_SIZE];
 }								t_src_file;
 

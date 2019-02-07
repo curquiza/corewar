@@ -51,7 +51,7 @@ int				main(int argc, char **argv)
 		}
 		else
 			file.fd = ret;
-		if ((ret = parse(&file)) != SUCCESS)
+		if ((ret = compile(&file)) != SUCCESS)
 			status = FAILURE ;
 		free_ast_array(&file.ast);
 		free_symbol_table(&file.symbol_table);

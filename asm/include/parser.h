@@ -8,11 +8,11 @@
 # define NUM_INDEX_SIZE	2
 # define NUM_OP_SIZE	1
 
-t_ex_ret		parse(t_src_file *file);
+t_ex_ret		compile(t_src_file *file);
 t_ex_ret		parse_name(t_src_file *file);
 t_ex_ret		parse_comment(t_src_file *file);
 t_ex_ret		parser(t_src_file *file);
-t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line);
+t_ex_ret		parse_instr(t_ast *ast, t_token_list *tokens, int nb_line);
 t_ex_ret		parse_parameters(t_ast *ast, t_token_list **tokens,
 					int nb_line);
 t_token_list	*skip_whitespaces(t_token_list *tokens);

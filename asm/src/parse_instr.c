@@ -1,9 +1,5 @@
 #include "asm.h"
 
-/*
-** parse_line: rules to define a valid isntruction.
-*/
-
 t_token_list	*skip_whitespaces(t_token_list *tokens)
 {
 	t_token_list	*current;
@@ -21,13 +17,10 @@ t_token_list	*skip_whitespaces(t_token_list *tokens)
 	return (current);
 }
 
-t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 {
-	// parse label
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	// ft_printf("pl - token: %s\n", (*tokens)->token->str); // debug
-
 	if ((*tokens)->token->type != STRING)
 		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
 	else if (((*tokens)->token->type == STRING)
@@ -36,18 +29,16 @@ t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 	{
 		ast->label = ft_strdup((*tokens)->token->str);
 		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;		
-		// return (SUCCESS);
 	}
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 {
 	int		nb;
 
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	// ft_printf("po - token: %s\n", (*tokens)->token->str); // debug
 	if ((*tokens)->token->type != STRING)
 		return (parse_error_token(nb_line, (*tokens)->token->str,INVALID_TOKEN));
 	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
@@ -64,21 +55,25 @@ t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 
 
 
-t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
 {
 	*tokens = skip_whitespaces(*tokens);
 	if (!*tokens && ast->opcode)
 		return (parse_error_token(nb_line, ast->opcode->name, NB_PARAMS));
 	else if (!*tokens)
 		return (SUCCESS);
-	// ft_printf("pa - token: %s\n", (*tokens)->token->str); // debug
 	if (parse_parameters(ast, tokens, nb_line) == FAILURE)
 		return (FAILURE);
 
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
+/*
+** PARSE_INSTR: every instruction is a line with an optionnal label, an opcode,
+** and some parameters (also named arguments).
+*/
+
+t_ex_ret		parse_instr(t_ast *ast, t_token_list *tokens, int nb_line)
 {
 	t_token_list *current_token;
 	
@@ -91,7 +86,5 @@ t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
 		return (FAILURE);
 	if ((parse_arguments(ast, &current_token, nb_line)) == FAILURE)
 		return (FAILURE);
-	// print_tokens(current_token); // debug
-
 	return (SUCCESS);
 }
