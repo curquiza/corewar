@@ -1,4 +1,5 @@
-.name "Tzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzork" 
+.name "Tzorkzorkzorkzorkoozorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzor
+fkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzorkzk" 
 .comment "I'M ALIIIIVE"
 
 l2:		sti r1, %:live, %1
