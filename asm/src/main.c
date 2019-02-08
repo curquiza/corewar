@@ -36,7 +36,7 @@ static void			cleaning(t_src_file *file)
 static t_ex_ret		check_constants(void)
 {
 	if (MAX_ARGS_NUMBER == 4
-		&& (MEM_SIZE == 4*1024)
+		&& (MEM_SIZE == 4 * 1024)
 		&& (CHAMP_MAX_SIZE == MEM_SIZE / 6)
 		&& (NUM_REG_SIZE == 1)
 		&& (IND_SIZE == 2)
@@ -48,6 +48,8 @@ static t_ex_ret		check_constants(void)
 	}
 	return (ft_ret_err(BAD_CONFIG));
 }
+
+// grouper ret et status ??
 
 int					main(int argc, char **argv)
 {
@@ -74,7 +76,7 @@ int					main(int argc, char **argv)
 		else
 			file.fd = ret;
 		if ((ret = compile(&file)) != SUCCESS)
-			status = FAILURE ;
+			status = FAILURE;
 		cleaning(&file);
 	}
 	// while (1);
