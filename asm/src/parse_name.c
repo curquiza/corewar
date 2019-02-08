@@ -7,7 +7,6 @@ static t_ex_ret		name_check_before(char *line, int nb_line)
 
 	if ((start = ft_strchr(line, '"')) == NULL)
 		return (parse_error(nb_line, NO_NAME));
-	
 	start_line = line + ft_strlen(NAME_CMD_STRING);
 	while (start_line != start)
 	{
@@ -26,12 +25,9 @@ static t_ex_ret		name_check_after(char *line, int nb_line)
 	char	*start_line;
 
 	start = ft_strchr(line, '"') + 1;
-	
 	if (count_char(start, '"') != 1)
 		return (parse_error_token(nb_line, start, ERR_QUOTE));
-
 	end = ft_strrchr(line, '"');
-	
 	start_line = end + 1;
 	while (*start_line)
 	{
@@ -66,7 +62,7 @@ static int			get_name(t_src_file *file, char **line)
 	return (SUCCESS);
 }
 
-t_ex_ret		return_parse_name(t_src_file *file, int ret)
+static t_ex_ret		return_parse_name(t_src_file *file, int ret)
 {
 	if (ret == -1)
 		return (ft_ret_err(ERR_GNL));
@@ -75,7 +71,7 @@ t_ex_ret		return_parse_name(t_src_file *file, int ret)
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_name(t_src_file *file)
+t_ex_ret			parse_name(t_src_file *file)
 {
 	char	*line;
 	int		ret;
