@@ -15,7 +15,7 @@
 # define ERR_OPEN		"Open error."
 # define NO_EXIST		"No such file or directory."
 # define PERM_DENIED	"Permission denied."
-# define ERR_GNL	    "Read line error."
+# define ERR_GNL	    "Unexpected EOF."
 # define NO_NAME		"Name was expected in the source file."
 # define BIG_NAME		"Name is too long."
 # define NO_COMMENT		"Comment was expected in the source file."

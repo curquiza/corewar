@@ -19,25 +19,6 @@ static t_ex_ret		name_check_before(char *line, int nb_line)
 	return (SUCCESS);
 }
 
-static t_ex_ret		name_read_again(t_src_file *file, char **line)
-{
-	char	*tmp_line;
-	char	*tmp_read;
-
-	tmp_read = NULL;
-	while (count_char(*line, '"') < 2)
-	{
-		if ((get_next_line(file->fd, &tmp_read)) != 1)
-			return (ft_ret_err(ERR_GNL));
-		if  (!(tmp_line = ft_strjoin3(*line, "\n", tmp_read)))
-			return (put_error_code(ERR_MALLOC, -1));
-		tmp_read ? free(tmp_read) : 0;
-		*line ? free(*line) : 0;
-		*line = tmp_line;
-	}
-	return (SUCCESS);
-}
-
 static t_ex_ret		name_check_after(char *line, int nb_line)
 {
 	char	*start;
@@ -70,7 +51,7 @@ static int			get_name(t_src_file *file, char **line)
 
 	if (name_check_before(*line, file->nb_line) == FAILURE)
 		return (FAILURE);
-	if (name_read_again(file, line) == FAILURE)
+	if (read_again(file, line) == FAILURE)
 		return (FAILURE);
 	if (name_check_after(*line, file->nb_line) == FAILURE)
 		return (FAILURE);

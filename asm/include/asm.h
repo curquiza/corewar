@@ -29,6 +29,7 @@ extern t_op		g_op_tab[NB_OPCODE + 1];
 */
 int				get_options(int *argc, char ***argv);
 t_ex_ret		read_file(t_src_file *file, t_list **head);
+t_ex_ret		read_again(t_src_file *file, char **line);
 void			print_file(t_list *file);
 
 /*
