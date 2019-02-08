@@ -23,9 +23,4 @@ t_bool					is_registre(char *str);
 t_type					which_special_char(char c);
 int						is_opcode(char *str);
 
-/*
-** PRINT LEXER
-*/
-void					print_tokens(t_token_list *tokens);
-
 #endif
