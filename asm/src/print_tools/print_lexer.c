@@ -1,6 +1,6 @@
 #include "asm.h"
 
-static void			print_token_type(t_type type)
+static void		print_token_type(t_type type)
 {
 	if (type == NONE)
 		ft_putstr("/!\\ NONE");
@@ -25,7 +25,8 @@ void			print_tokens(t_token_list *tokens)
 	ft_printf(RED"\n--- lex\n"DEF);
 	while (tmp)
 	{
-		ft_printf("%d-%d %-30s", tmp->token->line, tmp->token->col, tmp->token->str);
+		ft_printf("%d-%d %-30s", tmp->token->line, tmp->token->col,
+			tmp->token->str);
 		print_token_type(tmp->token->type);
 		tmp = tmp->next;
 	}

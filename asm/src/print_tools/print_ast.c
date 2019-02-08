@@ -16,7 +16,7 @@ void			print_one_ast(t_ast *ast)
 	else
 	{
 		ft_printf("arguments:\n");
-		ft_puttab(ast->arguments);		
+		ft_puttab(ast->arguments);
 	}
 	ft_printf("arg_type param1: %d\n", ast->arg_type[0]);
 	ft_printf("arg_type param2: %d\n", ast->arg_type[1]);
@@ -30,7 +30,7 @@ void			print_one_ast(t_ast *ast)
 void			print_ast_array(t_ast **ast)
 {
 	int		i;
-	
+
 	i = 0;
 	while (ast[i])
 	{
@@ -40,6 +40,6 @@ void			print_ast_array(t_ast **ast)
 		else
 			ft_printf("empty line\n");
 		i++;
-		ft_printf("=====\n");			
+		ft_printf("=====\n");
 	}
 }

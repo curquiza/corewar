@@ -6,6 +6,7 @@
 # define STRING_CHARS	LABEL_CHARS"-"
 
 t_ex_ret				lexer(t_token_list **tokens, char *line, int nb_line);
+t_type 					get_token_type(char *token_name);
 t_ex_ret				link_token(t_token_list **tokens, char **token_name,
 							int line, int col);
 void					free_tokens(t_token_list **tokens);

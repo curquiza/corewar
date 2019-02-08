@@ -1,7 +1,7 @@
 #include "asm.h"
 
 /*
-** read file and store each line in an array of string.
+** read a file and store each line in an array of string.
 */
 
 void			print_file(t_list *file)
@@ -21,7 +21,7 @@ t_ex_ret		read_file(t_src_file *file, t_list **head)
 	int				ret;
 	t_list			*elem;
 	char			*line;
-	
+
 	while ((ret = get_next_line(file->fd, &line)) > 0)
 	{
 		if (!(elem = ft_lstnew(line, ft_strlen(line) + 1)))

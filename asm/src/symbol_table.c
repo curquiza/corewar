@@ -65,8 +65,11 @@ t_ex_ret			create_symbol_table(t_src_file *file)
 	while (file->ast[i])
 	{
 		if (file->ast[i]->label)
-			if (link_symbol(&file->symbol_table, file->ast[i]->label, file->ast[i]->offset) == FAILURE)
+			if (link_symbol(&file->symbol_table, file->ast[i]->label,
+				file->ast[i]->offset) == FAILURE)
+			{
 				return (FAILURE);
+			}
 		i++;
 	}
 	return (SUCCESS);

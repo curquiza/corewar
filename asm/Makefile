@@ -7,7 +7,8 @@ SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
 		lexer.c \
 		token.c \
-		token_types.c \
+		token_types_1.c \
+		token_types_2.c \
 		\
 		compile.c \
 		\
