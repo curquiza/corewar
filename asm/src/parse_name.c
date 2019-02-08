@@ -7,7 +7,7 @@ static int		get_name(t_src_file *file, char *line)
 
 	if (ft_strchr(line, '"') == NULL
 		|| ft_strrchr(line, '"') != (line + ft_strlen(line) - 1)
-		|| count_char(line, '"') > 2)
+		|| count_char(line, '"') != 2)
 	{
 		return (parse_error(file->nb_line, ERR_QUOTE));
 	}
@@ -16,10 +16,20 @@ static int		get_name(t_src_file *file, char *line)
 	if (size == -1)
 		return (parse_error(file->nb_line, BIG_NAME));
 	ft_memcpy(file->header.prog_name, start, size);
+	ft_strdel(&line);
 	return (SUCCESS);
 }
 
-t_ex_ret	parse_name(t_src_file *file)
+t_ex_ret		return_parse_name(t_src_file *file, int ret)
+{
+	if (ret == -1)
+		return (ft_ret_err(ERR_GNL));
+	if (ret == 0 || *(file->header.prog_name) == '\0')
+		return (parse_error(file->nb_line, NO_NAME));
+	return (SUCCESS);
+}
+
+t_ex_ret		parse_name(t_src_file *file)
 {
 	char	*line;
 	int		ret;
@@ -36,7 +46,6 @@ t_ex_ret	parse_name(t_src_file *file)
 			ft_strlen(NAME_CMD_STRING))) == 0)
 		{
 			ret = get_name(file, line);
-			ft_strdel(&line);
 			return (ret);
 		}
 		else
@@ -44,9 +53,5 @@ t_ex_ret	parse_name(t_src_file *file)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	if (ret == -1)
-		return (ft_ret_err(ERR_GNL));
-	if (ret == 0 || *(file->header.prog_name) == '\0')
-		return (parse_error(file->nb_line, NO_NAME));
-	return (SUCCESS);
+	return (return_parse_name(file, ret));
 }

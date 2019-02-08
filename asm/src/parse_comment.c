@@ -16,6 +16,7 @@ static int		get_comment(t_src_file *file, char *line)
 	if (size == -1)
 		return (parse_error(file->nb_line, BIG_COMMENT));
 	ft_memcpy(file->header.comment, start, size);
+	ft_strdel(&line);
 	return (SUCCESS);
 }
 
@@ -36,7 +37,6 @@ t_ex_ret	parse_comment(t_src_file *file)
 			ft_strlen(COMMENT_CMD_STRING))) == 0)
 		{
 			ret = get_comment(file, line);
-			ft_strdel(&line);
 			return (ret);
 		}
 		else
