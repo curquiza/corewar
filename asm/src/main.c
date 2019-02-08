@@ -2,7 +2,7 @@
 
 int g_flags = 0;
 
-static int		open_file(char *filename)
+static int			open_file(char *filename)
 {
 	struct stat		s;
 	int				fd;
@@ -18,16 +18,14 @@ static int		open_file(char *filename)
 	return (fd);
 }
 
-static void		init_src_file(t_src_file *file, char *filename)
+static void			init_src_file(t_src_file *file, char *filename)
 {
 	ft_bzero(file, sizeof(t_src_file));
 	file->filename = filename;
 	file->header.magic = ft_swap_int(COREWAR_EXEC_MAGIC);
 }
 
-// verif : taille des arguments...
-
-static void		cleaning(t_src_file *file)
+static void			cleaning(t_src_file *file)
 {
 	free_ast_array(&file->ast);
 	free_symbol_table(&file->symbol_table);
@@ -35,13 +33,30 @@ static void		cleaning(t_src_file *file)
 	free_tokens(&file->tokens);
 }
 
-int				main(int argc, char **argv)
+static t_ex_ret		check_constants(void)
+{
+	if (MAX_ARGS_NUMBER == 4
+		&& (MEM_SIZE == 4*1024)
+		&& (CHAMP_MAX_SIZE == MEM_SIZE / 6)
+		&& (NUM_REG_SIZE == 1)
+		&& (IND_SIZE == 2)
+		&& (DIR_SIZE == 4)
+		&& (PROG_NAME_LENGTH == 128)
+		&& (COMMENT_LENGTH == 2048))
+	{
+		return (SUCCESS);
+	}
+	return (ft_ret_err(BAD_CONFIG));
+}
+
+int					main(int argc, char **argv)
 {
 	int			ret;
 	int			status;
 	char		*filename;
 	t_src_file	file;
 
+	check_constants();
 	status = SUCCESS;
 	if (argc == 1)
 		return (put_error(USAGE));

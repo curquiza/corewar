@@ -11,6 +11,7 @@
 /*
 ** ERRORS
 */
+# define BAD_CONFIG		"Configurations are wrong."
 # define ERR_MALLOC		"Malloc error."
 # define ERR_OPEN		"Open error."
 # define NO_EXIST		"No such file or directory."
