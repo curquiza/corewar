@@ -20,6 +20,15 @@ static int		get_comment(t_src_file *file, char *line)
 	return (SUCCESS);
 }
 
+t_ex_ret		return_parse_comment(t_src_file *file, int ret)
+{
+	if (ret == -1)
+		return (ft_ret_err(ERR_GNL));
+	if (ret == 0 || *(file->header.comment) == '\0')
+		return (parse_error(file->nb_line, NO_COMMENT));
+	return (SUCCESS);
+}
+
 t_ex_ret	parse_comment(t_src_file *file)
 {
 	char	*line;
@@ -44,9 +53,5 @@ t_ex_ret	parse_comment(t_src_file *file)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	if (ret == -1)
-		return (ft_ret_err(ERR_GNL));
-	if (ret == 0 || *(file->header.comment) == '\0')
-		return (parse_error(file->nb_line, NO_COMMENT));
-	return (SUCCESS);
+	return (return_parse_comment(file, ret));
 }
