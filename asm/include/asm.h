@@ -23,7 +23,6 @@
 */
 extern int		g_flags;
 extern t_op		g_op_tab[NB_OPCODE + 1];
-t_src_file		*g_file;
 
 /*
 ** INIT

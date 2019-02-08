@@ -20,7 +20,6 @@ static int		open_file(char *filename)
 
 static void		init_src_file(t_src_file *file, char *filename)
 {
-	g_file = file;
 	ft_bzero(file, sizeof(t_src_file));
 	file->filename = filename;
 	file->header.magic = ft_swap_int(COREWAR_EXEC_MAGIC);
