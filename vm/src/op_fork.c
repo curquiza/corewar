@@ -24,7 +24,7 @@ void	op_fork(t_vm *vm, t_processus *proc, t_param *params)
 	t_processus		*new_proc;
 
 	new_proc = new_processus(get_mem_index(proc, params[0].value, RESTRICT),
-							vm);
+		vm);
 	new_proc->live = proc->live;
 	new_proc->carry = proc->carry;
 	len = REG_NUMBER * sizeof(*proc->reg);

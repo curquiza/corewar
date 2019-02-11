@@ -28,11 +28,11 @@ static void		print_visu_rslt(t_vm *vm, WINDOW *win, int i)
 		p = get_player(vm->last_live_player, vm->player, vm->total_players);
 		if (ft_strlen(p->header.prog_name) > 12)
 			mvwprintw(win, 5, (END_WIN_X - 26) / 2, "Player \"%.9s...\" won !",
-						p->header.prog_name);
+				p->header.prog_name);
 		else
 			mvwprintw(win, 5,
-						(END_WIN_X - (12 + ft_strlen(p->header.prog_name))) / 2,
-						"Player \"%s\" won !", p->header.prog_name);
+				(END_WIN_X - (12 + ft_strlen(p->header.prog_name))) / 2,
+				"Player \"%s\" won !", p->header.prog_name);
 		mvwprintw(win, 7, (END_WIN_X - 3) / 2, "^.^");
 	}
 	mvwprintw(win, 10, (END_WIN_X - 18) / 2, "Quitting in %d s...", i);
@@ -44,7 +44,7 @@ static void		visu_end(t_vm *vm)
 	int		i;
 
 	end_win = subwin(stdscr, END_WIN_Y, END_WIN_X, (LINES - END_WIN_Y) / 2,
-					(COLS - END_WIN_X) / 2);
+		(COLS - END_WIN_X) / 2);
 	i = END_COUNTDOWN;
 	while (i != 0)
 	{
@@ -71,7 +71,7 @@ void			end_of_game(t_vm *vm)
 		{
 			p = get_player(vm->last_live_player, vm->player, vm->total_players);
 			ft_dprintf(vm->trace_fd, "Player %d (%s) won !\n",
-						vm->last_live_player, p->header.prog_name);
+				vm->last_live_player, p->header.prog_name);
 		}
 		ft_dprintf(vm->trace_fd, "End of game. Thanks for watching 😎\n");
 	}

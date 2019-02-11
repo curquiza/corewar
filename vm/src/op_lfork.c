@@ -24,7 +24,7 @@ void	op_lfork(t_vm *vm, t_processus *proc, t_param *params)
 	size_t			len;
 
 	new_proc = new_processus(get_mem_index(proc, params[0].value, DEF_ADDR),
-							vm);
+		vm);
 	new_proc->live = proc->live;
 	new_proc->carry = proc->carry;
 	len = REG_NUMBER * sizeof(*proc->reg);

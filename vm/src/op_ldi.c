@@ -24,7 +24,7 @@
 */
 
 static int		get_value_according_to_type_ldi(t_vm *vm, t_processus *proc,
-												t_param *p)
+					t_param *p)
 {
 	int		rslt;
 
@@ -41,7 +41,7 @@ static int		get_value_according_to_type_ldi(t_vm *vm, t_processus *proc,
 }
 
 static int32_t	memvalue_to_int32_ldi(t_memcase *vm_mem, int32_t index,
-										int size)
+					int size)
 {
 	int32_t		rslt;
 

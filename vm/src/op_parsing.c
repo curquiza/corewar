@@ -13,7 +13,7 @@
 #include "vm.h"
 
 static void		parse_param_without_ocp(t_memcase *mem, t_processus *proc,
-										t_param *params)
+					t_param *params)
 {
 	if (proc->current_op->index == TRUE)
 		params->size = IND_SIZE;
@@ -24,7 +24,7 @@ static void		parse_param_without_ocp(t_memcase *mem, t_processus *proc,
 }
 
 static t_bool	parse_all_params(t_memcase *mem, t_param *params,
-								t_processus *proc)
+					t_processus *proc)
 {
 	int		i;
 	int		j;

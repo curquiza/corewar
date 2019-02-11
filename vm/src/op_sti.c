@@ -20,7 +20,7 @@
 */
 
 void		store_4bytes_sti(t_vm *vm, int16_t index, int value,
-							t_processus *proc)
+				t_processus *proc)
 {
 	t_memcase	op_case;
 
@@ -44,7 +44,7 @@ void		store_4bytes_sti(t_vm *vm, int16_t index, int value,
 }
 
 static int	get_value_according_to_type_sti(t_vm *vm, t_processus *proc,
-											t_param *p)
+				t_param *p)
 {
 	int		rslt;
 

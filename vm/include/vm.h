@@ -256,11 +256,11 @@ t_ex_ret		read_error(char *filename);
 */
 uint32_t		str_to_uint32(char *str);
 int32_t			memvalue_to_int32_restrict(t_memcase *vm_mem,
-									t_processus *proc,
-									signed short index, int size);
+					t_processus *proc,
+					signed short index, int size);
 int32_t			memvalue_to_int32_norestrict(t_memcase *vm_mem,
-									t_processus *proc,
-									signed short index, int size);
+					t_processus *proc,
+					signed short index, int size);
 
 /*
 ** Parsing
@@ -357,11 +357,11 @@ void			exit_malloc_err(void);
 t_player		*get_player(int num, t_player *players, int total_players);
 t_bool			flag_is_applied(int flag, t_vm *vm);
 int				get_mem_index(t_processus *proc, signed short index,
-								t_addr_type addr);
+					t_addr_type addr);
 t_bool			is_valid_reg_index(int index);
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
-											t_param *p, t_addr_type addr_type);
+					t_param *p, t_addr_type addr_type);
 void			store_4bytes(t_vm *vm, signed short index, int value,
-							t_processus *proc);
+					t_processus *proc);
 
 #endif
