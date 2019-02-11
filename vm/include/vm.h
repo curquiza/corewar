@@ -17,8 +17,6 @@
 # include "op.h"
 
 # include <fcntl.h>
-# include <stdio.h>
-# include <stdbool.h>
 # include <ncurses.h>
 
 /*
