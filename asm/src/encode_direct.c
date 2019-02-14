@@ -6,14 +6,14 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 10:43:41 by sfranc            #+#    #+#             */
-/*   Updated: 2019/02/14 10:43:43 by sfranc           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:42:59 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 static t_ex_ret		get_direct_label(unsigned char *output, char *label,
-	t_symbol *symbol_table, int offset)
+						t_symbol *symbol_table, int offset)
 {
 	unsigned int	*tmp;
 	t_symbol		*label_ptr;

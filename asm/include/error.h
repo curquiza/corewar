@@ -29,6 +29,7 @@
 # define NO_EXIST		"No such file or directory."
 # define PERM_DENIED	"Permission denied."
 # define ERR_GNL	    "Unexpected EOF."
+# define NO_INSTR		"No instruction in the source file."
 # define NO_NAME		"Name was expected in the source file."
 # define BIG_NAME		"Name is too long."
 # define NO_COMMENT		"Comment was expected in the source file."

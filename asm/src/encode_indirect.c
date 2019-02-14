@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 10:43:43 by sfranc            #+#    #+#             */
-/*   Updated: 2019/02/14 10:43:45 by sfranc           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:44:10 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_symbol			*search_symbol_table(t_symbol *symbol_table, char *str)
 }
 
 static t_ex_ret		get_indirect_label(unsigned char *output,
-							char *label, t_symbol *symbol_table, int offset)
+						char *label, t_symbol *symbol_table, int offset)
 {
 	unsigned short	*tmp;
 	t_symbol		*label_ptr;

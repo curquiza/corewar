@@ -24,7 +24,7 @@ static void	handle_no_enough_live(t_vm *vm)
 		print_str_int("\tNb of verif reaches the maximum", MAX_CHECKS, FEW, vm);
 		print_str("\tDecrementing cycles_to_die : ", ALL, vm);
 		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA,
-						ALL, vm);
+			ALL, vm);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;
@@ -41,7 +41,7 @@ static void	manage_cycles_verification(t_vm *vm)
 	{
 		print_str("\tDecrementing cycles_to_die : ", FEW, vm);
 		print_upd_intvar(vm->cycles_to_die, vm->cycles_to_die - CYCLE_DELTA,
-						FEW, vm);
+			FEW, vm);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		print_str("\tReseting verif\n", ALL, vm);
 		vm->verif = 0;

@@ -17,7 +17,7 @@
 */
 
 int				get_mem_index(t_processus *proc, signed short index,
-								t_addr_type addr)
+					t_addr_type addr)
 {
 	unsigned short		tmp;
 
@@ -41,7 +41,7 @@ t_bool			is_valid_reg_index(int index)
 */
 
 int				get_value_according_to_type(t_vm *vm, t_processus *proc,
-											t_param *p, t_addr_type addr_type)
+					t_param *p, t_addr_type addr_type)
 {
 	int		rslt;
 
@@ -51,10 +51,10 @@ int				get_value_according_to_type(t_vm *vm, t_processus *proc,
 	{
 		if (addr_type == RESTRICT)
 			rslt = memvalue_to_int32_restrict(vm->memory, proc, p->value,
-											REG_SIZE);
+				REG_SIZE);
 		else
 			rslt = memvalue_to_int32_norestrict(vm->memory, proc, p->value,
-											REG_SIZE);
+				REG_SIZE);
 		return (rslt);
 	}
 	if (p->type == T_DIR)
@@ -74,7 +74,7 @@ static void		manage_color(t_vm *vm, t_processus *proc,
 
 	op_case = vm->memory[proc->pc];
 	ft_strcpy(vm->memory[get_mem_index(proc, tmp_index, type)].color,
-				op_case.color);
+		op_case.color);
 	vm->memory[get_mem_index(proc, tmp_index, type)].color_visu =
 		op_case.color_visu;
 }
@@ -89,7 +89,7 @@ void			store_4bytes(t_vm *vm, signed short index, int value,
 	manage_color(vm, proc, index, RESTRICT);
 	tmp_index = get_mem_index(proc, index, RESTRICT) - proc->pc + 1;
 	vm->memory[get_mem_index(proc, tmp_index, DEF_ADDR)].value =
-												(t_byte)((value >> 16) & 0xff);
+		(t_byte)((value >> 16) & 0xff);
 	manage_color(vm, proc, tmp_index, DEF_ADDR);
 	tmp_index += 1;
 	vm->memory[get_mem_index(proc, tmp_index, DEF_ADDR)].value =

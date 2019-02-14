@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 10:43:33 by sfranc            #+#    #+#             */
-/*   Updated: 2019/02/14 10:43:35 by sfranc           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:41:12 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ static void			fill_prog_size(t_src_file *file)
 
 	i = 0;
 	while (file->ast[i])
-	{
 		i++;
-	}
-	file->header.prog_size = file->ast[i - 1] ?
-		ft_swap_int(file->ast[i - 1]->offset + file->ast[i - 1]->size) : 0;
+	if (file->ast[i - 1])
+		file->header.prog_size =
+			ft_swap_int(file->ast[i - 1]->offset + file->ast[i - 1]->size);
+	else
+		file->header.prog_size = 0;
 }
 
 /*

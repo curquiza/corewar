@@ -61,7 +61,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 	if (proc->cycles == proc->current_op->cycles && proc->current_op)
 	{
 		print_str2("\tNombre of cycles reaches for operation",
-					proc->current_op->name, ALL, vm);
+			proc->current_op->name, ALL, vm);
 		if (parse_op_params(vm, proc, params) == TRUE)
 		{
 			proc->current_op->func(vm, proc, params);
@@ -69,7 +69,7 @@ static void		exec_one_cycle(t_vm *vm, t_processus *proc, t_param *params)
 		}
 		else
 			print_str2("\tNo op execution : error in OCP for operation",
-						proc->current_op->name, ALL, vm);
+				proc->current_op->name, ALL, vm);
 		if (need_move(proc, op_succeed) == TRUE)
 		{
 			print_str("\tMoving to the next operation\n", ALL, vm);
@@ -100,7 +100,7 @@ void			exec_all_proc(t_vm *vm, t_processus *proc)
 			if (proc->current_op == NULL && get_op_from_proc(vm, proc))
 				proc->current_op = get_op_from_proc(vm, proc);
 			print_str2("\tExec one cycle of operation", proc->current_op->name,
-														ALL, vm);
+				ALL, vm);
 			exec_one_cycle(vm, proc, params);
 		}
 		proc = proc->next;

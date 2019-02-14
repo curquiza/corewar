@@ -54,7 +54,7 @@ void		dump_memory(t_vm *vm)
 			ft_dprintf(vm->trace_fd, "%0.2x", (t_byte)memory[i].value);
 		else
 			ft_dprintf(vm->trace_fd, "%s%0.2x%s", memory[i].color,
-					(t_byte)memory[i].value, DEF);
+				(t_byte)memory[i].value, DEF);
 		handle_newline(i, vm);
 		i++;
 	}
