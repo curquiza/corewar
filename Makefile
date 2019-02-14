@@ -38,13 +38,8 @@ fclean_lib :
 fclean_all : fclean_lib fclean
 
 run_tests:
-<<<<<<< HEAD
 	@make run_tests -C $(ASM_DIR)
 	@make run_tests -C $(COREWAR_DIR)
-=======
-	@make run_tests -C $(COREWAR_DIR)
-	@make run_tests -C $(ASM_DIR)
->>>>>>> ec32dbb41d4846d26c259fa3ae386841ce784346
 
 re : fclean all
 
