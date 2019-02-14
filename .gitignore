@@ -13,5 +13,11 @@ misc/dumb_tests/**/*.cor
 **/*.pyc
 resources/**/*.cor
 asm/tests/input/*.cor
+<<<<<<< HEAD
 .vscode
 trace.txt
+=======
+vm/tests/parsing_trace.txt
+vm/tests/vm_diff_trace.txt
+vm/trace.txt
+>>>>>>> ec32dbb41d4846d26c259fa3ae386841ce784346
