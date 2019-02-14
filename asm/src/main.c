@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:44:28 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:44:45 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 int g_flags = 0;
 
-static int		open_file(char *filename)
+static int			open_file(char *filename)
 {
 	struct stat		s;
-	int 			fd;
+	int				fd;
 	char			*extension;
 
 	extension = ft_strrchr(filename, '.');
@@ -18,56 +30,60 @@ static int		open_file(char *filename)
 	return (fd);
 }
 
-static void		init_src_file(t_src_file *file, char *filename)
+static void			init_src_file(t_src_file *file, char *filename)
 {
-	g_file = file;
-    ft_bzero(file, sizeof(t_src_file));
-    file->filename = filename;
+	ft_bzero(file, sizeof(t_src_file));
+	file->filename = filename;
 	file->header.magic = ft_swap_int(COREWAR_EXEC_MAGIC);
 }
 
-void		print_header(t_header *header)
+static void			cleaning(t_src_file *file)
 {
-	ft_printf("== HEADER ==\n");
-	ft_printf("magic: %x\n", header->magic);
-	ft_printf("prog name: %s\n", header->prog_name);
-	ft_printf("prog size: %d\n", header->prog_size);
-	ft_printf("prog desc: %s\n", header->comment);
-	ft_printf("============\n");
+	free_ast_array(&file->ast);
+	free_symbol_table(&file->symbol_table);
+	ft_tabdel(&file->input);
+	free_tokens(&file->tokens);
 }
 
-// verif : taille des arguments...
+static t_ex_ret		check_constants(void)
+{
+	if (MAX_ARGS_NUMBER == 4
+		&& (MEM_SIZE == 4 * 1024)
+		&& (CHAMP_MAX_SIZE == MEM_SIZE / 6)
+		&& (NUM_REG_SIZE == 1)
+		&& (IND_SIZE == 2)
+		&& (DIR_SIZE == 4)
+		&& (PROG_NAME_LENGTH == 128)
+		&& (COMMENT_LENGTH == 2048))
+	{
+		return (SUCCESS);
+	}
+	return (ft_ret_err(BAD_CONFIG));
+}
 
-int				main (int argc, char **argv)
+int					main(int argc, char **argv)
 {
 	int			ret;
 	int			status;
 	char		*filename;
 	t_src_file	file;
 
-	status = SUCCESS;
+	if (check_constants() == FAILURE)
+		return (FAILURE);
 	if (argc == 1)
 		return (put_error(USAGE));
 	if ((get_options(&argc, &argv)) < 0)
 		return (put_error(ILLEGAL_OPTION));
+	status = SUCCESS;
 	while (argc--)
 	{
 		filename = *argv++;
 		init_src_file(&file, filename);
-		if ((ret = open_file(filename)) == FAILURE)
-		{
+		if ((file.fd = open_file(filename)) == FAILURE)
 			status = FAILURE;
-			continue ;
-		}
-		else
-			file.fd = ret;
-		if ((ret = parse(&file)) != SUCCESS)
-			status = FAILURE ;
-	
-		// print_header(&file.header);
-		free_ast_array(&file.ast);
-		free_symbol_table(&file.symbol_table);
+		else if ((ret = compile(&file)) == FAILURE)
+			status = FAILURE;
+		cleaning(&file);
 	}
-	// while (1);
 	return (status);
 }

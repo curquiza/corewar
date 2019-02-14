@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:42:11 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:42:13 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
@@ -55,8 +67,11 @@ typedef struct					s_src_file
 	t_header					header;
 	char						*filename;
 	int							nb_line;
+	int							nb_instr;
+	t_token_list				*tokens;
 	t_ast						**ast;
 	t_symbol					*symbol_table;
+	char						**input;
 	unsigned char				output[CHAMP_MAX_SIZE];
 }								t_src_file;
 

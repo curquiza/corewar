@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:41:55 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:41:58 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef AST_H
 # define AST_H
 
 t_ex_ret		init_ast_array(t_ast ***ast, int nb_line);
 void			free_ast_array(t_ast ***ast);
-
-void			print_one_ast(t_ast *ast);
-void			print_ast_array(t_ast **ast);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   encode.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:41:59 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:42:00 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENCODE_H
 # define ENCODE_H
 
@@ -15,7 +27,5 @@ t_ex_ret		label_not_found(char *label);
 
 unsigned int	ft_swap_int(unsigned int n);
 unsigned short	ft_swap_short(unsigned short n);
-
-void			print_symbol_table(t_symbol *symbols);
 
 #endif

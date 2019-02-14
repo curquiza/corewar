@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   symbol_table.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:49:31 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:49:36 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 /*
@@ -65,8 +77,11 @@ t_ex_ret			create_symbol_table(t_src_file *file)
 	while (file->ast[i])
 	{
 		if (file->ast[i]->label)
-			if (link_symbol(&file->symbol_table, file->ast[i]->label, file->ast[i]->offset) == FAILURE)
+			if (link_symbol(&file->symbol_table, file->ast[i]->label,
+				file->ast[i]->offset) == FAILURE)
+			{
 				return (FAILURE);
+			}
 		i++;
 	}
 	return (SUCCESS);

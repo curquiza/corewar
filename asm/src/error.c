@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:44:21 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:44:22 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 t_ex_ret	put_error(char *e)
@@ -12,20 +24,20 @@ int			put_error_code(char *e, int code)
 	return (code);
 }
 
-t_ex_ret     parse_error(int line, char *message)
+t_ex_ret	parse_error(int line, char *message)
 {
-    ft_dprintf(2, "Error line %d: %s\n", line, message);
-    return (FAILURE);
+	ft_dprintf(STDERR_FILENO, "Error line %d: %s\n", line, message);
+	return (FAILURE);
 }
 
-t_ex_ret     parse_error_token(int line, char *token, char *message)
+t_ex_ret	parse_error_token(int line, char *token, char *message)
 {
-    ft_dprintf(2, "Error line %d: <%s> %s\n", line, token, message);
-    return (FAILURE);
+	ft_dprintf(STDERR_FILENO, "Error line %d: <%s> %s\n", line, token, message);
+	return (FAILURE);
 }
 
-t_ex_ret     label_not_found(char *label)
+t_ex_ret	label_not_found(char *label)
 {
-    ft_dprintf(2, "Error: <%s> %s\n", label, NO_LABEL);
-    return (FAILURE);
+	ft_dprintf(STDERR_FILENO, "Error: <%s> %s\n", label, NO_LABEL);
+	return (FAILURE);
 }

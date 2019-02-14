@@ -3,7 +3,5 @@ TO DO ASM
 fonction de verif des constantes
 offset et size sont des shorts
 √ direct
-value = int or unsigned int ??
 multiple line comment...
-output
-reading file...?
+√ output

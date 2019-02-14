@@ -7,7 +7,10 @@ SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
 		lexer.c \
 		token.c \
-		token_types.c \
+		token_types_1.c \
+		token_types_2.c \
+		\
+		compile.c \
 		\
 		op.c \
 		parser.c \
@@ -33,9 +36,6 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		option.c \
 		error.c \
 		tools.c \
-		print_lexer.c \
-		print_ast.c \
-		print_symbol_table.c \
 		\
 		main.c )
 OBJ_DIR = objs

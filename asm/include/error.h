@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:42:02 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:42:05 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERROR_H
 # define ERROR_H
 
@@ -11,11 +23,12 @@
 /*
 ** ERRORS
 */
+# define BAD_CONFIG		"Configurations are wrong."
 # define ERR_MALLOC		"Malloc error."
 # define ERR_OPEN		"Open error."
 # define NO_EXIST		"No such file or directory."
 # define PERM_DENIED	"Permission denied."
-# define ERR_GNL	    "Read line error."
+# define ERR_GNL	    "Unexpected EOF."
 # define NO_NAME		"Name was expected in the source file."
 # define BIG_NAME		"Name is too long."
 # define NO_COMMENT		"Comment was expected in the source file."

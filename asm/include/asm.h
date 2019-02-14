@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:41:48 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:41:53 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ASM_H
 # define ASM_H
 
@@ -23,13 +35,13 @@
 */
 extern int		g_flags;
 extern t_op		g_op_tab[NB_OPCODE + 1];
-t_src_file		*g_file;
 
 /*
 ** INIT
 */
 int				get_options(int *argc, char ***argv);
 t_ex_ret		read_file(t_src_file *file, t_list **head);
+t_ex_ret		read_again(t_src_file *file, char **line);
 void			print_file(t_list *file);
 
 /*

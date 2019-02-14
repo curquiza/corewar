@@ -30,7 +30,7 @@ echo "
 *** Permission denied: " >> $TRACE
 chmod 000 $DIR_TEST/perm_denied.s
 run_test "Permission denied: " "$($FILE $DIR_TEST/perm_denied.s 2>&1 | tee -a $TRACE)" "Error: $DIR_TEST/perm_denied.s: Permission denied."
-# chmod 755 $DIR_TEST/perm_denied.s
+chmod 755 $DIR_TEST/perm_denied.s
 
 echo "
 *** Illegal option: " >> $TRACE

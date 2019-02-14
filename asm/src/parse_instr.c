@@ -1,10 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_instr.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:48:10 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:48:20 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-/*
-** parse_line: rules to define a valid isntruction.
-*/
-
-t_token_list	*skip_whitespaces(t_token_list *tokens)
+t_token_list		*skip_whitespaces(t_token_list *tokens)
 {
 	t_token_list	*current;
 
@@ -21,35 +29,33 @@ t_token_list	*skip_whitespaces(t_token_list *tokens)
 	return (current);
 }
 
-t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_label(t_ast *ast, t_token_list **tokens, int nb_line)
 {
-	// parse label
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	// ft_printf("pl - token: %s\n", (*tokens)->token->str); // debug
-
 	if ((*tokens)->token->type != STRING)
-		return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_TOKEN));
+		return (parse_error_token(nb_line,
+			(*tokens)->token->str, INVALID_TOKEN));
 	else if (((*tokens)->token->type == STRING)
+		&& is_label_string((*tokens)->token->str)
 		&& (*tokens)->next
-		&& ((*tokens)->next->token->type == COLON)) // euh, check label valid ?? is_label_string
+		&& ((*tokens)->next->token->type == COLON))
 	{
 		ast->label = ft_strdup((*tokens)->token->str);
-		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;		
-		// return (SUCCESS);
+		*tokens = (*tokens)->next->next ? (*tokens)->next->next : NULL;
 	}
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 {
 	int		nb;
 
 	if (!(*tokens = skip_whitespaces(*tokens)))
 		return (SUCCESS);
-	// ft_printf("po - token: %s\n", (*tokens)->token->str); // debug
 	if ((*tokens)->token->type != STRING)
-		return (parse_error_token(nb_line, (*tokens)->token->str,INVALID_TOKEN));
+		return (parse_error_token(nb_line,
+			(*tokens)->token->str, INVALID_TOKEN));
 	else if ((nb = is_opcode((*tokens)->token->str)) != -1)
 	{
 		ast->opcode = &g_op_tab[nb];
@@ -62,26 +68,28 @@ t_ex_ret		parse_opcode(t_ast *ast, t_token_list **tokens, int nb_line)
 	return (parse_error_token(nb_line, (*tokens)->token->str, INVALID_OPCODE));
 }
 
-
-
-t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens, int nb_line)
+static t_ex_ret		parse_arguments(t_ast *ast, t_token_list **tokens,
+						int nb_line)
 {
 	*tokens = skip_whitespaces(*tokens);
 	if (!*tokens && ast->opcode)
 		return (parse_error_token(nb_line, ast->opcode->name, NB_PARAMS));
 	else if (!*tokens)
 		return (SUCCESS);
-	// ft_printf("pa - token: %s\n", (*tokens)->token->str); // debug
 	if (parse_parameters(ast, tokens, nb_line) == FAILURE)
 		return (FAILURE);
-
 	return (SUCCESS);
 }
 
-t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
+/*
+** PARSE_INSTR: every instruction is a line with an optionnal label, an opcode,
+** and some parameters (also named arguments).
+*/
+
+t_ex_ret			parse_instr(t_ast *ast, t_token_list *tokens, int nb_line)
 {
 	t_token_list *current_token;
-	
+
 	if (!tokens)
 		return (SUCCESS);
 	current_token = tokens;
@@ -91,7 +99,5 @@ t_ex_ret		parse_line(t_ast *ast, t_token_list *tokens, int nb_line)
 		return (FAILURE);
 	if ((parse_arguments(ast, &current_token, nb_line)) == FAILURE)
 		return (FAILURE);
-	// print_tokens(current_token); // debug
-
 	return (SUCCESS);
 }

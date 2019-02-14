@@ -1,138 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/14 10:48:16 by sfranc            #+#    #+#             */
+/*   Updated: 2019/02/14 10:48:20 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-void			fill_prog_size(t_src_file *file)
-{
-	int i;
-
-	i = 0;
-	while (file->ast[i])
-	{
-		i++;
-	}
-	file->header.prog_size = file->ast[i - 1] ? ft_swap_int(file->ast[i - 1]->offset + file->ast[i - 1]->size) : 0;
-}
-
 /*
-** parse: organize parsing of the name, comment, and instructions.
+** With the intention of having multithreading (lol), the file was entirely read
+** and lines were tranfered into an array.
+** No multithreading were finally implemented.
+** Also in this function, some init steps...
 */
 
-t_ex_ret		parse(t_src_file *file)
-{
-	if ((parse_name(file)) == FAILURE)
-		return (FAILURE);
-	if ((parse_comment(file)) == FAILURE)
-		return (FAILURE);
-	if ((parser(file)) == FAILURE)
-		return (FAILURE);
-	
-	fill_prog_size(file);
-	if (ft_swap_int(file->header.prog_size) > CHAMP_MAX_SIZE)
-		return (parse_error(0, CHAMP_TOO_LONG));
-
-	if ((encode(file)) != SUCCESS)
-		return (FAILURE);
-
-	if (!(g_flags & FLAG_A))
-	{
-		if ((write_output_file(file)) == FAILURE)
-			return (FAILURE);
-	}
-	else
-		write_output_stdout(file);
-
-	close(file->fd);
-	return (SUCCESS);
-}
-
-/*
-** parser: read the end of the file, line by line and parse them.
-*/
-
-t_ex_ret		init_parser(t_src_file *file, char ***array_input)
+static t_ex_ret		init_parser(t_src_file *file)
 {
 	t_ex_ret		ret;
-	t_list 			*list_input;
+	t_list			*list_input;
 
 	list_input = NULL;
 	ret = FAILURE;
 	if ((read_file(file, &list_input)) == SUCCESS)
-	{
-		// ft_printf("File: "); // debug
-		// print_file(list_input); // debug
-		ret = list_to_array(list_input, array_input, ft_lstlen(list_input)); // stocker list len.	
-	}
+		ret = list_to_array(list_input, &file->input, ft_lstlen(list_input));
 	ft_lstdel(&list_input, &del);
+	file->nb_instr = ft_tablen(file->input);
+	if ((init_ast_array(&file->ast, file->nb_instr)) == FAILURE)
+		return (FAILURE);
 	return (ret);
 }
 
+/*
+** Each "ast" (= line of instruction) gives its offset + size to the next.
+*/
 
-
-void			fill_offset(t_ast **ast, int i)
+static void			fill_offset(t_ast **ast, int i)
 {
 	if (ast[i + 1])
 		(ast[i + 1])->offset = (ast[i])->offset + (ast[i])->size;
 }
 
-t_ex_ret		parser(t_src_file *file)
+/*
+** PARSER: A while on an array of lines, lexing and parsing lines by lines.
+** the parser fills an ast, a structure with 3 data:
+** label, opcode and arguments.
+*/
+
+t_ex_ret			parser(t_src_file *file)
 {
 	t_ex_ret		ret;
-	char			**array_input; // struc globale
-	t_token_list 	*tokens;
-	int 			i;
-	int 			nb_line; // suppr
+	int				i;
 
-	array_input = NULL;  // struc globale
-	init_parser(file, &array_input); // struc globale
-	nb_line = ft_tablen(array_input); // optimization ?
-	if ((init_ast_array(&file->ast, nb_line)) == FAILURE)
-		return (FAILURE);
+	init_parser(file);
 	file->nb_line++;
 	i = 0;
-	while (i < nb_line)
+	while (i < file->nb_instr)
 	{
-		tokens = NULL;
-		if ((lexer(&tokens, array_input[i], i + file->nb_line)) == FAILURE)
+		file->tokens = NULL;
+		if ((lexer(&file->tokens, file->input[i], i + file->nb_line))
+			== FAILURE)
 		{
-			ft_tabdel(&array_input);
-			free_tokens(&tokens);
 			return (FAILURE);
 		}
-		// print_tokens(tokens); // debug
-		if ((ret = parse_line(file->ast[i], tokens, i + file->nb_line)) == FAILURE)
+		if ((ret = parse_instr(file->ast[i], file->tokens, i + file->nb_line))
+			== FAILURE)
 		{
-			ft_tabdel(&array_input);
-			free_tokens(&tokens);
-			// free ast
 			return (FAILURE);
 		}
-		// print_one_ast(file->ast[i]);
 		fill_offset(file->ast, i);
-		free_tokens(&tokens);
+		free_tokens(&file->tokens);
 		i++;
 	}
-	// print_ast_array(file->ast); // debug
-	ft_tabdel(&array_input);
-	// file->header.prog_size = file->ast[i - 1] ? file->ast[i - 1]->offset + file->ast[i - 1]->size : 0;
 	return (ret);
 }
-
-// t_ex_ret		parser(t_src_file *file)
-// {
-// 	char			*line;
-// 	t_token_list 	*tokens;
-// 	t_ex_ret		ret;
-
-// 	tokens = NULL;
-// 	while ((get_next_line(file->fd, &line)) > 0)
-// 	{
-// 		file->nb_line++;
-// 		if ((lexer(&tokens, line, file->nb_line)) == FAILURE)
-// 			return (FAILURE);
-// 		ft_printf("%d ", file->nb_line);
-// 		print_tokens(tokens);
-// 		ret = parse_line(tokens, file->nb_line);
-// 		free_tokens(&tokens);
-// 		ft_strdel(&line);
-// 	}
-// 	return (ret);
-// }
