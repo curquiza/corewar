@@ -1,12 +1,43 @@
 NAME = asm
 
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra -Werror -g
 CC = gcc $(FLAG)
 
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, \
-		main.c)
-
+		lexer.c \
+		token.c \
+		token_types_1.c \
+		token_types_2.c \
+		\
+		compile.c \
+		\
+		op.c \
+		parser.c \
+		parse_name.c \
+		parse_comment.c \
+		parse_instr.c \
+		parse_params_1.c \
+		parse_params_2.c \
+		ast.c \
+		\
+		read_file.c \
+		output_file.c \
+		output_stdout.c \
+		output_stdout_params.c \
+		\
+		symbol_table.c \
+		encode.c \
+		encode_ocp.c \
+		encode_indirect.c \
+		encode_direct.c \
+		encode_tools.c \
+		\
+		option.c \
+		error.c \
+		tools.c \
+		\
+		main.c )
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -15,7 +46,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_H = $(LIBFT_DIR)/include
 
 H_DIR = include
-INCL = -I$(H_DIR) -I$(LIBFT_H)
+H_DIR_VM = ../vm/include
+INCL = -I$(H_DIR) -I$(LIBFT_H) -I$(H_DIR_VM)
 
 
 ################################################################################
@@ -48,7 +80,13 @@ fclean_lib :
 
 fclean_all : fclean_lib fclean
 
-run_tests :
+clean_tests :
+	@echo "cleaning old tests files..."
+	@rm -f tests/input/*.cor
+
+run_tests : clean_tests
+	@printf "\033[1;33m---------\n%s\n---------\033[0m\n" "ARGUMENTS"
+	@./tests/run_tests.sh
 	@printf "\033[1;33m--------------------\n%s\n--------------------\033[0m\n" "ASM PARSING + OUTPUT"
 	@python3 tests/main.py
 

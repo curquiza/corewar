@@ -51,7 +51,13 @@ and r1,%0,r1
 live: live %1
 zjmp %:live
 
-0x0b | 01 10 10 00 -> 0x68 | 0x01 0x?? 0x?? 0x?? 0x?? 0x00 0x00 0x00 0x01
+0x0b || 01 10 10 00 -> 0x68 || 0x01 | 0x?? 0x?? 0x?? 0x?? | 0x00 0x00 0x00 0x01
+=> faux car les parametres de sti sont des index, donc sur 2 octets.
+Vrai réponse :
+0x0b || 0x68 || 0x01 | 15 - 0 -> 0x00 0x0f | 0x00 0x00 0x00 0x01
+15 = adrresse relative du label :live
+0 = adresse relative de l'instruction courante
+
 
 ################################################################################
 
@@ -69,12 +75,13 @@ p = registre/direct/indirect
 r = registre (sauf PC)
 Charge le 1er parma dans le registre r
 Carry à 1 si le 1er param = 0, sinon 0.
+ex : ld 4,r5 : load les 4 octets (car la taille d'un registre est de 4 octets) se trouvants à l’adresse (4+PC) dans r5
 
 0x03 - st r p
 r = registre
 p = registe/indirect
 Affecte la valeur du registre r à l'adresse de p -> PC + (p % IDX_MOD)
-Carry à 1 si la valeur dans le registre r = 0, sinon 0.
+? (Carry à 1 si la valeur dans le registre r = 0, sinon 0.)
 
 0x04 - add r1 r2 r3
 rx = registre
@@ -111,14 +118,14 @@ indx = index (= direct 2 octets ou indirect ou valeur de registre ??)
 r = registre
 Additionne ind1 et ind2, qui donne une adresse. La valeur à cette adresse (4
 octets) est stockée dans r.
-Carry à 1 si la valeur passée = 0, sinon 0.
+? (Carry à 1 si la valeur passée = 0, sinon 0.)
 
 0x0b - sti r ind1 ind2
 r = registre
 indx = index (= direct 2 octets ou indirect ou valeur de registre ??)
 Additionne ind1 et ind2, qui donne une adresse. Stocke le contenu de r à cette
 adresse.
-Carry à 1 si la valeur passée (dans le registre) = 0, sinon 0.
+? (Carry à 1 si la valeur passée (dans le registre) = 0, sinon 0.)
 
 0x0c - fork ind
 ind = index (= direct 2 octets ou indirect ou valeur de registre ??)
@@ -141,6 +148,18 @@ Comme fork mais sans restriction à l'adressage = pas de % IDX_MOD.
 0x10 - aff r
 r = registre
 Affiche le contenu du registre (module 256 car on veut le char).
-Carry à 1 si le char est nul, sinon 0.
+? (Carry à 1 si le char est nul, sinon 0.)
 /!\ Pour le carry on regarde le char et non pas le contenu du registre. Un
 registre qui contient 256 est un char nul !
+
+################################################################################
+
+Check à faire :
+- taille de la mémoire inf ou égale à 0xffff (car pc > 0) : asm et vm
+- nombre max de champions
+- s'adapter si le nombre max de param augmente, ou check si nombre <= 4
+
+
+Erreur ASM :
+- pas de ligne d'instruction
+- le label n'existe pas

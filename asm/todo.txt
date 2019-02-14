@@ -1,0 +1,7 @@
+TO DO ASM
+=========
+fonction de verif des constantes
+offset et size sont des shorts
+√ direct
+multiple line comment...
+√ output
