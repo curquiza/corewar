@@ -16,13 +16,13 @@ static void	display_title(t_vm *vm, int proc_id, WINDOW *win)
 {
 	if (vm->total_proc < 10)
 		mvwprintw(win, 1, 2, "%-15s%4d/%d", "PROCESSUS", proc_id,
-					vm->total_proc);
+			vm->total_proc);
 	else if (vm->total_proc < 100)
 		mvwprintw(win, 1, 2, "%-15s%3d/%d", "PROCESSUS", proc_id,
-					vm->total_proc);
+			vm->total_proc);
 	else
 		mvwprintw(win, 1, 2, "%-15s%2d/%d", "PROCESSUS", proc_id,
-					vm->total_proc);
+			vm->total_proc);
 }
 
 void		display_proc(t_vm *vm, int proc_id, WINDOW *win)

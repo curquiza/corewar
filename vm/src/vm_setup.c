@@ -81,8 +81,7 @@ void		vm_setup(t_vm *vm)
 	if (flag_is_applied(VISU_FLAG, vm) == TRUE)
 	{
 		if ((vm->trace_fd = open_file(TRACE_FILE,
-										O_WRONLY | O_CREAT | O_TRUNC, 0644))
-			== FAILURE)
+			O_WRONLY | O_CREAT | O_TRUNC, 0644)) == FAILURE)
 		{
 			ft_dprintf(2, "Error: %s\n", VISU_TRACE_ERR);
 			vm->trace_fd = STDOUT_FILENO;

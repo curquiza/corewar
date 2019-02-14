@@ -38,10 +38,10 @@ void				display_players(t_vm *vm, WINDOW **wins)
 		mvwprintw(wins[i], 3, 2, "%-9s%12d", "Num", vm->player[i].num);
 		if (ft_strlen(vm->player[i].header.prog_name) > 12)
 			mvwprintw(wins[i], 4, 2, "%-9s%9.9s...", "Name",
-						vm->player[i].header.prog_name);
+				vm->player[i].header.prog_name);
 		else
 			mvwprintw(wins[i], 4, 2, "%-9s%12.12s", "Name",
-						vm->player[i].header.prog_name);
+				vm->player[i].header.prog_name);
 		i++;
 	}
 }
