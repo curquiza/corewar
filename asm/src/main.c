@@ -49,8 +49,6 @@ static t_ex_ret		check_constants(void)
 	return (ft_ret_err(BAD_CONFIG));
 }
 
-// grouper ret et status ??
-
 int					main(int argc, char **argv)
 {
 	int			ret;
@@ -58,27 +56,22 @@ int					main(int argc, char **argv)
 	char		*filename;
 	t_src_file	file;
 
-	check_constants();
-	status = SUCCESS;
+	if (check_constants() == FAILURE)
+		return (FAILURE);
 	if (argc == 1)
 		return (put_error(USAGE));
 	if ((get_options(&argc, &argv)) < 0)
 		return (put_error(ILLEGAL_OPTION));
+	status = SUCCESS;
 	while (argc--)
 	{
 		filename = *argv++;
 		init_src_file(&file, filename);
-		if ((ret = open_file(filename)) == FAILURE)
-		{
+		if ((file.fd = open_file(filename)) == FAILURE)
 			status = FAILURE;
-			continue ;
-		}
-		else
-			file.fd = ret;
-		if ((ret = compile(&file)) != SUCCESS)
+		else if ((ret = compile(&file)) == FAILURE)
 			status = FAILURE;
 		cleaning(&file);
 	}
-	// while (1);
 	return (status);
 }
