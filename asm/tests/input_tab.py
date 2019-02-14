@@ -21,7 +21,8 @@ ERROR_TYPE = {
 	"INVALID_TOKEN2":		"<k> Invalid token.",
 	"INVALID_TOKEN3":		"<45\"zor:\"> Invalid token.",
 	"INVALID_TOKEN4":		"<lol> Invalid token.",
-	"CHAMP_TOO_LONG":		"The code of the champion is too long."
+	"CHAMP_TOO_LONG":		"The code of the champion is too long.",
+	"NO_INSTR":				"No instruction in the source file."
 
 }
 
@@ -100,5 +101,10 @@ INPUT = {
 	"ultima.s":	{"error": False,  "error_type": None, "error_line": -1},
 	"ultimate-surrender.s":	{"error": True,  "error_type": "INVALID_CHAR", "error_line": 426},
 	"youforkmytralala.s":	{"error": False,  "error_type": None, "error_line": -1},
-	"zork.s":	{"error": False,  "error_type": None, "error_line": -1}
+	"zork.s":	{"error": False,  "error_type": None, "error_line": -1},
+	"no_name.s":	{"error": True,  "error_type": "NO_NAME", "error_line": 1},
+	"no_comment.s":	{"error": True,  "error_type": "NO_COMMENT", "error_line": 1},
+	"no_instruction.s":	{"error": True,  "error_type": "NO_INSTR", "error_line": 2},
+	"no_instruction_2.s":	{"error": False,  "error_type": None, "error_line": -1},
+	"empty.s":	{"error": True,  "error_type": "NO_NAME", "error_line": 0}
 }

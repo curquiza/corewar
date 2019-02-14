@@ -27,7 +27,15 @@ static t_ex_ret		init_parser(t_src_file *file)
 	list_input = NULL;
 	ret = FAILURE;
 	if ((read_file(file, &list_input)) == SUCCESS)
-		ret = list_to_array(list_input, &file->input, ft_lstlen(list_input));
+	{
+		if ((ret = list_to_array(list_input, &file->input,
+			ft_lstlen(list_input))) == FAILURE)
+		{
+			return (parse_error(file->nb_line, NO_INSTR));
+		}
+	}
+	else
+		return (parse_error(file->nb_line, NO_INSTR));
 	ft_lstdel(&list_input, &del);
 	file->nb_instr = ft_tablen(file->input);
 	if ((init_ast_array(&file->ast, file->nb_instr)) == FAILURE)
@@ -56,7 +64,8 @@ t_ex_ret			parser(t_src_file *file)
 	t_ex_ret		ret;
 	int				i;
 
-	init_parser(file);
+	if (init_parser(file) == FAILURE)
+		return (FAILURE);
 	file->nb_line++;
 	i = 0;
 	while (i < file->nb_instr)
