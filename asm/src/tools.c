@@ -47,6 +47,8 @@ t_ex_ret		list_to_array(t_list *input, char ***array, int len)
 	t_list		*list_tmp;
 	char		**array_tmp;
 
+	if (len <= 0)
+		return (FAILURE);
 	if (!(*array = (char**)malloc(sizeof(char*) * (len + 1))))
 		return (ft_ret_err(ERR_MALLOC));
 	(*array)[len] = 0;
