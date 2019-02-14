@@ -74,7 +74,8 @@ t_ex_ret		encode_instructions(t_src_file *file)
 
 t_ex_ret		encode(t_src_file *file)
 {
-	create_symbol_table(file);
+	if (create_symbol_table(file) == FAILURE)
+		return (FAILURE);
 	if (encode_instructions(file) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
