@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 10:47:45 by sfranc            #+#    #+#             */
-/*   Updated: 2019/02/14 10:47:51 by sfranc           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:50:37 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int			is_opcode(char *str)
 
 t_bool		is_registre(char *str)
 {
-	if (*str == 'r' && ft_is_int(str + 1) \
-			&& (ft_atoi(str + 1) >= 1) \
-			&& (ft_atoi(str + 1) <= REG_NUMBER))
+	if (*str == 'r'
+		&& ft_is_int(str + 1)
+		&& (ft_atoi(str + 1) >= 1)
+		&& (ft_atoi(str + 1) <= REG_NUMBER))
 	{
 		return (TRUE);
 	}

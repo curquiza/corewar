@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 10:48:13 by sfranc            #+#    #+#             */
-/*   Updated: 2019/02/14 10:48:20 by sfranc           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:48:17 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ t_ex_ret				apply_parse_param(t_arg_type param, t_ast *ast,
 {
 	int ret;
 
-	if (((param & T_REG) == T_REG)\
+	if (((param & T_REG) == T_REG)
 		&& ((ret = parse_registre(ast, *tokens, pos)) != -1))
 	{
 		*tokens = move_tokens(*tokens, ret);
 		return (SUCCESS);
 	}
-	if (((param & T_DIR) == T_DIR)\
+	if (((param & T_DIR) == T_DIR)
 		&& ((ret = parse_direct(ast, *tokens, pos)) != -1))
 	{
 		*tokens = move_tokens(*tokens, ret);
 		return (SUCCESS);
 	}
-	if (((param & T_IND) == T_IND)\
+	if (((param & T_IND) == T_IND)
 		&& ((ret = parse_indirect(ast, *tokens, pos)) != -1))
 	{
 		*tokens = move_tokens(*tokens, ret);
