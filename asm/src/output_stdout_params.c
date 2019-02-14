@@ -45,9 +45,7 @@ void				print_relative_params(t_ast *ast, unsigned char *output)
 	unsigned int	i;
 	unsigned int	size;
 	unsigned int	start;
-	unsigned short	*tmp;
 
-	tmp = NULL;
 	start = ast->offset + 1;
 	if (ast->ocp)
 		start++;
