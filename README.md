@@ -13,8 +13,11 @@
 ### Usage
 ```bash
 ./asm [file_name].s
+or
+./asm -a [file_name].s
 ```
-_to complete_
+The _a_ flag don't create a source file .cor but write to stdout an annotated version of the code.
+
 ### Tests part
 #### Add a test
 1) Add your input file (`.s`) in `asm/tests/input/` folder.
