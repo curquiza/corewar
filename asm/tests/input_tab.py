@@ -102,6 +102,7 @@ INPUT = {
 	"ultimate-surrender.s":	{"error": True,  "error_type": "INVALID_CHAR", "error_line": 426},
 	"youforkmytralala.s":	{"error": False,  "error_type": None, "error_line": -1},
 	"zork.s":	{"error": False,  "error_type": None, "error_line": -1},
+	"coeur-de-love.s":	{"error": False,  "error_type": None, "error_line": -1},
 	"no_name.s":	{"error": True,  "error_type": "NO_NAME", "error_line": 1},
 	"no_comment.s":	{"error": True,  "error_type": "NO_COMMENT", "error_line": 1},
 	"no_instruction.s":	{"error": True,  "error_type": "NO_INSTR", "error_line": 2},
